@@ -3,9 +3,15 @@
 An Application that keeps tracks of your chillars,
 aka not large debts (very much a WIP).
 
+# Design
+The Figma for the project can be found through the link below
+
+[Figma Design](https://www.figma.com/file/LCWzdDGz5Uq1X7i0WiNof5/Untitled?node-id=0%3A1 "The Link to the Figma")
+
+Contact the Admin for editor access.
+
 # About 
 WIP
-
 
 # Contribution Guide
 This mono repo is open source, so feel free to take it apart, go bonkers
