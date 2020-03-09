@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
     configureSystemChrome();
     return MaterialApp(
       title: 'You Owe Me',
+      theme: ThemeData(fontFamily: "Aileron"),
       home: HomePage(),
     );
   }
