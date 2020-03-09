@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:mobileApp/resources/helpers.dart';
-import 'package:mobileApp/ui/HomePage/homePage.dart';
+import 'package:YouOweMe/resources/helpers.dart';
+import 'package:YouOweMe/ui/HomePage/homePage.dart';
 
 void main() {
   runApp(MyApp());
