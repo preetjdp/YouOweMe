@@ -61,13 +61,16 @@ class NewOwe extends StatelessWidget {
                     border: InputBorder.none,
                     prefixText: "₹",
                   ),
-                  style: TextStyle(fontSize: 100, fontWeight: FontWeight.w800),
+                  style: TextStyle(fontSize: 100, fontWeight: FontWeight.w800,
+                  color: Theme.of(context).accentColor
+                  ),
                 ),
               ),
               Container(
                 height: 60,
                 width: 400,
                 child: CupertinoButton.filled(
+                  disabledColor: Theme.of(context).accentColor,
                     child: Text('Done'), onPressed: () {}),
               )
               // Center(
