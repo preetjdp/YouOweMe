@@ -17,7 +17,7 @@ class YOMSpinner extends StatelessWidget {
       return CupertinoActivityIndicator();
     } else {
       return CircularProgressIndicator(
-          strokeWidth: 3,
+          strokeWidth: 4,
           valueColor: AlwaysStoppedAnimation<Color>(spinnerColor));
     }
   }
