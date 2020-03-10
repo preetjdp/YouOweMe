@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:YouOweMe/ui/HomePage/oweMe.dart';
 import 'package:YouOweMe/ui/NewOwe/newOwe.dart';
+import 'package:YouOweMe/ui/HomePage/iOwe.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -23,7 +24,9 @@ class HomePage extends StatelessWidget {
             padding: EdgeInsets.all(15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[OweMe()],
+              children: <Widget>[OweMe(),
+              SizedBox(height: 30,),
+               IOwe()],
             ),
           ),
         ));
