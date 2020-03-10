@@ -14,7 +14,13 @@ class MyApp extends StatelessWidget {
     configureSystemChrome();
     return MaterialApp(
       title: 'You Owe Me',
-      theme: ThemeData(fontFamily: "Aileron"),
+      theme: ThemeData(
+          fontFamily: "Aileron",
+          scaffoldBackgroundColor: Color.fromRGBO(241, 245, 249, 1),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: Color.fromRGBO(52, 59, 70, 1),
+            elevation: 2,
+          )),
       home: HomePage(),
     );
   }
