@@ -1,3 +1,4 @@
+import 'package:YouOweMe/ui/HomePage/blurredBottom.dart';
 import 'package:flutter/material.dart';
 
 import 'package:YouOweMe/ui/HomePage/oweMe.dart';
@@ -34,7 +35,11 @@ class HomePage extends StatelessWidget {
                 SizedBox(
                   height: 30,
                 ),
-                BottomList()
+                BottomList(),
+                SizedBox(
+                  height: 10,
+                ),
+                BlurredBottom()
               ],
             ),
           ),
