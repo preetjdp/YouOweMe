@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:YouOweMe/ui/HomePage/oweMe.dart';
 import 'package:YouOweMe/ui/NewOwe/newOwe.dart';
 import 'package:YouOweMe/ui/HomePage/iOwe.dart';
+import 'package:YouOweMe/ui/HomePage/bottomList.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -24,9 +25,17 @@ class HomePage extends StatelessWidget {
             padding: EdgeInsets.all(15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[OweMe(),
-              SizedBox(height: 30,),
-               IOwe()],
+              children: <Widget>[
+                OweMe(),
+                SizedBox(
+                  height: 30,
+                ),
+                IOwe(),
+                SizedBox(
+                  height: 30,
+                ),
+                BottomList()
+              ],
             ),
           ),
         ));
