@@ -17,6 +17,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           fontFamily: "Aileron",
           scaffoldBackgroundColor: Color.fromRGBO(241, 245, 249, 1),
+          //This Color is used to set GlowingOverscroll Indicator
+          accentColor: Color.fromRGBO(52, 59, 70, 1),
           floatingActionButtonTheme: FloatingActionButtonThemeData(
             backgroundColor: Color.fromRGBO(52, 59, 70, 1),
             elevation: 2,
