@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
+
+import 'package:YouOweMe/resources/models/owe.dart';
+import 'package:YouOweMe/resources/extensions.dart';
 
 class OweMe extends StatelessWidget {
+  final Box<Owe> oweBox = Hive.box("oweBox");
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,22 +27,46 @@ class OweMe extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: Color.fromRGBO(78, 80, 88, 1)),
                   ),
-                  Icon(Icons.keyboard_arrow_right,
-                  color: Color.fromRGBO(78, 80, 88, 1),
+                  Icon(
+                    Icons.keyboard_arrow_right,
+                    color: Color.fromRGBO(78, 80, 88, 1),
                   )
                 ],
               )),
-          Container(
-            height: 100,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                      blurRadius: 10,
-                      color: Color.fromRGBO(78, 80, 88, 0.05),
-                      spreadRadius: 0.1)
-                ]),
+          Positioned(
+            left: 0,
+            right: 0,
+            child: ValueListenableBuilder(
+                valueListenable: oweBox.listenable(),
+                builder: (BuildContext context, Box<Owe> box, _) {
+                  int totalAmount =
+                      box.values.sumBy((element) => element.amount);
+                  return Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                              blurRadius: 10,
+                              color: Color.fromRGBO(78, 80, 88, 0.05),
+                              spreadRadius: 0.1)
+                        ]),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(totalAmount.toString(),
+                              style: TextStyle(
+                                  fontSize: 60,
+                                  fontWeight: FontWeight.w800,
+                                  color: Theme.of(context).accentColor))
+                        ],
+                      ),
+                    ),
+                  );
+                }),
           )
         ],
       ),
