@@ -18,20 +18,23 @@ class OweAdapter extends TypeAdapter<Owe> {
     };
     return Owe(
       title: fields[0] as String,
-      owedBy: fields[1] as User,
-      created: fields[2] as DateTime,
-    );
+      created: fields[3] as DateTime,
+    )
+      ..owedBy = fields[1] as String
+      ..amount = fields[2] as int;
   }
 
   @override
   void write(BinaryWriter writer, Owe obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
       ..write(obj.owedBy)
       ..writeByte(2)
+      ..write(obj.amount)
+      ..writeByte(3)
       ..write(obj.created);
   }
 }

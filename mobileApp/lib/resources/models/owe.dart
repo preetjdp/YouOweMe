@@ -10,11 +10,14 @@ class Owe {
   String title;
 
   @HiveField(1)
-  User owedBy;
+  String owedBy;
+
+  @HiveField(2)
+  int amount;
 
   //Eventually make this Timestamp
-  @HiveField(2)
+  @HiveField(3)
   DateTime created;
 
-  Owe({this.title, this.owedBy, this.created});
+  Owe({this.title, this.amount, this.created});
 }
