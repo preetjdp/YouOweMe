@@ -27,6 +27,11 @@ class NewOwe extends StatelessWidget {
       databaseService.addOweToHive(owe: newOwe);
     }
 
+    void clearHiveBox() {
+      Box<Owe> oweBox = Hive.box('oweBox');
+      oweBox.clear();
+    }
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.check),
@@ -74,39 +79,38 @@ class NewOwe extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   color: Color.fromRGBO(78, 80, 88, 1)),
             ),
-            Container(
-              height: 200,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "₹",
-                    style: TextStyle(
-                        fontSize: 100,
-                        fontWeight: FontWeight.w800,
-                        color: Theme.of(context).accentColor),
-                  ),
-                  Expanded(
-                    child: TextField(
-                        controller: amountController,
-                        cursorColor: Theme.of(context).accentColor,
-                        decoration: InputDecoration(
-                          hintText: "00",
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.all(0),
-                        ),
-                        style: TextStyle(
-                            fontSize: 100,
-                            fontWeight: FontWeight.w800,
-                            color: Theme.of(context).accentColor),
-                        keyboardType: TextInputType.numberWithOptions(
-                            decimal: false, signed: false)),
-                  ),
-                ],
-              ),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  "₹",
+                  style: TextStyle(
+                      fontSize: 100,
+                      fontWeight: FontWeight.w800,
+                      color: Theme.of(context).accentColor),
+                ),
+                Expanded(
+                  child: TextField(
+                      controller: amountController,
+                      cursorColor: Theme.of(context).accentColor,
+                      decoration: InputDecoration(
+                        hintText: "00",
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.all(0),
+                      ),
+                      style: TextStyle(
+                          fontSize: 100,
+                          fontWeight: FontWeight.w800,
+                          color: Theme.of(context).accentColor),
+                      keyboardType: TextInputType.numberWithOptions(
+                          decimal: false, signed: false)),
+                ),
+              ],
             ),
-
+            SizedBox(
+              height: 10,
+            ),
             Container(
               height: 60,
               width: 400,
@@ -114,13 +118,18 @@ class NewOwe extends StatelessWidget {
                   disabledColor: Theme.of(context).accentColor,
                   child: Text('Done'),
                   onPressed: addNewOwe),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              height: 60,
+              width: 400,
+              child: CupertinoButton(
+                  color: CupertinoColors.destructiveRed,
+                  child: Text('Delete Enteries'),
+                  onPressed: clearHiveBox),
             )
-            // Center(
-            //   child: Text(
-            //     "₹ 89",
-            //     style: TextStyle(fontSize: 100, fontWeight: FontWeight.w800),
-            //   ),
-            // )
           ],
         ),
       ),
