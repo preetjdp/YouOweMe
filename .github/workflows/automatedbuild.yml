@@ -1,6 +1,8 @@
 name: Automated Build
 
 on:
+  push:
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -25,4 +27,4 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: 'Android App'
-        path: 'build/app/outputs/apk/release/app-release.apk'
+        path: 'mobileApp/build/app/outputs/apk/release/app-release.apk'
