@@ -1,14 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
 
+import 'package:YouOweMe/resources/databaseService.dart';
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:YouOweMe/ui/NewOwe/peopleList.dart';
+import 'package:YouOweMe/resources/models/owe.dart';
 
 class NewOwe extends StatelessWidget {
+  DatabaseService databaseService = DatabaseService();
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController amountController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     void onButtonPressed() {
       Navigator.pop(context);
+    }
+
+    void addNewOwe() {
+      Owe newOwe = Owe(
+          title: titleController.text,
+          amount: int.parse(amountController.text),
+          created: DateTime.now());
+      databaseService.addOweToHive(owe: newOwe);
     }
 
     return Scaffold(
@@ -30,6 +46,7 @@ class NewOwe extends StatelessWidget {
                   color: Color.fromRGBO(78, 80, 88, 1)),
             ),
             TextField(
+              controller: titleController,
               cursorColor: Theme.of(context).accentColor,
               decoration: InputDecoration.collapsed(
                 hintText: "Enter the reasoning behind this transaction",
@@ -72,6 +89,7 @@ class NewOwe extends StatelessWidget {
                   ),
                   Expanded(
                     child: TextField(
+                        controller: amountController,
                         cursorColor: Theme.of(context).accentColor,
                         decoration: InputDecoration(
                           hintText: "00",
@@ -95,7 +113,7 @@ class NewOwe extends StatelessWidget {
               child: CupertinoButton.filled(
                   disabledColor: Theme.of(context).accentColor,
                   child: Text('Done'),
-                  onPressed: () {}),
+                  onPressed: addNewOwe),
             )
             // Center(
             //   child: Text(
