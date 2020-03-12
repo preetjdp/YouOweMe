@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 
 import 'package:YouOweMe/resources/models/owe.dart';
 import 'package:YouOweMe/resources/extensions.dart';
+import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 
 class OweMe extends StatelessWidget {
   final Box<Owe> oweBox = Hive.box("oweBox");
@@ -57,9 +58,9 @@ class OweMe extends StatelessWidget {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Text(totalAmount.toString(),
+                          Text("₹$totalAmount",
                               style: TextStyle(
-                                  fontSize: 60,
+                                  fontSize: 50,
                                   fontWeight: FontWeight.w800,
                                   color: Theme.of(context).accentColor))
                         ],
@@ -67,7 +68,38 @@ class OweMe extends StatelessWidget {
                     ),
                   );
                 }),
-          )
+          ),
+          Positioned(
+            right: 15,
+            top: 0,
+            bottom: 15,
+            child: Container(
+                width: 180,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                          blurRadius: 10,
+                          color: Color.fromRGBO(78, 80, 88, 0.2),
+                          spreadRadius: 0.1)
+                    ]),
+                child: ValueListenableBuilder(
+                    valueListenable: oweBox.listenable(),
+                    builder: (BuildContext context, Box<Owe> box, _) {
+                      if (box.values.isNotEmpty) {
+                        return Center(
+                          child: Text(
+                            box.values.last.title,
+                          ),
+                        );
+                      } else {
+                        return Center(
+                          child: YOMSpinner(),
+                        );
+                      }
+                    })),
+          ),
         ],
       ),
     );
