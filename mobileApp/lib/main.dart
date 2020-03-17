@@ -1,4 +1,6 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:YouOweMe/resources/helpers.dart';
@@ -6,7 +8,13 @@ import 'package:YouOweMe/ui/HomePage/homePage.dart';
 
 void main() async {
   await configureHive();
-  runApp(MyApp());
+  if (!kReleaseMode) {
+    runApp(DevicePreview(
+      builder: (BuildContext context) => MyApp(),
+    ));
+  } else {
+    runApp(MyApp());
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -16,6 +24,7 @@ class MyApp extends StatelessWidget {
     configureSystemChrome();
     return MaterialApp(
       title: 'You Owe Me',
+      builder: DevicePreview.appBuilder,
       theme: ThemeData(
           fontFamily: "Aileron",
           scaffoldBackgroundColor: Color.fromRGBO(241, 245, 249, 1),
