@@ -1,5 +1,6 @@
 import express from 'express'
 import {ApolloServer, gql} from "apollo-server-express"
+import './db/firebase'
 
 // Construct a schema, using GraphQL schema language
 const typeDefs = gql`

@@ -3,6 +3,8 @@
     "strict": true,
     "target": "ESNext",
     "module": "CommonJS",
+    "resolveJsonModule": true,
+    "removeComments": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
     "sourceMap": true,
@@ -25,6 +27,7 @@
   ],
   "include": [
     "./src/**/*.tsx",
-    "./src/**/*.ts"
+    "./src/**/*.ts",
+    "./secrets/"
   ]
 }

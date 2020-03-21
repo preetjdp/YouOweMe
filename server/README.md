@@ -13,6 +13,9 @@ and the services.
     To generate Gql Types from Typescript Types.
 2. Typescript : Typescript is amazing.
 
+# Get Things Running
+* Add the Firebase Admin Security Key under secrets and rename it to `firebase-admin-key.json`
+
 # Steps to Deploy
 This server is can be deployed in mulitple ways,
 * Docker
