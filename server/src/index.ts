@@ -1,5 +1,5 @@
 import express from 'express'
-import {ApolloServer, makeExecutableSchema} from "apollo-server-express"
+import {ApolloServer} from "apollo-server-express"
 
 import {schema} from "./schema"
 import {resolvers} from "./resolvers/"

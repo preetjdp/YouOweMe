@@ -1,20 +1,10 @@
-import {firestore}  from '../db/firebase'
+import * as userResolvers from './users'
 
 const resolvers = {
     Query: {
       hello: () => 'Hello world!',
-      users: async () => {
-        const usersRef = firestore.collection('users')
-        const usersSnapshot = await usersRef.get()
-        const users = usersSnapshot.docs.map((userSnapshot)=> {
-         const user = {
-           id: userSnapshot.id,
-           ... userSnapshot.data()
-         }
-          return user
-        })
-        return users
-      }
+      add: async (_, { x, y }) => x + y,
+      ...userResolvers
     },
   };
 
