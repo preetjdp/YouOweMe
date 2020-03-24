@@ -3,23 +3,27 @@
     "strict": true,
     "target": "ESNext",
     "module": "CommonJS",
-    "resolveJsonModule": true,
-    "removeComments": true,
-    "esModuleInterop": true,
     "moduleResolution": "node",
-    "sourceMap": true,
     "outDir": "./dist",
+    "sourceMap": true,
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitReturns": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    
+    
     "noUnusedLocals": false,
     "noImplicitAny": false,
     "noImplicitThis": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "strictFunctionTypes": true
+    
   },
   "compileOnSave": true,
   "exclude": [

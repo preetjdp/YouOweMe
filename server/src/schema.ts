@@ -1,20 +1,39 @@
 import {gql} from "apollo-server-express"
 
-const schema = gql`
-type User {
-    id: ID!,
-    name: String!,
-    image: String
+import {buildSchema, Resolver, Query} from "type-graphql"
+import "reflect-metadata"
+
+import {UserResolver} from "./modules/User/UserResolver"
+
+// const schema = gql`
+// type User {
+//     id: ID!,
+//     name: String!,
+//     image: String
+// }
+
+// type Query {
+//     hello: String,
+//     users: [User!]!
+//     user(id: ID!): User
+//     add(x: Int, y: Int): Int
+//   }
+// `
+
+@Resolver()
+class HelloResolver {
+    @Query(() => String)
+   async hello() {
+        return "Hello World"
+    }
 }
 
-type Query {
-    hello: String,
-    users: [User!]!
-    user(id: ID!): User
-    add(x: Int, y: Int): Int
-  }
-`
+const generateSchema = async () => {
+return await buildSchema({
+    resolvers: [HelloResolver, UserResolver]
+})
+}
 
 export {
-    schema
+    generateSchema
 }
