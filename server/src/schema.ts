@@ -1,9 +1,10 @@
-import {gql} from "apollo-server-express"
+import { gql } from "apollo-server-express"
 
-import {buildSchema, Resolver, Query} from "type-graphql"
+import { buildSchema, Resolver, Query, Authorized } from "type-graphql"
 import "reflect-metadata"
 
-import {UserResolver} from "./modules/User/UserResolver"
+import { UserResolver } from "./modules/User/UserResolver"
+import { customAuthChecker } from "./utils/authChecker"
 
 // const schema = gql`
 // type User {
@@ -22,16 +23,19 @@ import {UserResolver} from "./modules/User/UserResolver"
 
 @Resolver()
 class HelloResolver {
+
+    @Authorized()
     @Query(() => String)
-   async hello() {
+    async hello() {
         return "Hello World"
     }
 }
 
 const generateSchema = async () => {
-return await buildSchema({
-    resolvers: [HelloResolver, UserResolver]
-})
+    return await buildSchema({
+        resolvers: [HelloResolver, UserResolver],
+        authChecker: customAuthChecker
+    })
 }
 
 export {
