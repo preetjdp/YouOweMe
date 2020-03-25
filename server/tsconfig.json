@@ -16,7 +16,7 @@
     "strictPropertyInitialization": false,
     
     
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noImplicitAny": false,
     "noImplicitThis": true,
     "noUnusedParameters": true,
