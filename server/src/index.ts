@@ -1,18 +1,22 @@
 import express from 'express'
-import {ApolloServer} from "apollo-server-express"
+import { ApolloServer } from "apollo-server-express"
 
-import {generateSchema} from "./schema"
+
+import { generateSchema } from "./schema"
 
 const main = async () => {
-const schema = await generateSchema()
-const server = new ApolloServer({ schema });
+  const schema = await generateSchema()
+  const server = new ApolloServer({
+    schema,
+    context: ({ req }) => ({ req })
+  });
 
-const app = express()
-server.applyMiddleware({ app });
+  const app = express()
+  server.applyMiddleware({ app });
 
-app.listen({ port: 4000 }, () =>
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
-);
+  app.listen({ port: 4000 }, () =>
+    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+  );
 
 }
 

@@ -7,9 +7,9 @@ export class User {
 
     @Field()
     name: string;
-    
+
     @Field({
         nullable: true
     })
-    image: string; 
+    image: string;
 }
