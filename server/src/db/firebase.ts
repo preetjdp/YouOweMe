@@ -1,12 +1,11 @@
 import * as admin from "firebase-admin"
-
-import serviceAccountJson from '../../secrets/firebase-admin-key.json'
+import {PROJECT_ID, CLIENT_EMAIL, PRIVATE_KEY} from '../utils/envConfig'
 
 admin.initializeApp({
     credential: admin.credential.cert({
-        projectId: serviceAccountJson.project_id,
-        privateKey: serviceAccountJson.private_key,
-        clientEmail: serviceAccountJson.client_email
+        projectId: PROJECT_ID,
+        privateKey: PRIVATE_KEY,
+        clientEmail: CLIENT_EMAIL
     }),
     databaseURL: "https://youoweme-6c622.firebaseio.com"
 })
