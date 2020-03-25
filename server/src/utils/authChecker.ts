@@ -1,5 +1,5 @@
 import { AuthChecker, Root } from "type-graphql";
-import { ApplicationContext } from "./appContext.ts";
+import { ApplicationContext } from "./appContext";
 
 export const customAuthChecker: AuthChecker<ApplicationContext> = (
   { root, args, context, info },
