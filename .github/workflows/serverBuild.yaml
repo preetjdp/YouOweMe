@@ -1,0 +1,47 @@
+name: Server Build
+
+on:
+  push:
+    paths: 
+      - 'server/**'
+    branches: [ master ]  
+  pull_request:
+    branches: [ master ]
+
+# Environment variables available to all jobs and steps in this workflow
+env:
+  PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_ID }}
+  RUN_REGION: us-central1
+  SERVICE_NAME: seva
+
+jobs:
+  setup-build-deploy:
+    name: Setup, Build, and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      # Setup gcloud CLI
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: '275.0.0'
+          service_account_email: ${{ secrets.GCLOUD_SA_EMAIL }}
+          service_account_key: ${{ secrets.GCLOUD_APPLICATION_CREDENTIALS}}
+
+      # Configure gcloud CLI
+      - name: gcloud Set up
+        run: |
+          gcloud config set project $PROJECT_ID
+      # Build and push image to Google Container Registry
+      - name: Build
+        run: |
+          gcloud builds submit -t gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA
+      # Deploy image to Cloud Run
+      - name: Deploy
+        run: |
+          gcloud run deploy $SERVICE_NAME \
+            --region $RUN_REGION \
+            --image gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA \
+            --platform managed
