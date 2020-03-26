@@ -33,8 +33,9 @@ class HelloResolver {
 
 const generateSchema = async () => {
     return await buildSchema({
-        resolvers: [HelloResolver, UserResolver],
-        authChecker: customAuthChecker
+        resolvers: [__dirname + '/modules/**/*.ts'],
+        authChecker: customAuthChecker,
+        dateScalarMode: "timestamp"
     })
 }
 

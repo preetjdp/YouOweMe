@@ -12,4 +12,7 @@ export class User {
         nullable: true
     })
     image: string;
+
+    @Field()
+    created: Date
 }
