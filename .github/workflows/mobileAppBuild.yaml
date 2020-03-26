@@ -2,11 +2,13 @@ name: Mobile App Build
 
 on:
   push:
+    branches: [ master ]
     paths: 
       - 'mobileApp/*'
-    branches: [ master ]
   pull_request:
     branches: [ master ]
+    paths: 
+      - 'mobileApp/*'
     
 
 jobs:
