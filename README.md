@@ -24,13 +24,15 @@ and lets percolate on it.
 
 # Tech Stack
 * [Flutter - Mobile App](https://flutter.dev/ "Flutter's Website")
-* [Firebase - Database and Functions](https://firebase.com/)
+* [Firebase - Database and Serverless Functions](https://firebase.com/)
+* [Graphql - Seva]("https://graphql.org/")
 * WIP
 
 # Navigating the Codebase
 The Codebase is a single
 [monorepo](https://www.atlassian.com/git/tutorials/monorepos "What Are MonoRepo's")
 consisting of all the infrastructure required to run the services.
+
 
 # Code Of Conduct
 This project is very much established on the foundation of No Bureaucracy,
