@@ -5,7 +5,6 @@ import { DocumentData } from "@firebase/firestore-types"
 
 @Resolver(User)
 export class UserResolver {
-    @Authorized()
     @Query(() => [User], {
         description: "Get all the users from the database."
     })
@@ -24,7 +23,6 @@ export class UserResolver {
         return users
     }
 
-    @Authorized()
     @Query(() => User, {
         nullable: true
     })
