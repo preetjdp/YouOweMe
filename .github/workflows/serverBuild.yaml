@@ -10,7 +10,9 @@ on:
 
 # Environment variables available to all jobs and steps in this workflow
 env:
-  PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_ID }}
+  GCLOUD_APPLICATION_CREDENTIALS: ${{ GCLOUD_APPLICATION_CREDENTIALS }}
+  PROJECT_ID: ${{ GCLOUD_APPLICATION_CREDENTIALS.project_id }}
+  GCLOUD_SA_EMAIL: ${{ GCLOUD_APPLICATION_CREDENTIALS.client_email }}
   RUN_REGION: us-central1
   SERVICE_NAME: seva
 
@@ -27,8 +29,8 @@ jobs:
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
           version: '275.0.0'
-          service_account_email: ${{ secrets.GCLOUD_SA_EMAIL }}
-          service_account_key: ${{ secrets.GCLOUD_APPLICATION_CREDENTIALS}}
+          service_account_email: $GCLOUD_SA_EMAIL
+          service_account_key: $GCLOUD_APPLICATION_CREDENTIALS
 
       # Configure gcloud CLI
       - name: gcloud Set up
