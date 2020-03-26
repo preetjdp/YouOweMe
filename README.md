@@ -25,7 +25,7 @@ and lets percolate on it.
 # Tech Stack
 * [Flutter - Mobile App](https://flutter.dev/ "Flutter's Website")
 * [Firebase - Database and Serverless Functions](https://firebase.com/)
-* [Graphql - Seva]("https://graphql.org/")
+* [Graphql - Seva](https://graphql.org/)
 * WIP
 
 # Navigating the Codebase
