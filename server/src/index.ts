@@ -6,7 +6,7 @@ import "./utils/envConfig"
 import { generateSchema } from "./schema"
 
 const main = async () => {
-  const schema = await generateSchema() 
+  const schema = await generateSchema()
   const server = new ApolloServer({
     schema,
     context: ({ req }) => ({ req })

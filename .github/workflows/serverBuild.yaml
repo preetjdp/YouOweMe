@@ -30,7 +30,7 @@ jobs:
         with:
           version: '275.0.0'
           service_account_email: $GCLOUD_SA_EMAIL
-          service_account_key: ${{ GCLOUD_APPLICATION_CREDENTIALS }}
+          service_account_key: GCLOUD_APPLICATION_CREDENTIALS
 
       # Configure gcloud CLI
       - name: gcloud Set up
