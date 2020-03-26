@@ -11,8 +11,8 @@ on:
 # Environment variables available to all jobs and steps in this workflow
 env:
   GCLOUD_APPLICATION_CREDENTIALS: ${{ secrets.GCLOUD_APPLICATION_CREDENTIALS }}
-  PROJECT_ID: ${{ GCLOUD_APPLICATION_CREDENTIALS.project_id }}
-  GCLOUD_SA_EMAIL: ${{ GCLOUD_APPLICATION_CREDENTIALS.client_email }}
+  PROJECT_ID: ${{ secrets.GCLOUD_APPLICATION_CREDENTIALS.project_id }}
+  GCLOUD_SA_EMAIL: ${{ secrets.GCLOUD_APPLICATION_CREDENTIALS.client_email }}
   RUN_REGION: us-central1
   SERVICE_NAME: seva
 
