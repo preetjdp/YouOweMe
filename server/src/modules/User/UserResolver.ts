@@ -1,10 +1,11 @@
 import { firestore } from "../../db/firebase"
-import { Query, Resolver, FieldResolver, Root, Arg } from "type-graphql"
+import { Query, Resolver, FieldResolver, Root, Arg, Authorized } from "type-graphql"
 import { User } from "../../models/User"
 import { DocumentData } from "@firebase/firestore-types"
 
 @Resolver(User)
 export class UserResolver {
+    @Authorized()
     @Query(() => [User], {
         description: "Get all the users from the database."
     })
@@ -23,6 +24,7 @@ export class UserResolver {
         return users
     }
 
+    @Authorized()
     @Query(() => User, {
         nullable: true
     })
