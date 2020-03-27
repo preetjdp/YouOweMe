@@ -3,7 +3,7 @@ import { ApplicationContext } from "../../utils/appContext";
 import { firestore } from "../../db/firebase";
 import { User } from "../../models/User";
 import { Timestamp } from "@google-cloud/firestore";
-import { UserResolver } from "./UserResolver.ts";
+import { UserResolver } from "./UserResolver";
 
 @Resolver()
 export class MeResolver {
