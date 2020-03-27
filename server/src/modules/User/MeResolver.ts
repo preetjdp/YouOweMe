@@ -1,6 +1,6 @@
 import { Resolver, Query, Authorized, Ctx } from "type-graphql";
-import { ApplicationContext } from "../../utils/appContext.ts";
-import { firestore } from "../../db/firebase.ts";
+import { ApplicationContext } from "../../utils/appContext";
+import { firestore } from "../../db/firebase";
 import { User } from "../../models/User";
 import { Timestamp } from "@google-cloud/firestore";
 

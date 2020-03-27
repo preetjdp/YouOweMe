@@ -1,13 +1,13 @@
 import { Resolver, Mutation, Authorized, Ctx, Args, Arg, FieldResolver, Root } from "type-graphql";
-import { Owe } from "../../models/Owe.ts";
-import { ApplicationContext } from "../../utils/appContext.ts";
-import { firestore } from "../../db/firebase.ts";
-import { NewOweInputType } from "./newOwe/newOweInputType.ts";
+import { Owe } from "../../models/Owe";
+import { ApplicationContext } from "../../utils/appContext";
+import { firestore } from "../../db/firebase";
+import { NewOweInputType } from "./newOwe/newOweInputType";
 import { Timestamp } from "@google-cloud/firestore"
-import { User } from "../../models/User.ts";
+import { User } from "../../models/User";
 
 import { UserResolver } from "../User/UserResolver"
-import { OweResolver } from "./OweResolver.ts";
+import { OweResolver } from "./OweResolver";
 
 
 

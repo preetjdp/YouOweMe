@@ -1,5 +1,5 @@
 import { ObjectType, Field, ID } from "type-graphql";
-import { Owe } from "./Owe.ts";
+import { Owe } from "./Owe";
 
 @ObjectType()
 export class User {

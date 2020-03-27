@@ -1,6 +1,6 @@
 import { Resolver, Query } from "type-graphql";
-import { Owe } from "../../models/Owe.ts";
-import { firestore } from "../../db/firebase.ts";
+import { Owe } from "../../models/Owe";
+import { firestore } from "../../db/firebase";
 import { Timestamp, DocumentReference } from "@google-cloud/firestore"
 
 @Resolver()

@@ -1,7 +1,7 @@
 import { Resolver, FieldResolver, Root, } from "type-graphql";
-import { Owe } from "../../models/Owe.ts";
-import { User } from "../../models/User.ts";
-import { UserResolver } from "../User/UserResolver.ts";
+import { Owe } from "../../models/Owe";
+import { User } from "../../models/User";
+import { UserResolver } from "../User/UserResolver";
 import { DocumentReference } from "@google-cloud/firestore"
 
 @Resolver(Owe)
