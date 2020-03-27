@@ -2,7 +2,7 @@ import { Resolver, Query, Authorized, Ctx } from "type-graphql";
 import { ApplicationContext } from "../../utils/appContext.ts";
 import { firestore } from "../../db/firebase.ts";
 import { User } from "../../models/User";
-import { Timestamp } from "@firebase/firestore-types";
+import { Timestamp } from "@google-cloud/firestore";
 
 @Resolver()
 export class MeResolver {
@@ -16,8 +16,8 @@ export class MeResolver {
         const userRef = firestore.collection('users').doc(userId)
         const userSnapshot = await userRef.get()
         const userData = userSnapshot.data()
-        const created : Timestamp = userData!.created
-        const user :User = {
+        const created: Timestamp = userData!.created
+        const user: User = {
             id: userSnapshot.id,
             name: userData!.name,
             image: userData!.image,

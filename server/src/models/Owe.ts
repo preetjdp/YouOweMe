@@ -1,10 +1,15 @@
 import { User } from "./User"
 import { ObjectType, Field, ID } from "type-graphql"
+import { DocumentReference } from "@google-cloud/firestore"
 
 @ObjectType()
 export class Owe {
     @Field(() => ID)
     id: string
+
+    documenmentRef: DocumentReference
+    issuedToID: string
+    issuedByID: string
 
     @Field()
     title: string
@@ -13,10 +18,10 @@ export class Owe {
     amount: number
 
     @Field()
-    issuedBy: User
+    issuedBy?: User
 
     @Field()
-    issuedTo: User
+    issuedTo?: User
 
     @Field()
     created: Date

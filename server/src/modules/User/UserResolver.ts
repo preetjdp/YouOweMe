@@ -1,7 +1,7 @@
 import { firestore } from "../../db/firebase"
 import { Query, Resolver, FieldResolver, Root, Arg, Authorized } from "type-graphql"
 import { User } from "../../models/User"
-import { DocumentData, Timestamp } from "@firebase/firestore-types"
+import { DocumentData, Timestamp } from "@google-cloud/firestore"
 
 @Resolver(User)
 export class UserResolver {
