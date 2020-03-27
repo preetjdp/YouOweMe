@@ -1,4 +1,5 @@
 import { ObjectType, Field, ID } from "type-graphql";
+import { Owe } from "./Owe.ts";
 
 @ObjectType()
 export class User {
@@ -12,6 +13,12 @@ export class User {
         nullable: true
     })
     image: string;
+
+    @Field(() => [Owe])
+    oweMe?: Array<Owe>
+
+    @Field(() => [Owe])
+    iOwe?: Array<Owe>
 
     @Field()
     created: Date

@@ -7,8 +7,8 @@ import { Timestamp } from "@google-cloud/firestore"
 import { User } from "../../models/User.ts";
 
 import { UserResolver } from "../User/UserResolver"
+import { OweResolver } from "./OweResolver.ts";
 
-const userR = new UserResolver()
 
 
 @Resolver(Owe)
@@ -38,38 +38,7 @@ export class NewOweResolver {
             created: Timestamp.fromMillis(Date.now())
         }
         const oweRef = await userRef.collection('owes').add(owe)
-        const oweSnapshot = await oweRef.get()
-        const oweData = oweSnapshot.data()
-        const oweDate: Timestamp = oweData!.created
-        const oweResponse: Owe = {
-            id: oweSnapshot.id,
-            documenmentRef: oweRef,
-            title: oweData!.title,
-            amount: oweData!.amount,
-            created: oweDate.toDate(),
-            issuedByID: userId,
-            issuedToID: issuedToID
-        }
+        const oweResponse = await new OweResolver().getOweFromRef(oweRef)
         return oweResponse
-    }
-
-    @FieldResolver(() => User, {
-        name: "issuedBy",
-    })
-    async issuedByResolver(@Root() owe: Owe) {
-        const oweRef = owe.documenmentRef
-        const issuedByRef = oweRef.parent.parent
-        const issedByUserId = issuedByRef!.id
-        const issuedByUser = await new UserResolver().getUser(issedByUserId)
-        return issuedByUser
-    }
-
-    @FieldResolver(() => User, {
-        name: "issuedTo",
-    })
-    async issuedToResolver(@Root() owe: Owe) {
-        const userId : string = owe.issuedToID
-        const user = await new UserResolver().getUser(userId)
-        return user
     }
 }
