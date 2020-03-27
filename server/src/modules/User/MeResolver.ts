@@ -3,6 +3,7 @@ import { ApplicationContext } from "../../utils/appContext";
 import { firestore } from "../../db/firebase";
 import { User } from "../../models/User";
 import { Timestamp } from "@google-cloud/firestore";
+import { UserResolver } from "./UserResolver.ts";
 
 @Resolver()
 export class MeResolver {
@@ -13,16 +14,7 @@ export class MeResolver {
     async getMe(@Ctx() context: ApplicationContext): Promise<User> {
         console.log(context.req.headers.authorization + "wpwza")
         const userId = context.req.headers.authorization!
-        const userRef = firestore.collection('users').doc(userId)
-        const userSnapshot = await userRef.get()
-        const userData = userSnapshot.data()
-        const created: Timestamp = userData!.created
-        const user: User = {
-            id: userSnapshot.id,
-            name: userData!.name,
-            image: userData!.image,
-            created: created.toDate()
-        }
+        const user = await new UserResolver().getUser(userId)
         return user
     }
 }

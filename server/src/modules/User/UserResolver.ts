@@ -29,12 +29,12 @@ export class UserResolver {
     @Query(() => User, {
         nullable: true
     })
-    async getUser(@Arg("id") id: string) {
+    async getUser(@Arg("id") id: string) : Promise<User> {
         const userRef = firestore.collection('users').doc(id)
         const userSnapshot = await userRef.get()
         const userData = userSnapshot.data()
         if (!userSnapshot.exists) {
-            return null
+            throw Error("User Does Not Exist")
         }
         const created: Timestamp = userData!.created
         const user: User = {
