@@ -17,8 +17,14 @@ export class User {
     @Field(() => [Owe])
     oweMe?: Array<Owe>
 
+    @Field()
+    oweMeAmount?: number
+    
     @Field(() => [Owe])
     iOwe?: Array<Owe>
+
+    @Field()
+    iOweAmount?: number
 
     @Field()
     created: Date

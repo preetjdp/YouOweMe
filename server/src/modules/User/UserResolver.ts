@@ -1,5 +1,5 @@
 import { firestore } from "../../db/firebase"
-import { Query, Resolver, FieldResolver, Root, Arg, Authorized } from "type-graphql"
+import { Query, Resolver, FieldResolver, Root, Arg, Authorized, Int } from "type-graphql"
 import { User } from "../../models/User"
 import { DocumentReference, Timestamp } from "@google-cloud/firestore"
 import { Owe } from "../../models/Owe"
@@ -29,7 +29,7 @@ export class UserResolver {
     @Query(() => User, {
         nullable: true
     })
-    async getUser(@Arg("id") id: string) : Promise<User> {
+    async getUser(@Arg("id") id: string): Promise<User> {
         const userRef = firestore.collection('users').doc(id)
         const userSnapshot = await userRef.get()
         const userData = userSnapshot.data()
@@ -103,5 +103,31 @@ export class UserResolver {
             return owe
         })
         return owes
+    }
+
+    @FieldResolver(() => Int, {
+        name: "oweMeAmount"
+    }
+    )
+    async oweMeAmountFieldResolver(@Root() user: User) {
+        const owes: Array<Owe> = await this.oweMeFieldResolver(user)
+        let oweMeAmount: number = 0
+        for (const owe of owes) {
+            oweMeAmount += owe.amount
+        }
+        return oweMeAmount
+    }
+
+    @FieldResolver(() => Int, {
+        name: "iOweAmount"
+    }
+    )
+    async iOweAmountFieldResolver(@Root() user: User) {
+        const owes: Array<Owe> = await this.iOweFieldResolver(user)
+        let iOweAmount: number = 0
+        for (const owe of owes) {
+            iOweAmount += owe.amount
+        }
+        return iOweAmount
     }
 }
