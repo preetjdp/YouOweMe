@@ -33,7 +33,7 @@ class HelloResolver {
 
 const generateSchema = async () => {
     return await buildSchema({
-        resolvers: [__dirname + '/modules/**/*.ts'],
+        resolvers: [__dirname + '/modules/**/*.{ts,js}'],
         authChecker: customAuthChecker,
         dateScalarMode: "timestamp"
     })
