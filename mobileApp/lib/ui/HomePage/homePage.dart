@@ -1,9 +1,9 @@
 import 'package:YouOweMe/ui/HomePage/blurredBottom.dart';
+import 'package:YouOweMe/ui/HomePage/iOweSection.dart';
+import 'package:YouOweMe/ui/HomePage/oweMeSection.dart';
 import 'package:flutter/material.dart';
 
-import 'package:YouOweMe/ui/HomePage/oweMe.dart';
 import 'package:YouOweMe/ui/NewOwe/newOwe.dart';
-import 'package:YouOweMe/ui/HomePage/iOwe.dart';
 import 'package:YouOweMe/ui/HomePage/bottomList.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -43,11 +43,11 @@ class HomePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                OweMe(),
+                OweMeSection(),
                 SizedBox(
                   height: 30,
                 ),
-                IOwe(),
+                IOweSection(),
                 SizedBox(
                   height: 30,
                 ),
