@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 
@@ -7,7 +8,13 @@ import 'package:YouOweMe/resources/extensions.dart';
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 
 class OweMe extends StatelessWidget {
-  final Box<Owe> oweBox = Hive.box("oweBox");
+  final oweMeAmountQuery = '''
+  {
+    Me {
+      oweMeAmount
+    }
+  }
+  ''';
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,11 +44,15 @@ class OweMe extends StatelessWidget {
           Positioned(
             left: 0,
             right: 0,
-            child: ValueListenableBuilder(
-                valueListenable: oweBox.listenable(),
-                builder: (BuildContext context, Box<Owe> box, _) {
-                  int totalAmount =
-                      box.values.sumBy((element) => element.amount);
+            child: Query(
+                options: QueryOptions(
+                  documentNode: gql(oweMeAmountQuery)
+                ),
+                builder: (QueryResult result,
+                    {VoidCallback refetch, FetchMore fetchMore}) {
+                  if (result.loading) {
+                    return Text('loading');
+                  }
                   return Container(
                     height: 100,
                     decoration: BoxDecoration(
@@ -58,7 +69,7 @@ class OweMe extends StatelessWidget {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Text("₹$totalAmount",
+                          Text("₹${result.data["Me"]["oweMeAmount"]}",
                               style: TextStyle(
                                   fontSize: 50,
                                   fontWeight: FontWeight.w800,
@@ -84,21 +95,22 @@ class OweMe extends StatelessWidget {
                           color: Color.fromRGBO(78, 80, 88, 0.2),
                           spreadRadius: 0.1)
                     ]),
-                child: ValueListenableBuilder(
-                    valueListenable: oweBox.listenable(),
-                    builder: (BuildContext context, Box<Owe> box, _) {
-                      if (box.values.isNotEmpty) {
-                        return Center(
-                          child: Text(
-                            box.values.last.title,
-                          ),
-                        );
-                      } else {
-                        return Center(
-                          child: YOMSpinner(),
-                        );
-                      }
-                    })),
+                // child: ValueListenableBuilder(
+                //     valueListenable: oweBox.listenable(),
+                //     builder: (BuildContext context, Box<Owe> box, _) {
+                //       if (box.values.isNotEmpty) {
+                //         return Center(
+                //           child: Text(
+                //             box.values.last.title,
+                //           ),
+                //         );
+                //       } else {
+                //         return Center(
+                //           child: YOMSpinner(),
+                //         );
+                //       }
+                //     })
+                    ),
           ),
         ],
       ),
