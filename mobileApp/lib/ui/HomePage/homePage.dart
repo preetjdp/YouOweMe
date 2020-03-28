@@ -5,13 +5,29 @@ import 'package:YouOweMe/ui/HomePage/oweMe.dart';
 import 'package:YouOweMe/ui/NewOwe/newOwe.dart';
 import 'package:YouOweMe/ui/HomePage/iOwe.dart';
 import 'package:YouOweMe/ui/HomePage/bottomList.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    void goToNewOwe() {
+    void goToNewOwe() async {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (BuildContext context) => NewOwe()));
+      const MeQuery = '''
+        {
+          Me {
+            oweMe {
+              title
+              amount
+            }
+            oweMeAmount
+          }
+        }
+    ''';
+      QueryResult result = await GraphQLProvider.of(context)
+          .value
+          .query(QueryOptions(documentNode: gql(MeQuery)));
+      print(result.data);
     }
 
     return Scaffold(

@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/material.dart';
@@ -22,4 +23,19 @@ Future<void> configureHive() async {
   await Hive.initFlutter();
   Hive.registerAdapter<Owe>(OweAdapter());
   await Hive.openBox<Owe>("oweBox");
+}
+
+ValueNotifier<GraphQLClient> configureGraphQL() {
+  final HttpLink httpLink = HttpLink(
+      uri: 'https://api.youoweme.preetjdp.dev/',
+      headers: {"authorization": "f9fc7B6wvIsU62LuDNVv"});
+
+  ValueNotifier<GraphQLClient> client = ValueNotifier(
+    GraphQLClient(
+      cache: InMemoryCache(),
+      link: httpLink,
+    ),
+  );
+
+  return client;
 }
