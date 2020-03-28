@@ -22,7 +22,7 @@ class NewOwe extends StatelessWidget {
           newOwe(data: {
             title: "${titleController.text}",
             amount: ${int.parse(amountController.text)},
-            issuedToID: "f9fc7B6wvIsU62LuDNVv"
+            issuedToID: "Ei66LhElIZ3eEQeqGBIp"
           }) {
             id
             issuedBy {
