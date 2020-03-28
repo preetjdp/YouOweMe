@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 import 'package:YouOweMe/resources/helpers.dart';
 import 'package:YouOweMe/ui/HomePage/homePage.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   await configureHive();
@@ -14,6 +16,16 @@ void main() async {
     ));
   } else {
     runApp(MyApp());
+  }
+}
+
+class Intermediate extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GraphQLProvider(
+      client: configureGraphQL(),
+      child: MyApp(),
+    );
   }
 }
 
