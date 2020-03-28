@@ -13,21 +13,6 @@ class HomePage extends StatelessWidget {
     void goToNewOwe() async {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (BuildContext context) => NewOwe()));
-      const MeQuery = '''
-        {
-          Me {
-            oweMe {
-              title
-              amount
-            }
-            oweMeAmount
-          }
-        }
-    ''';
-      QueryResult result = await GraphQLProvider.of(context)
-          .value
-          .query(QueryOptions(documentNode: gql(MeQuery)));
-      print(result.data);
     }
 
     return Scaffold(

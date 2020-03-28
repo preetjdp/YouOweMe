@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 
@@ -15,16 +16,26 @@ class NewOwe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void onButtonPressed() {
-      Navigator.pop(context);
-    }
-
     void addNewOwe() {
-      Owe newOwe = Owe(
-          title: titleController.text,
-          amount: int.parse(amountController.text),
-          created: DateTime.now());
-      databaseService.addOweToHive(owe: newOwe);
+      final newOweMutation = '''
+        mutation {
+          newOwe(data: {
+            title: "${titleController.text}",
+            amount: ${int.parse(amountController.text)},
+            issuedToID: "f9fc7B6wvIsU62LuDNVv"
+          }) {
+            id
+            issuedBy {
+              name
+            }
+          }
+        }
+      ''';
+      GraphQLProvider.of(context).value.mutate(MutationOptions(
+          documentNode: gql(newOweMutation),
+          onCompleted: (a) {
+            Navigator.pop(context);
+          }));
     }
 
     void clearHiveBox() {
@@ -35,7 +46,7 @@ class NewOwe extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.check),
-        onPressed: onButtonPressed,
+        onPressed: addNewOwe,
       ),
       body: SafeArea(
         child: ListView(
