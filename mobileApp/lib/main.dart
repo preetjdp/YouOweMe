@@ -12,10 +12,10 @@ void main() async {
   await configureHive();
   if (!kReleaseMode) {
     runApp(DevicePreview(
-      builder: (BuildContext context) => MyApp(),
+      builder: (BuildContext context) => Intermediate(),
     ));
   } else {
-    runApp(MyApp());
+    runApp(Intermediate());
   }
 }
 
