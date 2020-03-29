@@ -1,4 +1,4 @@
-package com.example.mobileApp
+package dev.preetjdp.youoweme
 
 import io.flutter.embedding.android.FlutterActivity
 
