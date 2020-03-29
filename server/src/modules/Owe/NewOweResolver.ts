@@ -27,6 +27,10 @@ export class NewOweResolver {
         const userId = context.req.headers.authorization!
         const userRef = firestore.collection('users').doc(userId)
         const userSnapshot = await userRef.get()
+        //Throw error when IssuedToID === context user ID
+        if(issuedToID == userId) {
+            throw new Error("Can't Lend yourself money")
+        }
         if (!userSnapshot.exists) {
             throw Error("User Not Present")
         }
