@@ -4,7 +4,7 @@ import { firestore } from "../../db/firebase";
 import { User } from "../../models/User";
 import { Timestamp } from "@google-cloud/firestore";
 import { UserResolver } from "./UserResolver";
-import { meTopicHandler } from "./meResolver/meHandler.ts";
+import { userTopicGenerator } from "./userResolver/userTopic";
 
 
 @Resolver()
@@ -23,7 +23,7 @@ export class MeResolver {
     @Subscription(() => User, {
         name: "Me",
         topics: (context) =>
-            meTopicHandler(context.context.authorization)
+            userTopicGenerator(context.context.authorization)
 
     })
     async getMeSubscription(@Root() user: User) {
