@@ -1,8 +1,8 @@
 
 import { firestore } from "../../../db/firebase"
 import { Timestamp } from "@google-cloud/firestore";
-import { User } from "../../../models/User.ts";
-import { PubSubFire } from "../../../db/pubSubFire.ts";
+import { User } from "../../../models/User";
+import { PubSubFire } from "../../../db/pubSubFire";
 
 
 const meTopicHandler = (id: string) => {
