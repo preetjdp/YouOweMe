@@ -1,5 +1,5 @@
 // import { ApolloServer } from "apollo-server-express"
-import {ApolloServer} from "apollo-server"
+import { ApolloServer } from "apollo-server"
 import "./utils/envConfig"
 
 
@@ -9,7 +9,12 @@ const main = async () => {
   const schema = await generateSchema()
   const server = new ApolloServer({
     schema,
-    context: ({ req }) => ({ req })
+    context: ({ req, connection }) => {
+      if(connection) {
+        return connection.context
+      }
+      return { req }
+    }
   });
 
   server.listen({ port: process.env.PORT || 4000 }, () =>
