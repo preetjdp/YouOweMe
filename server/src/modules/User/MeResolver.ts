@@ -1,9 +1,11 @@
-import { Resolver, Query, Authorized, Ctx } from "type-graphql";
+import { Resolver, Query, Authorized, Ctx, Subscription, Publisher, PubSub, Root } from "type-graphql";
 import { ApplicationContext } from "../../utils/appContext";
 import { firestore } from "../../db/firebase";
 import { User } from "../../models/User";
 import { Timestamp } from "@google-cloud/firestore";
 import { UserResolver } from "./UserResolver";
+import { meTopicHandler } from "./meResolver/meHandler.ts";
+
 
 @Resolver()
 export class MeResolver {
@@ -15,6 +17,16 @@ export class MeResolver {
         console.log(context.req.headers.authorization + "wpwza")
         const userId = context.req.headers.authorization!
         const user = await new UserResolver().getUser(userId)
+        return user
+    }
+
+    @Subscription(() => User, {
+        name: "Me",
+        topics: (context) =>
+            meTopicHandler(context.context.authorization)
+
+    })
+    async getMeSubscription(@Root() user: User) {
         return user
     }
 }
