@@ -6,7 +6,7 @@ import { userTopicGenerator } from "./userResolver/userTopic";
 export class UserSubscriptionResolver {
     @Subscription(() => User, {
         name: "User",
-        topics: ({ args, info }) => userTopicGenerator(args.id)
+        topics: ({ args }) => userTopicGenerator(args.id)
 
 
     })
