@@ -1,5 +1,5 @@
-import express from 'express'
-import { ApolloServer } from "apollo-server-express"
+// import { ApolloServer } from "apollo-server-express"
+import {ApolloServer} from "apollo-server"
 import "./utils/envConfig"
 
 
@@ -12,10 +12,7 @@ const main = async () => {
     context: ({ req }) => ({ req })
   });
 
-  const app = express()
-  server.applyMiddleware({ app, path: '/' });
-
-  app.listen({ port: process.env.PORT || 4000 }, () =>
+  server.listen({ port: process.env.PORT || 4000 }, () =>
     console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
   );
 
