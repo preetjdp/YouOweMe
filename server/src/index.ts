@@ -9,8 +9,10 @@ const main = async () => {
   const schema = await generateSchema()
   const server = new ApolloServer({
     schema,
+    introspection: true,
+    playground: true,
     context: ({ req, connection }) => {
-      if(connection) {
+      if (connection) {
         return connection.context
       }
       return { req }
