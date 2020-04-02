@@ -3,13 +3,18 @@
     "version": "0.0.1",
     "description": "The Backend Server which acts as a middlewarebetween the the consumer facing applications and the services.",
     "scripts": {
+        "start": "npm run start:prod",
+        "start:dev": "ts-node-dev --respawn src/index.ts",
+        "start:prod": "node dist/index.js",
         "build": "tsc",
-        "start": "ts-node-dev --respawn src/index.ts",
-        "start:prod": "node dist/index.js"
+        "gcp-build": "npm run build",
+        "deploy": "gcloud beta app deploy"
+    },
+    "engines": {
+        "node": ">=10.0.0"
     },
     "dependencies": {
         "@google-cloud/firestore": "^3.7.2",
-        "@types/graphql": "^14.5.0",
         "apollo-server": "^2.11.0",
         "class-validator": "^0.12.0-rc.0",
         "dotenv": "^8.2.0",
@@ -23,6 +28,7 @@
     "devDependencies": {
         "@types/express": "^4.17.3",
         "@types/node": "^13.9.2",
+        "@types/graphql": "^14.5.0",
         "ts-node-dev": "^1.0.0-pre.44",
         "typescript": "^3.8.3"
     }
