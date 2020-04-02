@@ -1,4 +1,3 @@
-service: seva
 runtime: nodejs
 env: flex
 
