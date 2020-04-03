@@ -8,7 +8,6 @@ import 'package:YouOweMe/ui/NewOwe/peopleList.dart';
 import 'package:YouOweMe/resources/models/owe.dart';
 
 class NewOwe extends StatelessWidget {
-  DatabaseService databaseService = DatabaseService();
   final TextEditingController titleController = TextEditingController();
   final TextEditingController amountController = TextEditingController();
 
@@ -127,17 +126,6 @@ class NewOwe extends StatelessWidget {
                   disabledColor: Theme.of(context).accentColor,
                   child: Text('Done'),
                   onPressed: addNewOwe),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              height: 60,
-              width: 400,
-              child: CupertinoButton(
-                  color: CupertinoColors.destructiveRed,
-                  child: Text('Delete Enteries'),
-                  onPressed: () {}),
             )
           ],
         ),
