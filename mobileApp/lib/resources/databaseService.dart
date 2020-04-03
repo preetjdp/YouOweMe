@@ -9,8 +9,18 @@ class DatabaseService {
     final HttpLink httpLink = HttpLink(
         uri: 'https://youoweme-6c622.appspot.com/',
         headers: {"authorization": "f9fc7B6wvIsU62LuDNVv"});
+
+    final webSocketLink = WebSocketLink(
+        url: "ws://youoweme-6c622.appspot.com/graphql",
+        config: SocketClientConfig(
+            initPayload: {"authorization": "f9fc7B6wvIsU62LuDNVv"},
+            autoReconnect: true,
+            delayBetweenReconnectionAttempts: null));
+
+    httpLink.concat(webSocketLink);
+
     GraphQLClient graphQLClient = GraphQLClient(
-      link: httpLink,
+      link: webSocketLink,
       cache: InMemoryCache(),
     );
 
@@ -20,6 +30,7 @@ class DatabaseService {
 
     return results.map((result) {
       Seva$Query user = Seva$Query.fromJson(result.data);
+      print(user.Me.name);
       return user;
     });
   }

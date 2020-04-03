@@ -49,7 +49,7 @@ class SevaQuery extends GraphQLQuery<Seva$Query, JsonSerializable> {
   @override
   final DocumentNode document = DocumentNode(definitions: [
     OperationDefinitionNode(
-        type: OperationType.query,
+        type: OperationType.subscription,
         name: null,
         variableDefinitions: [],
         directives: [],
