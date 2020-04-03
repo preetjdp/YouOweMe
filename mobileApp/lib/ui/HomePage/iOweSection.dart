@@ -1,14 +1,9 @@
+import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
 
 class IOweSection extends StatelessWidget {
-  final iOweAmountQuery = '''
-    {
-      Me {
-        iOweAmount
-      }
-    }
-  ''';
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,26 +45,21 @@ class IOweSection extends StatelessWidget {
                         spreadRadius: 0.1)
                   ]),
               child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Query(
-                    options: QueryOptions(documentNode: gql(iOweAmountQuery)),
-                    builder: (QueryResult result,
-                        {VoidCallback refetch, FetchMore fetchMore}) {
-                      if (result.loading) {
-                        return Text('loading');
-                      }
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text("₹${result.data["Me"]["iOweAmount"]}",
-                              style: TextStyle(
-                                  fontSize: 50,
-                                  fontWeight: FontWeight.w800,
-                                  color: Theme.of(context).accentColor))
-                        ],
-                      );
-                    }),
-              ),
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                          Provider.of<Seva$Query>(context, listen: true)
+                              .Me
+                              .iOweAmount
+                              .toString(),
+                          style: TextStyle(
+                              fontSize: 50,
+                              fontWeight: FontWeight.w800,
+                              color: Theme.of(context).accentColor))
+                    ],
+                  )),
             ),
           )
         ],

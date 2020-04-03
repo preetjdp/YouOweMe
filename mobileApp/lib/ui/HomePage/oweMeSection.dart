@@ -1,18 +1,13 @@
+import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import 'package:YouOweMe/resources/models/owe.dart';
 import 'package:YouOweMe/resources/extensions.dart';
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
+import 'package:provider/provider.dart';
 
 class OweMeSection extends StatelessWidget {
-  final oweMeAmountQuery = '''
-  {
-    Me {
-      oweMeAmount
-    }
-  }
-  ''';
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -54,26 +49,21 @@ class OweMeSection extends StatelessWidget {
                         spreadRadius: 0.1)
                   ]),
               child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Query(
-                    options: QueryOptions(documentNode: gql(oweMeAmountQuery)),
-                    builder: (QueryResult result,
-                        {VoidCallback refetch, FetchMore fetchMore}) {
-                      if (result.loading) {
-                        return Text('loading');
-                      }
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text("₹${result.data["Me"]["oweMeAmount"]}",
-                              style: TextStyle(
-                                  fontSize: 50,
-                                  fontWeight: FontWeight.w800,
-                                  color: Theme.of(context).accentColor))
-                        ],
-                      );
-                    }),
-              ),
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                          Provider.of<Seva$Query>(context)
+                              .Me
+                              .oweMeAmount
+                              .toString(),
+                          style: TextStyle(
+                              fontSize: 50,
+                              fontWeight: FontWeight.w800,
+                              color: Theme.of(context).accentColor))
+                    ],
+                  )),
             ),
           ),
           // Positioned(
