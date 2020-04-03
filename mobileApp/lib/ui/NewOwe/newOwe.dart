@@ -13,6 +13,7 @@ class NewOwe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TargetPlatform platform = Theme.of(context).platform;
     void addNewOwe() {
       final newOweMutation = '''
         mutation {
@@ -41,10 +42,12 @@ class NewOwe extends StatelessWidget {
     // }
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.check),
-        onPressed: addNewOwe,
-      ),
+      floatingActionButton: platform == TargetPlatform.android
+          ? FloatingActionButton(
+              child: Icon(Icons.check),
+              onPressed: addNewOwe,
+            )
+          : null,
       body: SafeArea(
         child: ListView(
           padding: EdgeInsets.all(15),
@@ -119,14 +122,15 @@ class NewOwe extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            Container(
-              height: 60,
-              width: 400,
-              child: CupertinoButton.filled(
-                  disabledColor: Theme.of(context).accentColor,
-                  child: Text('Done'),
-                  onPressed: addNewOwe),
-            )
+            if (platform == TargetPlatform.iOS)
+              Container(
+                height: 60,
+                width: 400,
+                child: CupertinoButton.filled(
+                    disabledColor: Theme.of(context).accentColor,
+                    child: Text('Done'),
+                    onPressed: addNewOwe),
+              )
           ],
         ),
       ),
