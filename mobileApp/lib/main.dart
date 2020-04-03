@@ -28,9 +28,6 @@ class Intermediate extends StatelessWidget {
         client: configureGraphQL(),
         child: MultiProvider(
           providers: [
-            Provider<GraphQLClient>(
-              create: (a) => configureGraphQL().value,
-            ),
             StreamProvider<Seva$Query>.value(
               value: databaseService.streamMe(context),
               lazy: false,
