@@ -1,0 +1,10 @@
+query {
+  Me {
+    id
+    name
+    image
+    oweMeAmount
+    iOweAmount
+    created
+  }
+}

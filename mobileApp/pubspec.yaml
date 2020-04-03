@@ -1,4 +1,4 @@
-name: YouOweMe 
+name: YouOweMe
 description: Making it simpler to track those chillars.
 
 version: 1.0.0+1
@@ -16,13 +16,18 @@ dependencies:
   provider: ^4.0.4
   cloud_firestore: ^0.13.4+2
 
+  # Used by Artemis (Code Gen)
+  json_serializable: ^3.3.0
+  equatable: ^1.1.1
+  meta: ^1.1.8
+
 dev_dependencies:
+  artemis: ^6.0.3-beta.1
   build_runner: ^1.8.1
   flutter_test:
     sdk: flutter
 
 flutter:
-
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:

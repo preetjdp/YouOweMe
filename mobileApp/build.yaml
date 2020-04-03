@@ -1,0 +1,15 @@
+targets:
+  $default:
+    sources:
+      - lib/**
+      - lib/resources/graphql/youoweme.schema.graphql
+    builders:
+      artemis:
+        options:
+          schema_mapping:
+            - schema: lib/resources/graphql/youoweme.schema.graphql
+              queries_glob: lib/resources/graphql/queries/**.graphql
+              output: lib/resources/graphql/seva.dart
+          scalar_mapping:
+            - graphql_type: Timestamp
+              dart_type: DateTime

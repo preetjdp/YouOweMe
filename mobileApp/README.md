@@ -1,11 +1,11 @@
-# Styles
+## Styles
 Dart File Naming Convention => lowerCamelCase
 
-# Font
+## Font
 The font being used throughout the application is.
 [Aileron Black](https://open-foundry.com/fonts/aileron_black)
 
-# How to get the app started.
+## How to get the app started.
 ```bash
 flutter run
 ```
@@ -16,3 +16,17 @@ on different devices.
 On First Debug Run you will find a such a layout:
 
 ![screenshot](https://user-images.githubusercontent.com/27439197/76833208-efea3f00-6850-11ea-867a-231a47072f50.png)
+
+This applicaiton used Artemis for graphql code generation.
+
+To update the schema get the latest form the [API](https://youoweme-6c622.appspot.com/),
+and update the file located at `lib/resources/graphql/youoweme.schema.graphql`
+
+## Run the code generator
+```bash
+flutter pub run build_runner build
+```
+
+## Add New Queries / Mutation / Subscriptions
+Add them to their respective folders under `lib/resources/graphql/`
+

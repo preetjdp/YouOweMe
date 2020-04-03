@@ -1,0 +1,44 @@
+type Mutation {
+  newOwe(data: NewOweInputType!): Owe!
+}
+
+input NewOweInputType {
+  title: String!
+  amount: Float!
+  issuedToID: String!
+}
+
+type Owe {
+  id: ID!
+  title: String!
+  amount: Float!
+  issuedBy: User!
+  issuedTo: User!
+  created: Timestamp!
+}
+
+type Query {
+  getUsers: [User!]!
+  getUser(id: String!): User
+  getOwes: [Owe!]!
+  Me: User!
+}
+
+type Subscription {
+  Me: User!
+  User(id: String!): User!
+}
+
+scalar Timestamp
+
+type User {
+  id: ID!
+  name: String!
+  image: String
+  oweMe: [Owe!]!
+  oweMeAmount: Int!
+  iOwe: [Owe!]!
+  iOweAmount: Int!
+  created: Timestamp!
+}
+
