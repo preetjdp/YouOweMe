@@ -15,7 +15,8 @@ class DatabaseService {
         config: SocketClientConfig(
             initPayload: {"authorization": "f9fc7B6wvIsU62LuDNVv"},
             autoReconnect: true,
-            delayBetweenReconnectionAttempts: null));
+            inactivityTimeout: Duration(minutes: 1),
+            delayBetweenReconnectionAttempts: Duration(seconds: 10)));
 
     httpLink.concat(webSocketLink);
 
