@@ -24,10 +24,8 @@ class Seva$Query$User with EquatableMixin {
 
   int iOweAmount;
 
-  DateTime created;
-
   @override
-  List<Object> get props => [id, name, image, oweMeAmount, iOweAmount, created];
+  List<Object> get props => [id, name, image, oweMeAmount, iOweAmount];
   Map<String, dynamic> toJson() => _$Seva$Query$UserToJson(this);
 }
 
@@ -88,12 +86,6 @@ class SevaQuery extends GraphQLQuery<Seva$Query, JsonSerializable> {
                     selectionSet: null),
                 FieldNode(
                     name: NameNode(value: 'iOweAmount'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'created'),
                     alias: null,
                     arguments: [],
                     directives: [],

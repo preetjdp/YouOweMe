@@ -1,3 +1,5 @@
+import 'package:YouOweMe/resources/databaseService.dart';
+import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -19,12 +21,23 @@ void main() {
 }
 
 class Intermediate extends StatelessWidget {
+  final DatabaseService databaseService = DatabaseService();
   @override
   Widget build(BuildContext context) {
     return GraphQLProvider(
-      client: configureGraphQL(),
-      child: MyApp(),
-    );
+        client: configureGraphQL(),
+        child: MultiProvider(
+          providers: [
+            Provider<GraphQLClient>(
+              create: (a) => configureGraphQL().value,
+            ),
+            StreamProvider<Seva$Query>.value(
+              value: databaseService.streamMe(context),
+              lazy: false,
+            )
+          ],
+          child: MyApp(),
+        ));
   }
 }
 

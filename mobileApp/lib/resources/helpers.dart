@@ -12,11 +12,18 @@ void configureSystemChrome() {
       systemNavigationBarIconBrightness: Brightness.dark));
 }
 
-
 ValueNotifier<GraphQLClient> configureGraphQL() {
   final HttpLink httpLink = HttpLink(
-      uri: 'https://api.youoweme.preetjdp.dev/',
+      uri: 'https://youoweme-6c622.appspot.com/',
       headers: {"authorization": "f9fc7B6wvIsU62LuDNVv"});
+
+  // final webSocketLink = WebSocketLink(
+  //     url: "https://youoweme-6c622.appspot.com/graphql",
+  //     config: SocketClientConfig(
+  //       autoReconnect: true,
+  //     ));
+
+  // httpLink.concat(webSocketLink);
 
   ValueNotifier<GraphQLClient> client = ValueNotifier(
     GraphQLClient(
