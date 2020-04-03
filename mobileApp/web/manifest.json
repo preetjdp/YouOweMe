@@ -1,6 +1,6 @@
 {
-    "name": "mobileApp",
-    "short_name": "mobileApp",
+    "name": "YouOweMe",
+    "short_name": "YouOweMe",
     "start_url": ".",
     "display": "minimal-ui",
     "background_color": "#0175C2",
