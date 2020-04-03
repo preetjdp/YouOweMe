@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:hive/hive.dart';
 
 import 'package:YouOweMe/resources/models/owe.dart';
 import 'package:YouOweMe/resources/extensions.dart';

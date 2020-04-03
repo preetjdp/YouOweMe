@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:hive/hive.dart';
 
 import 'package:YouOweMe/resources/databaseService.dart';
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
@@ -38,10 +36,10 @@ class NewOwe extends StatelessWidget {
           }));
     }
 
-    void clearHiveBox() {
-      Box<Owe> oweBox = Hive.box('oweBox');
-      oweBox.clear();
-    }
+    // void clearHiveBox() {
+    //   Box<Owe> oweBox = Hive.box('oweBox');
+    //   oweBox.clear();
+    // }
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -139,7 +137,7 @@ class NewOwe extends StatelessWidget {
               child: CupertinoButton(
                   color: CupertinoColors.destructiveRed,
                   child: Text('Delete Enteries'),
-                  onPressed: clearHiveBox),
+                  onPressed: () {}),
             )
           ],
         ),

@@ -8,8 +8,7 @@ import 'package:YouOweMe/ui/HomePage/homePage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 
-void main() async {
-  await configureHive();
+void main() {
   if (!kReleaseMode) {
     runApp(DevicePreview(
       builder: (BuildContext context) => Intermediate(),
