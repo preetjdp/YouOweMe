@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:YouOweMe/resources/models/owe.dart';
 
 void configureSystemChrome() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(

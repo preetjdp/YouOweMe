@@ -1,7 +1,6 @@
 import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:flutter/widgets.dart';
 
-import 'package:YouOweMe/resources/models/owe.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 class DatabaseService {

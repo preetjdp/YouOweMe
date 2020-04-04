@@ -1,5 +1,4 @@
 import 'package:YouOweMe/resources/databaseService.dart';
-import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/resources/meNotifier.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';

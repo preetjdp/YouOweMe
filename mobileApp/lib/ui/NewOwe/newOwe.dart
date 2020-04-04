@@ -2,10 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import 'package:YouOweMe/resources/databaseService.dart';
-import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:YouOweMe/ui/NewOwe/peopleList.dart';
-import 'package:YouOweMe/resources/models/owe.dart';
 
 class NewOwe extends StatelessWidget {
   final TextEditingController titleController = TextEditingController();

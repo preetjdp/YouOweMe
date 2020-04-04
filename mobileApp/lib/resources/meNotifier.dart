@@ -2,7 +2,6 @@ import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:provider/provider.dart';
 
 class MeNotifier extends ChangeNotifier {
   static HttpLink httpLink = HttpLink(
