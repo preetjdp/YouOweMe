@@ -1,4 +1,5 @@
 import 'package:YouOweMe/resources/graphql/seva.dart';
+import 'package:YouOweMe/resources/meNotifier.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -54,8 +55,8 @@ class OweMeSection extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                          Provider.of<Seva$Query>(context)
-                              .Me
+                          Provider.of<MeNotifier>(context)
+                              .me
                               .oweMeAmount
                               .toString(),
                           style: TextStyle(

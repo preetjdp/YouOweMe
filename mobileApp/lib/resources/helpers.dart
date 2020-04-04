@@ -17,14 +17,6 @@ ValueNotifier<GraphQLClient> configureGraphQL() {
       uri: 'https://youoweme-6c622.appspot.com/',
       headers: {"authorization": "f9fc7B6wvIsU62LuDNVv"});
 
-  // final webSocketLink = WebSocketLink(
-  //     url: "https://youoweme-6c622.appspot.com/graphql",
-  //     config: SocketClientConfig(
-  //       autoReconnect: true,
-  //     ));
-
-  // httpLink.concat(webSocketLink);
-
   ValueNotifier<GraphQLClient> client = ValueNotifier(
     GraphQLClient(
       cache: InMemoryCache(),
