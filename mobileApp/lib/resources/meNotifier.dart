@@ -9,7 +9,7 @@ class MeNotifier extends ChangeNotifier {
       uri: 'https://youoweme-6c622.appspot.com/',
       headers: {"authorization": "f9fc7B6wvIsU62LuDNVv"});
   final GraphQLClient graphQLClient = GraphQLClient(
-    cache: InMemoryCache()
+    cache: InMemoryCache(),
     link: httpLink,
   );
   Seva$Query$Me me;
