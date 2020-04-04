@@ -5,5 +5,25 @@ query {
     image
     oweMeAmount
     iOweAmount
+    oweMe {
+      id
+      title
+      amount
+      issuedTo {
+        id
+        name
+        image
+      }
+    }
+    iOwe {
+      id
+      title
+      amount
+      issuedTo {
+        id
+        name
+        image
+      }
+    }
   }
 }

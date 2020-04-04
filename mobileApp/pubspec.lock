@@ -32,9 +32,11 @@ packages:
   artemis:
     dependency: "direct dev"
     description:
-      name: artemis
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: beta
+      resolved-ref: "57e6342ab02a2b326d610431781bba7e9b5aaa29"
+      url: "git://github.com/comigor/artemis.git"
+    source: git
     version: "6.0.3-beta.1"
   async:
     dependency: transitive

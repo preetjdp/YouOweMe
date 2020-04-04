@@ -22,7 +22,10 @@ dependencies:
   meta: ^1.1.8
 
 dev_dependencies:
-  artemis: ^6.0.3-beta.1
+  artemis:
+    git:
+      url: git://github.com/comigor/artemis.git
+      ref: beta
   build_runner: ^1.8.1
   flutter_test:
     sdk: flutter
