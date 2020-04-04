@@ -9,7 +9,7 @@ class MeNotifier extends ChangeNotifier {
       uri: 'https://youoweme-6c622.appspot.com/',
       headers: {"authorization": "f9fc7B6wvIsU62LuDNVv"});
   final GraphQLClient graphQLClient = GraphQLClient(
-    cache: InMemoryCache(),
+    cache: InMemoryCache()
     link: httpLink,
   );
   Seva$Query$Me me;
@@ -28,16 +28,17 @@ class MeNotifier extends ChangeNotifier {
     });
   }
 
-  void refresh() => getData();
+  Future<void> refresh() async {
+    await getData();
+  }
 
   Future<void> getData() async {
     print("Getting Data");
     QueryResult result = await graphQLClient.query(QueryOptions(
-      documentNode: SevaQuery().document,
-    ));
+        documentNode: SevaQuery().document,
+        fetchPolicy: FetchPolicy.cacheAndNetwork));
 
     Seva$Query mappedData = Seva$Query.fromJson(result.data);
-    print(mappedData.Me.name);
     me = mappedData.Me;
     notifyListeners();
   }
