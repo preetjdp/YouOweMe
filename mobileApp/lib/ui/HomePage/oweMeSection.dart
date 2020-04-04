@@ -55,7 +55,7 @@ class OweMeSection extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                          Provider.of<MeNotifier>(context)
+                          Provider.of<MeNotifier>(context, listen: true)
                               .me
                               .oweMeAmount
                               .toString(),
