@@ -51,7 +51,6 @@ class NewOwe extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           padding: EdgeInsets.all(15),
-          // crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(),
             Text(
