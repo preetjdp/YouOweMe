@@ -1,4 +1,5 @@
 import 'package:YouOweMe/ui/Abstractions/expandingWidgetDelegate.dart';
+import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:flutter/material.dart';
 
 class PeopleList extends StatelessWidget {
@@ -43,7 +44,8 @@ class PeopleList extends StatelessWidget {
               delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) => Container(
                         margin: margin.copyWith(left: 0),
-                        padding: EdgeInsets.all(5),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 5, vertical: 20),
                         width: 120,
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -54,13 +56,25 @@ class PeopleList extends StatelessWidget {
                                   color: Color.fromRGBO(78, 80, 88, 0.05),
                                   spreadRadius: 0.1)
                             ]),
-                        child: Center(
-                          child: Text(
-                            people.elementAt(index),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w600),
-                          ),
+                        child: Column(
+                          children: <Widget>[
+                            YomAvatar(
+                              // Returns "PP" for "Preet Parekh"
+                                text: people[index]
+                                    .split(" ")
+                                    .map((e) => e[0])
+                                    .toList()
+                                    .join()),
+                            SizedBox(
+                              height: 40,
+                            ),
+                            Text(
+                              people.elementAt(index),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w600),
+                            ),
+                          ],
                         ),
                       ),
                   childCount: people.length))
