@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    TargetPlatform platform = Theme.of(context).platform;
+    final TargetPlatform platform = Theme.of(context).platform;
     void goToNewOwe() async {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (BuildContext context) => NewOwe()));
@@ -35,18 +35,16 @@ class HomePage extends StatelessWidget {
       ),
     ];
 
-    Widget homePageContent = CustomScrollView(
+    final Widget abstractedHomePage = CustomScrollView(
       slivers: <Widget>[
-        if (platform == TargetPlatform.iOS)
+        if (platform == TargetPlatform.iOS) ...[
           CupertinoSliverRefreshControl(
             onRefresh: onRefresh,
           ),
-        if (platform == TargetPlatform.iOS)
-          SliverFillRemaining(
-            child: Padding(
-                padding: EdgeInsets.all(15), child: Column(children: children)),
-          )
-        else if (platform == TargetPlatform.android)
+          SliverPadding(
+              padding: EdgeInsets.all(15),
+              sliver: SliverList(delegate: SliverChildListDelegate(children)))
+        ] else if (platform == TargetPlatform.android)
           SliverFillRemaining(
             child: RefreshIndicator(
                 onRefresh: onRefresh,
@@ -58,13 +56,20 @@ class HomePage extends StatelessWidget {
       ],
     );
 
+    final Widget abstractedNewOweButton = platform == TargetPlatform.iOS
+        ? CupertinoButton(
+            color: Theme.of(context).accentColor,
+            child: Text('New'),
+            onPressed: goToNewOwe)
+        : FloatingActionButton.extended(
+            label: Text('New'),
+            icon: Icon(Icons.add),
+            onPressed: goToNewOwe,
+          );
+
     return Scaffold(
-        floatingActionButton: FloatingActionButton.extended(
-          label: Text('New'),
-          icon: Icon(Icons.add),
-          onPressed: goToNewOwe,
-        ),
+        floatingActionButton: abstractedNewOweButton,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: homePageContent);
+        body: abstractedHomePage);
   }
 }
