@@ -56,7 +56,12 @@ class MyApp extends StatelessWidget {
           floatingActionButtonTheme: FloatingActionButtonThemeData(
             backgroundColor: Color.fromRGBO(52, 59, 70, 1),
             elevation: 2,
-          )),
+          ),
+          textTheme: TextTheme(
+              headline3: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromRGBO(78, 80, 88, 1)))),
       home: HomePage(),
     );
   }
