@@ -33,8 +33,9 @@ class Intermediate extends StatelessWidget {
               create: (BuildContext context) => MeNotifier(context),
               lazy: false,
             ),
-            FutureProvider<Iterable<Contact>>.value(
-              value: ContactsService.getContacts(),
+            FutureProvider<Iterable<Contact>>(
+              create: (a) => ContactsService.getContacts(withThumbnails: false),
+              lazy: false,
               initialData: [],
             )
           ],
