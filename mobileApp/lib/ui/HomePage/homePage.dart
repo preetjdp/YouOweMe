@@ -26,13 +26,7 @@ class HomePage extends StatelessWidget {
         height: 30,
       ),
       IOweSection(),
-      SizedBox(
-        height: 30,
-      ),
       BottomList(),
-      SizedBox(
-        height: 10,
-      ),
     ];
 
     final Widget abstractedHomePage = CustomScrollView(
