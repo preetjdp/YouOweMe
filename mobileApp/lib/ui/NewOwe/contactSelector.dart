@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
-import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -196,16 +195,6 @@ class _ContactSelectorState extends State<ContactSelector> {
                   ),
                 );
               }),
-          // StreamBuilder(
-          //   // future: ContactsService.getContacts(withThumbnails: false),
-          //   stream: contactsSubject.stream,
-          //   builder:
-          //       (BuildContext context, AsyncSnapshot<List<Contact>> snapshot) {
-          //     if (snapshot.connectionState == ConnectionState.waiting)
-          //       return YOMSpinner();
-          //     return
-          //   },
-          // ),
         ],
       ),
     );
