@@ -13,6 +13,7 @@ const userTopicGenerator = (id: string) => {
                     id: snapshot.id,
                     name: userData!.name,
                     image: userData!.image,
+                    mobileNo: userData!.mobile_no,
                     created: created.toDate()
                 }
                 broadcast(user)

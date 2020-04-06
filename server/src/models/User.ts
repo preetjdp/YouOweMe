@@ -14,12 +14,15 @@ export class User {
     })
     image: string;
 
+    @Field()
+    mobileNo: string;
+
     @Field(() => [Owe])
     oweMe?: Array<Owe>
 
     @Field()
     oweMeAmount?: number
-    
+
     @Field(() => [Owe])
     iOwe?: Array<Owe>
 

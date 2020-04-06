@@ -19,6 +19,7 @@ export class UserResolver {
                 id: userSnapshot.id,
                 name: userData.name,
                 image: userData.image,
+                mobileNo: userData.mobile_no,
                 created: created.toDate()
             }
             return user
@@ -41,6 +42,7 @@ export class UserResolver {
             id: userSnapshot.id,
             name: userData!.name,
             image: userData!.image,
+            mobileNo: userData!.mobile_no,
             created: created.toDate()
         }
         return user
