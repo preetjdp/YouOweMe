@@ -4,7 +4,9 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class ContactSelector extends StatefulWidget {
   final ScrollController scrollController;
@@ -29,7 +31,8 @@ class _ContactSelectorState extends State<ContactSelector> {
     contactsSearchController.addListener(() async {
       String text = contactsSearchController.text;
       print(text);
-      Iterable<Contact> itContacts = await ContactsService.getContacts(query: text);
+      Iterable<Contact> itContacts =
+          await ContactsService.getContacts(query: text);
       List<Contact> contacts = itContacts.toList();
       print("Result" + contacts.first.displayName);
       addContactsToStream(contacts);
@@ -183,7 +186,18 @@ class _ContactSelectorState extends State<ContactSelector> {
                           Text(
                             contact.displayName,
                             style: Theme.of(context).textTheme.headline3,
-                          )
+                          ),
+                          Expanded(
+                            child: Container(),
+                          ),
+                          CupertinoButton(
+                              color: Theme.of(context).accentColor,
+                              minSize: 20,
+                              padding: EdgeInsets.all(10),
+                              child: Icon(CupertinoIcons.check_mark_circled),
+                              onPressed: () {
+                                Provider.of<PanelController>(context, listen: false).close();
+                              })
                         ],
                       ),
                     );
