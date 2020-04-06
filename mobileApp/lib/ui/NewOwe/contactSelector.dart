@@ -156,7 +156,8 @@ class _ContactSelectorState extends State<ContactSelector> {
             ),
           ),
           ListView.builder(
-              itemCount: Provider.of<Iterable<Contact>>(context).length,
+              itemCount:
+                  Provider.of<Iterable<Contact>>(context).length.clamp(0, 20),
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
