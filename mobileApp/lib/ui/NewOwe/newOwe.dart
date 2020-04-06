@@ -80,13 +80,7 @@ class NewOwe extends StatelessWidget {
                 padding: EdgeInsets.all(15),
                 children: <Widget>[
                   Container(),
-                  Text(
-                    "Title",
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(78, 80, 88, 1)),
-                  ),
+                  Text("Title", style: Theme.of(context).textTheme.headline3),
                   TextField(
                     controller: titleController,
                     cursorColor: Theme.of(context).accentColor,
@@ -98,23 +92,15 @@ class NewOwe extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    "Select Person",
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(78, 80, 88, 1)),
-                  ),
+                  Text("Select Person",
+                      style: Theme.of(context).textTheme.headline3),
                   PeopleList(),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
                     "How much money did you lend?",
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(78, 80, 88, 1)),
+                    style: Theme.of(context).textTheme.headline3,
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.max,

@@ -17,13 +17,7 @@ class OweMeSection extends StatelessWidget {
               top: 0,
               child: Row(
                 children: <Widget>[
-                  Text(
-                    "Owe Me",
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(78, 80, 88, 1)),
-                  ),
+                  Text("Owe Me", style: Theme.of(context).textTheme.headline3),
                   Icon(
                     Icons.keyboard_arrow_right,
                     color: Color.fromRGBO(78, 80, 88, 1),

@@ -82,8 +82,7 @@ class PeopleList extends StatelessWidget {
                             Text(
                               people.elementAt(index),
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w600),
+                              style: Theme.of(context).textTheme.headline3
                             ),
                           ],
                         ),

@@ -18,10 +18,7 @@ class IOweSection extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     "I Owe",
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(78, 80, 88, 1)),
+                    style: Theme.of(context).textTheme.headline3
                   ),
                   Icon(
                     Icons.keyboard_arrow_right,

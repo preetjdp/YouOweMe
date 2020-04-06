@@ -20,13 +20,8 @@ class ContactSelector extends StatelessWidget {
         controller: scrollController,
         physics: scrollPhysics,
         children: <Widget>[
-          Text(
-            "Enter a mobile number",
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Color.fromRGBO(78, 80, 88, 1)),
-          ),
+          Text("Enter a mobile number",
+              style: Theme.of(context).textTheme.headline3),
           Row(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,13 +62,8 @@ class ContactSelector extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          Text(
-            "Select Contact From Device",
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Color.fromRGBO(78, 80, 88, 1)),
-          ),
+          Text("Select Contact From Device",
+              style: Theme.of(context).textTheme.headline3),
           SizedBox(
             height: 10,
           ),
@@ -138,10 +128,7 @@ class ContactSelector extends StatelessWidget {
                           ),
                           Text(
                             contact.displayName,
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromRGBO(78, 80, 88, 1)),
+                            style: Theme.of(context).textTheme.headline3,
                           )
                         ],
                       ),
