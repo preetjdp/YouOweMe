@@ -27,7 +27,7 @@ class _ContactSelectorState extends State<ContactSelector> {
   @override
   void initState() {
     super.initState();
-    addInitialContactsToStream();
+    // addInitialContactsToStream();
     contactsSearchController.addListener(() async {
       String text = contactsSearchController.text;
       print(text);
@@ -43,11 +43,6 @@ class _ContactSelectorState extends State<ContactSelector> {
   void dispose() {
     contactsSubject.close();
     super.dispose();
-  }
-
-  void addInitialContactsToStream() async {
-    List<Contact> contacts = await getContacts();
-    addContactsToStream(contacts);
   }
 
   Future<List<Contact>> getContacts({String query}) async {
@@ -73,6 +68,11 @@ class _ContactSelectorState extends State<ContactSelector> {
 
   @override
   Widget build(BuildContext context) {
+    // void addInitialContactsToStream() async {
+    //   List<Contact> contacts = Provider.of<List<Contact>>(context);
+    //   addContactsToStream(contacts);
+    // }
+
     return Container(
       child: ListView(
         controller: widget.scrollController,
@@ -152,58 +152,61 @@ class _ContactSelectorState extends State<ContactSelector> {
               ),
             ),
           ),
-          StreamBuilder(
-            // future: ContactsService.getContacts(withThumbnails: false),
-            stream: contactsSubject.stream,
-            builder:
-                (BuildContext context, AsyncSnapshot<List<Contact>> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting)
-                return YOMSpinner();
-              return ListView.builder(
-                  itemCount: snapshot.data.length,
-                  physics: ClampingScrollPhysics(parent: scrollPhysics),
-                  addAutomaticKeepAlives: true,
-                  cacheExtent: 5000,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    Contact contact = snapshot.data.elementAt(index);
-                    return Container(
-                      margin: EdgeInsets.only(top: 10),
-                      height: 50,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          YomAvatar(
-                            text: contact.displayName
-                                .split(" ")
-                                .map((e) => e[0])
-                                .take(2)
-                                .join(),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            contact.displayName,
-                            style: Theme.of(context).textTheme.headline3,
-                          ),
-                          Expanded(
-                            child: Container(),
-                          ),
-                          CupertinoButton(
-                              color: Theme.of(context).accentColor,
-                              minSize: 20,
-                              padding: EdgeInsets.all(10),
-                              child: Icon(CupertinoIcons.check_mark_circled),
-                              onPressed: () {
-                                Provider.of<PanelController>(context, listen: false).close();
-                              })
-                        ],
+          ListView.builder(
+              itemCount: Provider.of<Iterable<Contact>>(context).length,
+              physics: ClampingScrollPhysics(parent: scrollPhysics),
+              addAutomaticKeepAlives: true,
+              cacheExtent: 5000,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                Contact contact =
+                    Provider.of<Iterable<Contact>>(context).elementAt(index);
+                return Container(
+                  margin: EdgeInsets.only(top: 10),
+                  height: 50,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      YomAvatar(
+                        text: contact.displayName
+                            .split(" ")
+                            .map((e) => e[0])
+                            .take(2)
+                            .join(),
                       ),
-                    );
-                  });
-            },
-          ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        contact.displayName,
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
+                      Expanded(
+                        child: Container(),
+                      ),
+                      CupertinoButton(
+                          color: Theme.of(context).accentColor,
+                          minSize: 20,
+                          padding: EdgeInsets.all(10),
+                          child: Icon(CupertinoIcons.check_mark_circled),
+                          onPressed: () {
+                            Provider.of<PanelController>(context, listen: false)
+                                .close();
+                          })
+                    ],
+                  ),
+                );
+              }),
+          // StreamBuilder(
+          //   // future: ContactsService.getContacts(withThumbnails: false),
+          //   stream: contactsSubject.stream,
+          //   builder:
+          //       (BuildContext context, AsyncSnapshot<List<Contact>> snapshot) {
+          //     if (snapshot.connectionState == ConnectionState.waiting)
+          //       return YOMSpinner();
+          //     return
+          //   },
+          // ),
         ],
       ),
     );

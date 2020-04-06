@@ -1,5 +1,6 @@
 import 'package:YouOweMe/resources/databaseService.dart';
 import 'package:YouOweMe/resources/meNotifier.dart';
+import 'package:contacts_service/contacts_service.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -31,6 +32,10 @@ class Intermediate extends StatelessWidget {
             ChangeNotifierProvider<MeNotifier>(
               create: (BuildContext context) => MeNotifier(context),
               lazy: false,
+            ),
+            FutureProvider<Iterable<Contact>>.value(
+              value: ContactsService.getContacts(),
+              initialData: [],
             )
           ],
           child: MyApp(),

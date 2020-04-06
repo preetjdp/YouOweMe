@@ -79,11 +79,9 @@ class PeopleList extends StatelessWidget {
                             SizedBox(
                               height: 40,
                             ),
-                            Text(
-                              people.elementAt(index),
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.headline3
-                            ),
+                            Text(people.elementAt(index),
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.headline3),
                           ],
                         ),
                       ),
