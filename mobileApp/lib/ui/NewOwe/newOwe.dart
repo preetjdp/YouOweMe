@@ -11,10 +11,18 @@ import 'package:YouOweMe/ui/NewOwe/peopleList.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-class NewOwe extends StatelessWidget {
+class NewOwe extends StatefulWidget {
+  @override
+  _NewOweState createState() => _NewOweState();
+}
+
+class _NewOweState extends State<NewOwe> {
   final TextEditingController titleController = TextEditingController();
+
   final TextEditingController amountController = TextEditingController();
+
   final PanelController panelController = PanelController();
+
   final StreamController<Contact> selectedContactController =
       StreamController();
 
