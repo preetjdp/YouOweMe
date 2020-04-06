@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:contacts_service/contacts_service.dart';
@@ -68,10 +70,11 @@ class _ContactSelectorState extends State<ContactSelector> {
 
   @override
   Widget build(BuildContext context) {
-    // void addInitialContactsToStream() async {
-    //   List<Contact> contacts = Provider.of<List<Contact>>(context);
-    //   addContactsToStream(contacts);
-    // }
+    void selectContact(Contact contact) {
+      Provider.of<PanelController>(context, listen: false).close();
+      Provider.of<StreamController<Contact>>(context, listen: false)
+          .add(contact);
+    }
 
     return Container(
       child: ListView(
@@ -154,9 +157,7 @@ class _ContactSelectorState extends State<ContactSelector> {
           ),
           ListView.builder(
               itemCount: Provider.of<Iterable<Contact>>(context).length,
-              physics: ClampingScrollPhysics(parent: scrollPhysics),
-              addAutomaticKeepAlives: true,
-              cacheExtent: 5000,
+              physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
                 Contact contact =
@@ -189,10 +190,7 @@ class _ContactSelectorState extends State<ContactSelector> {
                           minSize: 20,
                           padding: EdgeInsets.all(10),
                           child: Icon(CupertinoIcons.check_mark_circled),
-                          onPressed: () {
-                            Provider.of<PanelController>(context, listen: false)
-                                .close();
-                          })
+                          onPressed: () => selectContact(contact))
                     ],
                   ),
                 );
