@@ -1,5 +1,5 @@
 import { InputType, Field } from "type-graphql";
-import {Length, IsInt} from "class-validator"
+import { Length, IsInt, IsPhoneNumber } from "class-validator"
 
 @InputType()
 export class NewOweInputType {
@@ -11,6 +11,14 @@ export class NewOweInputType {
     @IsInt()
     amount: number
 
-    @Field()
+    @Field({ nullable: true })
     issuedToID: string
+
+    @IsPhoneNumber("IN")
+    @Field({
+        nullable: true,
+        description: "The mobile number has to be of type string and in such a format `+919594128425` "
+    }
+    )
+    mobileNo: string
 }

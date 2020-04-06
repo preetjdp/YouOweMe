@@ -3,7 +3,7 @@ import { Owe } from "../../models/Owe";
 import { ApplicationContext } from "../../utils/appContext";
 import { firestore } from "../../db/firebase";
 import { NewOweInputType } from "./newOwe/newOweInputType";
-import { Timestamp } from "@google-cloud/firestore"
+import { Timestamp, DocumentReference } from "@google-cloud/firestore"
 import { User } from "../../models/User";
 
 import { UserResolver } from "../User/UserResolver"
@@ -21,20 +21,29 @@ export class NewOweResolver {
         {
             title,
             amount,
-            issuedToID
+            issuedToID,
+            mobileNo
         }: NewOweInputType,
         @Ctx() context: ApplicationContext) {
+        console.log(mobileNo)
         const userId = context.req.headers.authorization!
         const userRef = firestore.collection('users').doc(userId)
         const userSnapshot = await userRef.get()
         //Throw error when IssuedToID === context user ID
-        if(issuedToID == userId) {
+        if (issuedToID && issuedToID == userId) {
             throw new Error("Can't Lend yourself money")
         }
         if (!userSnapshot.exists) {
             throw Error("User Not Present")
         }
-        const issuedToRef = firestore.collection('users').doc(issuedToID)
+        let issuedToRef;
+        if (issuedToID) {
+            issuedToRef = firestore.collection('users').doc(issuedToID)
+        } else if (mobileNo) {
+            issuedToRef = await getUserRefFromMobileNo(mobileNo)
+        } else {
+            throw new Error("Either mobileNo or issuedToID is required")
+        }
         const owe = {
             title: title,
             amount: amount,
@@ -45,4 +54,24 @@ export class NewOweResolver {
         const oweResponse = await new OweResolver().getOweFromRef(oweRef)
         return oweResponse
     }
+}
+
+/*
+The Logic for this function is as:
+1. Query for the user in Firestore.
+2. If user exists return his ref.
+3. If the User does not exist, create an Anonymuous User in Firebase Auth
+    and return that ref. ==> As a side effect of this, this Anonymus User's Document should be 
+    created with 
+    //TODO think this out.
+*/
+
+const getUserRefFromMobileNo = async (mobileNo: string): Promise<DocumentReference> => {
+    const query = firestore.collection('users').where("mobile_no", "==", mobileNo);
+    const users = await query.get()
+    if (users.empty) {
+
+    }
+    const userRef = users.docs[0].ref
+    return userRef
 }
