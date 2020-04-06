@@ -4,11 +4,66 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:rxdart/rxdart.dart';
 
-class ContactSelector extends StatelessWidget {
+class ContactSelector extends StatefulWidget {
   final ScrollController scrollController;
-  final ScrollPhysics scrollPhysics = BouncingScrollPhysics();
+
   ContactSelector({@required this.scrollController});
+
+  @override
+  _ContactSelectorState createState() => _ContactSelectorState();
+}
+
+class _ContactSelectorState extends State<ContactSelector> {
+  final ScrollPhysics scrollPhysics = BouncingScrollPhysics();
+  final TextEditingController contactsSearchController =
+      TextEditingController();
+  final BehaviorSubject<List<Contact>> contactsSubject =
+      BehaviorSubject.seeded([]);
+
+  @override
+  void initState() {
+    super.initState();
+    addInitialContactsToStream();
+    contactsSearchController.addListener(() async {
+      String text = contactsSearchController.text;
+      print(text);
+      Iterable<Contact> itContacts = await ContactsService.getContacts(query: text);
+      List<Contact> contacts = itContacts.toList();
+      print("Result" + contacts.first.displayName);
+      addContactsToStream(contacts);
+    });
+  }
+
+  @override
+  void dispose() {
+    contactsSubject.close();
+    super.dispose();
+  }
+
+  void addInitialContactsToStream() async {
+    List<Contact> contacts = await getContacts();
+    addContactsToStream(contacts);
+  }
+
+  Future<List<Contact>> getContacts({String query}) async {
+    Iterable<Contact> itContacts;
+    if (query == null) {
+      itContacts = await ContactsService.getContacts(query: query);
+    } else {
+      itContacts = await ContactsService.getContacts();
+    }
+
+    List<Contact> contacts = itContacts.toList();
+    print(itContacts.first.displayName);
+    return contacts;
+  }
+
+  void addContactsToStream(List<Contact> contacts) {
+    contactsSubject.add(contacts);
+  }
+
   void requestContactPermission() {
     Permission.contacts.request();
   }
@@ -17,7 +72,7 @@ class ContactSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: ListView(
-        controller: scrollController,
+        controller: widget.scrollController,
         physics: scrollPhysics,
         children: <Widget>[
           Text("Enter a mobile number",
@@ -73,6 +128,7 @@ class ContactSelector extends StatelessWidget {
               constraints: BoxConstraints(maxWidth: 350),
               child: TextField(
                 textInputAction: TextInputAction.search,
+                controller: contactsSearchController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Theme.of(context).scaffoldBackgroundColor,
@@ -93,16 +149,15 @@ class ContactSelector extends StatelessWidget {
               ),
             ),
           ),
-          FutureBuilder(
-            future: ContactsService.getContacts(withThumbnails: false),
-            builder: (BuildContext context,
-                AsyncSnapshot<Iterable<Contact>> snapshot) {
-              print(snapshot.data.first.displayName);
-              // if (snapshot.connectionState == ConnectionState.waiting)
-              // return YOMSpinner();
+          StreamBuilder(
+            // future: ContactsService.getContacts(withThumbnails: false),
+            stream: contactsSubject.stream,
+            builder:
+                (BuildContext context, AsyncSnapshot<List<Contact>> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting)
+                return YOMSpinner();
               return ListView.builder(
-                  itemCount: 20,
-                  // controller: scrollController,
+                  itemCount: snapshot.data.length,
                   physics: ClampingScrollPhysics(parent: scrollPhysics),
                   addAutomaticKeepAlives: true,
                   cacheExtent: 5000,
@@ -119,8 +174,7 @@ class ContactSelector extends StatelessWidget {
                             text: contact.displayName
                                 .split(" ")
                                 .map((e) => e[0])
-                                .toList()
-                                .sublist(0, 2)
+                                .take(2)
                                 .join(),
                           ),
                           SizedBox(
@@ -134,17 +188,6 @@ class ContactSelector extends StatelessWidget {
                       ),
                     );
                   });
-
-              // return ListView.builder(
-              //   itemCount: snapshot.data.length,
-              //   itemBuilder: (BuildContext context, int index) {
-              //     Contact contact = snapshot.data.elementAt(index);
-              //     return Container(
-              //         height: 500,
-              //         color: Colors.redAccent,
-              //         child: Text("HEllo"));
-              //   },
-              // );
             },
           ),
         ],
