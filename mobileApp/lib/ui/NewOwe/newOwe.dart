@@ -24,7 +24,7 @@ class _NewOweState extends State<NewOwe> {
   final PanelController panelController = PanelController();
 
   final StreamController<Contact> selectedContactController =
-      StreamController();
+      StreamController.broadcast();
 
   @override
   Widget build(BuildContext context) {
@@ -121,11 +121,20 @@ class _NewOweState extends State<NewOwe> {
                     ),
                     StreamBuilder(
                       stream: selectedContactController.stream,
+                      builder: (BuildContext context, snapshot) {
+                        if (!snapshot.hasData) return Container();
+                        return Text(
+                          "Selected Person",
+                          style: Theme.of(context).textTheme.headline3,
+                        );
+                      },
+                    ),
+                    StreamBuilder(
+                      stream: selectedContactController.stream,
                       builder: (BuildContext context,
                           AsyncSnapshot<Contact> snapshot) {
                         if (!snapshot.hasData) return Container();
                         return Container(
-                          margin: EdgeInsets.only(top: 10),
                           height: 50,
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
