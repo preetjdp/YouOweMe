@@ -21,6 +21,8 @@ dependencies:
   equatable: ^1.1.1
   meta: ^1.1.8
   sliding_up_panel: ^1.0.1
+  contacts_service: ^0.3.10
+  permission_handler: ^5.0.0+hotfix.3
 
 dev_dependencies:
   artemis:
