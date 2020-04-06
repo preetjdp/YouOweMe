@@ -24,20 +24,21 @@ class _ContactSelectorState extends State<ContactSelector> {
       TextEditingController();
   final BehaviorSubject<List<Contact>> contactsSubject =
       BehaviorSubject.seeded([]);
+  final TextEditingController mobileNoController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     // addInitialContactsToStream();
-    contactsSearchController.addListener(() async {
-      String text = contactsSearchController.text;
-      print(text);
-      Iterable<Contact> itContacts =
-          await ContactsService.getContacts(query: text);
-      List<Contact> contacts = itContacts.toList();
-      print("Result" + contacts.first.displayName);
-      addContactsToStream(contacts);
-    });
+    // contactsSearchController.addListener(() async {
+    //   String text = contactsSearchController.text;
+    //   print(text);
+    //   Iterable<Contact> itContacts =
+    //       await ContactsService.getContacts(query: text);
+    //   List<Contact> contacts = itContacts.toList();
+    //   print("Result" + contacts.first.displayName);
+    //   addContactsToStream(contacts);
+    // });
   }
 
   @override
@@ -75,6 +76,12 @@ class _ContactSelectorState extends State<ContactSelector> {
           .add(contact);
     }
 
+    void onMobileNumberTextFieldSubmit() {
+      print("DGyudbi");
+      Contact contact = Contact(phones: [Item(value: mobileNoController.text)]);
+      selectContact(contact);
+    }
+
     return Container(
       child: ListView(
         controller: widget.scrollController,
@@ -96,6 +103,7 @@ class _ContactSelectorState extends State<ContactSelector> {
               Expanded(
                 child: TextField(
                     cursorColor: Theme.of(context).accentColor,
+                    onSubmitted: (a) => onMobileNumberTextFieldSubmit,
                     decoration: InputDecoration(
                       hintText: "00",
                       border: InputBorder.none,
