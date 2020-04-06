@@ -25,7 +25,7 @@ class YomAvatar extends StatelessWidget {
           ],
         ),
       ),
-      margin: const EdgeInsets.only(left: 8.0, bottom: 8.0),
+      margin: const EdgeInsets.only(left: 8.0),
       padding: const EdgeInsets.all(12.0),
       child: Text(
         text,
