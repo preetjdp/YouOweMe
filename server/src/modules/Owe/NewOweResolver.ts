@@ -70,7 +70,7 @@ const getUserRefFromMobileNo = async (mobileNo: string): Promise<DocumentReferen
     const query = firestore.collection('users').where("mobile_no", "==", mobileNo);
     const users = await query.get()
     if (users.empty) {
-
+        throw new Error(`Can't Find user with mobile_no ${mobileNo}`)
     }
     const userRef = users.docs[0].ref
     return userRef
