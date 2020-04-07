@@ -77,7 +77,6 @@ class _ContactSelectorState extends State<ContactSelector> {
     }
 
     void onMobileNumberTextFieldSubmit() {
-      print("DGyudbi");
       Contact contact = Contact(phones: [Item(value: mobileNoController.text)]);
       selectContact(contact);
     }
@@ -91,7 +90,7 @@ class _ContactSelectorState extends State<ContactSelector> {
               style: Theme.of(context).textTheme.headline3),
           Row(
             mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
                 "+91",
@@ -104,6 +103,7 @@ class _ContactSelectorState extends State<ContactSelector> {
                 child: TextField(
                     cursorColor: Theme.of(context).accentColor,
                     onSubmitted: (a) => onMobileNumberTextFieldSubmit,
+                    controller: mobileNoController,
                     decoration: InputDecoration(
                       hintText: "00",
                       border: InputBorder.none,
@@ -114,6 +114,12 @@ class _ContactSelectorState extends State<ContactSelector> {
                     keyboardType: TextInputType.numberWithOptions(
                         decimal: false, signed: false)),
               ),
+              CupertinoButton(
+                  color: Theme.of(context).accentColor,
+                  minSize: 20,
+                  padding: EdgeInsets.all(10),
+                  child: Icon(CupertinoIcons.check_mark_circled),
+                  onPressed: onMobileNumberTextFieldSubmit)
             ],
           ),
           Center(

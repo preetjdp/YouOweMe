@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "401368738928",
+    "firebase_url": "https://youoweme-6c622.firebaseio.com",
+    "project_id": "youoweme-6c622",
+    "storage_bucket": "youoweme-6c622.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401368738928:android:547df5812c0305cc0958b5",
+        "android_client_info": {
+          "package_name": "dev.preetjdp.youoweme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "401368738928-e11u3pg7v2ngrv7fvo3m242361ih5n8v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWK6dGIPu0CVrm96T4eOsFLH2mgJt4Uf0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "401368738928-e11u3pg7v2ngrv7fvo3m242361ih5n8v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
