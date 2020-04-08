@@ -27,28 +27,26 @@ class Intermediate extends StatelessWidget {
   final DatabaseService databaseService = DatabaseService();
   @override
   Widget build(BuildContext context) {
-    return GraphQLProvider(
-        client: configureGraphQL(),
-        child: MultiProvider(
-          providers: [
-            ChangeNotifierProvider<MeNotifier>(
-              create: (BuildContext context) => MeNotifier(context),
-              lazy: false,
-            ),
-            FutureProvider<Iterable<Contact>>(
-              create: (a) => ContactsService.getContacts(withThumbnails: false),
-              lazy: false,
-              initialData: [],
-            ),
-            ChangeNotifierProxyProvider<Iterable<Contact>,
-                ContactProxyNotifier>(
-              create: (BuildContext context) => ContactProxyNotifier(),
-              update: (BuildContext context, a, b) => b..update(a),
-              lazy: false,
-            )
-          ],
-          child: MyApp(),
-        ));
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<MeNotifier>(
+          create: (BuildContext context) => MeNotifier(context),
+          lazy: false,
+        ),
+        FutureProvider<Iterable<Contact>>(
+          create: (a) => ContactsService.getContacts(withThumbnails: false),
+          lazy: false,
+          initialData: [],
+        ),
+        ChangeNotifierProxyProvider<Iterable<Contact>,
+            ContactProxyNotifier>(
+          create: (BuildContext context) => ContactProxyNotifier(),
+          update: (BuildContext context, a, b) => b..update(a),
+          lazy: false,
+        )
+      ],
+      child: MyApp(),
+    );
   }
 }
 
