@@ -26,11 +26,25 @@ class _NewOweState extends State<NewOwe> {
   final StreamController<Contact> selectedContactController =
       StreamController.broadcast();
 
+  final _formKey = GlobalKey<FormState>();
+
+  String titleValidator(String text) {
+    if (text.length == 0) {
+      return "Enter a valid text";
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     TargetPlatform platform = Theme.of(context).platform;
     void addNewOwe() {
-      final newOweMutation = '''
+      try {
+        bool isValidated = _formKey.currentState.validate();
+        if (!isValidated) {
+          throw ("Not Validatd");
+        }
+        final newOweMutation = '''
         mutation {
           newOwe(data: {
             title: "${titleController.text}",
@@ -44,11 +58,12 @@ class _NewOweState extends State<NewOwe> {
           }
         }
       ''';
-      GraphQLProvider.of(context).value.mutate(MutationOptions(
-          documentNode: gql(newOweMutation),
-          onCompleted: (a) {
-            Navigator.pop(context);
-          }));
+        GraphQLProvider.of(context).value.mutate(MutationOptions(
+            documentNode: gql(newOweMutation),
+            onCompleted: (a) {
+              Navigator.pop(context);
+            }));
+      } catch (e) {}
     }
 
     Future<bool> onWilPopScope() async {
@@ -97,116 +112,122 @@ class _NewOweState extends State<NewOwe> {
                 panelBuilder: (ScrollController sc) => ContactSelector(
                   scrollController: sc,
                 ),
-                body: ListView(
-                  padding: EdgeInsets.all(15),
-                  children: <Widget>[
-                    Container(),
-                    Text("Title", style: Theme.of(context).textTheme.headline3),
-                    TextField(
-                      controller: titleController,
-                      cursorColor: Theme.of(context).accentColor,
-                      decoration: InputDecoration.collapsed(
-                        hintText: "Enter the reasoning behind this transaction",
+                body: Form(
+                  key: _formKey,
+                  child: ListView(
+                    padding: EdgeInsets.all(15),
+                    children: <Widget>[
+                      Container(),
+                      Text("Title",
+                          style: Theme.of(context).textTheme.headline3),
+                      TextFormField(
+                        controller: titleController,
+                        validator: titleValidator,
+                        cursorColor: Theme.of(context).accentColor,
+                        decoration: InputDecoration.collapsed(
+                          hintText:
+                              "Enter the reasoning behind this transaction",
+                        ),
+                        maxLines: 2,
                       ),
-                      maxLines: 2,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text("Select Person",
-                        style: Theme.of(context).textTheme.headline3),
-                    PeopleList(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    StreamBuilder(
-                      stream: selectedContactController.stream,
-                      builder: (BuildContext context, snapshot) {
-                        if (!snapshot.hasData) return Container();
-                        return Text(
-                          "Selected Person",
-                          style: Theme.of(context).textTheme.headline3,
-                        );
-                      },
-                    ),
-                    StreamBuilder(
-                      stream: selectedContactController.stream,
-                      builder: (BuildContext context,
-                          AsyncSnapshot<Contact> snapshot) {
-                        if (!snapshot.hasData) return Container();
-                        return Container(
-                          height: 50,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              YomAvatar(
-                                text: snapshot.data.displayName
-                                    .split(" ")
-                                    .map((e) => e[0])
-                                    .take(2)
-                                    .join(),
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                snapshot.data.displayName,
-                                style: Theme.of(context).textTheme.headline3,
-                              ),
-                              Expanded(
-                                child: Container(),
-                              ),
-                            ],
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text("Select Person",
+                          style: Theme.of(context).textTheme.headline3),
+                      PeopleList(),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      StreamBuilder(
+                        stream: selectedContactController.stream,
+                        builder: (BuildContext context, snapshot) {
+                          if (!snapshot.hasData) return Container();
+                          return Text(
+                            "Selected Person",
+                            style: Theme.of(context).textTheme.headline3,
+                          );
+                        },
+                      ),
+                      StreamBuilder(
+                        stream: selectedContactController.stream,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<Contact> snapshot) {
+                          if (!snapshot.hasData) return Container();
+                          return Container(
+                            height: 50,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                YomAvatar(
+                                  text: snapshot.data.displayName
+                                      .split(" ")
+                                      .map((e) => e[0])
+                                      .take(2)
+                                      .join(),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Text(
+                                  snapshot.data.displayName,
+                                  style: Theme.of(context).textTheme.headline3,
+                                ),
+                                Expanded(
+                                  child: Container(),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                      Text(
+                        "How much money did you lend?",
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            "₹",
+                            style: TextStyle(
+                                fontSize: 100,
+                                fontWeight: FontWeight.w800,
+                                color: Theme.of(context).accentColor),
                           ),
-                        );
-                      },
-                    ),
-                    Text(
-                      "How much money did you lend?",
-                      style: Theme.of(context).textTheme.headline3,
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          "₹",
-                          style: TextStyle(
-                              fontSize: 100,
-                              fontWeight: FontWeight.w800,
-                              color: Theme.of(context).accentColor),
-                        ),
-                        Expanded(
-                          child: TextField(
-                              controller: amountController,
-                              cursorColor: Theme.of(context).accentColor,
-                              decoration: InputDecoration(
-                                hintText: "00",
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.all(0),
-                              ),
-                              style: TextStyle(
-                                  fontSize: 100,
-                                  fontWeight: FontWeight.w800,
-                                  color: Theme.of(context).accentColor),
-                              keyboardType: TextInputType.numberWithOptions(
-                                  decimal: false, signed: false)),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    if (platform == TargetPlatform.iOS)
-                      Container(
-                        height: 60,
-                        width: 400,
-                        child: CupertinoButton.filled(
-                            disabledColor: Theme.of(context).accentColor,
-                            child: Text('Done'),
-                            onPressed: addNewOwe),
-                      )
-                  ],
+                          Expanded(
+                            child: TextField(
+                                controller: amountController,
+                                cursorColor: Theme.of(context).accentColor,
+                                decoration: InputDecoration(
+                                  hintText: "00",
+                                  border: InputBorder.none,
+                                  contentPadding: EdgeInsets.all(0),
+                                ),
+                                style: TextStyle(
+                                    fontSize: 100,
+                                    fontWeight: FontWeight.w800,
+                                    color: Theme.of(context).accentColor),
+                                keyboardType: TextInputType.numberWithOptions(
+                                    decimal: false, signed: false)),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      if (platform == TargetPlatform.iOS)
+                        Container(
+                          height: 60,
+                          width: 400,
+                          child: CupertinoButton.filled(
+                              disabledColor: Theme.of(context).accentColor,
+                              child: Text('Done'),
+                              onPressed: addNewOwe),
+                        )
+                    ],
+                  ),
                 ),
               ),
             ),
