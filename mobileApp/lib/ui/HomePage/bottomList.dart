@@ -1,7 +1,6 @@
 import 'package:YouOweMe/resources/graphql/seva.dart';
-import 'package:YouOweMe/resources/meNotifier.dart';
+import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
-import 'package:YouOweMe/ui/NewOwe/peopleList.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

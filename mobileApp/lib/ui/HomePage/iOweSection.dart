@@ -1,4 +1,4 @@
-import 'package:YouOweMe/resources/meNotifier.dart';
+import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,10 +16,7 @@ class IOweSection extends StatelessWidget {
               top: 0,
               child: Row(
                 children: <Widget>[
-                  Text(
-                    "I Owe",
-                    style: Theme.of(context).textTheme.headline3
-                  ),
+                  Text("I Owe", style: Theme.of(context).textTheme.headline3),
                   Icon(
                     Icons.keyboard_arrow_right,
                     color: Color.fromRGBO(78, 80, 88, 1),

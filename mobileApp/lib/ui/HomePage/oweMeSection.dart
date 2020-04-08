@@ -1,4 +1,4 @@
-import 'package:YouOweMe/resources/meNotifier.dart';
+import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';

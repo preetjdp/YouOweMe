@@ -1,4 +1,4 @@
-import 'package:YouOweMe/resources/meNotifier.dart';
+import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/HomePage/iOweSection.dart';
 import 'package:YouOweMe/ui/HomePage/oweMeSection.dart';
 import 'package:flutter/cupertino.dart';

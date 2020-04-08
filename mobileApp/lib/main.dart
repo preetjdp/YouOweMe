@@ -1,5 +1,6 @@
 import 'package:YouOweMe/resources/databaseService.dart';
-import 'package:YouOweMe/resources/meNotifier.dart';
+import 'package:YouOweMe/resources/notifiers/contactProxyNotifier.dart';
+import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';
@@ -37,6 +38,12 @@ class Intermediate extends StatelessWidget {
               create: (a) => ContactsService.getContacts(withThumbnails: false),
               lazy: false,
               initialData: [],
+            ),
+            ChangeNotifierProxyProvider<Iterable<Contact>,
+                ContactProxyNotifier>(
+              create: (BuildContext context) => ContactProxyNotifier(),
+              update: (BuildContext context, a, b) => b..update(a),
+              lazy: false,
             )
           ],
           child: MyApp(),
