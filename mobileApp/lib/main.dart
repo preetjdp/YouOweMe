@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 
 import 'package:YouOweMe/resources/helpers.dart';
 import 'package:YouOweMe/ui/HomePage/homePage.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 
 void main() {
