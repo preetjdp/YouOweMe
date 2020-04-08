@@ -5,7 +5,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 class MeNotifier extends ChangeNotifier {
   static HttpLink httpLink = HttpLink(
-      uri: 'http://192.168.31.76:4000/',
+      uri: 'https://youoweme-6c622.appspot.com/',
       headers: {"authorization": "f9fc7B6wvIsU62LuDNVv"});
   final GraphQLClient graphQLClient = GraphQLClient(
     cache: InMemoryCache(),
