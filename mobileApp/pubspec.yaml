@@ -24,6 +24,7 @@ dependencies:
   sliding_up_panel: ^1.0.1
   contacts_service: ^0.3.10
   permission_handler: ^5.0.0+hotfix.3
+  fuzzy: ^0.2.3
 
 dev_dependencies:
   artemis:
