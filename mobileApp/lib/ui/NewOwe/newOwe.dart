@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:YouOweMe/ui/NewOwe/contactSelector.dart';
 import 'package:contacts_service/contacts_service.dart';
@@ -9,6 +10,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 import 'package:YouOweMe/ui/NewOwe/peopleList.dart';
 import 'package:provider/provider.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class NewOwe extends StatefulWidget {
@@ -23,8 +25,7 @@ class _NewOweState extends State<NewOwe> {
 
   final PanelController panelController = PanelController();
 
-  final StreamController<Contact> selectedContactController =
-      StreamController.broadcast();
+  final BehaviorSubject<Contact> selectedContactController = BehaviorSubject();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -45,24 +46,32 @@ class _NewOweState extends State<NewOwe> {
           throw ("Not Validatd");
         }
         final newOweMutation = '''
-        mutation {
-          newOwe(data: {
-            title: "${titleController.text}",
-            amount: ${int.parse(amountController.text)},
-            issuedToID: "Ei66LhElIZ3eEQeqGBIp"
-          }) {
+        mutation (\$input :  NewOweInputType!) {
+          newOwe(data: \$input) {
             id
-            issuedBy {
-              name
-            }
+            title
           }
         }
       ''';
-        GraphQLProvider.of(context).value.mutate(MutationOptions(
-            documentNode: gql(newOweMutation),
-            onCompleted: (a) {
-              Navigator.pop(context);
-            }));
+        Provider.of<MeNotifier>(context, listen: false)
+            .graphQLClient
+            .mutate(MutationOptions(
+                documentNode: gql(newOweMutation),
+                variables: {
+                  "input": {
+                    "title": titleController.text,
+                    "amount": int.parse(amountController.text),
+                    "mobileNo":
+                        selectedContactController.value.phones.first.value
+                  }
+                },
+                onError: (e) {
+                  print(e);
+                },
+                onCompleted: (a) {
+                  Provider.of<MeNotifier>(context, listen: false).refresh();
+                  Navigator.pop(context);
+                }));
       } catch (e) {}
     }
 
@@ -80,7 +89,7 @@ class _NewOweState extends State<NewOwe> {
     // }
     return MultiProvider(
       providers: [
-        Provider.value(
+        Provider<BehaviorSubject<Contact>>.value(
           value: selectedContactController,
         ),
         Provider.value(value: panelController)
