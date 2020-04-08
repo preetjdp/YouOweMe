@@ -13,6 +13,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  Provider.debugCheckInvalidValueType = null;
   if (!kReleaseMode) {
     runApp(DevicePreview(
       builder: (BuildContext context) => Intermediate(),

@@ -6,6 +6,7 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class ContactSelector extends StatefulWidget {
@@ -25,7 +26,7 @@ class _ContactSelectorState extends State<ContactSelector> {
   Widget build(BuildContext context) {
     void selectContact(Contact contact) {
       Provider.of<PanelController>(context, listen: false).close();
-      Provider.of<StreamController<Contact>>(context, listen: false)
+      Provider.of<BehaviorSubject<Contact>>(context, listen: false)
           .add(contact);
     }
 
@@ -132,7 +133,7 @@ class ContactsList extends StatelessWidget {
   Widget build(BuildContext context) {
     void selectContact(Contact contact) {
       Provider.of<PanelController>(context, listen: false).close();
-      Provider.of<StreamController<Contact>>(context, listen: false)
+      Provider.of<BehaviorSubject<Contact>>(context, listen: false)
           .add(contact);
     }
 
