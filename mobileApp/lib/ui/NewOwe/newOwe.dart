@@ -57,6 +57,13 @@ class _NewOweState extends State<NewOwe> {
           }
         }
       ''';
+        String mobileNo = selectedContactController.value.phones.first.value
+            .replaceAll(' ', '');
+        if (!mobileNo.startsWith('+91')) {
+          mobileNo = '91' + mobileNo;
+        }
+        print(selectedContactController.value.phones.first.value
+            .replaceAll(' ', ''));
         Provider.of<MeNotifier>(context, listen: false)
             .graphQLClient
             .mutate(MutationOptions(
@@ -65,8 +72,8 @@ class _NewOweState extends State<NewOwe> {
                   "input": {
                     "title": titleController.text,
                     "amount": int.parse(amountController.text),
-                    "mobileNo":
-                        selectedContactController.value.phones.first.value
+                    "mobileNo": mobileNo,
+                    "displayName": selectedContactController.value.displayName
                   }
                 },
                 onError: (e) {
