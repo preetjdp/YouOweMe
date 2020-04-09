@@ -1,7 +1,7 @@
 import { Resolver, Mutation, Authorized, Ctx, Args, Arg, FieldResolver, Root } from "type-graphql";
 import { Owe } from "../../models/Owe";
 import { ApplicationContext } from "../../utils/appContext";
-import { firestore } from "../../db/firebase";
+import { firestore, auth } from "../../db/firebase";
 import { NewOweInputType } from "./newOwe/newOweInputType";
 import { Timestamp, DocumentReference } from "@google-cloud/firestore"
 import { User } from "../../models/User";
@@ -22,7 +22,8 @@ export class NewOweResolver {
             title,
             amount,
             issuedToID,
-            mobileNo
+            mobileNo,
+            displayName
         }: NewOweInputType,
         @Ctx() context: ApplicationContext) {
         console.log(mobileNo)
@@ -40,7 +41,7 @@ export class NewOweResolver {
         if (issuedToID) {
             issuedToRef = firestore.collection('users').doc(issuedToID)
         } else if (mobileNo) {
-            issuedToRef = await getUserRefFromMobileNo(mobileNo)
+            issuedToRef = await getUserRefFromMobileNo(mobileNo, displayName)
         } else {
             throw new Error("Either mobileNo or issuedToID is required")
         }
@@ -62,14 +63,23 @@ The Logic for this function is as:
 2. If user exists return his ref.
 3. If the User does not exist, create an Anonymuous User in Firebase Auth
     and return that ref. ==> As a side effect of this, this Anonymus User's Document should be 
-    created with 
+    created with name and mobile_no
     //TODO think this out.
 */
 
-const getUserRefFromMobileNo = async (mobileNo: string): Promise<DocumentReference> => {
+const getUserRefFromMobileNo = async (mobileNo: string, displayName: string): Promise<DocumentReference> => {
+    //TODO change this to a auth query in the future.
     const query = firestore.collection('users').where("mobile_no", "==", mobileNo);
     const users = await query.get()
     if (users.empty) {
+        if (displayName) {
+            const user = await auth.createUser({
+                phoneNumber: mobileNo,
+                displayName: displayName
+            })
+            const userRef = firestore.collection('users').doc(user.uid)
+            return userRef
+        }
         throw new Error(`Can't Find user with mobile_no ${mobileNo}`)
     }
     const userRef = users.docs[0].ref
