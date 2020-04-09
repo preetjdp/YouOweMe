@@ -21,9 +21,12 @@ class HomePage extends StatelessWidget {
         Provider.of<MeNotifier>(context, listen: false).refresh();
 
     List<Widget> children = <Widget>[
+      SizedBox(
+        height: 10,
+      ),
       OweMeSection(),
       SizedBox(
-        height: 30,
+        height: 10,
       ),
       IOweSection(),
       BottomList(),
