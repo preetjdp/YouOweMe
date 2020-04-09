@@ -21,4 +21,11 @@ export class NewOweInputType {
     }
     )
     mobileNo: string
+
+    @Field({
+        nullable: true,
+        description: "This Field has to be provided with Number."
+    }
+    )
+    displayName: string
 }
