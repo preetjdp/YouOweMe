@@ -31,7 +31,8 @@ class _ContactSelectorState extends State<ContactSelector> {
     }
 
     void onMobileNumberTextFieldSubmit() {
-      Contact contact = Contact(phones: [Item(value: mobileNoController.text)]);
+      Contact contact =
+          Contact(phones: [Item(value: "+91" + mobileNoController.text)]);
       selectContact(contact);
     }
 
@@ -100,8 +101,8 @@ class _ContactSelectorState extends State<ContactSelector> {
             constraints: BoxConstraints(maxWidth: 350),
             child: TextField(
               textInputAction: TextInputAction.search,
-              controller:
-                  Provider.of<ContactProxyNotifier>(context).contactEditingController,
+              controller: Provider.of<ContactProxyNotifier>(context)
+                  .contactEditingController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Theme.of(context).scaffoldBackgroundColor,
@@ -138,13 +139,16 @@ class ContactsList extends StatelessWidget {
     }
 
     return ListView.builder(
-        itemCount:
-            Provider.of<ContactProxyNotifier>(context).contacts.length.clamp(0, 20),
+        itemCount: Provider.of<ContactProxyNotifier>(context)
+            .contacts
+            .length
+            .clamp(0, 20),
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
-          Contact contact =
-              Provider.of<ContactProxyNotifier>(context).contacts.elementAt(index);
+          Contact contact = Provider.of<ContactProxyNotifier>(context)
+              .contacts
+              .elementAt(index);
           return Container(
             margin: EdgeInsets.only(top: 10),
             height: 50,
