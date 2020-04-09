@@ -36,6 +36,10 @@ class _NewOweState extends State<NewOwe> {
     return null;
   }
 
+  void clearSelectedContact() {
+selectedContactController.add(null);
+  }
+
   @override
   Widget build(BuildContext context) {
     TargetPlatform platform = Theme.of(context).platform;
@@ -182,8 +186,15 @@ class _NewOweState extends State<NewOwe> {
                                   snapshot.data.displayName,
                                   style: Theme.of(context).textTheme.headline3,
                                 ),
-                                Expanded(
-                                  child: Container(),
+                                Expanded(child: Container()),
+                                CupertinoButton(
+                                  minSize: 20,
+                                  padding: EdgeInsets.all(5),
+                                  onPressed: clearSelectedContact,
+                                  child: Icon(
+                                    CupertinoIcons.clear_thick_circled,
+                                    size: 28,
+                                  ),
                                 ),
                               ],
                             ),
