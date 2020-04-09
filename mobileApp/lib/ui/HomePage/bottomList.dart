@@ -39,7 +39,7 @@ class BottomList extends StatelessWidget {
                     minSize: 20,
                     padding: EdgeInsets.all(10),
                     child: Text(
-                      "54",
+                      owe.amount.toString(),
                       style: Theme.of(context)
                           .textTheme
                           .headline3
