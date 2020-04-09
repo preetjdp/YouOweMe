@@ -37,7 +37,7 @@ class _NewOweState extends State<NewOwe> {
   }
 
   void clearSelectedContact() {
-selectedContactController.add(null);
+    selectedContactController.add(null);
   }
 
   @override
@@ -173,17 +173,20 @@ selectedContactController.add(null);
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 YomAvatar(
-                                  text: snapshot.data.displayName
-                                      .split(" ")
-                                      .map((e) => e[0])
-                                      .take(2)
-                                      .join(),
+                                  text: snapshot.data.displayName != null
+                                      ? snapshot.data.displayName
+                                          .split(" ")
+                                          .map((e) => e[0])
+                                          .take(2)
+                                          .join()
+                                      : "+91",
                                 ),
                                 SizedBox(
                                   width: 20,
                                 ),
                                 Text(
-                                  snapshot.data.displayName,
+                                  snapshot.data.displayName ??
+                                      snapshot.data.phones.first.value,
                                   style: Theme.of(context).textTheme.headline3,
                                 ),
                                 Expanded(child: Container()),
