@@ -9,7 +9,7 @@
     "logs": "firebase functions:log"
   },
   "engines": {
-    "node": "8"
+    "node": "10"
   },
   "main": "lib/index.js",
   "dependencies": {
@@ -18,8 +18,8 @@
     "firebase-functions": "^3.6.0"
   },
   "devDependencies": {
-    "typescript": "^3.2.2",
-    "firebase-functions-test": "^0.1.6"
+    "typescript": "^3.8.3",
+    "firebase-functions-test": "^0.2.0"
   },
   "private": true
 }
