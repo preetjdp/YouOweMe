@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/HomePage/iOweSection.dart';
 import 'package:YouOweMe/ui/HomePage/oweMeSection.dart';
@@ -53,20 +55,49 @@ class HomePage extends StatelessWidget {
       ],
     );
 
-    final Widget abstractedNewOweButton = platform == TargetPlatform.iOS
-        ? CupertinoButton(
-            color: Theme.of(context).accentColor,
-            child: Text('New'),
-            onPressed: goToNewOwe)
-        : FloatingActionButton.extended(
+    final Widget abstractedNewOweButton = platform == TargetPlatform.android
+        ? FloatingActionButton.extended(
             label: Text('New'),
             icon: Icon(Icons.add),
             onPressed: goToNewOwe,
-          );
+          )
+        : CupertinoButton(
+            color: Theme.of(context).accentColor,
+            child: Text('New'),
+            onPressed: goToNewOwe);
+    // : Container();
+
+    final Widget bottomBar = platform == TargetPlatform.iOS
+        ? ClipRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+              child: Container(
+                color: Colors.white.withOpacity(0),
+                child: CupertinoButton(
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Icon(CupertinoIcons.add_circled),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "Add New Owe",
+                        style: TextStyle(fontSize: 18),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          )
+        : null;
 
     return Scaffold(
         floatingActionButton: abstractedNewOweButton,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: abstractedHomePage);
+        body: abstractedHomePage,
+        // bottomNavigationBar: bottomBar
+        );
   }
 }
