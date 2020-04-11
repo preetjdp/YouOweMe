@@ -25,6 +25,7 @@ dependencies:
   contacts_service: ^0.3.10
   permission_handler: ^5.0.0+hotfix.3
   fuzzy: ^0.2.3
+  pin_code_text_field: ^1.5.1
 
 dev_dependencies:
   artemis:
