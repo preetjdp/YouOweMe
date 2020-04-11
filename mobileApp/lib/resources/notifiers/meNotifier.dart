@@ -11,7 +11,7 @@ class MeNotifier extends ChangeNotifier {
     cache: InMemoryCache(),
     link: httpLink,
   );
-  Seva$Query$Me me;
+  Seva$Query$User me;
   bool isLoading;
 
   MeNotifier(BuildContext context) {
