@@ -38,10 +38,12 @@ class Seva$Query$User$Owe with EquatableMixin {
 
   double amount;
 
+  Seva$Query$User$Owe$User issuedBy;
+
   Seva$Query$User$Owe$User issuedTo;
 
   @override
-  List<Object> get props => [id, title, amount, issuedTo];
+  List<Object> get props => [id, title, amount, issuedBy, issuedTo];
   Map<String, dynamic> toJson() => _$Seva$Query$User$OweToJson(this);
 }
 
@@ -158,6 +160,31 @@ class SevaQuery extends GraphQLQuery<Seva$Query, JsonSerializable> {
                           directives: [],
                           selectionSet: null),
                       FieldNode(
+                          name: NameNode(value: 'issuedBy'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'id'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'name'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'image'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null)
+                          ])),
+                      FieldNode(
                           name: NameNode(value: 'issuedTo'),
                           alias: null,
                           arguments: [],
@@ -207,6 +234,31 @@ class SevaQuery extends GraphQLQuery<Seva$Query, JsonSerializable> {
                           arguments: [],
                           directives: [],
                           selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'issuedBy'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'id'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'name'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'image'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null)
+                          ])),
                       FieldNode(
                           name: NameNode(value: 'issuedTo'),
                           alias: null,

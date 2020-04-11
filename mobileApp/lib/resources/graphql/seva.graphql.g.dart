@@ -27,6 +27,10 @@ Seva$Query$User$Owe _$Seva$Query$User$OweFromJson(Map<String, dynamic> json) {
     ..id = json['id'] as String
     ..title = json['title'] as String
     ..amount = (json['amount'] as num)?.toDouble()
+    ..issuedBy = json['issuedBy'] == null
+        ? null
+        : Seva$Query$User$Owe$User.fromJson(
+            json['issuedBy'] as Map<String, dynamic>)
     ..issuedTo = json['issuedTo'] == null
         ? null
         : Seva$Query$User$Owe$User.fromJson(
@@ -39,6 +43,7 @@ Map<String, dynamic> _$Seva$Query$User$OweToJson(
       'id': instance.id,
       'title': instance.title,
       'amount': instance.amount,
+      'issuedBy': instance.issuedBy?.toJson(),
       'issuedTo': instance.issuedTo?.toJson(),
     };
 

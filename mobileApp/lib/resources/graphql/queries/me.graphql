@@ -9,6 +9,11 @@ query {
       id
       title
       amount
+      issuedBy {
+        id
+        name
+        image
+      }
       issuedTo {
         id
         name
@@ -19,6 +24,11 @@ query {
       id
       title
       amount
+      issuedBy {
+        id
+        name
+        image
+      }
       issuedTo {
         id
         name
