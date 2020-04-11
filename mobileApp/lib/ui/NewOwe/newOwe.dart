@@ -36,6 +36,12 @@ class _NewOweState extends State<NewOwe> {
     return null;
   }
 
+  String amountValidator(String text) {
+    if (text.length == 0) {
+      return "Enter a valid number";
+    }
+  }
+
   void clearSelectedContact() {
     selectedContactController.add(null);
   }
@@ -227,8 +233,9 @@ class _NewOweState extends State<NewOwe> {
                                 color: Theme.of(context).accentColor),
                           ),
                           Expanded(
-                            child: TextField(
+                            child: TextFormField(
                                 controller: amountController,
+                                validator: amountValidator,
                                 cursorColor: Theme.of(context).accentColor,
                                 decoration: InputDecoration(
                                   hintText: "00",
