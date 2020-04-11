@@ -13,7 +13,7 @@ class BottomList extends StatelessWidget {
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
-          Seva$Query$Me$OweMe owe =
+          Seva$Query$User$Owe owe =
               Provider.of<MeNotifier>(context).me.oweMe[index];
           return Container(
             margin: EdgeInsets.only(top: 10),
