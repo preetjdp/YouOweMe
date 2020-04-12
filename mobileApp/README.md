@@ -30,3 +30,6 @@ flutter pub run build_runner build
 ## Add New Queries / Mutation / Subscriptions
 Add them to their respective folders under `lib/resources/graphql/`
 
+## Add missing files in code.
+flutter create . --org dev.preetjdp youoweme
+
