@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "401368738928-k4v46nvvhm67qtess1anuggqu5f3ocn9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.preetjdp.youoweme",
+            "certificate_hash": "35d6edcc540c37e843e3131572c7d24eba082c3b"
+          }
+        },
+        {
           "client_id": "401368738928-e11u3pg7v2ngrv7fvo3m242361ih5n8v.apps.googleusercontent.com",
           "client_type": 3
         }
