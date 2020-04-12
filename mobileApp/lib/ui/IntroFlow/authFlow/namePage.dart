@@ -1,11 +1,33 @@
+import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class NamePage extends StatelessWidget {
+class NamePage extends StatefulWidget {
+  @override
+  _NamePageState createState() => _NamePageState();
+}
+
+class _NamePageState extends State<NamePage> {
+  final TextEditingController nameController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    nameController.addListener(() => setName());
+  }
+
+  void setName() {
+    String userName = nameController.text;
+    Provider.of<LoginUser>(context, listen: false).addName(userName);
+  }
+
   @override
   Widget build(BuildContext context) {
     void nextPage() {
+      if (nameController.text.length == 0) {
+        return;
+      }
+      setName();
       Provider.of<PageController>(context, listen: false).nextPage(
           duration: Duration(milliseconds: 200), curve: Curves.easeInOutQuad);
     }
@@ -31,9 +53,9 @@ class NamePage extends StatelessWidget {
                   height: 10,
                 ),
                 TextField(
-                  // controller: amountController,
-                  // validator: amountValidator,
+                  controller: nameController,
                   cursorColor: Theme.of(context).accentColor,
+                  onSubmitted: (String name) => nextPage(),
                   decoration: InputDecoration(
                     hintText: "Don Joe",
                     border: InputBorder.none,

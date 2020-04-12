@@ -1,13 +1,84 @@
+import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
+import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MobilePage extends StatelessWidget {
+class MobilePage extends StatefulWidget {
+  @override
+  _MobilePageState createState() => _MobilePageState();
+}
+
+class _MobilePageState extends State<MobilePage> {
+  final TextEditingController mobileNoController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    PageController pageController =
+        Provider.of<PageController>(context, listen: false);
+    LoginUser loginUser = Provider.of<LoginUser>(context, listen: false);
+    
     void nextPage() {
-      Provider.of<PageController>(context, listen: false).nextPage(
+      pageController.nextPage(
           duration: Duration(milliseconds: 200), curve: Curves.easeInOutQuad);
+    }
+
+    void jumpTwoPages() {
+      pageController.animateToPage((pageController.page + 2).toInt(),
+          duration: Duration(milliseconds: 200), curve: Curves.easeInOutQuad);
+    }
+
+    void phoneAuth() async {
+      print(loginUser.userName);
+      if (mobileNoController.text.length == 0) {
+        return;
+      }
+      VoidCallback callback = await showCupertinoModalPopup<VoidCallback>(
+          context: context,
+          builder: (BuildContext context) {
+            String mobileNo = "+91" + mobileNoController.text;
+            FirebaseAuth.instance.verifyPhoneNumber(
+                phoneNumber: mobileNo,
+                timeout: Duration(seconds: 3),
+                verificationCompleted: (AuthCredential credentials) {
+                  FirebaseAuth.instance.signInWithCredential(credentials);
+                  Navigator.pop(context, jumpTwoPages);
+                },
+                verificationFailed: (AuthException exception) {
+                  Navigator.pop(context, nextPage);
+                  print(exception.message);
+                },
+                codeSent: (a, [b]) {
+                  print("SMS sent");
+                },
+                codeAutoRetrievalTimeout: (a) {
+                  print("Timeout" + a);
+                  loginUser.addVerificationCode(a);
+                  Navigator.pop(context, nextPage);
+                });
+            return CupertinoPopupSurface(
+                child: Material(
+              color: Colors.transparent,
+              child: Padding(
+                padding: EdgeInsets.all(15),
+                child: Column(
+                  children: [
+                    Text(
+                      "We're Processing the Information.",
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                    Expanded(child: Container()),
+                    Center(
+                      child: YOMSpinner(),
+                    ),
+                    Expanded(child: Container())
+                  ],
+                ),
+              ),
+            ));
+          });
+      callback();
     }
 
     return Padding(
@@ -44,8 +115,8 @@ class MobilePage extends StatelessWidget {
                     Expanded(
                       child: TextField(
                           cursorColor: Theme.of(context).accentColor,
-                          // onSubmitted: (a) => onMobileNumberTextFieldSubmit,
-                          // controller: mobileNoController,
+                          onSubmitted: (_) => phoneAuth(),
+                          controller: mobileNoController,
                           decoration: InputDecoration(
                             hintText: "00",
                             border: InputBorder.none,
@@ -60,7 +131,7 @@ class MobilePage extends StatelessWidget {
                   ],
                 ),
                 Image.network(
-                    "https://assets-ouch.icons8.com/preview/795/f06ec0b1-e3ee-4605-aab1-fb12f9336442.png")
+                    "https://assets-ouch.icons8.com/preview/399/2b2eae62-1f9d-4e5a-a6ed-4bbac2160121.png")
               ],
             ),
           ),
@@ -72,7 +143,7 @@ class MobilePage extends StatelessWidget {
                 child: CupertinoButton(
                     color: Theme.of(context).accentColor,
                     child: Text('Next'),
-                    onPressed: nextPage),
+                    onPressed: phoneAuth),
               ))
         ],
       ),
