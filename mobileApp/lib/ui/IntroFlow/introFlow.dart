@@ -1,5 +1,7 @@
+import 'package:YouOweMe/main.dart';
 import 'package:YouOweMe/ui/IntroFlow/authFlow/authFlow.dart';
 import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
+import 'package:YouOweMe/ui/IntroFlow/permissionsFlow/contactPermissions.dart';
 import 'package:YouOweMe/ui/IntroFlow/permissionsFlow/permissionsFlow.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,6 +21,19 @@ class _IntroFlowState extends State<IntroFlow> {
   final LoginUser loginUser = new LoginUser();
 
   @override
+  void initState() {
+    FirebaseAuth.instance.onAuthStateChanged.listen((event) {
+      if (event != null && (pageController.page == 0)) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => Intermediate()));
+      }
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
@@ -33,7 +48,8 @@ class _IntroFlowState extends State<IntroFlow> {
             NamePage(),
             MobilePage(),
             OtpPage(),
-            NotificationsPermissions()
+            NotificationsPermissions(),
+            ContactsPermissions()
           ],
         ),
       ),
