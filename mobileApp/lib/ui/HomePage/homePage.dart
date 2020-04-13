@@ -13,9 +13,44 @@ import 'package:YouOweMe/ui/HomePage/bottomList.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
+  void logOutDialog(BuildContext context) async {
+    bool result = await showCupertinoModalPopup<bool>(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoActionSheet(
+            title: Text("Logout"),
+            message: Text(
+                """This action will log you out of the app. I hope you come back again soon, now so that you're here we'll talk a bit a bit bit by bit through the bitly world which runs bit by bit."""),
+            cancelButton: CupertinoActionSheetAction(
+              child: Text("Cancel"),
+              isDestructiveAction: true,
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+            ),
+            actions: <Widget>[
+              CupertinoActionSheetAction(
+                child: Text(
+                  "Log me out already. 😪",
+                  style: TextStyle(color: CupertinoColors.activeGreen),
+                ),
+                isDefaultAction: true,
+                onPressed: () {
+                  Navigator.pop(context, true);
+                },
+              ),
+            ],
+          );
+        });
+    if (result) {
+      FirebaseAuth.instance.signOut();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final TargetPlatform platform = Theme.of(context).platform;
+
     void goToNewOwe() async {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (BuildContext context) => NewOwe()));
@@ -104,13 +139,9 @@ class HomePage extends StatelessWidget {
           Positioned(
             bottom: 20,
             left: 15,
-            child: GestureDetector(
-              onTap: () {
-                FirebaseAuth.instance.signOut();
-              },
-              child: YomAvatar(
-                  text: 'PP',
-                ),
+            child: YomAvatar(
+              text: 'PP',
+              onPressed:() => logOutDialog(context),
             ),
           )
         ],
