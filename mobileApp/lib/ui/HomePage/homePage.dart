@@ -1,8 +1,10 @@
 import 'dart:ui';
 
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
+import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:YouOweMe/ui/HomePage/iOweSection.dart';
 import 'package:YouOweMe/ui/HomePage/oweMeSection.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -94,10 +96,26 @@ class HomePage extends StatelessWidget {
         : null;
 
     return Scaffold(
-        floatingActionButton: abstractedNewOweButton,
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: abstractedHomePage,
-        // bottomNavigationBar: bottomBar
-        );
+      floatingActionButton: abstractedNewOweButton,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      body: Stack(
+        children: [
+          abstractedHomePage,
+          Positioned(
+            bottom: 20,
+            left: 15,
+            child: GestureDetector(
+              onTap: () {
+                FirebaseAuth.instance.signOut();
+              },
+              child: YomAvatar(
+                  text: 'PP',
+                ),
+            ),
+          )
+        ],
+      ),
+      // bottomNavigationBar: bottomBar
+    );
   }
 }

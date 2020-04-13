@@ -44,9 +44,9 @@ class IOweSection extends StatelessWidget {
                     children: <Widget>[
                       Text(
                           Provider.of<MeNotifier>(context, listen: true)
-                              .me
-                              .iOweAmount
-                              .toString(),
+                              ?.me
+                              ?.iOweAmount
+                              ?.toString() ?? "WOW",
                           style: TextStyle(
                               fontSize: 50,
                               fontWeight: FontWeight.w800,

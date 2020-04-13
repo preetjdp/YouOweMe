@@ -66,10 +66,9 @@ class _NewOweState extends State<NewOwe> {
         String mobileNo = selectedContactController.value.phones.first.value
             .replaceAll(' ', '');
         if (!mobileNo.startsWith('+91')) {
-          mobileNo = '91' + mobileNo;
+          mobileNo = '+91' + mobileNo;
         }
-        print(selectedContactController.value.phones.first.value
-            .replaceAll(' ', ''));
+        print(mobileNo);
         Provider.of<MeNotifier>(context, listen: false)
             .graphQLClient
             .mutate(MutationOptions(

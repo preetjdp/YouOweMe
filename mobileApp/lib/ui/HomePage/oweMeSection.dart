@@ -45,9 +45,9 @@ class OweMeSection extends StatelessWidget {
                     children: <Widget>[
                       Text(
                           Provider.of<MeNotifier>(context, listen: true)
-                              .me
-                              .oweMeAmount
-                              .toString(),
+                              ?.me
+                              ?.oweMeAmount
+                              ?.toString() ?? "wow",
                           style: TextStyle(
                               fontSize: 50,
                               fontWeight: FontWeight.w800,
