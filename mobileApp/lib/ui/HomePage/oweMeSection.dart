@@ -1,6 +1,6 @@
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 
 class OweMeSection extends StatelessWidget {
@@ -15,14 +15,20 @@ class OweMeSection extends StatelessWidget {
           Positioned(
               left: 0,
               top: 0,
-              child: Row(
-                children: <Widget>[
-                  Text("Owe Me", style: Theme.of(context).textTheme.headline3),
-                  Icon(
-                    Icons.keyboard_arrow_right,
-                    color: Color.fromRGBO(78, 80, 88, 1),
-                  )
-                ],
+              child: CupertinoButton(
+                onPressed: () {},
+                minSize: 0,
+                padding: EdgeInsets.all(0),
+                child: Row(
+                  children: <Widget>[
+                    Text("Owe Me",
+                        style: Theme.of(context).textTheme.headline3),
+                    Icon(
+                      CupertinoIcons.right_chevron,
+                      color: Color.fromRGBO(78, 80, 88, 1),
+                    )
+                  ],
+                ),
               )),
           Positioned(
             left: 0,
@@ -45,9 +51,10 @@ class OweMeSection extends StatelessWidget {
                     children: <Widget>[
                       Text(
                           Provider.of<MeNotifier>(context, listen: true)
-                              ?.me
-                              ?.oweMeAmount
-                              ?.toString() ?? "wow",
+                                  ?.me
+                                  ?.oweMeAmount
+                                  ?.toString() ??
+                              "wow",
                           style: TextStyle(
                               fontSize: 50,
                               fontWeight: FontWeight.w800,
@@ -56,38 +63,6 @@ class OweMeSection extends StatelessWidget {
                   )),
             ),
           ),
-          // Positioned(
-          //   right: 15,
-          //   top: 0,
-          //   bottom: 15,
-          //   child: Container(
-          //       width: 180,
-          //       decoration: BoxDecoration(
-          //           color: Colors.white,
-          //           borderRadius: BorderRadius.circular(10),
-          //           boxShadow: [
-          //             BoxShadow(
-          //                 blurRadius: 10,
-          //                 color: Color.fromRGBO(78, 80, 88, 0.2),
-          //                 spreadRadius: 0.1)
-          //           ]),
-          //       child: ValueListenableBuilder(
-          //           valueListenable: oweBox.listenable(),
-          //           builder: (BuildContext context, Box<Owe> box, _) {
-          //             if (box.values.isNotEmpty) {
-          //               return Center(
-          //                 child: Text(
-          //                   box.values.last.title,
-          //                 ),
-          //               );
-          //             } else {
-          //               return Center(
-          //                 child: YOMSpinner(),
-          //               );
-          //             }
-          //           })
-          //           ),
-          // ),
         ],
       ),
     );

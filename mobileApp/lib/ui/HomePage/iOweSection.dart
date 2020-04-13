@@ -1,4 +1,5 @@
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,14 +15,20 @@ class IOweSection extends StatelessWidget {
           Positioned(
               left: 0,
               top: 0,
-              child: Row(
-                children: <Widget>[
-                  Text("I Owe", style: Theme.of(context).textTheme.headline3),
-                  Icon(
-                    Icons.keyboard_arrow_right,
-                    color: Color.fromRGBO(78, 80, 88, 1),
-                  )
-                ],
+              child: CupertinoButton(
+                onPressed: () {},
+                minSize: 0,
+                padding: EdgeInsets.all(0),
+                child: Row(
+                  children: <Widget>[
+                    Text("I Owe",
+                        style: Theme.of(context).textTheme.headline3),
+                    Icon(
+                      CupertinoIcons.right_chevron,
+                      color: Color.fromRGBO(78, 80, 88, 1),
+                    )
+                  ],
+                ),
               )),
           Positioned(
             left: 0,
@@ -44,9 +51,10 @@ class IOweSection extends StatelessWidget {
                     children: <Widget>[
                       Text(
                           Provider.of<MeNotifier>(context, listen: true)
-                              ?.me
-                              ?.iOweAmount
-                              ?.toString() ?? "WOW",
+                                  ?.me
+                                  ?.iOweAmount
+                                  ?.toString() ??
+                              "WOW",
                           style: TextStyle(
                               fontSize: 50,
                               fontWeight: FontWeight.w800,
