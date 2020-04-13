@@ -15,9 +15,7 @@ class IntroFlow extends StatefulWidget {
 
 class _IntroFlowState extends State<IntroFlow> {
   final PageController pageController = PageController();
-
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-
   final LoginUser loginUser = new LoginUser();
 
   @override

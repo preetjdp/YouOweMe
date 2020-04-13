@@ -23,13 +23,19 @@ class _NamePageState extends State<NamePage> {
 
   @override
   Widget build(BuildContext context) {
+    PageController pageController =
+        Provider.of<PageController>(context, listen: false);
     void nextPage() {
+      pageController.nextPage(
+          duration: Duration(milliseconds: 200), curve: Curves.easeInOutQuad);
+    }
+
+    void next() {
       if (nameController.text.length == 0) {
         return;
       }
       setName();
-      Provider.of<PageController>(context, listen: false).nextPage(
-          duration: Duration(milliseconds: 200), curve: Curves.easeInOutQuad);
+      nextPage();
     }
 
     return Padding(
@@ -72,15 +78,28 @@ class _NamePageState extends State<NamePage> {
             ),
           ),
           Positioned(
-              bottom: 0,
-              child: Container(
-                height: 60,
-                width: 400,
-                child: CupertinoButton(
-                    color: Theme.of(context).accentColor,
-                    child: Text('Next'),
-                    onPressed: nextPage),
-              ))
+            bottom: 0,
+            child: Column(
+              children: [
+                CupertinoButton(
+                    onPressed: nextPage,
+                    padding: EdgeInsets.all(0),
+                    minSize: 0,
+                    child: Text("Psst. I already have a account")),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  height: 60,
+                  width: 400,
+                  child: CupertinoButton(
+                      color: Theme.of(context).accentColor,
+                      child: Text('Next'),
+                      onPressed: next),
+                )
+              ],
+            ),
+          )
         ],
       ),
     );

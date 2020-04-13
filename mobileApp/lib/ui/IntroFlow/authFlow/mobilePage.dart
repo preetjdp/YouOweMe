@@ -18,7 +18,7 @@ class _MobilePageState extends State<MobilePage> {
     PageController pageController =
         Provider.of<PageController>(context, listen: false);
     LoginUser loginUser = Provider.of<LoginUser>(context, listen: false);
-    
+
     void nextPage() {
       pageController.nextPage(
           duration: Duration(milliseconds: 200), curve: Curves.easeInOutQuad);
@@ -30,7 +30,6 @@ class _MobilePageState extends State<MobilePage> {
     }
 
     void phoneAuth() async {
-      print(loginUser.userName);
       if (mobileNoController.text.length == 0) {
         return;
       }
@@ -40,7 +39,7 @@ class _MobilePageState extends State<MobilePage> {
             String mobileNo = "+91" + mobileNoController.text;
             FirebaseAuth.instance.verifyPhoneNumber(
                 phoneNumber: mobileNo,
-                timeout: Duration(seconds: 3),
+                timeout: Duration(seconds: 0),
                 verificationCompleted: (AuthCredential credentials) {
                   FirebaseAuth.instance.signInWithCredential(credentials);
                   Navigator.pop(context, jumpTwoPages);

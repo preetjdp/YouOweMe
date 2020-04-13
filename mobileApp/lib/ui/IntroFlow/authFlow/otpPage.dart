@@ -1,5 +1,6 @@
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,13 @@ class _OtpPageState extends State<OtpPage> {
                 .signInWithCredential(otpCredential)
                 .then((result) {
               if (result.user != null) {
+                //The logic to add update the userName on new login
+                if (loginUser.userName != null) {
+                  Firestore.instance
+                      .collection("users")
+                      .document(result.user.uid)
+                      .updateData({'name': loginUser.userName});
+                }
                 Navigator.pop(context, nextPage);
                 return;
               }

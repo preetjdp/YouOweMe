@@ -10,13 +10,14 @@ class ContactsPermissions extends StatelessWidget {
     void nextPage() {
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (BuildContext context) => Intermediate()));
-      // Provider.of<PageController>(context, listen: false).nextPage(
-      //     duration: Duration(milliseconds: 200), curve: Curves.easeInOutQuad);
     }
 
     void allowContact() async {
       PermissionStatus status = await Permission.contacts.request();
       print(status);
+      if (status.isGranted) {
+        nextPage();
+      }
     }
 
     return Padding(

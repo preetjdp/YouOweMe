@@ -14,6 +14,9 @@ class NotificationsPermissions extends StatelessWidget {
     void allowNotifications() async {
       PermissionStatus status = await Permission.notification.request();
       print(status);
+      if (status.isGranted) {
+        nextPage();
+      }
     }
 
     return Padding(
