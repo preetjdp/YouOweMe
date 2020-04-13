@@ -1,22 +1,29 @@
 import 'package:YouOweMe/resources/graphql/seva.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 class MeNotifier extends ChangeNotifier {
-  static HttpLink httpLink = HttpLink(
-      uri: 'https://api.youoweme.preetjdp.dev/',
-      headers: {"authorization": "f9fc7B6wvIsU62LuDNVv"});
-  final GraphQLClient graphQLClient = GraphQLClient(
-    cache: InMemoryCache(),
-    link: httpLink,
-  );
+  GraphQLClient graphQLClient;
+
   Seva$Query$User me;
   bool isLoading;
 
   MeNotifier(BuildContext context) {
     print("Construcing");
     isLoading = true;
+    init();
+  }
+
+  void onProxyUpdate(FirebaseUser firebaseUser) {
+    print("NOn Proxy Update");
+    graphQLClient = GraphQLClient(
+      cache: InMemoryCache(),
+      link: HttpLink(
+          uri: 'https://api.youoweme.preetjdp.dev/',
+          headers: {"authorization": firebaseUser.uid}),
+    );
     init();
   }
 

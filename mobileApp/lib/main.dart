@@ -5,6 +5,7 @@ import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
 import 'package:YouOweMe/ui/IntroFlow/introFlow.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +29,12 @@ class Intermediate extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<MeNotifier>(
+        StreamProvider<FirebaseUser>.value(
+            value: FirebaseAuth.instance.onAuthStateChanged),
+        ChangeNotifierProxyProvider<FirebaseUser, MeNotifier>(
           create: (BuildContext context) => MeNotifier(context),
+          update: (context, firebaseUser, meNotifier) =>
+              meNotifier..onProxyUpdate(firebaseUser),
           lazy: false,
         ),
         FutureProvider<Iterable<Contact>>(
