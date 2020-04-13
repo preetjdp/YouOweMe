@@ -9,30 +9,31 @@ import 'package:provider/provider.dart';
 class BottomList extends StatelessWidget {
   void onTick(Seva$Query$User$Owe owe, BuildContext context) async {
     bool shouldDelete = false;
-    Widget actionSheet = CupertinoActionSheet(
-      message: Text("This action will mark the `owe` as paid."),
-      cancelButton: CupertinoActionSheetAction(
-        child: Text("Cancel"),
-        isDestructiveAction: true,
-        onPressed: () {
-          Navigator.pop(context, false);
-        },
-      ),
-      actions: <Widget>[
-        CupertinoActionSheetAction(
-          child: Text(
-            "Paid",
-            style: TextStyle(color: CupertinoColors.activeGreen),
+    Widget actionSheet(BuildContext context) => CupertinoActionSheet(
+          message: Text("This action will mark the `owe` as paid."),
+          cancelButton: CupertinoActionSheetAction(
+            child: Text("Cancel"),
+            isDestructiveAction: true,
+            onPressed: () {
+              Navigator.pop(context, false);
+            },
           ),
-          isDefaultAction: true,
-          onPressed: () {
-            Navigator.pop(context, true);
-          },
-        ),
-      ],
-    );
+          actions: <Widget>[
+            CupertinoActionSheetAction(
+              child: Text(
+                "Paid",
+                style: TextStyle(color: CupertinoColors.activeGreen),
+              ),
+              isDefaultAction: true,
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+            ),
+          ],
+        );
     shouldDelete = await showCupertinoModalPopup(
-        context: context, builder: (BuildContext context) => actionSheet);
+        context: context,
+        builder: (BuildContext context) => actionSheet(context));
     if (shouldDelete) {
       DocumentReference oweRef = Firestore.instance
           .collection("users")
