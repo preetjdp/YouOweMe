@@ -2,7 +2,6 @@ import 'package:YouOweMe/resources/databaseService.dart';
 import 'package:YouOweMe/resources/notifiers/contactProxyNotifier.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
-import 'package:YouOweMe/ui/IntroFlow/AuthFlow/authFlow.dart';
 import 'package:YouOweMe/ui/IntroFlow/introFlow.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:device_preview/device_preview.dart';
