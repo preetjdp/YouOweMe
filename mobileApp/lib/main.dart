@@ -15,17 +15,11 @@ import 'package:provider/provider.dart';
 
 void main() {
   Provider.debugCheckInvalidValueType = null;
-  if (!kReleaseMode) {
-    runApp(DevicePreview(
-      builder: (BuildContext context) => MaterialApp(
-          builder: DevicePreview.appBuilder,
-          theme: yomTheme,
-          home: IntroFlow()),
-    ));
-  } else {
-    runApp(MaterialApp(
-        builder: DevicePreview.appBuilder, theme: yomTheme, home: IntroFlow()));
-  }
+  runApp(DevicePreview(
+    enabled: kDebugMode,
+    builder: (BuildContext context) => MaterialApp(
+        builder: DevicePreview.appBuilder, theme: yomTheme, home: IntroFlow()),
+  ));
 }
 
 class Intermediate extends StatelessWidget {
