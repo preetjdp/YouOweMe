@@ -33,3 +33,6 @@ Add them to their respective folders under `lib/resources/graphql/`
 ## Add missing files in code.
 flutter create . --org dev.preetjdp youoweme
 
+## How to update the icon
+flutter pub run flutter_launcher_icons:main
+
