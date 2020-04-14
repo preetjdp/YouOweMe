@@ -8,8 +8,8 @@ class ContactsPermissions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void nextPage() {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (BuildContext context) => Intermediate()));
+      Provider.of<PageController>(context, listen: false).nextPage(
+          duration: Duration(milliseconds: 200), curve: Curves.easeInOutQuad);
     }
 
     void allowContact() async {
