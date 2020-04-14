@@ -17,7 +17,7 @@ import 'package:provider/provider.dart';
 void main() {
   Provider.debugCheckInvalidValueType = null;
   runApp(DevicePreview(
-    enabled: kDebugMode,
+    enabled: false,
     builder: (BuildContext context) => MaterialApp(
         builder: DevicePreview.appBuilder, theme: yomTheme, home: IntroFlow()),
   ));
