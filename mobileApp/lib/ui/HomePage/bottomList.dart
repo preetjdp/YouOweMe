@@ -108,11 +108,7 @@ class BottomListEmptyState extends StatelessWidget {
     return Padding(
         padding: EdgeInsets.only(top: 40),
         child: Image.asset(
-          // "https://assets-ouch.icons8.com/preview/270/0ae49765-f2ae-43b6-968d-4049849ada54.png", //Not the best
-          // "https://assets-ouch.icons8.com/preview/810/4f4739ae-57b1-4b0a-bbec-36a332cdeb9f.png", //Really Good,
           "assets/scribbles/scribble.png", //Really Good
-          // height: 400,
-          // width: 400,
           fit: BoxFit.contain,
         ));
   }
