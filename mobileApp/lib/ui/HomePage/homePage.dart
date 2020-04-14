@@ -140,8 +140,14 @@ class HomePage extends StatelessWidget {
             bottom: 20,
             left: 15,
             child: YomAvatar(
-              text: 'PP',
-              onPressed:() => logOutDialog(context),
+              text: Provider.of<MeNotifier>(context)
+                  .me
+                  .name
+                  .split(" ")
+                  .map((e) => e[0])
+                  .toList()
+                  .join(),
+              onPressed: () => logOutDialog(context),
             ),
           )
         ],
