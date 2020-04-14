@@ -41,6 +41,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  assets:
+    - assets/scribbles/
+
 flutter_icons:
   ios: true
   android: true

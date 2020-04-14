@@ -47,8 +47,7 @@ class ContactsPermissions extends StatelessWidget {
                         onPressed: allowContact),
                   ),
                 ),
-                Image.network(
-                    "https://assets-ouch.icons8.com/preview/660/9f2e3f0a-937e-4965-8bf0-d7b0a1597711.png")
+                Image.asset("assets/scribbles/karlsson_contact_page.png")
               ],
             ),
           ),

@@ -72,8 +72,7 @@ class _NamePageState extends State<NamePage> {
                       fontWeight: FontWeight.w800,
                       color: Theme.of(context).accentColor),
                 ),
-                Image.network(
-                    "https://assets-ouch.icons8.com/preview/795/f06ec0b1-e3ee-4605-aab1-fb12f9336442.png")
+                Image.asset("assets/scribbles/karlsson_holding_book.png")
               ],
             ),
           ),

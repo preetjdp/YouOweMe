@@ -46,8 +46,7 @@ class NotificationsPermissions extends StatelessWidget {
                         onPressed: allowNotifications),
                   ),
                 ),
-                Image.network(
-                    "https://assets-ouch.icons8.com/preview/500/563948e0-d2aa-4dbc-90dd-23341d46b356.png")
+                Image.asset("assets/scribbles/karlsson_paper_plane.png")
               ],
             ),
           ),

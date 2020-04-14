@@ -106,11 +106,10 @@ class _OtpPageState extends State<OtpPage> {
                   pinTextStyle: Theme.of(context).textTheme.headline3,
                   wrapAlignment: WrapAlignment.center,
                   highlightColor: Theme.of(context).accentColor,
-                  // keyboardType: TextInputType.numberWithOptions(
-                  //     decimal: false, signed: false),
+                  keyboardType: TextInputType.numberWithOptions(
+                      decimal: false, signed: false),
                 )),
-                Image.network(
-                    "https://assets-ouch.icons8.com/preview/70/cb7862aa-443d-48e1-8c1b-f8ca903c548e.png")
+                Image.asset("assets/scribbles/karlsson_pincode.png")
               ],
             ),
           ),

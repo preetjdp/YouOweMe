@@ -129,8 +129,7 @@ class _MobilePageState extends State<MobilePage> {
                     ),
                   ],
                 ),
-                Image.network(
-                    "https://assets-ouch.icons8.com/preview/399/2b2eae62-1f9d-4e5a-a6ed-4bbac2160121.png")
+                Image.asset("assets/scribbles/karlsson_pen_scribble.png")
               ],
             ),
           ),

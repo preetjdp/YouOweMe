@@ -43,7 +43,7 @@ class _IntroFlowState extends State<IntroFlow> {
           controller: pageController,
           physics: NeverScrollableScrollPhysics(),
           children: [
-            NamePage(),
+            NamePage(), 
             MobilePage(),
             OtpPage(),
             NotificationsPermissions(),
