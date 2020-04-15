@@ -23,6 +23,12 @@ class _NamePageState extends State<NamePage> {
 
   @override
   Widget build(BuildContext context) {
+    final _size = MediaQuery.of(context).size;
+
+    SizedBox _spacer(int padding, [int minus = 0]) {
+      return SizedBox(height: (_size.height / padding) - minus);
+    }
+
     PageController pageController =
         Provider.of<PageController>(context, listen: false);
     void nextPage() {
@@ -46,45 +52,51 @@ class _NamePageState extends State<NamePage> {
         children: [
           Positioned.fill(
             bottom: 65,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text("Let's Start With a name?",
-                    style: Theme.of(context).textTheme.headline1),
-                SizedBox(
-                  height: 30,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextField(
-                  controller: nameController,
-                  cursorColor: Theme.of(context).accentColor,
-                  onSubmitted: (String name) => nextPage(),
-                  decoration: InputDecoration(
-                    hintText: "Don Joe",
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.all(0),
+            child: SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _spacer(18, 20),
+                  Text(
+                    "Let's Start With a name?",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline1
+                        .copyWith(fontSize: _size.width / 8),
                   ),
-                  style: TextStyle(
-                      fontSize: 60,
+                  _spacer(16),
+                  TextField(
+                    controller: nameController,
+                    cursorColor: Theme.of(context).accentColor,
+                    onSubmitted: (String name) => nextPage(),
+                    decoration: InputDecoration(
+                      hintText: "Don Joe",
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.all(0),
+                    ),
+                    style: TextStyle(
+                      fontSize: _size.width / 9,
                       fontWeight: FontWeight.w800,
-                      color: Theme.of(context).accentColor),
-                ),
-                Image.asset("assets/scribbles/karlsson_holding_book.png")
-              ],
+                      color: Theme.of(context).accentColor,
+                    ),
+                  ),
+                  _spacer(12),
+                  Image.asset("assets/scribbles/karlsson_holding_book.png")
+                ],
+              ),
             ),
           ),
           Positioned(
-            bottom: 0,
+            bottom: 10,
             child: Column(
               children: [
                 CupertinoButton(
-                    onPressed: nextPage,
-                    padding: EdgeInsets.all(0),
-                    minSize: 0,
-                    child: Text("Psst. I already have a account")),
+                  onPressed: nextPage,
+                  padding: EdgeInsets.all(0),
+                  minSize: 0,
+                  child: Text("Psst. I already have a account"),
+                ),
                 SizedBox(
                   height: 5,
                 ),
