@@ -17,6 +17,12 @@ class _OtpPageState extends State<OtpPage> {
 
   @override
   Widget build(BuildContext context) {
+    final _size = MediaQuery.of(context).size;
+
+    SizedBox _spacer(int padding, [int minus = 0]) {
+      return SizedBox(height: (_size.height / padding) - minus);
+    }
+
     LoginUser loginUser = Provider.of<LoginUser>(context, listen: false);
 
     void nextPage() {
@@ -84,45 +90,51 @@ class _OtpPageState extends State<OtpPage> {
         children: [
           Positioned.fill(
             bottom: 65,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text("Enter \nthe\nOTP",
-                    style: Theme.of(context).textTheme.headline1),
-                SizedBox(
-                  height: 30,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Center(
+            child: SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _spacer(18, 20),
+                  Text(
+                    "Enter the OTP",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline1
+                        .copyWith(fontSize: _size.width / 8),
+                  ),
+                  _spacer(8),
+                  Center(
                     child: PinCodeTextField(
-                  controller: otpController,
-                  pinBoxRadius: 15,
-                  maxLength: 6,
-                  pinBoxHeight: 50,
-                  pinBoxWidth: 50,
-                  pinTextStyle: Theme.of(context).textTheme.headline3,
-                  wrapAlignment: WrapAlignment.center,
-                  highlightColor: Theme.of(context).accentColor,
-                  keyboardType: TextInputType.numberWithOptions(
-                      decimal: false, signed: false),
-                )),
-                Image.asset("assets/scribbles/karlsson_pincode.png")
-              ],
+                      controller: otpController,
+                      pinBoxRadius: 15,
+                      maxLength: 6,
+                      pinBoxHeight: _size.width / 8,
+                      pinBoxWidth: _size.width / 8,
+                      pinTextStyle: Theme.of(context).textTheme.headline3,
+                      wrapAlignment: WrapAlignment.center,
+                      highlightColor: Theme.of(context).accentColor,
+                      keyboardType: TextInputType.numberWithOptions(
+                          decimal: false, signed: false),
+                    ),
+                  ),
+                  _spacer(12),
+                  Image.asset("assets/scribbles/karlsson_pincode.png")
+                ],
+              ),
             ),
           ),
           Positioned(
-              bottom: 0,
-              child: Container(
-                height: 60,
-                width: 400,
-                child: CupertinoButton(
-                    color: Theme.of(context).accentColor,
-                    child: Text('Next'),
-                    onPressed: verifyOtp),
-              ))
+            bottom: 10,
+            child: Container(
+              height: 60,
+              width: 400,
+              child: CupertinoButton(
+                  color: Theme.of(context).accentColor,
+                  child: Text('Next'),
+                  onPressed: verifyOtp),
+            ),
+          ),
         ],
       ),
     );

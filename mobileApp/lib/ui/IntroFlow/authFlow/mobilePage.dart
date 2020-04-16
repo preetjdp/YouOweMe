@@ -15,6 +15,12 @@ class _MobilePageState extends State<MobilePage> {
   final TextEditingController mobileNoController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final _size = MediaQuery.of(context).size;
+
+    SizedBox _spacer(int padding, [int minus = 0]) {
+      return SizedBox(height: (_size.height / padding) - minus);
+    }
+
     PageController pageController =
         Provider.of<PageController>(context, listen: false);
     LoginUser loginUser = Provider.of<LoginUser>(context, listen: false);
@@ -88,53 +94,60 @@ class _MobilePageState extends State<MobilePage> {
         children: [
           Positioned.fill(
             bottom: 65,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text("What's Your Mobile Number?",
-                    style: Theme.of(context).textTheme.headline1),
-                SizedBox(
-                  height: 30,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      "+91",
-                      style: TextStyle(
-                          fontSize: 60,
-                          fontWeight: FontWeight.w800,
-                          color: Theme.of(context).accentColor),
-                    ),
-                    Expanded(
-                      child: TextField(
+            child: SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _spacer(18, 20),
+                  Text(
+                    "What's Your Mobile Number?",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline1
+                        .copyWith(fontSize: _size.width / 8),
+                  ),
+                  _spacer(16),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "+91 ",
+                        style: TextStyle(
+                            fontSize: _size.width / 9,
+                            fontWeight: FontWeight.w800,
+                            color: Theme.of(context).accentColor),
+                      ),
+                      Expanded(
+                        child: TextField(
                           cursorColor: Theme.of(context).accentColor,
                           onSubmitted: (_) => phoneAuth(),
                           controller: mobileNoController,
                           decoration: InputDecoration(
-                            hintText: "00",
+                            hintText: "0123456789",
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.all(0),
                           ),
                           style: TextStyle(
-                              fontSize: 60,
+                              fontSize: _size.width / 9,
                               color: Theme.of(context).accentColor),
                           keyboardType: TextInputType.numberWithOptions(
-                              decimal: false, signed: false)),
-                    ),
-                  ],
-                ),
-                Image.asset("assets/scribbles/karlsson_pen_scribble.png")
-              ],
+                            decimal: false,
+                            signed: false,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  _spacer(12),
+                  Image.asset("assets/scribbles/karlsson_pen_scribble.png")
+                ],
+              ),
             ),
           ),
           Positioned(
-              bottom: 0,
+              bottom: 10,
               child: Container(
                 height: 60,
                 width: 400,
