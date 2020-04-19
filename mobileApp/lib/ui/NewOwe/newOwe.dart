@@ -99,10 +99,6 @@ class _NewOweState extends State<NewOwe> {
       return true;
     }
 
-    // void clearHiveBox() {
-    //   Box<Owe> oweBox = Hive.box('oweBox');
-    //   oweBox.clear();
-    // }
     return MultiProvider(
       providers: [
         Provider<BehaviorSubject<Contact>>.value(

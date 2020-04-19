@@ -1,4 +1,3 @@
-import 'package:YouOweMe/resources/databaseService.dart';
 import 'package:YouOweMe/resources/notifiers/contactProxyNotifier.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
@@ -17,14 +16,13 @@ import 'package:provider/provider.dart';
 void main() {
   Provider.debugCheckInvalidValueType = null;
   runApp(DevicePreview(
-    enabled: true,
+    enabled: false,
     builder: (BuildContext context) => MaterialApp(
         builder: DevicePreview.appBuilder, theme: yomTheme, home: IntroFlow()),
   ));
 }
 
 class Intermediate extends StatelessWidget {
-  final DatabaseService databaseService = DatabaseService();
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
