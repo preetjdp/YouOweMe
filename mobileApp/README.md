@@ -36,3 +36,13 @@ flutter create . --org dev.preetjdp youoweme
 ## How to update the icon
 flutter pub run flutter_launcher_icons:main
 
+## KeyTool options
+`Password => q^iB07QT `
+
+## Get Sha Key from key.jks
+```bash
+keytool -list -v -keystore {filePath} -alias {key-alias}
+Example:
+keytool -list -v -keystore ./android/app/key.jks -alias key
+```
+
