@@ -13,18 +13,20 @@ class MeNotifier extends ChangeNotifier {
   MeNotifier(BuildContext context) {
     print("Construcing");
     isLoading = true;
-    init();
+    // init();
   }
 
   void onProxyUpdate(FirebaseUser firebaseUser) {
-    print("NOn Proxy Update");
-    graphQLClient = GraphQLClient(
-      cache: InMemoryCache(),
-      link: HttpLink(
-          uri: 'https://api.youoweme.preetjdp.dev/',
-          headers: {"authorization": firebaseUser.uid}),
-    );
-    init();
+    if (firebaseUser != null) {
+      print("NOn Proxy Update");
+      graphQLClient = GraphQLClient(
+        cache: InMemoryCache(),
+        link: HttpLink(
+            uri: 'https://api.youoweme.preetjdp.dev/',
+            headers: {"authorization": firebaseUser.uid}),
+      );
+      init();
+    }
   }
 
   void init() {
