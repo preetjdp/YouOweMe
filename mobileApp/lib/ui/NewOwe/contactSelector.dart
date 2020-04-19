@@ -98,7 +98,6 @@ class _ContactSelectorState extends State<ContactSelector> {
         Center(
           child: Container(
             height: 40,
-            constraints: BoxConstraints(maxWidth: 350),
             child: TextField(
               textInputAction: TextInputAction.search,
               controller: Provider.of<ContactProxyNotifier>(context)
