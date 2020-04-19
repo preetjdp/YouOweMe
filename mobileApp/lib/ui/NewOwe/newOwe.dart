@@ -111,6 +111,15 @@ class _NewOweState extends State<NewOwe> {
         child: WillPopScope(
           onWillPop: onWilPopScope,
           child: Scaffold(
+            appBar: CupertinoNavigationBar(
+              backgroundColor: Theme.of(context).backgroundColor.withOpacity(0.5),
+              middle: Text("New Owe",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline3
+                      .copyWith(color: Colors.black)),
+              actionsForegroundColor: Theme.of(context).accentColor,
+            ),
             floatingActionButton: platform == TargetPlatform.android
                 ? FloatingActionButton(
                     child: Icon(Icons.check),
