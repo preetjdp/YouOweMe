@@ -112,7 +112,11 @@ class _NewOweState extends State<NewOwe> {
           onWillPop: onWilPopScope,
           child: Scaffold(
             appBar: CupertinoNavigationBar(
-              backgroundColor: Theme.of(context).backgroundColor.withOpacity(0.5),
+              backgroundColor:
+                  Theme.of(context).backgroundColor.withOpacity(0.5),
+              border: Border(
+                  bottom: BorderSide(
+                      color: Theme.of(context).accentColor, width: 0.5)),
               middle: Text("New Owe",
                   style: Theme.of(context)
                       .textTheme

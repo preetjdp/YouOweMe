@@ -7,7 +7,10 @@ class IOwePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CupertinoNavigationBar(
-          backgroundColor: Colors.white.withOpacity(0.5),
+          backgroundColor: Theme.of(context).backgroundColor.withOpacity(0.5),
+          border: Border(
+              bottom:
+                  BorderSide(color: Theme.of(context).accentColor, width: 0.5)),
           middle: Text("I Owe",
               style: Theme.of(context)
                   .textTheme
