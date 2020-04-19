@@ -1,4 +1,5 @@
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
+import 'package:YouOweMe/ui/IOwe/iOwePage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +7,11 @@ import 'package:provider/provider.dart';
 class IOweSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    void goToIOwePage() {
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (BuildContext context) => IOwePage()));
+    }
+
     return Container(
       height: 130,
       color: Colors.transparent,
@@ -16,13 +22,12 @@ class IOweSection extends StatelessWidget {
               left: 0,
               top: 0,
               child: CupertinoButton(
-                onPressed: () {},
+                onPressed: goToIOwePage,
                 minSize: 0,
                 padding: EdgeInsets.all(0),
                 child: Row(
                   children: <Widget>[
-                    Text("I Owe",
-                        style: Theme.of(context).textTheme.headline3),
+                    Text("I Owe", style: Theme.of(context).textTheme.headline3),
                     Icon(
                       CupertinoIcons.right_chevron,
                       color: Color.fromRGBO(78, 80, 88, 1),
