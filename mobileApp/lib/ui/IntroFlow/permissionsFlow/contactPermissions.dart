@@ -7,9 +7,14 @@ import 'package:provider/provider.dart';
 class ContactsPermissions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _size = MediaQuery.of(context).size;
     void nextPage() {
       Provider.of<PageController>(context, listen: false).nextPage(
           duration: Duration(milliseconds: 200), curve: Curves.easeInOutQuad);
+    }
+
+    SizedBox _spacer(int padding, [int minus = 0]) {
+      return SizedBox(height: (_size.height / padding) - minus);
     }
 
     void allowContact() async {
@@ -28,27 +33,32 @@ class ContactsPermissions extends StatelessWidget {
         children: [
           Positioned.fill(
             bottom: 65,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text("We need to read your contacts.",
-                    style: Theme.of(context).textTheme.headline1),
-                SizedBox(
-                  height: 10,
-                ),
-                Center(
-                  child: Container(
-                    height: 60,
-                    width: 400,
-                    child: CupertinoButton(
-                        color: CupertinoColors.activeGreen,
-                        child: Text('Allow Contacts'),
-                        onPressed: allowContact),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _spacer(18, 20),
+                  Text("We need to read your Contacts.",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline1
+                          .copyWith(fontSize: _size.width / 8)),
+                  _spacer(16),
+                  Center(
+                    child: Container(
+                      height: 60,
+                      width: 400,
+                      child: CupertinoButton(
+                          color: CupertinoColors.activeGreen,
+                          child: Text('Allow Contacts'),
+                          onPressed: allowContact),
+                    ),
                   ),
-                ),
-                Image.asset("assets/scribbles/karlsson_contact_page.png")
-              ],
+                  _spacer(12),
+                  Image.asset("assets/scribbles/karlsson_contact_page.png")
+                ],
+              ),
             ),
           ),
           Positioned(

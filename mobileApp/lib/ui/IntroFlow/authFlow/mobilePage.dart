@@ -101,7 +101,7 @@ class _MobilePageState extends State<MobilePage> {
                 children: [
                   _spacer(18, 20),
                   Text(
-                    "What's Your Mobile Number?",
+                    "What's Your Phone Number?",
                     style: Theme.of(context)
                         .textTheme
                         .headline1
@@ -109,13 +109,13 @@ class _MobilePageState extends State<MobilePage> {
                   ),
                   _spacer(16),
                   Row(
-                    mainAxisSize: MainAxisSize.max,
+                    // mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
                         "+91 ",
                         style: TextStyle(
-                            fontSize: _size.width / 9,
+                            fontSize: _size.width / 8,
                             fontWeight: FontWeight.w800,
                             color: Theme.of(context).accentColor),
                       ),
@@ -125,7 +125,7 @@ class _MobilePageState extends State<MobilePage> {
                           onSubmitted: (_) => phoneAuth(),
                           controller: mobileNoController,
                           decoration: InputDecoration(
-                            hintText: "0123456789",
+                            hintText: "00",
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.all(0),
                           ),
@@ -147,7 +147,7 @@ class _MobilePageState extends State<MobilePage> {
             ),
           ),
           Positioned(
-              bottom: 10,
+              bottom: 0,
               child: Container(
                 height: 60,
                 width: 400,

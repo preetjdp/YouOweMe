@@ -97,13 +97,13 @@ class _OtpPageState extends State<OtpPage> {
                 children: [
                   _spacer(18, 20),
                   Text(
-                    "Enter the OTP",
+                    "Enter the\nOTP",
                     style: Theme.of(context)
                         .textTheme
                         .headline1
                         .copyWith(fontSize: _size.width / 8),
                   ),
-                  _spacer(8),
+                  _spacer(16),
                   Center(
                     child: PinCodeTextField(
                       controller: otpController,
@@ -125,7 +125,7 @@ class _OtpPageState extends State<OtpPage> {
             ),
           ),
           Positioned(
-            bottom: 10,
+            bottom: 0,
             child: Container(
               height: 60,
               width: 400,

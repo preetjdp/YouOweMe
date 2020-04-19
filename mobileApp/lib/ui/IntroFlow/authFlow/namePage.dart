@@ -59,7 +59,7 @@ class _NamePageState extends State<NamePage> {
                 children: [
                   _spacer(18, 20),
                   Text(
-                    "Let's Start With a name?",
+                    "Let's Start With a Name?",
                     style: Theme.of(context)
                         .textTheme
                         .headline1
@@ -76,7 +76,7 @@ class _NamePageState extends State<NamePage> {
                       contentPadding: EdgeInsets.all(0),
                     ),
                     style: TextStyle(
-                      fontSize: _size.width / 9,
+                      fontSize: _size.width / 8,
                       fontWeight: FontWeight.w800,
                       color: Theme.of(context).accentColor,
                     ),
@@ -88,7 +88,7 @@ class _NamePageState extends State<NamePage> {
             ),
           ),
           Positioned(
-            bottom: 10,
+            bottom: 0,
             child: Column(
               children: [
                 CupertinoButton(

@@ -6,9 +6,14 @@ import 'package:provider/provider.dart';
 class NotificationsPermissions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _size = MediaQuery.of(context).size;
     void nextPage() {
       Provider.of<PageController>(context, listen: false).nextPage(
           duration: Duration(milliseconds: 200), curve: Curves.easeInOutQuad);
+    }
+
+    SizedBox _spacer(int padding, [int minus = 0]) {
+      return SizedBox(height: (_size.height / padding) - minus);
     }
 
     void allowNotifications() async {
@@ -27,27 +32,31 @@ class NotificationsPermissions extends StatelessWidget {
         children: [
           Positioned.fill(
             bottom: 65,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text("We need to send you notifications.",
-                    style: Theme.of(context).textTheme.headline1),
-                SizedBox(
-                  height: 10,
-                ),
-                Center(
-                  child: Container(
-                    height: 60,
-                    width: 400,
-                    child: CupertinoButton(
-                        color: CupertinoColors.activeGreen,
-                        child: Text('Allow Notifications'),
-                        onPressed: allowNotifications),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _spacer(18, 20),
+                  Text("We need Notification Permissions.",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline1
+                          .copyWith(fontSize: _size.width / 8)),
+                  _spacer(16),
+                  Center(
+                    child: Container(
+                      height: 60,
+                      width: 400,
+                      child: CupertinoButton(
+                          color: CupertinoColors.activeGreen,
+                          child: Text('Allow Notifications'),
+                          onPressed: allowNotifications),
+                    ),
                   ),
-                ),
-                Image.asset("assets/scribbles/karlsson_paper_plane.png")
-              ],
+                  Image.asset("assets/scribbles/karlsson_paper_plane.png")
+                ],
+              ),
             ),
           ),
           Positioned(
