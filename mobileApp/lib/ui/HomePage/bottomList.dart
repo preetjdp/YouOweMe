@@ -108,7 +108,7 @@ class BottomListEmptyState extends StatelessWidget {
     return Padding(
         padding: EdgeInsets.only(top: 40),
         child: Image.asset(
-          "assets/scribbles/scribble.png", //Really Good
+          "assets/scribbles/scribble1.png", //Really Good
           fit: BoxFit.contain,
         ));
   }
