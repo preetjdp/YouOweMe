@@ -1,13 +1,22 @@
+import 'package:YouOweMe/resources/graphql/seva.dart';
+import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
+import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:YouOweMe/ui/NewOwe/newOwe.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class OweMePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final List<Seva$Query$User$Owe> oweMe =
+        Provider.of<MeNotifier>(context).me.oweMe;
     return Scaffold(
         appBar: CupertinoNavigationBar(
-          backgroundColor: Colors.white.withOpacity(0.5),
+          backgroundColor: Theme.of(context).backgroundColor.withOpacity(0.5),
+          border: Border(
+              bottom:
+                  BorderSide(color: Theme.of(context).accentColor, width: 0.5)),
           middle: Text("Owe Me",
               style: Theme.of(context)
                   .textTheme
@@ -17,7 +26,58 @@ class OweMePage extends StatelessWidget {
         ),
         body: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: OweMePageEmptyState(),
+          child: oweMe.isNotEmpty
+              ? ListView.builder(
+                  itemCount: oweMe.length,
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    Seva$Query$User$Owe owe = oweMe[index];
+                    return Container(
+                      margin: EdgeInsets.only(top: 10),
+                      height: 50,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          YomAvatar(
+                            text: "PP",
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            owe.title,
+                            style: Theme.of(context).textTheme.headline3,
+                          ),
+                          Expanded(
+                            child: Container(),
+                          ),
+                          CupertinoButton(
+                            onPressed: () {},
+                            padding: EdgeInsets.symmetric(
+                                vertical: 2, horizontal: 10),
+                            child: Icon(
+                              CupertinoIcons.check_mark_circled,
+                              size: 28,
+                            ),
+                          ),
+                          CupertinoButton(
+                              color: Theme.of(context).accentColor,
+                              minSize: 20,
+                              padding: EdgeInsets.all(10),
+                              child: Text(
+                                owe.amount.toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline3
+                                    .copyWith(color: Colors.white),
+                              ),
+                              onPressed: () {})
+                        ],
+                      ),
+                    );
+                  })
+              : OweMePageEmptyState(),
         ));
   }
 }
