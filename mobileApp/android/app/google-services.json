@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "401368738928-224rt3nfqspq9p61mdibl7gdb6npjjs8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.preetjdp.youoweme",
+            "certificate_hash": "f9d0996a913080be00599af384342b5092a0108e"
+          }
+        },
+        {
+          "client_id": "401368738928-abmkcd6ulatb39tbn2nm7b8ntk0h8kpe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.preetjdp.youoweme",
+            "certificate_hash": "0f17a8693a25871038f5653a95a7e7f316c27ba9"
+          }
+        },
+        {
           "client_id": "401368738928-k4v46nvvhm67qtess1anuggqu5f3ocn9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
