@@ -47,7 +47,8 @@ class _OtpPageState extends State<OtpPage> {
                 .then((result) {
               if (result.user != null) {
                 //The logic to add update the userName on new login
-                if (loginUser.userName != null) {
+                if (loginUser.userName != null &&
+                    loginUser.userName.isNotEmpty) {
                   Firestore.instance
                       .collection("users")
                       .document(result.user.uid)
