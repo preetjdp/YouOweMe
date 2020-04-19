@@ -253,8 +253,8 @@ class _NewOweState extends State<NewOwe> {
                         Container(
                           height: 60,
                           width: 400,
-                          child: CupertinoButton.filled(
-                              disabledColor: Theme.of(context).accentColor,
+                          child: CupertinoButton(
+                              color: Theme.of(context).accentColor,
                               child: Text('Done'),
                               onPressed: addNewOwe),
                         )
