@@ -15,6 +15,8 @@ import 'package:provider/provider.dart';
 
 void main() {
   Provider.debugCheckInvalidValueType = null;
+  //Call Init HelperFunctions
+  configureSystemChrome();
   runApp(DevicePreview(
     enabled: false,
     builder: (BuildContext context) => MaterialApp(
@@ -54,8 +56,6 @@ class Intermediate extends StatelessWidget {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //Call Init HelperFunctions
-    configureSystemChrome();
     return MaterialApp(
       title: 'You Owe Me',
       builder: DevicePreview.appBuilder,
