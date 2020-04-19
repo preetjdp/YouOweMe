@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 final ThemeData yomTheme = ThemeData(
     fontFamily: "Aileron",
     scaffoldBackgroundColor: Color.fromRGBO(241, 245, 249, 1),
+    backgroundColor: Color.fromRGBO(241, 245, 249, 1),
     //This Color is used to set GlowingOverscroll Indicator
     accentColor: Color.fromRGBO(52, 59, 70, 1),
     cupertinoOverrideTheme:
