@@ -59,7 +59,7 @@ class IOweSection extends StatelessWidget {
                                   ?.me
                                   ?.iOweAmount
                                   ?.toString() ??
-                              "WOW",
+                              "wow",
                           style: TextStyle(
                               fontSize: 50,
                               fontWeight: FontWeight.w800,
