@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
+import 'package:YouOweMe/ui/HomePage/graph.dart';
 import 'package:YouOweMe/ui/HomePage/iOweSection.dart';
 import 'package:YouOweMe/ui/HomePage/oweMeSection.dart';
 import 'package:YouOweMe/resources/extensions.dart';
@@ -70,6 +71,10 @@ class HomePage extends StatelessWidget {
       ),
       IOweSection(),
       BottomList(),
+      SizedBox(
+        height: 10,
+      ),
+      MyGraphApp()
     ];
 
     final Widget abstractedHomePage = CustomScrollView(
