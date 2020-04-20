@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:YouOweMe/resources/extensions.dart';
 
 class PeopleList extends StatelessWidget {
   List<String> people = ["Preet Parekh", "Tanay Modi", "Elizabeth Cooper"];
@@ -84,11 +85,7 @@ class PeopleList extends StatelessWidget {
                   children: <Widget>[
                     YomAvatar(
                         // Returns "PP" for "Preet Parekh"
-                        text: contact.displayName
-                            .split(" ")
-                            .map((e) => e[0])
-                            .toList()
-                            .join()),
+                        text: contact.shortName),
                     SizedBox(
                       height: 40,
                     ),

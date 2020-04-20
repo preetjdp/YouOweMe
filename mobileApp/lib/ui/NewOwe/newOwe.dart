@@ -12,6 +12,7 @@ import 'package:YouOweMe/ui/NewOwe/peopleList.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:YouOweMe/resources/extensions.dart';
 
 class NewOwe extends StatefulWidget {
   @override
@@ -195,11 +196,7 @@ class _NewOweState extends State<NewOwe> {
                               children: <Widget>[
                                 YomAvatar(
                                   text: snapshot.data.displayName != null
-                                      ? snapshot.data.displayName
-                                          .split(" ")
-                                          .map((e) => e[0])
-                                          .take(2)
-                                          .join()
+                                      ? snapshot.data.shortName
                                       : "+91",
                                 ),
                                 SizedBox(

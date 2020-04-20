@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:YouOweMe/resources/extensions.dart';
 
 class ContactSelector extends StatefulWidget {
   final ScrollController scrollController;
@@ -155,11 +156,7 @@ class ContactsList extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 YomAvatar(
-                  text: contact.displayName
-                      .split(" ")
-                      .map((e) => e[0])
-                      .take(2)
-                      .join(),
+                  text: contact.shortName,
                 ),
                 SizedBox(
                   width: 20,

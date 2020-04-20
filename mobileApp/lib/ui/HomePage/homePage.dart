@@ -4,6 +4,7 @@ import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:YouOweMe/ui/HomePage/iOweSection.dart';
 import 'package:YouOweMe/ui/HomePage/oweMeSection.dart';
+import 'package:YouOweMe/resources/extensions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -140,14 +141,7 @@ class HomePage extends StatelessWidget {
             bottom: 20,
             left: 15,
             child: YomAvatar(
-              text: Provider.of<MeNotifier>(context)
-                      ?.me
-                      ?.name
-                      ?.split(" ")
-                      ?.map((e) => e[0])
-                      ?.toList()
-                      ?.join() ??
-                  "PP",
+              text: Provider.of<MeNotifier>(context)?.me?.shortName ?? "PP",
               onPressed: () => logOutDialog(context),
             ),
           )
