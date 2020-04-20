@@ -58,7 +58,9 @@ class BottomList extends StatelessWidget {
               Provider.of<MeNotifier>(context).me.oweMe[index];
           return Container(
             margin: EdgeInsets.only(top: 10),
-            height: 50,
+            constraints: BoxConstraints(
+              minHeight: 50
+            ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -68,12 +70,13 @@ class BottomList extends StatelessWidget {
                 SizedBox(
                   width: 20,
                 ),
-                Text(
-                  owe.title,
-                  style: Theme.of(context).textTheme.headline3,
-                ),
                 Expanded(
-                  child: Container(),
+                  child: Text(
+                    owe.title,
+                    style: Theme.of(context).textTheme.headline3,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 CupertinoButton(
                   onPressed: () => onTick(owe, context),
