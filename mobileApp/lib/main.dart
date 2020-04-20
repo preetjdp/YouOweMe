@@ -18,7 +18,7 @@ void main() {
   //Call Init HelperFunctions
   configureSystemChrome();
   runApp(DevicePreview(
-    enabled: false,
+    enabled: kDebugMode,
     builder: (BuildContext context) => MaterialApp(
         builder: DevicePreview.appBuilder, theme: yomTheme, home: IntroFlow()),
   ));
