@@ -28,6 +28,9 @@ dependencies:
   firebase_auth: ^0.16.0
   pin_code_text_field: ^1.5.1
   flutter_launcher_icons: ^0.7.4
+  animations: ^1.0.0+5
+  flutter_staggered_animations: ^0.1.2
+  simple_animations: ^2.0.1
 
 dev_dependencies:
   artemis:
