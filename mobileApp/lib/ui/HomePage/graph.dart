@@ -3,7 +3,9 @@ import 'dart:ui' as ui;
 
 import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
+import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -50,12 +52,46 @@ const MaterialColor secondaryAccent = MaterialColor(
 final List<double> values =
     List.generate(100, (_) => math.Random().nextDouble() * kMaxValue);
 
-class MyGraphApp extends StatelessWidget {
+class GraphWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final Seva$Query$User me = Provider.of<MeNotifier>(context).me;
+    if (me == null) {
+      return YOMSpinner();
+    }
+    if(me.oweMe.length == 0) {
+      return Container();
+    }
     return Container(
-      margin: EdgeInsets.only(top: 15),
-      child: SizedBox(height: kMaxValue, child: GraphView(values: values)),
+      height: 330,
+      color: Colors.transparent,
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: <Widget>[
+          Positioned(
+              left: 0,
+              top: 0,
+              child:
+                  Text("Stats", style: Theme.of(context).textTheme.headline3)),
+          Positioned(
+              left: 0,
+              right: 0,
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                            blurRadius: 10,
+                            color: Color.fromRGBO(78, 80, 88, 0.05),
+                            spreadRadius: 0.1)
+                      ]),
+                  child: SizedBox(
+                      height: kMaxValue,
+                      child: GraphView(
+                          values: values)))),
+        ],
+      ),
     );
   }
 }
@@ -70,14 +106,7 @@ class GraphView extends BoxScrollView {
 
   @override
   Widget buildChildLayout(BuildContext context) {
-    final List<Seva$Query$User$Owe> iOwe =
-        Provider.of<MeNotifier>(context).me.iOwe;
-        final List<Seva$Query$User$Owe> oweMe =
-        Provider.of<MeNotifier>(context).me.oweMe;
-    final List<double> valuesA = iOwe.map((e) => e.amount).toList();
-    final List<double> valuesB = oweMe.map((e) => e.amount).toList();
-    valuesB.addAll(valuesA);
-    return SliverToBoxAdapter(child: GraphWidget(values: valuesB));
+    return SliverToBoxAdapter(child: GraphWidget(values: values));
   }
 }
 

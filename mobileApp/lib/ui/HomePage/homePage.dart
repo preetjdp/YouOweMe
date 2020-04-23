@@ -74,7 +74,7 @@ class HomePage extends StatelessWidget {
       SizedBox(
         height: 10,
       ),
-      MyGraphApp()
+      GraphWrapper()
     ];
 
     final Widget abstractedHomePage = CustomScrollView(
