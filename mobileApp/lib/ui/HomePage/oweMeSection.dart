@@ -1,4 +1,6 @@
+import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
+import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:YouOweMe/ui/OweMe/oweMePage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:provider/provider.dart';
 class OweMeSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Seva$Query$User me = Provider.of<MeNotifier>(context).me;
     void goToOweMePage() {
       Navigator.of(context).push(
           MaterialPageRoute(builder: (BuildContext context) => OweMePage()));
@@ -55,16 +58,14 @@ class OweMeSection extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text(
-                          Provider.of<MeNotifier>(context, listen: true)
-                                  ?.me
-                                  ?.oweMeAmount
-                                  ?.toString() ??
-                              "wow",
-                          style: TextStyle(
-                              fontSize: 50,
-                              fontWeight: FontWeight.w800,
-                              color: Theme.of(context).accentColor))
+                      if (me != null)
+                        Text(me.oweMeAmount.toString(),
+                            style: TextStyle(
+                                fontSize: 50,
+                                fontWeight: FontWeight.w800,
+                                color: Theme.of(context).accentColor))
+                      else
+                        Expanded(child: Center(child: YOMSpinner()))
                     ],
                   )),
             ),
