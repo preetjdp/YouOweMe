@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 
 import 'package:YouOweMe/ui/NewOwe/newOwe.dart';
 import 'package:YouOweMe/ui/HomePage/bottomList.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -60,17 +61,26 @@ class HomePage extends StatelessWidget {
     Future<void> onRefresh() =>
         Provider.of<MeNotifier>(context, listen: false).refresh();
 
-    List<Widget> children = <Widget>[
-      SizedBox(
-        height: 10,
-      ),
-      OweMeSection(),
-      SizedBox(
-        height: 10,
-      ),
-      IOweSection(),
-      BottomList(),
-    ];
+    List<Widget> children = AnimationConfiguration.toStaggeredList(
+        childAnimationBuilder: (widget) => ScaleAnimation(
+              scale: 1.5,
+              // horizontalOffset: 50.0,
+              // verticalOffset: 20,
+              child: FadeInAnimation(
+                child: widget,
+              ),
+            ),
+        children: <Widget>[
+          SizedBox(
+            height: 10,
+          ),
+          OweMeSection(),
+          SizedBox(
+            height: 10,
+          ),
+          IOweSection(),
+          BottomList(),
+        ]);
 
     final Widget abstractedHomePage = CustomScrollView(
       slivers: <Widget>[
