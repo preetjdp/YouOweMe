@@ -64,8 +64,6 @@ class HomePage extends StatelessWidget {
     List<Widget> children = AnimationConfiguration.toStaggeredList(
         childAnimationBuilder: (widget) => ScaleAnimation(
               scale: 1.5,
-              // horizontalOffset: 50.0,
-              // verticalOffset: 20,
               child: FadeInAnimation(
                 child: widget,
               ),
@@ -146,7 +144,7 @@ class HomePage extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Stack(
         children: [
-          abstractedHomePage,
+          AnimationLimiter(child: abstractedHomePage),
           Positioned(
             bottom: 20,
             left: 15,
