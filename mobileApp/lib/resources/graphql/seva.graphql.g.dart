@@ -12,6 +12,7 @@ Seva$Query$User$Owe$User _$Seva$Query$User$Owe$UserFromJson(
     ..id = json['id'] as String
     ..name = json['name'] as String
     ..image = json['image'] as String
+    ..mobileNo = json['mobileNo'] as String
     ..created = fromGraphQLDateTimeToDartDateTime(json['created'] as int);
 }
 
@@ -21,6 +22,7 @@ Map<String, dynamic> _$Seva$Query$User$Owe$UserToJson(
       'id': instance.id,
       'name': instance.name,
       'image': instance.image,
+      'mobileNo': instance.mobileNo,
       'created': fromDartDateTimeToGraphQLTimestamp(instance.created),
     };
 
@@ -58,6 +60,7 @@ Seva$Query$User _$Seva$Query$UserFromJson(Map<String, dynamic> json) {
     ..image = json['image'] as String
     ..oweMeAmount = json['oweMeAmount'] as int
     ..iOweAmount = json['iOweAmount'] as int
+    ..mobileNo = json['mobileNo'] as String
     ..created = fromGraphQLDateTimeToDartDateTime(json['created'] as int)
     ..oweMe = (json['oweMe'] as List)
         ?.map((e) => e == null
@@ -78,6 +81,7 @@ Map<String, dynamic> _$Seva$Query$UserToJson(Seva$Query$User instance) =>
       'image': instance.image,
       'oweMeAmount': instance.oweMeAmount,
       'iOweAmount': instance.iOweAmount,
+      'mobileNo': instance.mobileNo,
       'created': fromDartDateTimeToGraphQLTimestamp(instance.created),
       'oweMe': instance.oweMe?.map((e) => e?.toJson())?.toList(),
       'iOwe': instance.iOwe?.map((e) => e?.toJson())?.toList(),

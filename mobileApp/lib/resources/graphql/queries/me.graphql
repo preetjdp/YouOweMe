@@ -5,6 +5,7 @@ query {
     image
     oweMeAmount
     iOweAmount
+    mobileNo
     created
     oweMe {
       id
@@ -15,12 +16,14 @@ query {
         id
         name
         image
+        mobileNo
         created
       }
       issuedTo {
         id
         name
         image
+        mobileNo
         created
       }
     }
@@ -33,12 +36,14 @@ query {
         id
         name
         image
+        mobileNo
         created
       }
       issuedTo {
         id
         name
         image
+        mobileNo
         created
       }
     }
