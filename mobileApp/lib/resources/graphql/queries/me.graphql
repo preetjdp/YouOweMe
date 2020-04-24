@@ -5,34 +5,41 @@ query {
     image
     oweMeAmount
     iOweAmount
+    created
     oweMe {
       id
       title
       amount
+      created
       issuedBy {
         id
         name
         image
+        created
       }
       issuedTo {
         id
         name
         image
+        created
       }
     }
     iOwe {
       id
       title
       amount
+      created
       issuedBy {
         id
         name
         image
+        created
       }
       issuedTo {
         id
         name
         image
+        created
       }
     }
   }

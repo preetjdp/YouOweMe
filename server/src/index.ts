@@ -10,6 +10,7 @@ const main = async () => {
     schema,
     introspection: true,
     playground: true,
+    tracing: true,
     context: ({ req, connection }) => {
       if (connection) {
         return connection.context

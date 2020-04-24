@@ -11,7 +11,8 @@ Seva$Query$User$Owe$User _$Seva$Query$User$Owe$UserFromJson(
   return Seva$Query$User$Owe$User()
     ..id = json['id'] as String
     ..name = json['name'] as String
-    ..image = json['image'] as String;
+    ..image = json['image'] as String
+    ..created = fromGraphQLDateTimeToDartDateTime(json['created'] as int);
 }
 
 Map<String, dynamic> _$Seva$Query$User$Owe$UserToJson(
@@ -20,6 +21,7 @@ Map<String, dynamic> _$Seva$Query$User$Owe$UserToJson(
       'id': instance.id,
       'name': instance.name,
       'image': instance.image,
+      'created': fromDartDateTimeToGraphQLTimestamp(instance.created),
     };
 
 Seva$Query$User$Owe _$Seva$Query$User$OweFromJson(Map<String, dynamic> json) {
@@ -27,6 +29,7 @@ Seva$Query$User$Owe _$Seva$Query$User$OweFromJson(Map<String, dynamic> json) {
     ..id = json['id'] as String
     ..title = json['title'] as String
     ..amount = (json['amount'] as num)?.toDouble()
+    ..created = fromGraphQLDateTimeToDartDateTime(json['created'] as int)
     ..issuedBy = json['issuedBy'] == null
         ? null
         : Seva$Query$User$Owe$User.fromJson(
@@ -43,6 +46,7 @@ Map<String, dynamic> _$Seva$Query$User$OweToJson(
       'id': instance.id,
       'title': instance.title,
       'amount': instance.amount,
+      'created': fromDartDateTimeToGraphQLTimestamp(instance.created),
       'issuedBy': instance.issuedBy?.toJson(),
       'issuedTo': instance.issuedTo?.toJson(),
     };
@@ -54,6 +58,7 @@ Seva$Query$User _$Seva$Query$UserFromJson(Map<String, dynamic> json) {
     ..image = json['image'] as String
     ..oweMeAmount = json['oweMeAmount'] as int
     ..iOweAmount = json['iOweAmount'] as int
+    ..created = fromGraphQLDateTimeToDartDateTime(json['created'] as int)
     ..oweMe = (json['oweMe'] as List)
         ?.map((e) => e == null
             ? null
@@ -73,6 +78,7 @@ Map<String, dynamic> _$Seva$Query$UserToJson(Seva$Query$User instance) =>
       'image': instance.image,
       'oweMeAmount': instance.oweMeAmount,
       'iOweAmount': instance.iOweAmount,
+      'created': fromDartDateTimeToGraphQLTimestamp(instance.created),
       'oweMe': instance.oweMe?.map((e) => e?.toJson())?.toList(),
       'iOwe': instance.iOwe?.map((e) => e?.toJson())?.toList(),
     };
