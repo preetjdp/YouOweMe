@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:YouOweMe/resources/extensions.dart';
 
 class OweMePage extends StatelessWidget {
   void onTick(Seva$Query$User$Owe owe, BuildContext context) async {
@@ -79,7 +80,7 @@ class OweMePage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           YomAvatar(
-                            text: "PP",
+                            text: owe.issuedTo.shortName,
                           ),
                           SizedBox(
                             width: 20,

@@ -5,6 +5,7 @@ import 'package:YouOweMe/ui/NewOwe/newOwe.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:YouOweMe/resources/extensions.dart';
 
 class IOwePage extends StatelessWidget {
   @override
@@ -40,7 +41,7 @@ class IOwePage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             YomAvatar(
-                              text: "PP",
+                              text: owe.issuedBy.shortName,
                             ),
                             SizedBox(
                               width: 20,

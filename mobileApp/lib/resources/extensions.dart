@@ -15,6 +15,10 @@ extension MeUtils on Seva$Query$User {
   String get shortName => this.name.split(" ").map((e) => e[0]).toList().join();
 }
 
+extension MeUtils2 on Seva$Query$User$Owe$User {
+  String get shortName => this.name.split(" ").map((e) => e[0]).toList().join();
+}
+
 extension ContactUtils on Contact {
   String get shortName =>
       this.displayName.split(" ").map((e) => e[0]).toList().join();
