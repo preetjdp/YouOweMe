@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:YouOweMe/resources/notifiers/contactProxyNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:contacts_service/contacts_service.dart';

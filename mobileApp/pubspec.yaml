@@ -31,6 +31,7 @@ dependencies:
   animations: ^1.0.0+5
   flutter_staggered_animations: ^0.1.2
   simple_animations: ^2.0.1
+  streaming_shared_preferences: ^1.0.1
 
 dev_dependencies:
   artemis:

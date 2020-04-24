@@ -5,34 +5,46 @@ query {
     image
     oweMeAmount
     iOweAmount
+    mobileNo
+    created
     oweMe {
       id
       title
       amount
+      created
       issuedBy {
         id
         name
         image
+        mobileNo
+        created
       }
       issuedTo {
         id
         name
         image
+        mobileNo
+        created
       }
     }
     iOwe {
       id
       title
       amount
+      created
       issuedBy {
         id
         name
         image
+        mobileNo
+        created
       }
       issuedTo {
         id
         name
         image
+        mobileNo
+        created
       }
     }
   }

@@ -5,6 +5,7 @@ import 'package:artemis/artemis.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gql/ast.dart';
+import 'package:YouOweMe/resources/graphql/coercers.dart';
 part 'seva.graphql.g.dart';
 
 @JsonSerializable(explicitToJson: true)
@@ -20,8 +21,15 @@ class Seva$Query$User$Owe$User with EquatableMixin {
 
   String image;
 
+  String mobileNo;
+
+  @JsonKey(
+      fromJson: fromGraphQLDateTimeToDartDateTime,
+      toJson: fromDartDateTimeToGraphQLTimestamp)
+  DateTime created;
+
   @override
-  List<Object> get props => [id, name, image];
+  List<Object> get props => [id, name, image, mobileNo, created];
   Map<String, dynamic> toJson() => _$Seva$Query$User$Owe$UserToJson(this);
 }
 
@@ -38,12 +46,17 @@ class Seva$Query$User$Owe with EquatableMixin {
 
   double amount;
 
+  @JsonKey(
+      fromJson: fromGraphQLDateTimeToDartDateTime,
+      toJson: fromDartDateTimeToGraphQLTimestamp)
+  DateTime created;
+
   Seva$Query$User$Owe$User issuedBy;
 
   Seva$Query$User$Owe$User issuedTo;
 
   @override
-  List<Object> get props => [id, title, amount, issuedBy, issuedTo];
+  List<Object> get props => [id, title, amount, created, issuedBy, issuedTo];
   Map<String, dynamic> toJson() => _$Seva$Query$User$OweToJson(this);
 }
 
@@ -64,13 +77,29 @@ class Seva$Query$User with EquatableMixin {
 
   int iOweAmount;
 
+  String mobileNo;
+
+  @JsonKey(
+      fromJson: fromGraphQLDateTimeToDartDateTime,
+      toJson: fromDartDateTimeToGraphQLTimestamp)
+  DateTime created;
+
   List<Seva$Query$User$Owe> oweMe;
 
   List<Seva$Query$User$Owe> iOwe;
 
   @override
-  List<Object> get props =>
-      [id, name, image, oweMeAmount, iOweAmount, oweMe, iOwe];
+  List<Object> get props => [
+        id,
+        name,
+        image,
+        oweMeAmount,
+        iOweAmount,
+        mobileNo,
+        created,
+        oweMe,
+        iOwe
+      ];
   Map<String, dynamic> toJson() => _$Seva$Query$UserToJson(this);
 }
 
@@ -136,6 +165,18 @@ class SevaQuery extends GraphQLQuery<Seva$Query, JsonSerializable> {
                     directives: [],
                     selectionSet: null),
                 FieldNode(
+                    name: NameNode(value: 'mobileNo'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'created'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
                     name: NameNode(value: 'oweMe'),
                     alias: null,
                     arguments: [],
@@ -155,6 +196,12 @@ class SevaQuery extends GraphQLQuery<Seva$Query, JsonSerializable> {
                           selectionSet: null),
                       FieldNode(
                           name: NameNode(value: 'amount'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'created'),
                           alias: null,
                           arguments: [],
                           directives: [],
@@ -182,6 +229,18 @@ class SevaQuery extends GraphQLQuery<Seva$Query, JsonSerializable> {
                                 alias: null,
                                 arguments: [],
                                 directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'mobileNo'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'created'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
                                 selectionSet: null)
                           ])),
                       FieldNode(
@@ -204,6 +263,18 @@ class SevaQuery extends GraphQLQuery<Seva$Query, JsonSerializable> {
                                 selectionSet: null),
                             FieldNode(
                                 name: NameNode(value: 'image'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'mobileNo'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'created'),
                                 alias: null,
                                 arguments: [],
                                 directives: [],
@@ -235,6 +306,12 @@ class SevaQuery extends GraphQLQuery<Seva$Query, JsonSerializable> {
                           directives: [],
                           selectionSet: null),
                       FieldNode(
+                          name: NameNode(value: 'created'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
                           name: NameNode(value: 'issuedBy'),
                           alias: null,
                           arguments: [],
@@ -254,6 +331,18 @@ class SevaQuery extends GraphQLQuery<Seva$Query, JsonSerializable> {
                                 selectionSet: null),
                             FieldNode(
                                 name: NameNode(value: 'image'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'mobileNo'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'created'),
                                 alias: null,
                                 arguments: [],
                                 directives: [],
@@ -279,6 +368,18 @@ class SevaQuery extends GraphQLQuery<Seva$Query, JsonSerializable> {
                                 selectionSet: null),
                             FieldNode(
                                 name: NameNode(value: 'image'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'mobileNo'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'created'),
                                 alias: null,
                                 arguments: [],
                                 directives: [],

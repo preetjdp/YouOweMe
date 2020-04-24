@@ -11,5 +11,6 @@ targets:
               queries_glob: lib/resources/graphql/queries/**.graphql
               output: lib/resources/graphql/seva.dart
           scalar_mapping:
-            - graphql_type: Timestamp
+            - custom_parser_import: 'package:YouOweMe/resources/graphql/coercers.dart'
+              graphql_type: Timestamp
               dart_type: DateTime
