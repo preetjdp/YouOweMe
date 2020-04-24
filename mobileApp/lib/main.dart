@@ -12,16 +12,38 @@ import 'package:flutter/material.dart';
 import 'package:YouOweMe/resources/helpers.dart';
 import 'package:YouOweMe/ui/HomePage/homePage.dart';
 import 'package:provider/provider.dart';
+import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 
-void main() {
+Future<void> main() async {
   Provider.debugCheckInvalidValueType = null;
+  WidgetsFlutterBinding.ensureInitialized();
+  final preferences = await StreamingSharedPreferences.instance;
   //Call Init HelperFunctions
   configureSystemChrome();
-  runApp(DevicePreview(
-    enabled: kDebugMode,
-    builder: (BuildContext context) => MaterialApp(
-        builder: DevicePreview.appBuilder, theme: yomTheme, home: IntroFlow()),
+  runApp(MyApp(
+    preferences: preferences,
   ));
+}
+
+class MyApp extends StatelessWidget {
+  final StreamingSharedPreferences preferences;
+  MyApp({@required this.preferences});
+  @override
+  Widget build(BuildContext context) {
+    return PreferenceBuilder<bool>(
+        preference:
+            preferences.getBool('showDevicePreview', defaultValue: false),
+        builder: (context, shouldShowDevicePreview) {
+          return DevicePreview(
+            enabled: shouldShowDevicePreview,
+            builder: (BuildContext context) => MaterialApp(
+                title: 'You Owe Me',
+                builder: DevicePreview.appBuilder,
+                theme: yomTheme,
+                home: IntroFlow()),
+          );
+        });
+  }
 }
 
 class Intermediate extends StatelessWidget {
@@ -48,19 +70,11 @@ class Intermediate extends StatelessWidget {
           lazy: false,
         )
       ],
-      child: MyApp(),
-    );
-  }
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'You Owe Me',
-      builder: DevicePreview.appBuilder,
-      theme: yomTheme,
-      home: HomePage(),
+      child: MaterialApp(
+          title: 'You Owe Me',
+          builder: DevicePreview.appBuilder,
+          theme: yomTheme,
+          home: HomePage()),
     );
   }
 }

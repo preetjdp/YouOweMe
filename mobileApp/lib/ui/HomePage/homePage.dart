@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:YouOweMe/resources/helpers.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:YouOweMe/ui/HomePage/iOweSection.dart';
@@ -40,10 +41,18 @@ class HomePage extends StatelessWidget {
                   Navigator.pop(context, true);
                 },
               ),
+              CupertinoActionSheetAction(
+                child: Text(
+                  "Toggle Device Preview",
+                ),
+                onPressed: () {
+                  toggleDevicePreview();
+                },
+              ),
             ],
           );
         });
-    if (result) {
+    if (result != null && result) {
       FirebaseAuth.instance.signOut();
     }
   }

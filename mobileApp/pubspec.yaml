@@ -28,6 +28,7 @@ dependencies:
   firebase_auth: ^0.16.0
   pin_code_text_field: ^1.5.1
   flutter_launcher_icons: ^0.7.4
+  streaming_shared_preferences: ^1.0.1
 
 dev_dependencies:
   artemis:
