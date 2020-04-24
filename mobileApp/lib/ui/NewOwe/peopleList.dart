@@ -67,7 +67,7 @@ class PeopleList extends StatelessWidget {
                   me.oweMe.elementAt(index).issuedTo;
               Contact contact = Contact(
                   displayName: user.name,
-                  phones: [Item(value: "+917123456789")]);
+                  phones: [Item(value: user.mobileNo)]);
               return GestureDetector(
                 onTap: () => selectContact(contact),
                 child: Container(
