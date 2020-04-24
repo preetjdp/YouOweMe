@@ -2,7 +2,6 @@ import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/expandingWidgetDelegate.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
-import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,17 +10,10 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:YouOweMe/resources/extensions.dart';
 
 class PeopleList extends StatelessWidget {
-  List<String> people = ["Preet Parekh", "Tanay Modi", "Elizabeth Cooper"];
-
   final EdgeInsets margin = EdgeInsets.all(10);
   @override
   Widget build(BuildContext context) {
     final Seva$Query$User me = Provider.of<MeNotifier>(context).me;
-    // List<Contact> contacts =
-    List<Contact> contacts = people
-        .map((e) =>
-            Contact(displayName: e, phones: [Item(value: "+917123456789")]))
-        .toList();
     void selectContact(Contact contact) {
       Provider.of<PanelController>(context, listen: false).close();
       Provider.of<BehaviorSubject<Contact>>(context, listen: false)

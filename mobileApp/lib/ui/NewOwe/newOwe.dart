@@ -41,6 +41,7 @@ class _NewOweState extends State<NewOwe> {
     if (text.length == 0) {
       return "Enter a valid number";
     }
+    return null;
   }
 
   void clearSelectedContact() {

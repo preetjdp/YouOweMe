@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class YomAvatar extends StatelessWidget {
   final String text;
   final double size;
-  VoidCallback onPressed;
+  final VoidCallback onPressed;
   YomAvatar({this.size = 45, this.text = "PP", this.onPressed});
   @override
   Widget build(BuildContext context) {
