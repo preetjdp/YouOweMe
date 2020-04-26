@@ -35,7 +35,7 @@ const sendNotificationToOweIssuedTo = async (oweSnapshot: DocumentSnapshot) => {
     let message = `Psst. ${issuedToName} It seems that you owe ${issuedByName} ₹${oweAmount}.
     Click on the link to accept or decline the transaction.`
 
-    sendMessage(message, mobileNo)
+    sendMessage({ message, mobileNo })
     return
 }
 
