@@ -2,7 +2,7 @@ import { firestore } from "../../db/firebase"
 import { Query, Resolver, FieldResolver, Root, Arg, Authorized, Int } from "type-graphql"
 import { User } from "../../models/User"
 import { DocumentReference, Timestamp } from "@google-cloud/firestore"
-import { Owe } from "../../models/Owe"
+import { Owe, OweState } from "../../models/Owe"
 
 @Resolver(User)
 export class UserResolver {
@@ -67,6 +67,7 @@ export class UserResolver {
                 documenmentRef: oweF.ref,
                 title: oweFData.title,
                 amount: oweFData.amount,
+                state: oweFData.state ?? OweState.OPENED,
                 issuedByID: oweF.ref.parent.parent!.id,
                 issuedToID: issedToRef.id,
                 created: oweFCreated.toDate()
@@ -98,6 +99,7 @@ export class UserResolver {
                 documenmentRef: oweF.ref,
                 title: oweFData.title,
                 amount: oweFData.amount,
+                state: oweFData.state ?? OweState.OPENED,
                 issuedByID: oweF.ref.parent.parent!.id,
                 issuedToID: issedToRef.id,
                 created: oweFCreated.toDate()
