@@ -31,11 +31,11 @@ class Owe {
 }
 
 enum OweState {
-    OPENED = "OPENED",
+    CREATED = "CREATED",
     DECLINED = "DECLINED",
-    DELAYED = "DELAYED",
     ACKNOWLEDGED = "ACKNOWLEDGED",
-    PAID = "PAID"
+    PAID = "PAID",
+    // DELAYED = "DELAYED",
 }
 
 registerEnumType(OweState, {

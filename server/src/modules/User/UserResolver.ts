@@ -67,7 +67,7 @@ export class UserResolver {
                 documenmentRef: oweF.ref,
                 title: oweFData.title,
                 amount: oweFData.amount,
-                state: oweFData.state ?? OweState.OPENED,
+                state: oweFData.state ?? OweState.CREATED,
                 issuedByID: oweF.ref.parent.parent!.id,
                 issuedToID: issedToRef.id,
                 created: oweFCreated.toDate()
@@ -99,7 +99,7 @@ export class UserResolver {
                 documenmentRef: oweF.ref,
                 title: oweFData.title,
                 amount: oweFData.amount,
-                state: oweFData.state ?? OweState.OPENED,
+                state: oweFData.state ?? OweState.CREATED,
                 issuedByID: oweF.ref.parent.parent!.id,
                 issuedToID: issedToRef.id,
                 created: oweFCreated.toDate()
