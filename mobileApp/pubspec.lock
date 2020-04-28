@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.39.4"
+  animations:
+    dependency: "direct main"
+    description:
+      name: animations
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0+5"
   archive:
     dependency: transitive
     description:
@@ -316,6 +323,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.4"
+  flutter_staggered_animations:
+    dependency: "direct main"
+    description:
+      name: flutter_staggered_animations
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -676,6 +690,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.23.1"
+  sa_anicoto:
+    dependency: transitive
+    description:
+      name: sa_anicoto
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
+  sa_multi_tween:
+    dependency: transitive
+    description:
+      name: sa_multi_tween
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
+  sa_stateless_animation:
+    dependency: transitive
+    description:
+      name: sa_stateless_animation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   shared_preferences:
     dependency: transitive
     description:
@@ -718,6 +753,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.3"
+  simple_animations:
+    dependency: "direct main"
+    description:
+      name: simple_animations
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -779,6 +821,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
+  supercharged:
+    dependency: transitive
+    description:
+      name: supercharged
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.5.1"
   term_glyph:
     dependency: transitive
     description:
