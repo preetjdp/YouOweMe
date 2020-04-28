@@ -69,7 +69,7 @@ class _NamePageState extends State<NamePage> {
                   TextField(
                     controller: nameController,
                     cursorColor: Theme.of(context).accentColor,
-                    onSubmitted: (String name) => nextPage(),
+                    onSubmitted: (String name) => next(),
                     decoration: InputDecoration(
                       hintText: "Don Joe",
                       border: InputBorder.none,
