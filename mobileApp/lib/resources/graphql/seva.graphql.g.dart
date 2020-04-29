@@ -31,6 +31,8 @@ Seva$Query$User$Owe _$Seva$Query$User$OweFromJson(Map<String, dynamic> json) {
     ..id = json['id'] as String
     ..title = json['title'] as String
     ..amount = (json['amount'] as num)?.toDouble()
+    ..state = _$enumDecodeNullable(_$OweStateEnumMap, json['state'],
+        unknownValue: OweState.ARTEMIS_UNKNOWN)
     ..created = fromGraphQLDateTimeToDartDateTime(json['created'] as int)
     ..issuedBy = json['issuedBy'] == null
         ? null
@@ -48,10 +50,51 @@ Map<String, dynamic> _$Seva$Query$User$OweToJson(
       'id': instance.id,
       'title': instance.title,
       'amount': instance.amount,
+      'state': _$OweStateEnumMap[instance.state],
       'created': fromDartDateTimeToGraphQLTimestamp(instance.created),
       'issuedBy': instance.issuedBy?.toJson(),
       'issuedTo': instance.issuedTo?.toJson(),
     };
+
+T _$enumDecode<T>(
+  Map<T, dynamic> enumValues,
+  dynamic source, {
+  T unknownValue,
+}) {
+  if (source == null) {
+    throw ArgumentError('A value must be provided. Supported values: '
+        '${enumValues.values.join(', ')}');
+  }
+
+  final value = enumValues.entries
+      .singleWhere((e) => e.value == source, orElse: () => null)
+      ?.key;
+
+  if (value == null && unknownValue == null) {
+    throw ArgumentError('`$source` is not one of the supported values: '
+        '${enumValues.values.join(', ')}');
+  }
+  return value ?? unknownValue;
+}
+
+T _$enumDecodeNullable<T>(
+  Map<T, dynamic> enumValues,
+  dynamic source, {
+  T unknownValue,
+}) {
+  if (source == null) {
+    return null;
+  }
+  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
+}
+
+const _$OweStateEnumMap = {
+  OweState.CREATED: 'CREATED',
+  OweState.DECLINED: 'DECLINED',
+  OweState.ACKNOWLEDGED: 'ACKNOWLEDGED',
+  OweState.PAID: 'PAID',
+  OweState.ARTEMIS_UNKNOWN: 'ARTEMIS_UNKNOWN',
+};
 
 Seva$Query$User _$Seva$Query$UserFromJson(Map<String, dynamic> json) {
   return Seva$Query$User()

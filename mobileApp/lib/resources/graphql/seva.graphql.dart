@@ -46,6 +46,9 @@ class Seva$Query$User$Owe with EquatableMixin {
 
   double amount;
 
+  @JsonKey(unknownEnumValue: OweState.ARTEMIS_UNKNOWN)
+  OweState state;
+
   @JsonKey(
       fromJson: fromGraphQLDateTimeToDartDateTime,
       toJson: fromDartDateTimeToGraphQLTimestamp)
@@ -56,7 +59,8 @@ class Seva$Query$User$Owe with EquatableMixin {
   Seva$Query$User$Owe$User issuedTo;
 
   @override
-  List<Object> get props => [id, title, amount, created, issuedBy, issuedTo];
+  List<Object> get props =>
+      [id, title, amount, state, created, issuedBy, issuedTo];
   Map<String, dynamic> toJson() => _$Seva$Query$User$OweToJson(this);
 }
 
@@ -115,6 +119,14 @@ class Seva$Query with EquatableMixin {
   @override
   List<Object> get props => [Me];
   Map<String, dynamic> toJson() => _$Seva$QueryToJson(this);
+}
+
+enum OweState {
+  CREATED,
+  DECLINED,
+  ACKNOWLEDGED,
+  PAID,
+  ARTEMIS_UNKNOWN,
 }
 
 class SevaQuery extends GraphQLQuery<Seva$Query, JsonSerializable> {
@@ -196,6 +208,12 @@ class SevaQuery extends GraphQLQuery<Seva$Query, JsonSerializable> {
                           selectionSet: null),
                       FieldNode(
                           name: NameNode(value: 'amount'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'state'),
                           alias: null,
                           arguments: [],
                           directives: [],
@@ -301,6 +319,12 @@ class SevaQuery extends GraphQLQuery<Seva$Query, JsonSerializable> {
                           selectionSet: null),
                       FieldNode(
                           name: NameNode(value: 'amount'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'state'),
                           alias: null,
                           arguments: [],
                           directives: [],
