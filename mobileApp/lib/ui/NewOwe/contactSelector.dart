@@ -139,8 +139,7 @@ class ContactsList extends StatelessWidget {
     return ListView.builder(
         itemCount: Provider.of<ContactProxyNotifier>(context)
             .contacts
-            .length
-            .clamp(0, 20),
+            .length,
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
