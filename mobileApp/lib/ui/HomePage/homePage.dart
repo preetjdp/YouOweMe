@@ -6,6 +6,7 @@ import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:YouOweMe/ui/HomePage/iOweSection.dart';
 import 'package:YouOweMe/ui/HomePage/oweMeSection.dart';
 import 'package:YouOweMe/resources/extensions.dart';
+import 'package:after_layout/after_layout.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,22 @@ import 'package:YouOweMe/ui/HomePage/bottomList.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
+  @override
+  void afterFirstLayout(BuildContext context) {
+    Future.delayed(Duration(seconds: 2), () async {
+      String token = await configureFirebaseMessenging(context);
+      if (token != null)
+        Provider.of<MeNotifier>(context, listen: false)
+            .updateUser({"fcmToken": token});
+    });
+  }
+
   void logOutDialog(BuildContext context) async {
     bool result = await showCupertinoModalPopup<bool>(
         context: context,
