@@ -33,6 +33,7 @@ dependencies:
   simple_animations: ^2.1.0
   streaming_shared_preferences: ^1.0.1
   firebase_messaging: ^6.0.13
+  after_layout: ^1.0.7+2
 
 dev_dependencies:
   artemis:
