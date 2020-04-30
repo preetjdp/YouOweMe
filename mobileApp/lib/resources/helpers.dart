@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,4 +35,25 @@ Future<bool> toggleDevicePreview() async {
       preferences.getBool('showDevicePreview', defaultValue: false);
   bool currentState = devicePreviewPref.getValue();
   return devicePreviewPref.setValue(!currentState);
+}
+
+Future<String> configureFirebaseMessenging(BuildContext context) async {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  _firebaseMessaging.requestNotificationPermissions();
+  String token = await _firebaseMessaging.getToken();
+  if (token == null) {
+    return null;
+  }
+  _firebaseMessaging.configure(
+    onMessage: (Map<String, dynamic> message) async {
+      print("onMessage: $message");
+    },
+    onLaunch: (Map<String, dynamic> message) async {
+      print("onLaunch: $message");
+    },
+    onResume: (Map<String, dynamic> message) async {
+      print("onResume: $message");
+    },
+  );
+  return token;
 }
