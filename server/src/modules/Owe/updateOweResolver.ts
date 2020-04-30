@@ -19,7 +19,8 @@ export class UpdateOweResolver {
         }
         const oweSnapshot = filteredOwes[0]
         const oweRef = oweSnapshot.ref
-        await oweRef.update({ ...data })
+        const {id, ...updateData} = data 
+        await oweRef.update({ ...updateData })
         const oweResponse = await new OweResolver().getOweFromRef(oweRef)
         return oweResponse
     }
