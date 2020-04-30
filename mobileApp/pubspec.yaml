@@ -32,6 +32,7 @@ dependencies:
   flutter_staggered_animations: ^0.1.2
   simple_animations: ^2.1.0
   streaming_shared_preferences: ^1.0.1
+  firebase_messaging: ^6.0.13
 
 dev_dependencies:
   artemis:
