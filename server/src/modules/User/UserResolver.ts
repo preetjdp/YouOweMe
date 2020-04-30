@@ -20,6 +20,7 @@ export class UserResolver {
                 name: userData.name,
                 image: userData.image,
                 mobileNo: userData.mobile_no,
+                fcmToken: userData.fcm_token,
                 created: created.toDate()
             }
             return user
@@ -43,6 +44,7 @@ export class UserResolver {
             name: userData!.name,
             image: userData!.image,
             mobileNo: userData!.mobile_no,
+            fcmToken: userData!.fcm_token,
             created: created.toDate()
         }
         return user
