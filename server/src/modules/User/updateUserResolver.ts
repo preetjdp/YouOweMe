@@ -17,10 +17,10 @@ export class UpdateUserResolver {
             // This is a anti-pattern
             // Would not recommend for larger systems
             // Is done bacause fieldNames are different in server and database
-            let { id, fcmToken, ...updateData }: any = data
+            let { id, fcmToken, ...updateData } = data
             console.log(updateData)
             await userRef.update({
-                ...(data.fcmToken && { fcm_token: data.fcmToken }),
+                ...(fcmToken && { fcm_token: fcmToken }),
                 ...updateData
             })
             let user = await new UserResolver().getUser(userId)
