@@ -1,10 +1,3 @@
----
-name: Pull Request Template
-title: "[NEW Feature]"
-labels: Discussion
-
----
-
 ### What Does this PR do?.
 A clear and concise description of what the feature this Implements, or prolem this fixes.
 
