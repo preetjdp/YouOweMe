@@ -4,6 +4,7 @@ import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:YouOweMe/resources/extensions.dart';
 
@@ -36,13 +37,20 @@ class BottomList extends StatelessWidget {
         context: context,
         builder: (BuildContext context) => actionSheet(context));
     if (shouldDelete) {
-      DocumentReference oweRef = Firestore.instance
-          .collection("users")
-          .document(owe.issuedBy.id)
-          .collection("owes")
-          .document(owe.id);
-      oweRef.delete();
-      Provider.of<MeNotifier>(context, listen: false).refresh();
+      MeNotifier meNotifier = Provider.of<MeNotifier>(context, listen: false);
+      String updateOweMutation = """
+      mutation(\$input: UpdateOweInputType!) {
+        updateOwe(data: \$input) {
+          id
+          title
+        }
+      }
+      """;
+      QueryResult result = await meNotifier.graphQLClient.mutate(
+          MutationOptions(documentNode: gql(updateOweMutation), variables: {
+        "input": {"id": owe.id, "state": "PAID"}
+      }));
+      if (result.data != null && result.exception == null) meNotifier.refresh();
     }
   }
 

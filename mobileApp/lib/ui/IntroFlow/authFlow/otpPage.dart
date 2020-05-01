@@ -108,6 +108,7 @@ class _OtpPageState extends State<OtpPage> {
                   Center(
                     child: PinCodeTextField(
                       controller: otpController,
+                      onDone: (_) => verifyOtp(),
                       pinBoxRadius: 15,
                       maxLength: 6,
                       pinBoxHeight: _size.width / 8,

@@ -1,5 +1,5 @@
 import { Resolver, Mutation, Authorized, Ctx, Args, Arg, FieldResolver, Root } from "type-graphql";
-import { Owe } from "../../models/Owe";
+import { Owe, OweState } from "../../models/Owe";
 import { ApplicationContext } from "../../utils/appContext";
 import { firestore, auth } from "../../db/firebase";
 import { NewOweInputType } from "./newOwe/newOweInputType";
@@ -48,6 +48,7 @@ export class NewOweResolver {
         const owe = {
             title: title,
             amount: amount,
+            state: OweState.CREATED,
             issuedToRef: issuedToRef,
             created: Timestamp.fromMillis(Date.now())
         }

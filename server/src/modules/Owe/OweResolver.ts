@@ -1,5 +1,5 @@
 import { Resolver, FieldResolver, Root, } from "type-graphql";
-import { Owe } from "../../models/Owe";
+import { Owe, OweState } from "../../models/Owe";
 import { User } from "../../models/User";
 import { UserResolver } from "../User/UserResolver";
 import { DocumentReference } from "@google-cloud/firestore"
@@ -19,6 +19,7 @@ export class OweResolver {
             documenmentRef: oweRef,
             title: oweData!.title,
             amount: oweData!.amount,
+            state: oweData?.state ?? OweState.CREATED,
             created: oweDate.toDate(),
             issuedByID: oweSnapshot.ref.parent!.parent!.id,
             issuedToID: issuedToRef.id

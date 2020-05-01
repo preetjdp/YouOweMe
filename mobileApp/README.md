@@ -2,13 +2,22 @@
 Dart File Naming Convention => lowerCamelCase
 
 ## Font
-The font being used throughout the application is.
+The font being used throughout the application is
 [Aileron Black](https://open-foundry.com/fonts/aileron_black)
 
 ## How to get the app started.
+* Setup a Firebase Project for your own and use that `google-services.json`
+
+OR
+* Ask one of the contributors to add your SHA-1 Key to the Firebase Console.
+> *[How to get the SHA-1 Key ?](https://stackoverflow.com/questions/15727912/sha-1-fingerprint-of-keystore-certificate)*
+
+* Run the app.
 ```bash
 flutter run
 ```
+
+### Startup
 YouOweMe uses [Device Preview](https://pub.dev/packages/device_preview) to
 build and to visualise how the app will look
 on different devices.
@@ -22,19 +31,29 @@ This applicaiton used Artemis for graphql code generation.
 To update the schema get the latest form the [API](https://youoweme-6c622.appspot.com/),
 and update the file located at `lib/resources/graphql/youoweme.schema.graphql`
 
-## Run the code generator
+### Code Generator For Artemis.
+When you update / add a new GraphQl Query run this to generate dart
+types
 ```bash
 flutter pub run build_runner build
 ```
 
-## Add New Queries / Mutation / Subscriptions
-Add them to their respective folders under `lib/resources/graphql/`
+### Add New Queries / Mutation / Subscriptions
+Add them to their respective folders under 
 
-## Add missing files in code.
+`lib/resources/graphql/`
+
+### Add missing files in code.
+Run this very carefully so it does not mess up some
+OS level configuration.
+``` bash
 flutter create . --org dev.preetjdp youoweme
+```
 
-## How to update the icon
+### How to update the icon
+``` bash
 flutter pub run flutter_launcher_icons:main
+```
 
 ## KeyTool options
 `Password => q^iB07QT `

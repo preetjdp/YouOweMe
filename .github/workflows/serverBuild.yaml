@@ -4,8 +4,6 @@ on:
   push:
     paths: 
       - 'server/**'
-    branches: [ master ]  
-  pull_request:
     branches: [ master ]
 
 # Environment variables available to all jobs and steps in this workflow

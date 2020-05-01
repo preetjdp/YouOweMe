@@ -137,10 +137,7 @@ class ContactsList extends StatelessWidget {
     }
 
     return ListView.builder(
-        itemCount: Provider.of<ContactProxyNotifier>(context)
-            .contacts
-            .length
-            .clamp(0, 20),
+        itemCount: Provider.of<ContactProxyNotifier>(context).contacts.length,
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
@@ -159,12 +156,15 @@ class ContactsList extends StatelessWidget {
                 SizedBox(
                   width: 20,
                 ),
-                Text(
-                  contact.displayName,
-                  style: Theme.of(context).textTheme.headline3,
-                ),
                 Expanded(
-                  child: Container(),
+                  child: Text(
+                    contact.displayName,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.headline3,
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
                 ),
                 CupertinoButton(
                     color: Theme.of(context).accentColor,
