@@ -50,4 +50,21 @@ class MeNotifier extends ChangeNotifier {
     me = mappedData.Me;
     notifyListeners();
   }
+
+  Future<QueryResult> updateUser(Map<String, dynamic> data) async {
+    String updateUserMutation = """
+      mutation(\$input: UpdateUserInputType!) {
+        updateUser(data: \$input) {
+          name
+          mobileNo
+        }
+      }
+      """;
+    QueryResult result = await graphQLClient.mutate(
+        MutationOptions(documentNode: gql(updateUserMutation), variables: {
+      "input": {"id": me.id, ...data}
+    }));
+    refresh();
+    return result;
+  }
 }

@@ -2,6 +2,7 @@ import * as functions from "firebase-functions"
 
 import { DocumentSnapshot, DocumentReference } from "@google-cloud/firestore"
 import { sendMessage } from "../../db/twilio"
+import { sendFcmNotification } from "../../db/firebase"
 
 /**
 * 1. Send the request to the the person IssuedTo
@@ -31,12 +32,21 @@ const sendNotificationToOweIssuedTo = async (oweSnapshot: DocumentSnapshot) => {
 
     let mobileNo: string = issuedToData!.mobile_no
     let issuedToName: string = issuedToData!.name
+    let issuedToFcmToken: string | undefined = issuedToData!.fcm_token
 
-    let message = `Psst. ${issuedToName} It seems that you owe ${issuedByName} ₹${oweAmount}.
-    Click on the link to accept or decline the transaction.`
+    // let message = `Psst. ${issuedToName} It seems that you owe ${issuedByName} ₹${oweAmount}. Click on the link to accept or decline the transaction.`
+    let message = `Psst. ${issuedToName} It seems that you owe ${issuedByName} ₹${oweAmount}.`
 
-    sendMessage({ message, mobileNo })
-    return
+    if (issuedToFcmToken) {
+        console.log("Sending FCM Notification")
+        return await sendFcmNotification({
+            deviceToken: issuedToFcmToken,
+            title: "New Owe Alert",
+            body: message
+        })
+    }
+    console.log("Sending SMS")
+    return sendMessage({ message, mobileNo })
 }
 
 export {
