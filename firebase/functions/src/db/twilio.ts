@@ -1,7 +1,9 @@
+import { config } from "firebase-functions"
 import Twilio from "twilio"
 
-const accountSid = 'ACb9762f4f844357cda8df00fc1c355462'; // Your Account SID from www.twilio.com/console
-const authToken = 'f5e66a7777c2e8ed976d09f0e47bfc32';
+const envConfig = config()
+const accountSid = envConfig.twilio.sid; // Your Account SID from www.twilio.com/console
+const authToken = envConfig.twilio.token;
 
 const client = Twilio(accountSid, authToken)
 
