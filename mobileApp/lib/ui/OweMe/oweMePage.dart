@@ -49,8 +49,10 @@ class OweMePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Seva$Query$User$Owe> oweMe =
-        Provider.of<MeNotifier>(context).me.oweMe;
+    final List<Seva$Query$User$Owe> oweMe = Provider.of<MeNotifier>(context)
+        .me
+        .oweMe
+        .fromStates([OweState.CREATED, OweState.ACKNOWLEDGED]);
     return Scaffold(
         appBar: CupertinoNavigationBar(
           backgroundColor: Theme.of(context).backgroundColor.withOpacity(0.5),

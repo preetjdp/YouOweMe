@@ -10,8 +10,10 @@ import 'package:YouOweMe/resources/extensions.dart';
 class IOwePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final List<Seva$Query$User$Owe> iOwe =
-        Provider.of<MeNotifier>(context).me.iOwe;
+    final List<Seva$Query$User$Owe> iOwe = Provider.of<MeNotifier>(context)
+        .me
+        .iOwe
+        .fromStates([OweState.CREATED, OweState.ACKNOWLEDGED]);
     return Scaffold(
         appBar: CupertinoNavigationBar(
           backgroundColor: Theme.of(context).backgroundColor.withOpacity(0.5),

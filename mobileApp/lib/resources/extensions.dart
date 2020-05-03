@@ -20,6 +20,9 @@ extension OweUtils on List<Seva$Query$User$Owe> {
   List<Seva$Query$User$Owe> get stateCreated =>
       this.where((element) => element.state == OweState.CREATED).toList();
 
+  List<Seva$Query$User$Owe> fromStates(List<OweState> states) =>
+      this.where((element) => states.contains(element.state)).toList();
+
   List<Seva$Query$User$Owe> get statePaid =>
       this.where((element) => element.state == OweState.PAID).toList();
 
