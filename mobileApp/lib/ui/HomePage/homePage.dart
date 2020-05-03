@@ -15,6 +15,8 @@ import 'package:YouOweMe/ui/NewOwe/newOwe.dart';
 import 'package:YouOweMe/ui/HomePage/bottomList.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
+import 'package:retry/retry.dart';
+import 'package:basics/basics.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -23,13 +25,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
   @override
-  void afterFirstLayout(BuildContext context) {
-    Future.delayed(Duration(seconds: 2), () async {
-      String token = await configureFirebaseMessenging(context);
-      if (token != null)
-        Provider.of<MeNotifier>(context, listen: false)
-            .updateUser({"fcmToken": token});
-    });
+  void afterFirstLayout(BuildContext context) async {
+    String token = await configureFirebaseMessenging(context);
+    if (token != null) {
+      await retry(
+          () => Provider.of<MeNotifier>(context, listen: false)
+              .updateUser({"fcmToken": token}),
+          retryIf: (e) => e is Exception,
+          delayFactor: Duration(seconds: 5),
+          onRetry: (a) => print("Retrying to update FCM with " + a.toString()));
+    }
   }
 
   void logOutDialog(BuildContext context) async {

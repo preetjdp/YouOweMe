@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:basics/basics.dart';
 
 class MeNotifier extends ChangeNotifier {
   GraphQLClient graphQLClient;
@@ -52,6 +53,9 @@ class MeNotifier extends ChangeNotifier {
   }
 
   Future<QueryResult> updateUser(Map<String, dynamic> data) async {
+    if (me.isNull) {
+      throw Exception("Me is Null Right Now");
+    }
     String updateUserMutation = """
       mutation(\$input: UpdateUserInputType!) {
         updateUser(data: \$input) {
