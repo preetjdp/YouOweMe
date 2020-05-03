@@ -1,12 +1,12 @@
 import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:YouOweMe/resources/extensions.dart';
+import 'package:basics/basics.dart';
 
 class BottomList extends StatelessWidget {
   void onTick(Seva$Query$User$Owe owe, BuildContext context) async {
@@ -50,14 +50,14 @@ class BottomList extends StatelessWidget {
           MutationOptions(documentNode: gql(updateOweMutation), variables: {
         "input": {"id": owe.id, "state": "PAID"}
       }));
-      if (result.data != null && result.exception == null) meNotifier.refresh();
+      if (result.isNotNull && result.exception.isNull) meNotifier.refresh();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final Seva$Query$User me = Provider.of<MeNotifier>(context).me;
-    if (me == null || me.oweMe.length == 0) return BottomListEmptyState();
+    if (me.isNull || me.oweMe.isEmpty) return BottomListEmptyState();
     return ListView.builder(
         itemCount: Provider.of<MeNotifier>(context).me.oweMe.length,
         physics: NeverScrollableScrollPhysics(),

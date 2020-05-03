@@ -5,6 +5,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
+import 'package:basics/basics.dart';
 
 void configureSystemChrome() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -41,7 +42,7 @@ Future<String> configureFirebaseMessenging(BuildContext context) async {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   _firebaseMessaging.requestNotificationPermissions();
   String token = await _firebaseMessaging.getToken();
-  if (token == null) {
+  if (token.isNull) {
     return null;
   }
   _firebaseMessaging.configure(

@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:basics/basics.dart';
 
 class IntroFlow extends StatefulWidget {
   @override
@@ -49,7 +50,7 @@ class _IntroFlowState extends State<IntroFlow> {
             authStateSubject,
             (firebaseUser, truth) => combineStreamFunc(firebaseUser, truth)),
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-          if (snapshot.data == null) return IntroFlowEmptyState();
+          if (snapshot.data.isNull) return IntroFlowEmptyState();
           if (snapshot.data)
             return Intermediate();
           else

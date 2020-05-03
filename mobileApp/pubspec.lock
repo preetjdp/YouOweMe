@@ -59,6 +59,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.1"
+  basics:
+    dependency: "direct main"
+    description:
+      name: basics
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0"
   boolean_selector:
     dependency: transitive
     description:
