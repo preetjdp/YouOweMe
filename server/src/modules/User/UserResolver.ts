@@ -119,7 +119,8 @@ export class UserResolver {
         const owes: Array<Owe> = await this.oweMeFieldResolver(user)
         let oweMeAmount: number = 0
         for (const owe of owes) {
-            oweMeAmount += owe.amount
+            if (owe.state == OweState.ACKNOWLEDGED || owe.state == OweState.CREATED)
+                oweMeAmount += owe.amount
         }
         return oweMeAmount
     }
@@ -132,7 +133,8 @@ export class UserResolver {
         const owes: Array<Owe> = await this.iOweFieldResolver(user)
         let iOweAmount: number = 0
         for (const owe of owes) {
-            iOweAmount += owe.amount
+            if (owe.state == OweState.ACKNOWLEDGED || owe.state == OweState.CREATED)
+                iOweAmount += owe.amount
         }
         return iOweAmount
     }
