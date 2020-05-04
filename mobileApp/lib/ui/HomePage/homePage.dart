@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
             onRefresh: onRefresh,
           ),
           SliverPadding(
-              padding: EdgeInsets.all(15),
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
               sliver: SliverList(delegate: SliverChildListDelegate(children)))
         ] else if (platform == TargetPlatform.android)
           SliverFillRemaining(
