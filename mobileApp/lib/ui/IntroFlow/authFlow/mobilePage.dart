@@ -15,6 +15,7 @@ class _MobilePageState extends State<MobilePage> {
   final TextEditingController mobileNoController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final TargetPlatform platform = Theme.of(context).platform;
     final _size = MediaQuery.of(context).size;
 
     SizedBox _spacer(int padding, [int minus = 0]) {
@@ -51,14 +52,21 @@ class _MobilePageState extends State<MobilePage> {
                   Navigator.pop(context, jumpTwoPages);
                 },
                 verificationFailed: (AuthException exception) {
-                  Navigator.pop(context, nextPage);
+                  // Navigator.pop(context, nextPage);
                   print(exception.message);
                 },
-                codeSent: (a, [b]) {
+               codeSent: (a, [b]) {
+                 if(platform == TargetPlatform.iOS) {
+                    loginUser.addVerificationCode(a);
+                    Navigator.pop(context, nextPage);
+                 }   
                   print("SMS sent");
                 },
                 codeAutoRetrievalTimeout: (a) {
                   print("Timeout" + a);
+                  if(platform == TargetPlatform.iOS) {
+                    return;
+                  }
                   loginUser.addVerificationCode(a);
                   Navigator.pop(context, nextPage);
                 });
