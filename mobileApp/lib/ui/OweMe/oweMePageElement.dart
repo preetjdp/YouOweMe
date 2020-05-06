@@ -46,17 +46,20 @@ class OweMePageElement extends StatelessWidget {
               child: Text(
                 owe.title,
                 style: Theme.of(context).textTheme.headline3,
-                maxLines: 3,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            CupertinoButton(
-              onPressed: () {},
-              padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-              child: Icon(
-                CupertinoIcons.check_mark_circled,
-                size: 28,
-              ),
+            // CupertinoButton(
+            //   onPressed: () {},
+            //   padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+            //   child: Icon(
+            //     CupertinoIcons.check_mark_circled,
+            //     size: 28,
+            //   ),
+            // ),
+            SizedBox(
+              width: 10,
             ),
             CupertinoButton(
                 color: Theme.of(context).accentColor,

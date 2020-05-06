@@ -44,9 +44,12 @@ class IOwePageElement extends StatelessWidget {
               child: Text(
                 owe.title,
                 style: Theme.of(context).textTheme.headline3,
-                maxLines: 1,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
+            ),
+            SizedBox(
+              width: 10,
             ),
             CupertinoButton(
                 color: Theme.of(context).accentColor,
