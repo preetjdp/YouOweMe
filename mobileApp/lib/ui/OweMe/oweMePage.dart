@@ -2,7 +2,6 @@ import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/OweMe/oweMePageElement.dart';
 import 'package:YouOweMe/ui/OweMe/oweMePageEmptyState.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

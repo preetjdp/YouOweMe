@@ -16,7 +16,6 @@ import 'package:YouOweMe/ui/HomePage/bottomList.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:retry/retry.dart';
-import 'package:basics/basics.dart';
 
 class HomePage extends StatefulWidget {
   @override
