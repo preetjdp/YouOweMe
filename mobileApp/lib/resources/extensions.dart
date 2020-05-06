@@ -1,3 +1,5 @@
+import 'package:YouOweMe/resources/helpers.dart';
+
 import './graphql/seva.dart';
 import 'package:contacts_service/contacts_service.dart';
 
@@ -28,6 +30,38 @@ extension OweUtils on List<Seva$Query$User$Owe> {
 
   List<Seva$Query$User$Owe> get stateAcknowledged =>
       this.where((element) => element.state == OweState.ACKNOWLEDGED).toList();
+}
+
+extension DateUtils on DateTime {
+  String get simpler {
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ];
+    const dayNames = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ];
+
+    DateTime date = this;
+    return "${dayNames[date.weekday]}, ${monthNames[date.month - 1]} the ${date.day}${getDayOfMonthSuffix(date.day)}";
+  }
 }
 
 extension MeUtils2 on Seva$Query$User$Owe$User {
