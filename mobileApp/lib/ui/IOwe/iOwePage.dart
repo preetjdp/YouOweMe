@@ -5,6 +5,7 @@ import 'package:YouOweMe/ui/IOwe/iOwePageBottomSheet.dart';
 import 'package:YouOweMe/ui/NewOwe/newOwe.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:YouOweMe/resources/extensions.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -24,6 +25,128 @@ class IOwePage extends StatelessWidget {
         return false;
       }
       return true;
+    }
+
+    Widget bottomSheet(BuildContext context, ScrollController controller,
+        Seva$Query$User$Owe owe) {
+      return Material(
+        child: ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.all(15),
+          children: [
+            Text("Title", style: Theme.of(context).textTheme.headline3),
+            Text(owe.title, style: Theme.of(context).textTheme.bodyText2),
+            SizedBox(
+              height: 20,
+            ),
+            Text("Amount To Be Paid",
+                style: Theme.of(context).textTheme.headline3),
+            // SizedBox(
+            //   height: 20,
+            // ),
+            // Text("₹200", style: Theme.of(context).textTheme.headline6),
+            RichText(
+              text: TextSpan(
+                  style: Theme.of(context).textTheme.headline6,
+                  children: [
+                    TextSpan(
+                        text: "₹",
+                        style: TextStyle(color: Theme.of(context).accentColor)),
+                    TextSpan(text: owe.amount.toInt().toString())
+                  ]),
+            ),
+            // Container(
+            //     height: 120,
+            //     decoration: BoxDecoration(
+            //       borderRadius: BorderRadius.circular(15),
+            //       gradient: LinearGradient(
+            //         begin: FractionalOffset.topLeft,
+            //         end: FractionalOffset.bottomCenter,
+            //         colors: <Color>[
+            //           color,
+            //           Color.fromARGB(
+            //             color.alpha,
+            //             (color.red + 50).clamp(0, 255) as int,
+            //             (color.green + 50).clamp(0, 255) as int,
+            //             (color.blue + 50).clamp(0, 255) as int,
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //     child: Row(
+            //       crossAxisAlignment: CrossAxisAlignment.center,
+            //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //       children: [
+            //         SizedBox(
+            //           width: 15,
+            //         ),
+            //         Column(
+            //           mainAxisAlignment: MainAxisAlignment.center,
+            //           children: [
+            //             YomAvatar(
+            //               text: "PP",
+            //             ),
+            //             SizedBox(
+            //               width: 15,
+            //             ),
+            //             Text("Preet\nParekh",
+            //                 maxLines: 2,
+            //                 textAlign: TextAlign.center,
+            //                 style: Theme.of(context)
+            //                     .textTheme
+            //                     .headline3
+            //                     .copyWith(fontWeight: FontWeight.normal)
+            //                     .copyWith(color: Colors.white))
+            //           ],
+            //         ),
+            //         SizedBox(
+            //           width: 15,
+            //         ),
+            //         Text("₹200",
+            //             style: Theme.of(context)
+            //                 .textTheme
+            //                 .headline6
+            //                 .copyWith(color: Colors.white)),
+            //       ],
+            //     )),
+            // SizedBox(
+            //   height: 20,
+            // ),
+            Text("Wait When was this Again?",
+                style: Theme.of(context).textTheme.headline3),
+            Text(owe.created.simpler,
+                style: Theme.of(context).textTheme.bodyText2),
+            SizedBox(
+              height: 20,
+            ),
+            // Chip(
+            //   label: Text("Acknowledged"),
+            // ),
+            // SizedBox(
+            //   height: 10,
+            // ),
+            Container(
+              height: 60,
+              width: 400,
+              child: CupertinoButton(
+                  color: Theme.of(context).accentColor,
+                  child: Text('Pay Up!'),
+                  onPressed: () {}),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Center(
+              child: CupertinoButton(
+                onPressed: () {},
+                padding: EdgeInsets.all(0),
+                minSize: 0,
+                child: Text("GooglePay", textAlign: TextAlign.center),
+              ),
+            ),
+          ],
+        ),
+      );
     }
 
     return WillPopScope(
@@ -65,55 +188,60 @@ class IOwePage extends StatelessWidget {
                               shrinkWrap: true,
                               itemBuilder: (BuildContext context, int index) {
                                 Seva$Query$User$Owe owe = iOwe[index];
-                                return Container(
-                                  margin: EdgeInsets.only(top: 10),
-                                  constraints: BoxConstraints(minHeight: 50),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      YomAvatar(
-                                        text: owe.issuedBy.shortName,
-                                        onPressed: () {
-                                          panelController.open();
-                                        },
-                                      ),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          owe.title,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline3,
-                                          maxLines: 3,
-                                          overflow: TextOverflow.ellipsis,
+                                return GestureDetector(
+                                  onTap: () => showCupertinoModalBottomSheet(
+                                      context: context,
+                                      builder: (a, b) =>
+                                          bottomSheet(a, b, owe)),
+                                  child: Container(
+                                    margin: EdgeInsets.only(top: 10),
+                                    constraints: BoxConstraints(minHeight: 50),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        YomAvatar(
+                                          text: owe.issuedBy.shortName,
                                         ),
-                                      ),
-                                      CupertinoButton(
-                                        onPressed: () {},
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 2, horizontal: 10),
-                                        child: Icon(
-                                          CupertinoIcons
-                                              .check_mark_circled_solid,
-                                          size: 28,
+                                        SizedBox(
+                                          width: 20,
                                         ),
-                                      ),
-                                      CupertinoButton(
-                                          color: Theme.of(context).accentColor,
-                                          minSize: 20,
-                                          padding: EdgeInsets.all(10),
+                                        Expanded(
                                           child: Text(
-                                            owe.amount.toString(),
+                                            owe.title,
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline3
-                                                .copyWith(color: Colors.white),
+                                                .headline3,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
                                           ),
-                                          onPressed: () {})
-                                    ],
+                                        ),
+                                        // CupertinoButton(
+                                        //   onPressed: () {},
+                                        //   padding: EdgeInsets.symmetric(
+                                        //       vertical: 2, horizontal: 10),
+                                        //   child: Icon(
+                                        //     CupertinoIcons
+                                        //         .check_mark_circled_solid,
+                                        //     size: 28,
+                                        //   ),
+                                        // ),
+                                        CupertinoButton(
+                                            color:
+                                                Theme.of(context).accentColor,
+                                            minSize: 20,
+                                            padding: EdgeInsets.all(10),
+                                            child: Text(
+                                              owe.amount.toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline3
+                                                  .copyWith(
+                                                      color: Colors.white),
+                                            ),
+                                            onPressed: () {})
+                                      ],
+                                    ),
                                   ),
                                 );
                               })),
