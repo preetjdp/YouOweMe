@@ -86,8 +86,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
     final TargetPlatform platform = Theme.of(context).platform;
 
     void goToNewOwe() async {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (BuildContext context) => NewOwe()));
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (BuildContext context) => NewOwe(),
+          settings: RouteSettings(name: "New Owe Page")));
     }
 
     Future<void> onRefresh() =>

@@ -6,8 +6,9 @@ class IOwePageEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void goToNewOwe() async {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (BuildContext context) => NewOwe()));
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (BuildContext context) => NewOwe(),
+          settings: RouteSettings(name: "New Owe Page")));
     }
 
     return Padding(

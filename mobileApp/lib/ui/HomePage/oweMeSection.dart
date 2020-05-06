@@ -13,7 +13,8 @@ class OweMeSection extends StatelessWidget {
     Seva$Query$User me = Provider.of<MeNotifier>(context).me;
     void goToOweMePage() {
       Navigator.of(context).push(MaterialWithModalsPageRoute(
-          builder: (BuildContext context) => OweMePage()));
+          builder: (BuildContext context) => OweMePage(),
+          settings: RouteSettings(name: "Owe Me Page")));
     }
 
     return Container(
