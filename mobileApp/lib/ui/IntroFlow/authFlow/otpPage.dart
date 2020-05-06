@@ -1,6 +1,7 @@
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -54,6 +55,9 @@ class _OtpPageState extends State<OtpPage> {
                       .document(result.user.uid)
                       .updateData({'name': loginUser.userName});
                 }
+                final FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics();
+                firebaseAnalytics.setUserId(result.user.uid);
+                firebaseAnalytics.logLogin();
                 Navigator.pop(context, nextPage);
                 return;
               }
