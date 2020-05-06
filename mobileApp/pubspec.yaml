@@ -37,6 +37,7 @@ dependencies:
   basics: ^0.4.0
   retry: ^3.0.0+1
   modal_bottom_sheet: ^0.1.5
+  firebase_analytics: ^5.0.11
 
 dev_dependencies:
   artemis:

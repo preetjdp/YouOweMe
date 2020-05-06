@@ -4,6 +4,8 @@ import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
 import 'package:YouOweMe/ui/IntroFlow/introFlow.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -47,6 +49,7 @@ class MyApp extends StatelessWidget {
 }
 
 class Intermediate extends StatelessWidget {
+  final FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics();
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -74,6 +77,9 @@ class Intermediate extends StatelessWidget {
           title: 'You Owe Me',
           builder: DevicePreview.appBuilder,
           theme: yomTheme,
+          navigatorObservers: [
+            FirebaseAnalyticsObserver(analytics: firebaseAnalytics)
+          ],
           home: HomePage()),
     );
   }

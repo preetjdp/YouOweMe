@@ -7,6 +7,7 @@ import 'package:YouOweMe/ui/HomePage/iOweSection.dart';
 import 'package:YouOweMe/ui/HomePage/oweMeSection.dart';
 import 'package:YouOweMe/resources/extensions.dart';
 import 'package:after_layout/after_layout.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
   @override
   void afterFirstLayout(BuildContext context) async {
+    final FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics();
+    await firebaseAnalytics.logAppOpen();
     String token = await configureFirebaseMessenging(context);
     if (token != null) {
       await retry(
@@ -116,7 +119,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
             onRefresh: onRefresh,
           ),
           SliverPadding(
-              padding: EdgeInsets.all(15),
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
               sliver: SliverList(delegate: SliverChildListDelegate(children)))
         ] else if (platform == TargetPlatform.android)
           SliverFillRemaining(
