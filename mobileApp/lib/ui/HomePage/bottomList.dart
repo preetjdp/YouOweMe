@@ -58,13 +58,16 @@ class BottomList extends StatelessWidget {
   Widget build(BuildContext context) {
     final Seva$Query$User me = Provider.of<MeNotifier>(context).me;
     if (me.isNull || me.oweMe.isEmpty) return BottomListEmptyState();
+    final List<Seva$Query$User$Owe> oweMe = Provider.of<MeNotifier>(context)
+        .me
+        .oweMe
+        .fromStates([OweState.CREATED, OweState.ACKNOWLEDGED]);
     return ListView.builder(
-        itemCount: Provider.of<MeNotifier>(context).me.oweMe.length,
+        itemCount: oweMe.length,
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
-          Seva$Query$User$Owe owe =
-              Provider.of<MeNotifier>(context).me.oweMe[index];
+          Seva$Query$User$Owe owe = oweMe[index];
           return Container(
             margin: EdgeInsets.only(top: 10),
             constraints: BoxConstraints(minHeight: 50),
