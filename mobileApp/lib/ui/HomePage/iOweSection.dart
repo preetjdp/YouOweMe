@@ -4,6 +4,7 @@ import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:YouOweMe/ui/IOwe/iOwePage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 class IOweSection extends StatelessWidget {
@@ -12,7 +13,7 @@ class IOweSection extends StatelessWidget {
     Seva$Query$User me = Provider.of<MeNotifier>(context).me;
     void goToIOwePage() {
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (BuildContext context) => IOwePage()));
+          MaterialWithModalsPageRoute(builder: (BuildContext context) => IOwePage()));
     }
 
     return Container(
