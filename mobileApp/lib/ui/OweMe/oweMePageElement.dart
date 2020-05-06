@@ -1,28 +1,30 @@
 import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
-import 'package:YouOweMe/ui/IOwe/iOwePageBottomSheet.dart';
+import 'package:YouOweMe/ui/OweMe/oweMePageBottomSheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:YouOweMe/resources/extensions.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class IOwePageElement extends StatelessWidget {
+class OweMePageElement extends StatelessWidget {
   final Seva$Query$User$Owe owe;
-  IOwePageElement({@required this.owe});
-
+  OweMePageElement({@required this.owe});
   @override
   Widget build(BuildContext context) {
     TargetPlatform platform = Theme.of(context).platform;
-    void showOweDetails() {
+    void showOweDetails() async {
       Widget builder(BuildContext context, ScrollController scrollController) =>
-          IOwePageBottomSheet(
+          OweMePageBottomSheet(
             scrollController: scrollController,
             owe: owe,
           );
       if (platform == TargetPlatform.iOS) {
         showCupertinoModalBottomSheet(context: context, builder: builder);
       } else {
-        showMaterialModalBottomSheet(context: context, builder: builder);
+        showMaterialModalBottomSheet(
+            context: context,
+            backgroundColor: Colors.transparent,
+            builder: builder);
       }
     }
 
@@ -35,7 +37,7 @@ class IOwePageElement extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             YomAvatar(
-              text: owe.issuedBy.shortName,
+              text: owe.issuedTo.shortName,
             ),
             SizedBox(
               width: 20,
@@ -44,8 +46,16 @@ class IOwePageElement extends StatelessWidget {
               child: Text(
                 owe.title,
                 style: Theme.of(context).textTheme.headline3,
-                maxLines: 1,
+                maxLines: 3,
                 overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            CupertinoButton(
+              onPressed: () {},
+              padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+              child: Icon(
+                CupertinoIcons.check_mark_circled,
+                size: 28,
               ),
             ),
             CupertinoButton(

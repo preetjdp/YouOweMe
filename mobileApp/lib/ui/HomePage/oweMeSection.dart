@@ -4,6 +4,7 @@ import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:YouOweMe/ui/OweMe/oweMePage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 class OweMeSection extends StatelessWidget {
@@ -11,8 +12,8 @@ class OweMeSection extends StatelessWidget {
   Widget build(BuildContext context) {
     Seva$Query$User me = Provider.of<MeNotifier>(context).me;
     void goToOweMePage() {
-      Navigator.of(context).push(
-          MaterialPageRoute(builder: (BuildContext context) => OweMePage()));
+      Navigator.of(context).push(MaterialWithModalsPageRoute(
+          builder: (BuildContext context) => OweMePage()));
     }
 
     return Container(
