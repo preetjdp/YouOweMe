@@ -44,7 +44,7 @@ class Seva$Query$User$Owe with EquatableMixin {
 
   String title;
 
-  double amount;
+  int amount;
 
   @JsonKey(unknownEnumValue: OweState.ARTEMIS_UNKNOWN)
   OweState state;

@@ -30,7 +30,7 @@ Seva$Query$User$Owe _$Seva$Query$User$OweFromJson(Map<String, dynamic> json) {
   return Seva$Query$User$Owe()
     ..id = json['id'] as String
     ..title = json['title'] as String
-    ..amount = (json['amount'] as num)?.toDouble()
+    ..amount = json['amount'] as int
     ..state = _$enumDecodeNullable(_$OweStateEnumMap, json['state'],
         unknownValue: OweState.ARTEMIS_UNKNOWN)
     ..created = fromGraphQLDateTimeToDartDateTime(json['created'] as int)
