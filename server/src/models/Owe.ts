@@ -1,5 +1,5 @@
 import { User } from "./User"
-import { ObjectType, Field, ID, registerEnumType } from "type-graphql"
+import { ObjectType, Field, ID, registerEnumType, Int } from "type-graphql"
 import { DocumentReference } from "@google-cloud/firestore"
 
 @ObjectType()
@@ -14,7 +14,7 @@ class Owe {
     @Field()
     title: string
 
-    @Field()
+    @Field(() => Int)
     amount: number
 
     @Field(() => OweState)
