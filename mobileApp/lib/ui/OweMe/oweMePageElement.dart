@@ -61,18 +61,21 @@ class OweMePageElement extends StatelessWidget {
             SizedBox(
               width: 10,
             ),
-            CupertinoButton(
-                color: Theme.of(context).accentColor,
-                minSize: 20,
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  owe.amount.toString(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3
-                      .copyWith(color: Colors.white),
-                ),
-                onPressed: () {})
+            Container(
+              constraints: BoxConstraints(minWidth: 65),
+              child: CupertinoButton(
+                  color: Theme.of(context).accentColor,
+                  minSize: 20,
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    owe.amount.toString(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3
+                        .copyWith(color: Colors.white),
+                  ),
+                  onPressed: () {}),
+            )
           ],
         ),
       ),

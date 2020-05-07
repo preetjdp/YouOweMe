@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:YouOweMe/ui/IOwe/iOwePageBottomSheet.dart';
@@ -22,7 +24,10 @@ class IOwePageElement extends StatelessWidget {
       if (platform == TargetPlatform.iOS) {
         showCupertinoModalBottomSheet(context: context, builder: builder);
       } else {
-        showMaterialModalBottomSheet(context: context, builder: builder);
+        showMaterialModalBottomSheet(
+            context: context,
+            backgroundColor: Colors.transparent,
+            builder: builder);
       }
     }
 
@@ -51,18 +56,21 @@ class IOwePageElement extends StatelessWidget {
             SizedBox(
               width: 10,
             ),
-            CupertinoButton(
-                color: Theme.of(context).accentColor,
-                minSize: 20,
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  owe.amount.toString(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3
-                      .copyWith(color: Colors.white),
-                ),
-                onPressed: () {})
+            Container(
+              constraints: BoxConstraints(minWidth: 65),
+              child: CupertinoButton(
+                  color: Theme.of(context).accentColor,
+                  minSize: 20,
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    owe.amount.toString(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3
+                        .copyWith(color: Colors.white),
+                  ),
+                  onPressed: () {}),
+            )
           ],
         ),
       ),
