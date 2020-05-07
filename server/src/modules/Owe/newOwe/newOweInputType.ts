@@ -1,4 +1,4 @@
-import { InputType, Field } from "type-graphql";
+import { InputType, Field, Int } from "type-graphql";
 import { Length, IsInt, IsPhoneNumber } from "class-validator"
 
 @InputType()
@@ -7,7 +7,7 @@ export class NewOweInputType {
     @Length(1, 255)
     title: string
 
-    @Field()
+    @Field(() => Int)
     @IsInt()
     amount: number
 
