@@ -1,11 +1,12 @@
 type Mutation {
   newOwe(data: NewOweInputType!): Owe!
   updateOwe(data: UpdateOweInputType!): Owe!
+  updateUser(data: UpdateUserInputType!): User!
 }
 
 input NewOweInputType {
   title: String!
-  amount: Float!
+  amount: Int!
   issuedToID: String
   mobileNo: String
   displayName: String
@@ -14,7 +15,7 @@ input NewOweInputType {
 type Owe {
   id: ID!
   title: String!
-  amount: Float!
+  amount: Int!
   state: OweState!
   issuedBy: User!
   issuedTo: User!
@@ -44,9 +45,15 @@ scalar Timestamp
 
 input UpdateOweInputType {
   id: String!
-  title: String
+  title: Int
   amount: Float
   state: OweState
+}
+
+input UpdateUserInputType {
+  id: ID!
+  name: String
+  fcmToken: String
 }
 
 type User {
@@ -58,6 +65,6 @@ type User {
   oweMeAmount: Int!
   iOwe: [Owe!]!
   iOweAmount: Int!
+  fcmToken: String
   created: Timestamp!
 }
-
