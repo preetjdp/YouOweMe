@@ -17,7 +17,6 @@ import 'package:YouOweMe/ui/HomePage/bottomList.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:retry/retry.dart';
-import 'package:basics/basics.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -87,8 +86,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
     final TargetPlatform platform = Theme.of(context).platform;
 
     void goToNewOwe() async {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (BuildContext context) => NewOwe()));
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (BuildContext context) => NewOwe(),
+          settings: RouteSettings(name: "New Owe Page")));
     }
 
     Future<void> onRefresh() =>

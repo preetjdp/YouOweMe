@@ -14,15 +14,24 @@ final ThemeData yomTheme = ThemeData(
       elevation: 2,
     ),
     textTheme: TextTheme(
-        headline1: TextStyle(
-            fontSize: 50,
-            fontWeight: FontWeight.bold,
-            color: Color.fromRGBO(78, 80, 88, 1)),
-        headline2: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
-            color: Color.fromRGBO(78, 80, 88, 1)),
-        headline3: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Color.fromRGBO(78, 80, 88, 1))));
+      headline1: TextStyle(
+          fontSize: 50,
+          fontWeight: FontWeight.bold,
+          color: Color.fromRGBO(78, 80, 88, 1)),
+      headline2: TextStyle(
+          fontSize: 28,
+          fontWeight: FontWeight.bold,
+          color: Color.fromRGBO(78, 80, 88, 1)),
+      headline3: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: Color.fromRGBO(78, 80, 88, 1)),
+      headline6: TextStyle(
+          fontSize: 100,
+          fontWeight: FontWeight.w800,
+          color: Color.fromRGBO(78, 80, 88, 1)),
+      bodyText2: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.normal,
+          color: Color.fromRGBO(78, 80, 88, 1)),
+    ));
