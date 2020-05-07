@@ -1,7 +1,9 @@
 import 'package:YouOweMe/resources/graphql/seva.dart';
+import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:YouOweMe/resources/extensions.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class IOwePageBottomSheet extends StatelessWidget {
   final Seva$Query$User$Owe owe;
@@ -47,7 +49,9 @@ class IOwePageBottomSheet extends StatelessWidget {
               child: CupertinoButton(
                   color: Theme.of(context).accentColor,
                   child: Text('Pay Up!'),
-                  onPressed: () {}),
+                  onPressed: () {
+                    showCupertinoModalBottomSheet(context: context, builder: (a,b) =>  Center(child: YOMSpinner()));
+                  }),
             ),
           ],
         ),
