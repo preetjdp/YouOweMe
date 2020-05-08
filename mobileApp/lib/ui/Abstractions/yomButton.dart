@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:basics/basics.dart';
 
+/// YomButton is a abtracted Button to be used along with
+/// `YomButtonController` to easily show microanimated
+/// 
 class YomButton extends StatelessWidget {
   final YomButtonController controller;
 
@@ -86,11 +89,33 @@ enum YomButtonState {
   SUCCESS
 }
 
+/// Controller To be used in conjunction with
+/// `YomButton`
 class YomButtonController {
   BehaviorSubject<YomButtonState> _yomButtonSubject =
       BehaviorSubject.seeded(YomButtonState.ACTIVE);
 
   Stream<YomButtonState> get state => _yomButtonSubject.stream;
+
+  void showActive() {
+    setButtonState(YomButtonState.ACTIVE);
+  }
+
+  void showLoading({Future future}) {
+    setButtonState(YomButtonState.LOADING);
+    print(future.isNotNull);
+    if (future.isNotNull)
+      future.then((value) => this.showActive(),
+          onError: (a) => this.showError());
+  }
+
+  void showError() {
+    setButtonState(YomButtonState.ERROR);
+  }
+
+  void showSuccess() {
+    setButtonState(YomButtonState.SUCCESS);
+  }
 
   void setButtonState(YomButtonState state) {
     _yomButtonSubject.add(state);
