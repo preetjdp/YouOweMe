@@ -5,8 +5,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:basics/basics.dart';
 
 /// YomButton is a abtracted Button to be used along with
-/// `YomButtonController` to easily show microanimated
-/// 
+/// `YomButtonController` to easily show microanimations.
 class YomButton extends StatelessWidget {
   final YomButtonController controller;
 
@@ -74,7 +73,9 @@ class YomButton extends StatelessWidget {
           return CupertinoButton(
             color: _buttonBackgroundColor,
             child: AnimatedSwitcher(
-                duration: Duration(milliseconds: 200), child: _buttonChild),
+                switchInCurve: Curves.easeInSine,
+                duration: Duration(milliseconds: 200),
+                child: _buttonChild),
             onPressed: onPressed,
           );
         });
@@ -111,10 +112,12 @@ class YomButtonController {
 
   void showError() {
     setButtonState(YomButtonState.ERROR);
+    Future.delayed(Duration(seconds: 2), () => this.showActive());
   }
 
   void showSuccess() {
     setButtonState(YomButtonState.SUCCESS);
+    Future.delayed(Duration(seconds: 2), () => this.showActive());
   }
 
   void setButtonState(YomButtonState state) {
