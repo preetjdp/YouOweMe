@@ -3,6 +3,7 @@ import { Query, Resolver, FieldResolver, Root, Arg, Authorized, Int } from "type
 import { User } from "../../models/User"
 import { DocumentReference, Timestamp } from "@google-cloud/firestore"
 import { Owe, OweState } from "../../models/Owe"
+import { getPermalinkFromOwe } from "../../utils/helpers"
 
 @Resolver(User)
 export class UserResolver {
@@ -60,10 +61,11 @@ export class UserResolver {
         if (oweMeQuerySnaphot.docs.length == 0) {
             return []
         }
-        const owes: Array<Owe> = oweMeQuerySnaphot.docs.map((oweF) => {
+        const owes: Array<Owe> = await Promise.all(oweMeQuerySnaphot.docs.map(async (oweF) => {
             const oweFData = oweF.data()
             const oweFCreated: Timestamp = oweFData.created
             const issedToRef: DocumentReference = oweFData.issuedToRef
+            const permalink = await getPermalinkFromOwe(oweF)
             const owe: Owe = {
                 id: oweF.id,
                 documenmentRef: oweF.ref,
@@ -72,10 +74,11 @@ export class UserResolver {
                 state: oweFData.state ?? OweState.CREATED,
                 issuedByID: oweF.ref.parent.parent!.id,
                 issuedToID: issedToRef.id,
-                created: oweFCreated.toDate()
+                created: oweFCreated.toDate(),
+                permalink: permalink
             }
             return owe
-        })
+        }))
         return owes
     }
 
@@ -92,10 +95,11 @@ export class UserResolver {
         if (iOweQuerySnaphot.docs.length == 0) {
             return []
         }
-        const owes: Array<Owe> = iOweQuerySnaphot.docs.map((oweF) => {
+        const owes: Array<Owe> = await Promise.all(iOweQuerySnaphot.docs.map(async (oweF) => {
             const oweFData = oweF.data()
             const oweFCreated: Timestamp = oweFData.created
             const issedToRef: DocumentReference = oweFData.issuedToRef
+            const permalink = await getPermalinkFromOwe(oweF)
             const owe: Owe = {
                 id: oweF.id,
                 documenmentRef: oweF.ref,
@@ -104,10 +108,11 @@ export class UserResolver {
                 state: oweFData.state ?? OweState.CREATED,
                 issuedByID: oweF.ref.parent.parent!.id,
                 issuedToID: issedToRef.id,
-                created: oweFCreated.toDate()
+                created: oweFCreated.toDate(),
+                permalink: permalink
             }
             return owe
-        })
+        }))
         return owes
     }
 
