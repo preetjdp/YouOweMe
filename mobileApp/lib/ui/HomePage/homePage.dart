@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:YouOweMe/resources/helpers.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
+import 'package:YouOweMe/ui/HomePage/backgroundAnimation.dart';
 import 'package:YouOweMe/ui/HomePage/iOweSection.dart';
 import 'package:YouOweMe/ui/HomePage/oweMeSection.dart';
 import 'package:YouOweMe/resources/extensions.dart';
@@ -110,7 +111,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
             height: 10,
           ),
           IOweSection(),
-          BottomList(),
+          //TODO Enable Before Final Merge @preetjdp
+          // BottomList(),
         ]);
 
     final Widget abstractedHomePage = CustomScrollView(
@@ -177,6 +179,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Stack(
         children: [
+          BackgroundAnimation(),
           AnimationLimiter(child: abstractedHomePage),
           Positioned(
             bottom: 20,
