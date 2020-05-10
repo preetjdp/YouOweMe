@@ -3,6 +3,7 @@ import { Owe, OweState } from "../../models/Owe";
 import { User } from "../../models/User";
 import { UserResolver } from "../User/UserResolver";
 import { DocumentReference } from "@google-cloud/firestore"
+import { getPermalinkFromOwe } from "../../utils/helpers"
 
 @Resolver(Owe)
 export class OweResolver {
@@ -14,6 +15,7 @@ export class OweResolver {
         const oweData = oweSnapshot.data()
         const oweDate = oweData!.created
         const issuedToRef: DocumentReference = oweData!.issuedToRef;
+        const permalink = await getPermalinkFromOwe(oweSnapshot)
         const owe: Owe = {
             id: oweSnapshot.id,
             documenmentRef: oweRef,
@@ -22,7 +24,8 @@ export class OweResolver {
             state: oweData?.state ?? OweState.CREATED,
             created: oweDate.toDate(),
             issuedByID: oweSnapshot.ref.parent!.parent!.id,
-            issuedToID: issuedToRef.id
+            issuedToID: issuedToRef.id,
+            permalink: permalink
         }
         return owe
     }
