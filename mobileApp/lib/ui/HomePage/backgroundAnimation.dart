@@ -22,13 +22,13 @@ class _BackgroundAnimationState extends State<BackgroundAnimation>
     //     _controller.forward();
     //   }
     //  });
-    // toptween = Tween(begin: 0.0, end: 350.0).animate(
+    // toptween = Tween(begin: 0.0, end: 150.0).animate(
+    //     CurvedAnimation(parent: _controller, curve: Curves.easeOutQuart));
+    // bottomtween = Tween(begin: 00.0, end: 350.0).animate(
     //     CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
-    // bottomtween = Tween(begin: 00.0, end: 300.0).animate(
-    //     CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
-    toptween = Tween(begin: 0.0, end: 350.0).animate(
+    toptween = Tween(begin: 0.0, end: 150.0).animate(
         CurvedAnimation(parent: _controller, curve: Curves.easeOutQuart));
-    bottomtween = Tween(begin: 00.0, end: 300.0).animate(
+    bottomtween = Tween(begin: 00.0, end: 350.0).animate(
         CurvedAnimation(parent: _controller, curve: Curves.easeOutQuart));
     Future.delayed(Duration(milliseconds: 700), () {
       _controller.forward();
