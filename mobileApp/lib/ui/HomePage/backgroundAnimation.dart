@@ -30,7 +30,7 @@ class _BackgroundAnimationState extends State<BackgroundAnimation>
         CurvedAnimation(parent: _controller, curve: Curves.easeOutQuart));
     bottomtween = Tween(begin: 00.0, end: 300.0).animate(
         CurvedAnimation(parent: _controller, curve: Curves.easeOutQuart));
-    Future.delayed(Duration(milliseconds: 500), () {
+    Future.delayed(Duration(milliseconds: 700), () {
       _controller.forward();
     });
   }
