@@ -5,6 +5,7 @@ import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:YouOweMe/ui/HomePage/backgroundAnimation.dart';
 import 'package:YouOweMe/ui/HomePage/iOweSection.dart';
+import 'package:YouOweMe/ui/HomePage/nettingAndGraph.dart';
 import 'package:YouOweMe/ui/HomePage/oweMeSection.dart';
 import 'package:YouOweMe/resources/extensions.dart';
 import 'package:after_layout/after_layout.dart';
@@ -108,11 +109,15 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
           ),
           OweMeSection(),
           SizedBox(
-            height: 10,
+            height: 30,
           ),
           IOweSection(),
           //TODO Enable Before Final Merge @preetjdp
           // BottomList(),
+          SizedBox(
+            height: 30,
+          ),
+          NettingAndGraphSection()
         ]);
 
     final Widget abstractedHomePage = CustomScrollView(

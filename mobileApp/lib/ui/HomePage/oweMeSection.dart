@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
+import 'package:YouOweMe/resources/extensions.dart';
 
 class OweMeSection extends StatelessWidget {
   @override
@@ -18,7 +19,7 @@ class OweMeSection extends StatelessWidget {
     }
 
     return Container(
-      height: 130,
+      height: 150,
       color: Colors.transparent,
       child: Stack(
         alignment: Alignment.bottomCenter,
@@ -45,7 +46,7 @@ class OweMeSection extends StatelessWidget {
             left: 0,
             right: 0,
             child: Container(
-              height: 100,
+              height: 120,
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15),
@@ -61,11 +62,34 @@ class OweMeSection extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       if (me != null)
-                        Text(me.oweMeAmount.toString(),
-                            style: TextStyle(
-                                fontSize: 50,
-                                fontWeight: FontWeight.w800,
-                                color: Theme.of(context).accentColor))
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("₹ " + me.oweMeAmount.toString(),
+                                style: TextStyle(
+                                    fontSize: 50,
+                                    fontWeight: FontWeight.w800,
+                                    color: Theme.of(context).accentColor)),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.face,
+                                  color: Theme.of(context).accentColor,
+                                ),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                Text(
+                                  "${me.oweMe.stateCreated.length} people",
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                )
+                              ],
+                            )
+                          ],
+                        )
                       else
                         Expanded(child: Center(child: YOMSpinner()))
                     ],
