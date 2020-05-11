@@ -23,7 +23,7 @@ final ThemeData yomTheme = ThemeData(
           fontWeight: FontWeight.bold,
           color: Color.fromRGBO(78, 80, 88, 1)),
       headline3: TextStyle(
-          fontSize: 18,
+          fontSize: 20,
           fontWeight: FontWeight.bold,
           color: Color.fromRGBO(78, 80, 88, 1)),
       headline6: TextStyle(
