@@ -17,6 +17,8 @@ import 'package:YouOweMe/ui/HomePage/bottomList.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:retry/retry.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'dart:math';
 
 class HomePage extends StatefulWidget {
   @override
@@ -110,7 +112,74 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
             height: 10,
           ),
           IOweSection(),
-          BottomList(),
+          CupertinoButton(
+            color: Theme.of(context).accentColor,
+            child: Text("Trigger Notification"),
+            onPressed: () async {
+              // String channelId = "owe_request";
+              // String channelName = "Owe Request";
+              // String channelDescription = 'Request for an Owe';
+              // String groupKey = 'com.android.example.WORK_EMAIL';
+              var groupKey = 'com.android.example.WORK_EMAIL';
+              var groupChannelId = 'grouped channel id';
+              var groupChannelName = 'grouped channel name';
+              var groupChannelDescription = 'grouped channel description';
+              Random random = Random();
+              FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+                  FlutterLocalNotificationsPlugin();
+              AndroidNotificationDetails androidNotificationDetails =
+                  AndroidNotificationDetails(
+                      groupChannelId, groupChannelName, groupChannelDescription,
+                      groupKey: groupKey,
+                      importance: Importance.Max,
+                      priority: Priority.High);
+              IOSNotificationDetails iosNotificationDetails =
+                  IOSNotificationDetails();
+              NotificationDetails notificationDetails = NotificationDetails(
+                  androidNotificationDetails, iosNotificationDetails);
+              await flutterLocalNotificationsPlugin.show(
+                  0,
+                  "New Owe Request",
+                  "Psst you have a owe of ${random.nextInt(500)}",
+                  notificationDetails);
+
+              await Future.delayed(Duration(seconds: 2));
+
+              await flutterLocalNotificationsPlugin.show(
+                  1,
+                  "New Owe Request",
+                  "Psst you have a owe of ${random.nextInt(500)}",
+                  notificationDetails);
+
+              await Future.delayed(Duration(seconds: 2));
+
+              await flutterLocalNotificationsPlugin.show(
+                  2,
+                  "New Owe Request",
+                  "Psst you have a owe of ${random.nextInt(500)}",
+                  notificationDetails);
+
+              // create the summary notification required for older devices that pre-date Android 7.0 (API level 24)
+              List<String> lines = List<String>();
+              lines.add('Alex Faarborg  Check this out');
+              lines.add('Jeff Chang    Launch Party');
+              InboxStyleInformation inboxStyleInformation =
+                  InboxStyleInformation(lines,
+                      contentTitle: '2 new messages',
+                      summaryText: 'janedoe@example.com');
+              AndroidNotificationDetails androidPlatformChannelSpecifics =
+                  AndroidNotificationDetails(
+                      groupChannelId, groupChannelName, groupChannelDescription,
+                      styleInformation: inboxStyleInformation,
+                      groupKey: groupKey,
+                      setAsGroupSummary: true);
+              NotificationDetails platformChannelSpecifics =
+                  NotificationDetails(androidPlatformChannelSpecifics, null);
+              await flutterLocalNotificationsPlugin.show(
+                  3, 'Attention', 'Two new messages', platformChannelSpecifics);
+            },
+          ),
+          // BottomList(),
         ]);
 
     final Widget abstractedHomePage = CustomScrollView(
