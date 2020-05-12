@@ -35,6 +35,7 @@ dependencies:
   retry: ^3.0.0+1
   modal_bottom_sheet: ^0.1.5
   firebase_analytics: ^5.0.11
+  flutter_local_notifications: ^1.4.3
 
 dev_dependencies:
   artemis:
