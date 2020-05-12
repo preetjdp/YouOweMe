@@ -5,7 +5,8 @@ import 'package:rxdart/rxdart.dart';
 import 'package:basics/basics.dart';
 
 /// YomButton is a abtracted Button to be used along with
-/// `YomButtonController` to easily show microanimations.
+/// `YomButtonController` to easily show and manage microanimations.
+/// If a `YomButtonController` is not passed acts like any other Button in the tree.
 class YomButton extends StatelessWidget {
   final YomButtonController controller;
 
@@ -22,14 +23,14 @@ class YomButton extends StatelessWidget {
   final Color backgroundColor;
 
   YomButton({
-    @required this.controller,
+    this.controller,
     @required this.child,
     @required this.onPressed,
     this.loading,
     this.error,
     this.success,
     this.backgroundColor,
-  }) : assert(controller != null);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,7 @@ class YomButton extends StatelessWidget {
       _iconsColor = Theme.of(context).accentColor;
     }
     return StreamBuilder<YomButtonState>(
-        stream: controller.state,
+        stream: controller?.state ?? YomButtonController().state,
         builder: (BuildContext context, snapshot) {
           YomButtonState buttonState = snapshot?.data ?? YomButtonState.ACTIVE;
           if (buttonState == YomButtonState.ACTIVE) {
@@ -82,13 +83,7 @@ class YomButton extends StatelessWidget {
   }
 }
 
-enum YomButtonState {
-  ACTIVE,
-//  INACTIVE,
-  LOADING,
-  ERROR,
-  SUCCESS
-}
+enum YomButtonState { ACTIVE, LOADING, ERROR, SUCCESS }
 
 /// Controller To be used in conjunction with
 /// `YomButton`
