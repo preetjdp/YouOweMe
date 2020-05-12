@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 import 'package:basics/basics.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 void configureSystemChrome() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -73,4 +74,23 @@ String getDayOfMonthSuffix(final int n) {
     default:
       return "th";
   }
+}
+
+void configureLocalNotifications() {
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
+  IOSInitializationSettings iosInitializationSettings =
+      IOSInitializationSettings();
+  AndroidInitializationSettings androidInitializationSettings =
+      AndroidInitializationSettings("@mipmap/ic_launcher");
+  InitializationSettings initializationSettings = InitializationSettings(
+      androidInitializationSettings, iosInitializationSettings);
+  flutterLocalNotificationsPlugin.initialize(initializationSettings,
+      onSelectNotification: onSelectNotification);
+}
+
+Future<bool> onSelectNotification(String a) async {
+  print("From On Slect Notification ==> " + a);
+  return true;
 }

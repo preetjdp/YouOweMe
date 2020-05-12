@@ -22,6 +22,7 @@ Future<void> main() async {
   final preferences = await StreamingSharedPreferences.instance;
   //Call Init HelperFunctions
   configureSystemChrome();
+  configureLocalNotifications();
   runApp(MyApp(
     preferences: preferences,
   ));
