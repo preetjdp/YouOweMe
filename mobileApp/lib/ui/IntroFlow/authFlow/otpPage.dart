@@ -72,7 +72,7 @@ class _OtpPageState extends State<OtpPage> {
                   children: [
                     Text(
                       "We're Processing the Information.",
-                      style: Theme.of(context).textTheme.headline1,
+                      style: Theme.of(context).textTheme.headline3,
                     ),
                     Expanded(child: Container()),
                     Center(
