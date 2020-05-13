@@ -47,10 +47,10 @@ class _ContactSelectorState extends State<ContactSelector> {
           children: <Widget>[
             Text(
               "+91",
-              style: TextStyle(
-                  fontSize: 50,
-                  fontWeight: FontWeight.w800,
-                  color: Theme.of(context).accentColor),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline3
+                  .copyWith(color: Theme.of(context).accentColor),
             ),
             Expanded(
               child: TextField(
@@ -62,8 +62,9 @@ class _ContactSelectorState extends State<ContactSelector> {
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.all(0),
                   ),
-                  style: TextStyle(
-                      fontSize: 50, color: Theme.of(context).accentColor),
+                  style: Theme.of(context).textTheme.headline3.copyWith(
+                      fontWeight: FontWeight.normal,
+                      color: Theme.of(context).accentColor),
                   keyboardType: TextInputType.numberWithOptions(
                       decimal: false, signed: false)),
             ),
