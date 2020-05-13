@@ -1,8 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:simple_animations/simple_animations.dart';
-import 'package:supercharged/supercharged.dart';
 
-class BackgroundAnimation extends StatelessWidget {
+class BackgroundAnimation extends StatefulWidget {
+  @override
+  _BackgroundAnimationState createState() => _BackgroundAnimationState();
+}
+
+class _BackgroundAnimationState extends State<BackgroundAnimation>
+    with SingleTickerProviderStateMixin {
+  AnimationController _controller;
+  Animation<double> toptween;
+  Animation<double> bottomtween;
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    // ..addStatusListener((status) {
+    //   if(status == AnimationStatus .completed) {
+    //     _controller.reverse();
+    //   } else if( status == AnimationStatus.dismissed) {
+    //     _controller.forward();
+    //   }
+    //  });
+    // toptween = Tween(begin: 0.0, end: 350.0).animate(
+    //     CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
+    // bottomtween = Tween(begin: 00.0, end: 300.0).animate(
+    //     CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
+    toptween = Tween(begin: 0.0, end: 150.0).animate(
+        CurvedAnimation(parent: _controller, curve: Curves.easeOutQuart));
+    bottomtween = Tween(begin: 00.0, end: 300.0).animate(
+        CurvedAnimation(parent: _controller, curve: Curves.easeOutQuart));
+    Future.delayed(Duration(milliseconds: 700), () {
+      _controller.forward();
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -21,16 +59,13 @@ class BackgroundAnimation extends StatelessWidget {
             top: 0,
             left: 0,
             right: 0,
-            child: PlayAnimation<double>(
-                tween: 0.0.tweenTo(150.0),
-                duration: Duration(milliseconds: 500),
-                delay: Duration(milliseconds: 700),
-                curve: Curves.easeOutQuart,
-                builder: (context, child, value) {
+            child: AnimatedBuilder(
+                animation: toptween,
+                builder: (context, snapshot) {
                   return ClipPath(
                       clipper: TopCustomClipper(),
                       child: Container(
-                        height: value,
+                        height: toptween.value,
                         decoration: BoxDecoration(
                             gradient: LinearGradient(
                                 begin: Alignment.centerLeft,
@@ -45,16 +80,13 @@ class BackgroundAnimation extends StatelessWidget {
             bottom: 0,
             left: 0,
             right: 0,
-            child: PlayAnimation<double>(
-                tween: 0.0.tweenTo(300.0),
-                duration: Duration(milliseconds: 500),
-                delay: Duration(milliseconds: 700),
-                curve: Curves.easeOutQuart,
-                builder: (context, child, value) {
+            child: AnimatedBuilder(
+                animation: bottomtween,
+                builder: (context, snapshot) {
                   return ClipPath(
                       clipper: BottomCustomClipper(),
                       child: Container(
-                        height: value,
+                        height: bottomtween.value,
                         decoration: BoxDecoration(
                             color: Theme.of(context).scaffoldBackgroundColor),
                       ));
