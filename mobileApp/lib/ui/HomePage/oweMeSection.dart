@@ -34,7 +34,7 @@ class OweMeSection extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     Text("Owe Me",
-                        style: Theme.of(context).textTheme.headline3),
+                        style: Theme.of(context).textTheme.headline5),
                     Icon(
                       CupertinoIcons.right_chevron,
                       color: Color.fromRGBO(78, 80, 88, 1),
@@ -67,10 +67,11 @@ class OweMeSection extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("₹ " + me.oweMeAmount.toString(),
-                                style: TextStyle(
-                                    fontSize: 50,
-                                    fontWeight: FontWeight.w800,
-                                    color: Theme.of(context).accentColor)),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline3
+                                    .copyWith(
+                                        color: Theme.of(context).accentColor)),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,

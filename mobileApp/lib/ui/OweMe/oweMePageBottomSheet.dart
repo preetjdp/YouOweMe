@@ -17,16 +17,16 @@ class OweMePageBottomSheet extends StatelessWidget {
           shrinkWrap: true,
           padding: EdgeInsets.all(15),
           children: [
-            Text("Title", style: Theme.of(context).textTheme.headline3),
+            Text("Title", style: Theme.of(context).textTheme.headline5),
             Text(owe.title, style: Theme.of(context).textTheme.bodyText2),
             SizedBox(
               height: 20,
             ),
             Text("Amount To Be Recieved",
-                style: Theme.of(context).textTheme.headline3),
+                style: Theme.of(context).textTheme.headline5),
             RichText(
               text: TextSpan(
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.headline1,
                   children: [
                     TextSpan(
                         text: "₹",
@@ -35,7 +35,7 @@ class OweMePageBottomSheet extends StatelessWidget {
                   ]),
             ),
             Text("Wait When was this Again?",
-                style: Theme.of(context).textTheme.headline3),
+                style: Theme.of(context).textTheme.headline5),
             Text(owe.created.simpler,
                 style: Theme.of(context).textTheme.bodyText2),
             SizedBox(

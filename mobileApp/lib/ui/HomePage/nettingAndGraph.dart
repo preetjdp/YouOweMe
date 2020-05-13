@@ -40,7 +40,7 @@ class NettingAndGraphSection extends StatelessWidget {
                       ),
                       Text(
                         "Netting",
-                        style: Theme.of(context).textTheme.headline3,
+                        style: Theme.of(context).textTheme.headline5,
                       )
                     ],
                   ),
@@ -69,7 +69,7 @@ class NettingAndGraphSection extends StatelessWidget {
                       "₹ 200",
                       style: Theme.of(context)
                           .textTheme
-                          .headline3
+                          .headline5
                           .copyWith(color: Color.fromRGBO(170, 225, 169, 1)),
                     ),
                     backgroundColor: Colors.white.withOpacity(0.2),
@@ -81,7 +81,7 @@ class NettingAndGraphSection extends StatelessWidget {
                     label: Text("₹ 200",
                         style: Theme.of(context)
                             .textTheme
-                            .headline3
+                            .headline5
                             .copyWith(color: Color.fromRGBO(163,160,228, 1))),
                     backgroundColor: Colors.white.withOpacity(0.2),
                   ),
@@ -109,7 +109,7 @@ class NettingAndGraphSection extends StatelessWidget {
                   children: [
                     Text(
                       "Graph",
-                      style: Theme.of(context).textTheme.headline3,
+                      style: Theme.of(context).textTheme.headline5,
                     ),
                     Expanded(
                         child: Center(
