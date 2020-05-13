@@ -26,7 +26,7 @@ class OweMePageBottomSheet extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline5),
             RichText(
               text: TextSpan(
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.headline1,
                   children: [
                     TextSpan(
                         text: "₹",
