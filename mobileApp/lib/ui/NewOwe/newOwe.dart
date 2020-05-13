@@ -122,7 +122,7 @@ class _NewOweState extends State<NewOwe> {
               middle: Text("New Owe",
                   style: Theme.of(context)
                       .textTheme
-                      .headline3
+                      .headline5
                       .copyWith(color: Colors.black)),
               actionsForegroundColor: Theme.of(context).accentColor,
             ),
@@ -155,7 +155,7 @@ class _NewOweState extends State<NewOwe> {
                     children: <Widget>[
                       Container(),
                       Text("Title",
-                          style: Theme.of(context).textTheme.headline3),
+                          style: Theme.of(context).textTheme.headline5),
                       TextFormField(
                         controller: titleController,
                         validator: titleValidator,
@@ -170,7 +170,7 @@ class _NewOweState extends State<NewOwe> {
                         height: 10,
                       ),
                       Text("Select Person",
-                          style: Theme.of(context).textTheme.headline3),
+                          style: Theme.of(context).textTheme.headline5),
                       PeopleList(),
                       SizedBox(
                         height: 10,
@@ -181,7 +181,7 @@ class _NewOweState extends State<NewOwe> {
                           if (!snapshot.hasData) return Container();
                           return Text(
                             "Selected Person",
-                            style: Theme.of(context).textTheme.headline3,
+                            style: Theme.of(context).textTheme.headline5,
                           );
                         },
                       ),
@@ -206,7 +206,7 @@ class _NewOweState extends State<NewOwe> {
                                 Text(
                                   snapshot.data.displayName ??
                                       snapshot.data.phones.first.value,
-                                  style: Theme.of(context).textTheme.headline3,
+                                  style: Theme.of(context).textTheme.headline5,
                                 ),
                                 Expanded(child: Container()),
                                 CupertinoButton(
@@ -225,7 +225,7 @@ class _NewOweState extends State<NewOwe> {
                       ),
                       Text(
                         "How much money did you lend?",
-                        style: Theme.of(context).textTheme.headline3,
+                        style: Theme.of(context).textTheme.headline5,
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
@@ -233,10 +233,10 @@ class _NewOweState extends State<NewOwe> {
                         children: <Widget>[
                           Text(
                             "₹",
-                            style: TextStyle(
-                                fontSize: 100,
-                                fontWeight: FontWeight.w800,
-                                color: Theme.of(context).accentColor),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1
+                                .copyWith(color: Theme.of(context).accentColor),
                           ),
                           Expanded(
                             child: TextFormField(
@@ -248,10 +248,11 @@ class _NewOweState extends State<NewOwe> {
                                   border: InputBorder.none,
                                   contentPadding: EdgeInsets.all(0),
                                 ),
-                                style: TextStyle(
-                                    fontSize: 100,
-                                    fontWeight: FontWeight.w800,
-                                    color: Theme.of(context).accentColor),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline1
+                                    .copyWith(
+                                        color: Theme.of(context).accentColor),
                                 keyboardType: TextInputType.numberWithOptions(
                                     decimal: false, signed: false)),
                           ),
