@@ -223,10 +223,27 @@ class _NewOweState extends State<NewOwe> {
                           );
                         },
                       ),
-                      Text(
-                        "How much money did you lend?",
-                        style: Theme.of(context).textTheme.headline3,
-                      ),
+                      RichText(
+                          text: TextSpan(
+                              style: Theme.of(context).textTheme.headline3,
+                              children: [
+                            TextSpan(text: "How much money did "),
+                            TextSpan(
+                                text: " you lend ",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline3
+                                    .copyWith(
+                                        backgroundColor:
+                                            Theme.of(context).accentColor,
+                                        //TODO try making this scaffoldBackgroundColor
+                                        color: Colors.white)),
+                            TextSpan(text: " ?")
+                          ])),
+                      // Text(
+                      //   "How much money did you lend?",
+                      //   style: Theme.of(context).textTheme.headline3,
+                      // ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
