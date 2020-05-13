@@ -71,7 +71,7 @@ class OweMePageElement extends StatelessWidget {
                     owe.amount.toString(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline3
+                        .headline5
                         .copyWith(color: Colors.white),
                   ),
                   onPressed: () {}),

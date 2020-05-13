@@ -23,7 +23,7 @@ class OweMePage extends StatelessWidget {
           middle: Text("Owe Me",
               style: Theme.of(context)
                   .textTheme
-                  .headline3
+                  .headline5
                   .copyWith(color: Colors.black)),
           actionsForegroundColor: Theme.of(context).accentColor,
         ),
