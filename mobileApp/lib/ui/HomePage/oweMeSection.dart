@@ -62,10 +62,10 @@ class OweMeSection extends StatelessWidget {
                     children: <Widget>[
                       if (me != null)
                         Text(me.oweMeAmount.toString(),
-                            style: TextStyle(
-                                fontSize: 50,
-                                fontWeight: FontWeight.w800,
-                                color: Theme.of(context).accentColor))
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline3
+                                .copyWith(color: Theme.of(context).accentColor))
                       else
                         Expanded(child: Center(child: YOMSpinner()))
                     ],

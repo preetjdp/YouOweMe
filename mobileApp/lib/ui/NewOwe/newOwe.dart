@@ -233,10 +233,10 @@ class _NewOweState extends State<NewOwe> {
                         children: <Widget>[
                           Text(
                             "₹",
-                            style: TextStyle(
-                                fontSize: 100,
-                                fontWeight: FontWeight.w800,
-                                color: Theme.of(context).accentColor),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1
+                                .copyWith(color: Theme.of(context).accentColor),
                           ),
                           Expanded(
                             child: TextFormField(
@@ -248,10 +248,11 @@ class _NewOweState extends State<NewOwe> {
                                   border: InputBorder.none,
                                   contentPadding: EdgeInsets.all(0),
                                 ),
-                                style: TextStyle(
-                                    fontSize: 100,
-                                    fontWeight: FontWeight.w800,
-                                    color: Theme.of(context).accentColor),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline1
+                                    .copyWith(
+                                        color: Theme.of(context).accentColor),
                                 keyboardType: TextInputType.numberWithOptions(
                                     decimal: false, signed: false)),
                           ),
