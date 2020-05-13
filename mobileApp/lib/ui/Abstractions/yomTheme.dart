@@ -12,6 +12,10 @@ class YomDesign {
   Color yomWhite = Color.fromRGBO(241, 245, 249, 1);
   Color yomGrey1 = Color.fromRGBO(52, 59, 70, 1);
   Color yomGrey2 = Color.fromRGBO(78, 80, 88, 1);
+  Color yomGreen1 = Color.fromRGBO(163, 226, 168, 1);
+  Color yomGreen2 = Color.fromRGBO(160, 225, 198, 1);
+  Color yomPurple1 = Color.fromRGBO(121, 151, 207, 1);
+  Color yomPurple2 = Color.fromRGBO(120, 123, 206, 1);
 }
 
 ThemeData yomTheme() {

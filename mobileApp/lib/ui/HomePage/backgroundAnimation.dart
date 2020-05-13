@@ -1,3 +1,4 @@
+import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
 import 'package:flutter/material.dart';
 
 class BackgroundAnimation extends StatefulWidget {
@@ -10,6 +11,7 @@ class _BackgroundAnimationState extends State<BackgroundAnimation>
   AnimationController _controller;
   Animation<double> toptween;
   Animation<double> bottomtween;
+  YomDesign yomDesign = YomDesign();
   @override
   void initState() {
     super.initState();
@@ -50,10 +52,7 @@ class _BackgroundAnimationState extends State<BackgroundAnimation>
               gradient: LinearGradient(
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
-                  colors: [
-                Color.fromRGBO(121, 151, 207, 1),
-                Color.fromRGBO(120, 123, 206, 1)
-              ])),
+                  colors: [yomDesign.yomPurple1, yomDesign.yomPurple2])),
         ),
         Positioned(
             top: 0,
@@ -71,8 +70,8 @@ class _BackgroundAnimationState extends State<BackgroundAnimation>
                                 begin: Alignment.centerLeft,
                                 end: Alignment.centerRight,
                                 colors: [
-                              Color.fromRGBO(163, 226, 168, 1),
-                              Color.fromRGBO(160, 225, 198, 1)
+                              yomDesign.yomGreen1,
+                              yomDesign.yomGreen2
                             ])),
                       ));
                 })),
