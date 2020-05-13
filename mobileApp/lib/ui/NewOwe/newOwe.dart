@@ -5,6 +5,7 @@ import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:YouOweMe/ui/NewOwe/contactSelector.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -13,6 +14,8 @@ import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:YouOweMe/resources/extensions.dart';
+
+enum NewOweState { LENT, BORROWED }
 
 class NewOwe extends StatefulWidget {
   @override
@@ -30,6 +33,10 @@ class _NewOweState extends State<NewOwe> {
 
   final _formKey = GlobalKey<FormState>();
 
+  final TapGestureRecognizer tapGestureRecognizer = TapGestureRecognizer();
+
+  NewOweState newOweState = NewOweState.LENT;
+
   String titleValidator(String text) {
     if (text.length == 0) {
       return "Enter a valid text";
@@ -46,6 +53,50 @@ class _NewOweState extends State<NewOwe> {
 
   void clearSelectedContact() {
     selectedContactController.add(null);
+  }
+
+  void changeNewOweTypeDialog() async {
+    NewOweState result = await showCupertinoModalPopup(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoActionSheet(
+            title: Text("Change Owe Type"),
+            // message: Text("""Change the type of this new Owe."""),
+            cancelButton: CupertinoActionSheetAction(
+              child: Text("Done"),
+              // isDestructiveAction: true,
+              // isDefaultAction: true,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            actions: <Widget>[
+              CupertinoActionSheetAction(
+                child: Text(
+                  '"I Lent Some Money"',
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
+                onPressed: () {
+                  Navigator.pop(context, NewOweState.LENT);
+                },
+              ),
+              CupertinoActionSheetAction(
+                child: Text(
+                  '"I Borrowed Some Money"',
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
+                onPressed: () {
+                  Navigator.pop(context, NewOweState.BORROWED);
+                },
+              ),
+            ],
+          );
+        });
+    if (result != null && result != newOweState) {
+      setState(() {
+        newOweState = result;
+      });
+    }
   }
 
   @override
@@ -229,7 +280,11 @@ class _NewOweState extends State<NewOwe> {
                               children: [
                             TextSpan(text: "How much money did "),
                             TextSpan(
-                                text: " you lend ",
+                                text: newOweState == NewOweState.LENT
+                                    ? " you lend "
+                                    : " you borrow ",
+                                recognizer: tapGestureRecognizer
+                                  ..onTap = changeNewOweTypeDialog,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline3
