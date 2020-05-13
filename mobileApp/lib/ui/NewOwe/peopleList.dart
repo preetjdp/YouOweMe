@@ -93,7 +93,7 @@ class PeopleList extends StatelessWidget {
                       ),
                       Text(user.name,
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headline3),
+                          style: Theme.of(context).textTheme.headline5),
                     ],
                   ),
                 ),

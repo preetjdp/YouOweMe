@@ -32,7 +32,7 @@ class IOweSection extends StatelessWidget {
                 padding: EdgeInsets.all(0),
                 child: Row(
                   children: <Widget>[
-                    Text("I Owe", style: Theme.of(context).textTheme.headline3),
+                    Text("I Owe", style: Theme.of(context).textTheme.headline5),
                     Icon(
                       CupertinoIcons.right_chevron,
                       color: Color.fromRGBO(78, 80, 88, 1),

@@ -45,7 +45,7 @@ class OweMePageElement extends StatelessWidget {
             Expanded(
               child: Text(
                 owe.title,
-                style: Theme.of(context).textTheme.headline3,
+                style: Theme.of(context).textTheme.headline5,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),

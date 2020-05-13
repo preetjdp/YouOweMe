@@ -117,7 +117,7 @@ class _OtpPageState extends State<OtpPage> {
                       maxLength: 6,
                       pinBoxHeight: _size.width / 8,
                       pinBoxWidth: _size.width / 8,
-                      pinTextStyle: Theme.of(context).textTheme.headline3,
+                      pinTextStyle: Theme.of(context).textTheme.headline5,
                       wrapAlignment: WrapAlignment.center,
                       highlightColor: Theme.of(context).accentColor,
                       keyboardType: TextInputType.numberWithOptions(

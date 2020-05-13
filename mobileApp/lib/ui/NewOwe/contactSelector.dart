@@ -40,7 +40,7 @@ class _ContactSelectorState extends State<ContactSelector> {
       physics: scrollPhysics,
       children: <Widget>[
         Text("Enter a mobile number",
-            style: Theme.of(context).textTheme.headline3),
+            style: Theme.of(context).textTheme.headline5),
         Row(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -90,7 +90,7 @@ class _ContactSelectorState extends State<ContactSelector> {
           height: 10,
         ),
         Text("Select Contact From Device",
-            style: Theme.of(context).textTheme.headline3),
+            style: Theme.of(context).textTheme.headline5),
         SizedBox(
           height: 10,
         ),
@@ -160,7 +160,7 @@ class ContactsList extends StatelessWidget {
                   child: Text(
                     contact.displayName,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.headline3,
+                    style: Theme.of(context).textTheme.headline5,
                   ),
                 ),
                 SizedBox(

@@ -155,7 +155,7 @@ class _NewOweState extends State<NewOwe> {
                     children: <Widget>[
                       Container(),
                       Text("Title",
-                          style: Theme.of(context).textTheme.headline3),
+                          style: Theme.of(context).textTheme.headline5),
                       TextFormField(
                         controller: titleController,
                         validator: titleValidator,
@@ -170,7 +170,7 @@ class _NewOweState extends State<NewOwe> {
                         height: 10,
                       ),
                       Text("Select Person",
-                          style: Theme.of(context).textTheme.headline3),
+                          style: Theme.of(context).textTheme.headline5),
                       PeopleList(),
                       SizedBox(
                         height: 10,
@@ -181,7 +181,7 @@ class _NewOweState extends State<NewOwe> {
                           if (!snapshot.hasData) return Container();
                           return Text(
                             "Selected Person",
-                            style: Theme.of(context).textTheme.headline3,
+                            style: Theme.of(context).textTheme.headline5,
                           );
                         },
                       ),
@@ -206,7 +206,7 @@ class _NewOweState extends State<NewOwe> {
                                 Text(
                                   snapshot.data.displayName ??
                                       snapshot.data.phones.first.value,
-                                  style: Theme.of(context).textTheme.headline3,
+                                  style: Theme.of(context).textTheme.headline5,
                                 ),
                                 Expanded(child: Container()),
                                 CupertinoButton(
@@ -225,7 +225,7 @@ class _NewOweState extends State<NewOwe> {
                       ),
                       Text(
                         "How much money did you lend?",
-                        style: Theme.of(context).textTheme.headline3,
+                        style: Theme.of(context).textTheme.headline5,
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
