@@ -87,10 +87,22 @@ void configureLocalNotifications() {
   InitializationSettings initializationSettings = InitializationSettings(
       androidInitializationSettings, iosInitializationSettings);
   flutterLocalNotificationsPlugin.initialize(initializationSettings,
-      onSelectNotification: onSelectNotification);
+      onSelectNotification: onSelectNotification,
+      onNotificationActionTapped: onSelectNotificationAction);
 }
 
 Future<bool> onSelectNotification(String a) async {
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  // flutterLocalNotificationsPlugin.ca
   print("From On Slect Notification ==> " + a);
   return true;
+}
+
+Future onSelectNotificationAction(
+    String actionKey, Map<String, String> extras) async {
+  print(actionKey + extras.toString());
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  flutterLocalNotificationsPlugin.cancel(int.tryParse(extras['id']));
 }

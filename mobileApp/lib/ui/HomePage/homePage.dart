@@ -116,20 +116,20 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
             color: Theme.of(context).accentColor,
             child: Text("Trigger Notification"),
             onPressed: () async {
-              // String channelId = "owe_request";
-              // String channelName = "Owe Request";
-              // String channelDescription = 'Request for an Owe';
-              // String groupKey = 'com.android.example.WORK_EMAIL';
-              var groupKey = 'com.android.example.WORK_EMAIL';
-              var groupChannelId = 'grouped channel id';
-              var groupChannelName = 'grouped channel name';
-              var groupChannelDescription = 'grouped channel description';
+              String channelId = "owe_request";
+              String channelName = "Owe Request";
+              String channelDescription = 'Request for an Owe';
+              String groupKey = 'dev.preetjdp.youoweme.OWE_REQUEST_GROUP';
+              // var groupKey = 'com.android.example.WORK_EMAIL';
+              // var groupChannelId = 'grouped channel id';
+              // var groupChannelName = 'grouped channel name';
+              // var groupChannelDescription = 'grouped channel description';
               Random random = Random();
               FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
                   FlutterLocalNotificationsPlugin();
               AndroidNotificationDetails androidNotificationDetails =
                   AndroidNotificationDetails(
-                      groupChannelId, groupChannelName, groupChannelDescription,
+                      channelId, channelName, channelDescription,
                       groupKey: groupKey,
                       importance: Importance.Max,
                       priority: Priority.High);
@@ -137,8 +137,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
                   IOSNotificationDetails();
               NotificationDetails notificationDetails = NotificationDetails(
                   androidNotificationDetails, iosNotificationDetails);
+              int notificationId = random.nextInt(500);
               await flutterLocalNotificationsPlugin.show(
-                  0,
+                  notificationId,
                   "New Owe Request",
                   "Psst you have a owe of ${random.nextInt(500)}",
                   notificationDetails,
@@ -146,11 +147,13 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
                     NotificationAction(
                         title: "Accpet Owe Request",
                         icon: "owe_icon",
-                        actionKey: "accept_owe"),
+                        actionKey: "accept_owe",
+                        extras: {"id": notificationId.toString()}),
                     NotificationAction(
                         title: "Decline Owe Request",
                         icon: "owe_icon",
-                        actionKey: "decline_owe")
+                        actionKey: "decline_owe",
+                        extras: {"id": notificationId.toString()})
                   ]);
 
               // await Future.delayed(Duration(seconds: 2));
