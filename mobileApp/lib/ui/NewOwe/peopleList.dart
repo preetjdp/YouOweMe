@@ -93,7 +93,7 @@ class PeopleList extends StatelessWidget {
                       ),
                       Text(user.name,
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headline3),
+                          style: Theme.of(context).textTheme.headline5),
                     ],
                   ),
                 ),
@@ -131,7 +131,7 @@ class PeopleListEmptyState extends StatelessWidget {
               textAlign: TextAlign.center,
               style: Theme.of(context)
                   .textTheme
-                  .headline2
+                  .headline4
                   .copyWith(fontStyle: FontStyle.italic),
             ),
             SizedBox(

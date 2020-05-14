@@ -83,7 +83,7 @@ class BottomList extends StatelessWidget {
                 Expanded(
                   child: Text(
                     owe.title,
-                    style: Theme.of(context).textTheme.headline3,
+                    style: Theme.of(context).textTheme.headline5,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -106,7 +106,7 @@ class BottomList extends StatelessWidget {
                         owe.amount.toString(),
                         style: Theme.of(context)
                             .textTheme
-                            .headline3
+                            .headline5
                             .copyWith(color: Colors.white),
                       ),
                       onPressed: () {}),

@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
             builder: (BuildContext context) => MaterialApp(
                 title: 'You Owe Me',
                 builder: DevicePreview.appBuilder,
-                theme: yomTheme,
+                theme: yomTheme(),
                 home: IntroFlow()),
           );
         });
@@ -77,7 +77,7 @@ class Intermediate extends StatelessWidget {
       child: MaterialApp(
           title: 'You Owe Me',
           builder: DevicePreview.appBuilder,
-          theme: yomTheme,
+          theme: yomTheme(),
           navigatorObservers: [
             FirebaseAnalyticsObserver(analytics: firebaseAnalytics)
           ],
