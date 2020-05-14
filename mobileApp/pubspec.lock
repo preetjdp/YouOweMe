@@ -354,17 +354,12 @@ packages:
   flutter_local_notifications:
     dependency: "direct main"
     description:
-      name: flutter_local_notifications
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.4.3"
-  flutter_local_notifications_platform_interface:
-    dependency: transitive
-    description:
-      name: flutter_local_notifications_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
+      path: "."
+      ref: "feature/notifiction-actions"
+      resolved-ref: "5907454205d5c836983532c49d29e1e8270ac259"
+      url: "git://github.com/gianlucaparadise/flutter_local_notifications.git"
+    source: git
+    version: "0.8.4+3"
   flutter_staggered_animations:
     dependency: "direct main"
     description:
