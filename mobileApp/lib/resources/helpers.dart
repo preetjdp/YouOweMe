@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -47,17 +48,59 @@ Future<String> configureFirebaseMessenging(BuildContext context) async {
     return null;
   }
   _firebaseMessaging.configure(
-    onMessage: (Map<String, dynamic> message) async {
-      print("onMessage: $message");
-    },
-    onLaunch: (Map<String, dynamic> message) async {
-      print("onLaunch: $message");
-    },
-    onResume: (Map<String, dynamic> message) async {
-      print("onResume: $message");
-    },
-  );
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+      },
+      onBackgroundMessage: backgroundMessagehandler);
   return token;
+}
+
+Future<dynamic> backgroundMessagehandler(Map<String, dynamic> data) async {
+  await configureLocalNotifications();
+  print("Background Message: $data");
+  String channelId = "owe_request";
+  String channelName = "Owe Request";
+  String channelDescription = 'This is an Incoming Owe Request. Which Means';
+  // String groupKey = 'dev.preetjdp.youoweme.OWE_REQUEST_GROUP';
+
+  String notificationTitle = data['data']['title'];
+  String notificationBody = data['data']['body'];
+  String oweId = data['data']['oweId'];
+
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
+  Random random = Random();
+  int notificationId = random.nextInt(500);
+
+  AndroidNotificationDetails androidNotificationDetails =
+      AndroidNotificationDetails(channelId, channelName, channelDescription);
+
+  IOSNotificationDetails iosNotificationDetails = IOSNotificationDetails();
+
+  NotificationDetails notificationDetails =
+      NotificationDetails(androidNotificationDetails, iosNotificationDetails);
+
+  return await flutterLocalNotificationsPlugin.show(
+      notificationId, notificationTitle, notificationBody, notificationDetails,
+      actions: [
+        NotificationAction(
+            title: "Accpet Owe Request",
+            icon: "owe_icon",
+            actionKey: "accept_owe",
+            extras: {"id": notificationId.toString(), "oweId": oweId}),
+        NotificationAction(
+            title: "Decline Owe Request",
+            icon: "owe_icon",
+            actionKey: "decline_owe",
+            extras: {"id": notificationId.toString(), "oweId": oweId})
+      ]);
 }
 
 String getDayOfMonthSuffix(final int n) {
@@ -76,7 +119,7 @@ String getDayOfMonthSuffix(final int n) {
   }
 }
 
-void configureLocalNotifications() {
+Future<bool> configureLocalNotifications() {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
@@ -86,7 +129,7 @@ void configureLocalNotifications() {
       AndroidInitializationSettings("@mipmap/ic_launcher");
   InitializationSettings initializationSettings = InitializationSettings(
       androidInitializationSettings, iosInitializationSettings);
-  flutterLocalNotificationsPlugin.initialize(initializationSettings,
+  return flutterLocalNotificationsPlugin.initialize(initializationSettings,
       onSelectNotification: onSelectNotification,
       onNotificationActionTapped: onSelectNotificationAction);
 }
@@ -102,6 +145,7 @@ Future<bool> onSelectNotification(String a) async {
 Future onSelectNotificationAction(
     String actionKey, Map<String, String> extras) async {
   print(actionKey + extras.toString());
+  print("Notification Action Selected");
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   flutterLocalNotificationsPlugin.cancel(int.tryParse(extras['id']));

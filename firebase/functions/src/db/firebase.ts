@@ -9,14 +9,16 @@ const fcm = admin.messaging()
 interface sendFcmNotificationInterface {
     deviceToken: string
     title: string
-    body: string
+    body: string,
+    meta: object
 }
 
-const sendFcmNotification = ({ deviceToken, title, body }: sendFcmNotificationInterface) => {
+const sendFcmNotification = ({ deviceToken, title, body, meta }: sendFcmNotificationInterface) => {
     return fcm.sendToDevice(deviceToken, {
-        notification: {
+        data: {
             title: title,
-            body: body
+            body: body,
+            ...meta
         }
     })
 }

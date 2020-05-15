@@ -42,7 +42,10 @@ const sendNotificationToOweIssuedTo = async (oweSnapshot: DocumentSnapshot) => {
         return await sendFcmNotification({
             deviceToken: issuedToFcmToken,
             title: "New Owe Alert",
-            body: message
+            body: message,
+            meta: {
+                oweId: oweRef.id
+            }
         })
     }
     console.log("Sending SMS")
