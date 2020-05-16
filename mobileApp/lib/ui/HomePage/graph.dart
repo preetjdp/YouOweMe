@@ -72,7 +72,7 @@ class GraphWrapper extends StatelessWidget {
               left: 0,
               top: 0,
               child:
-                  Text("Stats", style: Theme.of(context).textTheme.headline3)),
+                  Text("Stats", style: Theme.of(context).textTheme.headline6)),
           Positioned(
               left: 0,
               right: 0,
@@ -262,13 +262,13 @@ class RenderGraphBox extends RenderBox
         point,
         kStrokeWidth * 0.7,
         Paint()
-          ..color = yomTheme.accentColor
+          ..color = yomTheme().accentColor
           ..maskFilter = MaskFilter.blur(BlurStyle.normal, kStrokeWidth),
       );
 
       // The Grey Point Circle
       context.canvas.drawCircle(
-          point, kStrokeWidth / 1.6, Paint()..color = yomTheme.accentColor);
+          point, kStrokeWidth / 1.6, Paint()..color = yomTheme().accentColor);
 
       // const labelTextMargin = kStrokeWidth * 2;
       // final labelTextRect = Offset(point.dx - kBarWidth / 2,
@@ -301,7 +301,7 @@ class RenderGraphBox extends RenderBox
         textWidthBasis: TextWidthBasis.longestLine,
         text: TextSpan(
             text: '\₹${values[i].toStringAsFixed(1)}',
-            style: yomTheme.textTheme.headline3),
+            style: yomTheme().textTheme.headline6),
       )..layout(maxWidth: valueTextRect.size.width);
       labelTextPainter.paint(context.canvas,
           valueTextRect.centerLeft - Offset(0, labelTextPainter.height / 2));
