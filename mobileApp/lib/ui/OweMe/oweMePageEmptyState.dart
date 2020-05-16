@@ -25,7 +25,7 @@ class OweMePageEmptyState extends StatelessWidget {
           ),
           Text(
             "Oh oo ...\nThere seem to be no Owes here. 😯",
-            style: Theme.of(context).textTheme.headline3,
+            style: Theme.of(context).textTheme.headline5,
           ),
           SizedBox(
             height: 10,

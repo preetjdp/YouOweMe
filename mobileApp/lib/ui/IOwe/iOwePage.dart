@@ -36,7 +36,7 @@ class IOwePage extends StatelessWidget {
             middle: Text("I Owe",
                 style: Theme.of(context)
                     .textTheme
-                    .headline3
+                    .headline5
                     .copyWith(color: Colors.black)),
             actionsForegroundColor: Theme.of(context).accentColor,
           ),
