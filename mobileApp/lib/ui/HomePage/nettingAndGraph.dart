@@ -1,9 +1,11 @@
 import 'package:YouOweMe/ui/Abstractions/expandingWidgetDelegate.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
+import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
 import 'package:flutter/material.dart';
 
 class NettingAndGraphSection extends StatelessWidget {
+  final YomDesign yomDesign = YomDesign();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -70,9 +72,9 @@ class NettingAndGraphSection extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .headline5
-                          .copyWith(color: Color.fromRGBO(170, 225, 169, 1)),
+                          .copyWith(color: yomDesign.yomGreen1),
                     ),
-                    backgroundColor: Colors.white.withOpacity(0.2),
+                    backgroundColor:Theme.of(context).scaffoldBackgroundColor.withOpacity(0.2)
                   ),
                   // SizedBox(
                   //   height: 5,
@@ -82,8 +84,8 @@ class NettingAndGraphSection extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .headline5
-                            .copyWith(color: Color.fromRGBO(163,160,228, 1))),
-                    backgroundColor: Colors.white.withOpacity(0.2),
+                            .copyWith(color: yomDesign.yomPurple2)),
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.2),
                   ),
                 ],
               ),
