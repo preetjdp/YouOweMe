@@ -29,6 +29,12 @@ export class User {
     @Field()
     iOweAmount?: number
 
+    @Field({
+        description: "The Fcm Token to be used to send a notifiation to the `User` will be null if not present.",
+        nullable: true
+    })
+    fcmToken: string
+
     @Field()
     created: Date
 }

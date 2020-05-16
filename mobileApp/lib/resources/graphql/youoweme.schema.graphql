@@ -1,26 +1,35 @@
 type Mutation {
   newOwe(data: NewOweInputType!): Owe!
+  updateOwe(data: UpdateOweInputType!): Owe!
+  updateUser(data: UpdateUserInputType!): User!
 }
 
 input NewOweInputType {
   title: String!
-  amount: Float!
+  amount: Int!
   issuedToID: String
-  # The mobile number has to be of type string and in such a format `+919594128425`
   mobileNo: String
+  displayName: String
 }
 
 type Owe {
   id: ID!
   title: String!
-  amount: Float!
+  amount: Int!
+  state: OweState!
   issuedBy: User!
   issuedTo: User!
   created: Timestamp!
 }
 
+enum OweState {
+  CREATED
+  DECLINED
+  ACKNOWLEDGED
+  PAID
+}
+
 type Query {
-  # Get all the users from the database.
   getUsers: [User!]!
   getUser(id: String!): User
   getOwes: [Owe!]!
@@ -32,8 +41,20 @@ type Subscription {
   User(id: String!): User!
 }
 
-# The javascript `Date` as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
 scalar Timestamp
+
+input UpdateOweInputType {
+  id: String!
+  title: Int
+  amount: Float
+  state: OweState
+}
+
+input UpdateUserInputType {
+  id: ID!
+  name: String
+  fcmToken: String
+}
 
 type User {
   id: ID!
@@ -44,6 +65,6 @@ type User {
   oweMeAmount: Int!
   iOwe: [Owe!]!
   iOweAmount: Int!
+  fcmToken: String
   created: Timestamp!
 }
-

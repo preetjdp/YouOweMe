@@ -1,15 +1,20 @@
+import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
+import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:YouOweMe/ui/IOwe/iOwePage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 class IOweSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Seva$Query$User me = Provider.of<MeNotifier>(context).me;
     void goToIOwePage() {
-      Navigator.of(context).push(
-          MaterialPageRoute(builder: (BuildContext context) => IOwePage()));
+      Navigator.of(context).push(MaterialWithModalsPageRoute(
+          builder: (BuildContext context) => IOwePage(),
+          settings: RouteSettings(name: "I Owe Page")));
     }
 
     return Container(
@@ -27,7 +32,7 @@ class IOweSection extends StatelessWidget {
                 padding: EdgeInsets.all(0),
                 child: Row(
                   children: <Widget>[
-                    Text("I Owe", style: Theme.of(context).textTheme.headline3),
+                    Text("I Owe", style: Theme.of(context).textTheme.headline5),
                     Icon(
                       CupertinoIcons.right_chevron,
                       color: Color.fromRGBO(78, 80, 88, 1),
@@ -54,16 +59,17 @@ class IOweSection extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text(
-                          Provider.of<MeNotifier>(context, listen: true)
-                                  ?.me
-                                  ?.iOweAmount
-                                  ?.toString() ??
-                              "wow",
-                          style: TextStyle(
-                              fontSize: 50,
-                              fontWeight: FontWeight.w800,
-                              color: Theme.of(context).accentColor))
+                      if (me != null)
+                        Text(me.iOweAmount.toString(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline3
+                                .copyWith(color: Theme.of(context).accentColor))
+                      else
+                        Expanded(
+                            child: Center(
+                          child: YOMSpinner(),
+                        ))
                     ],
                   )),
             ),

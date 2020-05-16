@@ -2,7 +2,7 @@ import { firestore } from "../../db/firebase"
 import { Query, Resolver, FieldResolver, Root, Arg, Authorized, Int } from "type-graphql"
 import { User } from "../../models/User"
 import { DocumentReference, Timestamp } from "@google-cloud/firestore"
-import { Owe } from "../../models/Owe"
+import { Owe, OweState } from "../../models/Owe"
 
 @Resolver(User)
 export class UserResolver {
@@ -20,6 +20,7 @@ export class UserResolver {
                 name: userData.name,
                 image: userData.image,
                 mobileNo: userData.mobile_no,
+                fcmToken: userData.fcm_token,
                 created: created.toDate()
             }
             return user
@@ -43,6 +44,7 @@ export class UserResolver {
             name: userData!.name,
             image: userData!.image,
             mobileNo: userData!.mobile_no,
+            fcmToken: userData!.fcm_token,
             created: created.toDate()
         }
         return user
@@ -67,6 +69,7 @@ export class UserResolver {
                 documenmentRef: oweF.ref,
                 title: oweFData.title,
                 amount: oweFData.amount,
+                state: oweFData.state ?? OweState.CREATED,
                 issuedByID: oweF.ref.parent.parent!.id,
                 issuedToID: issedToRef.id,
                 created: oweFCreated.toDate()
@@ -98,6 +101,7 @@ export class UserResolver {
                 documenmentRef: oweF.ref,
                 title: oweFData.title,
                 amount: oweFData.amount,
+                state: oweFData.state ?? OweState.CREATED,
                 issuedByID: oweF.ref.parent.parent!.id,
                 issuedToID: issedToRef.id,
                 created: oweFCreated.toDate()
@@ -115,7 +119,8 @@ export class UserResolver {
         const owes: Array<Owe> = await this.oweMeFieldResolver(user)
         let oweMeAmount: number = 0
         for (const owe of owes) {
-            oweMeAmount += owe.amount
+            if (owe.state == OweState.ACKNOWLEDGED || owe.state == OweState.CREATED)
+                oweMeAmount += owe.amount
         }
         return oweMeAmount
     }
@@ -128,7 +133,8 @@ export class UserResolver {
         const owes: Array<Owe> = await this.iOweFieldResolver(user)
         let iOweAmount: number = 0
         for (const owe of owes) {
-            iOweAmount += owe.amount
+            if (owe.state == OweState.ACKNOWLEDGED || owe.state == OweState.CREATED)
+                iOweAmount += owe.amount
         }
         return iOweAmount
     }

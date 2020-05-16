@@ -1,10 +1,12 @@
 import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:YouOweMe/resources/extensions.dart';
+import 'package:basics/basics.dart';
 
 class BottomList extends StatelessWidget {
   void onTick(Seva$Query$User$Owe owe, BuildContext context) async {
@@ -35,37 +37,45 @@ class BottomList extends StatelessWidget {
         context: context,
         builder: (BuildContext context) => actionSheet(context));
     if (shouldDelete) {
-      DocumentReference oweRef = Firestore.instance
-          .collection("users")
-          .document(owe.issuedBy.id)
-          .collection("owes")
-          .document(owe.id);
-      oweRef.delete();
-      Provider.of<MeNotifier>(context, listen: false).refresh();
+      MeNotifier meNotifier = Provider.of<MeNotifier>(context, listen: false);
+      String updateOweMutation = """
+      mutation(\$input: UpdateOweInputType!) {
+        updateOwe(data: \$input) {
+          id
+          title
+        }
+      }
+      """;
+      QueryResult result = await meNotifier.graphQLClient.mutate(
+          MutationOptions(documentNode: gql(updateOweMutation), variables: {
+        "input": {"id": owe.id, "state": "PAID"}
+      }));
+      if (result.isNotNull && result.exception.isNull) meNotifier.refresh();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final Seva$Query$User me = Provider.of<MeNotifier>(context).me;
-    if (me == null || me.oweMe.length == 0) return BottomListEmptyState();
+    if (me.isNull || me.oweMe.isEmpty) return BottomListEmptyState();
+    final List<Seva$Query$User$Owe> oweMe = Provider.of<MeNotifier>(context)
+        .me
+        .oweMe
+        .fromStates([OweState.CREATED, OweState.ACKNOWLEDGED]);
     return ListView.builder(
-        itemCount: Provider.of<MeNotifier>(context).me.oweMe.length,
+        itemCount: oweMe.length,
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
-          Seva$Query$User$Owe owe =
-              Provider.of<MeNotifier>(context).me.oweMe[index];
+          Seva$Query$User$Owe owe = oweMe[index];
           return Container(
             margin: EdgeInsets.only(top: 10),
-            constraints: BoxConstraints(
-              minHeight: 50
-            ),
+            constraints: BoxConstraints(minHeight: 50),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 YomAvatar(
-                  text: "PP",
+                  text: owe.issuedTo.shortName,
                 ),
                 SizedBox(
                   width: 20,
@@ -73,7 +83,7 @@ class BottomList extends StatelessWidget {
                 Expanded(
                   child: Text(
                     owe.title,
-                    style: Theme.of(context).textTheme.headline3,
+                    style: Theme.of(context).textTheme.headline5,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -86,18 +96,21 @@ class BottomList extends StatelessWidget {
                     size: 28,
                   ),
                 ),
-                CupertinoButton(
-                    color: Theme.of(context).accentColor,
-                    minSize: 20,
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      owe.amount.toString(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline3
-                          .copyWith(color: Colors.white),
-                    ),
-                    onPressed: () {})
+                Container(
+                  constraints: BoxConstraints(minWidth: 65),
+                  child: CupertinoButton(
+                      color: Theme.of(context).accentColor,
+                      minSize: 20,
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        owe.amount.toString(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5
+                            .copyWith(color: Colors.white),
+                      ),
+                      onPressed: () {}),
+                )
               ],
             ),
           );

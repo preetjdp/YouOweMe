@@ -1,20 +1,45 @@
 import 'dart:ui';
 
+import 'package:YouOweMe/resources/helpers.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:YouOweMe/ui/HomePage/graph.dart';
 import 'package:YouOweMe/ui/HomePage/iOweSection.dart';
 import 'package:YouOweMe/ui/HomePage/oweMeSection.dart';
 import 'package:YouOweMe/resources/extensions.dart';
+import 'package:after_layout/after_layout.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:YouOweMe/ui/NewOwe/newOwe.dart';
 import 'package:YouOweMe/ui/HomePage/bottomList.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
+import 'package:retry/retry.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
+  @override
+  void afterFirstLayout(BuildContext context) async {
+    final FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics();
+    await firebaseAnalytics.logAppOpen();
+    String token = await configureFirebaseMessenging(context);
+    if (token != null) {
+      await retry(
+          () => Provider.of<MeNotifier>(context, listen: false)
+              .updateUser({"fcmToken": token}),
+          retryIf: (e) => e is Exception,
+          delayFactor: Duration(seconds: 5),
+          onRetry: (a) => print("Retrying to update FCM with " + a.toString()));
+    }
+  }
+
   void logOutDialog(BuildContext context) async {
     bool result = await showCupertinoModalPopup<bool>(
         context: context,
@@ -41,10 +66,18 @@ class HomePage extends StatelessWidget {
                   Navigator.pop(context, true);
                 },
               ),
+              CupertinoActionSheetAction(
+                child: Text(
+                  "Toggle Device Preview",
+                ),
+                onPressed: () {
+                  toggleDevicePreview();
+                },
+              ),
             ],
           );
         });
-    if (result) {
+    if (result != null && result) {
       FirebaseAuth.instance.signOut();
     }
   }
@@ -54,28 +87,33 @@ class HomePage extends StatelessWidget {
     final TargetPlatform platform = Theme.of(context).platform;
 
     void goToNewOwe() async {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (BuildContext context) => NewOwe()));
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (BuildContext context) => NewOwe(),
+          settings: RouteSettings(name: "New Owe Page")));
     }
 
     Future<void> onRefresh() =>
         Provider.of<MeNotifier>(context, listen: false).refresh();
 
-    List<Widget> children = <Widget>[
-      SizedBox(
-        height: 10,
-      ),
-      OweMeSection(),
-      SizedBox(
-        height: 10,
-      ),
-      IOweSection(),
-      BottomList(),
-      SizedBox(
-        height: 10,
-      ),
-      GraphWrapper()
-    ];
+    List<Widget> children = AnimationConfiguration.toStaggeredList(
+        childAnimationBuilder: (widget) => ScaleAnimation(
+              scale: 1.5,
+              child: FadeInAnimation(
+                child: widget,
+              ),
+            ),
+        children: <Widget>[
+          SizedBox(
+            height: 10,
+          ),
+          OweMeSection(),
+          SizedBox(
+            height: 10,
+          ),
+          IOweSection(),
+          GraphWrapper(),
+          BottomList(),
+        ]);
 
     final Widget abstractedHomePage = CustomScrollView(
       slivers: <Widget>[
@@ -84,7 +122,7 @@ class HomePage extends StatelessWidget {
             onRefresh: onRefresh,
           ),
           SliverPadding(
-              padding: EdgeInsets.all(15),
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
               sliver: SliverList(delegate: SliverChildListDelegate(children)))
         ] else if (platform == TargetPlatform.android)
           SliverFillRemaining(
@@ -141,7 +179,7 @@ class HomePage extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Stack(
         children: [
-          abstractedHomePage,
+          AnimationLimiter(child: abstractedHomePage),
           Positioned(
             bottom: 20,
             left: 15,

@@ -1,7 +1,7 @@
 # You Owe Me
 
 An Application that keeps tracks of your chillars,
-shows off the best ways <sup> [1](#Excerpt) </sup>  to
+shows off the best ways <sup> [1](#Citations) </sup>  to
 build a set of  services that come together in a beautiful
 structure.
 
@@ -35,10 +35,10 @@ and lets percolate on it.
 
 # Tech Stack
 These are the set of services currently being used for the product.
-* [Flutter - Mobile App](https://flutter.dev/ "Flutter's Website")
-* [Firebase - Database and Serverless Functions](https://firebase.com/)
+* [Flutter - Mobile App](https://github.com/preetjdp/YouOweMe/tree/master/mobileApp "Mobile App Section")
+* [Firebase - Database and Serverless Functions](https://github.com/preetjdp/YouOweMe/tree/master/firebase)
     > Download the Insider Release [from here.](https://github.com/preetjdp/YouOweMe/releases)
-* [Graphql - Seva](https://graphql.org/)
+* [Graphql - Seva](https://github.com/preetjdp/YouOweMe/tree/master/server)
     > Try out the [seva api.](https://api.youoweme.preetjdp.dev/) 
 * WIP
 

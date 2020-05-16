@@ -1,6 +1,7 @@
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -54,6 +55,9 @@ class _OtpPageState extends State<OtpPage> {
                       .document(result.user.uid)
                       .updateData({'name': loginUser.userName});
                 }
+                final FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics();
+                firebaseAnalytics.setUserId(result.user.uid);
+                firebaseAnalytics.logLogin();
                 Navigator.pop(context, nextPage);
                 return;
               }
@@ -68,7 +72,7 @@ class _OtpPageState extends State<OtpPage> {
                   children: [
                     Text(
                       "We're Processing the Information.",
-                      style: Theme.of(context).textTheme.headline1,
+                      style: Theme.of(context).textTheme.headline3,
                     ),
                     Expanded(child: Container()),
                     Center(
@@ -108,11 +112,12 @@ class _OtpPageState extends State<OtpPage> {
                   Center(
                     child: PinCodeTextField(
                       controller: otpController,
+                      onDone: (_) => verifyOtp(),
                       pinBoxRadius: 15,
                       maxLength: 6,
                       pinBoxHeight: _size.width / 8,
                       pinBoxWidth: _size.width / 8,
-                      pinTextStyle: Theme.of(context).textTheme.headline3,
+                      pinTextStyle: Theme.of(context).textTheme.headline5,
                       wrapAlignment: WrapAlignment.center,
                       highlightColor: Theme.of(context).accentColor,
                       keyboardType: TextInputType.numberWithOptions(

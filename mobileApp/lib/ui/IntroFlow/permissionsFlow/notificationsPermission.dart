@@ -67,7 +67,7 @@ class NotificationsPermissions extends StatelessWidget {
                 child: CupertinoButton(
                     color: Theme.of(context).accentColor,
                     child: Text('Next'),
-                    onPressed: nextPage),
+                    onPressed: allowNotifications),
               ))
         ],
       ),

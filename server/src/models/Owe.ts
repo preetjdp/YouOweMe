@@ -1,9 +1,9 @@
 import { User } from "./User"
-import { ObjectType, Field, ID } from "type-graphql"
+import { ObjectType, Field, ID, registerEnumType, Int } from "type-graphql"
 import { DocumentReference } from "@google-cloud/firestore"
 
 @ObjectType()
-export class Owe {
+class Owe {
     @Field(() => ID)
     id: string
 
@@ -14,8 +14,11 @@ export class Owe {
     @Field()
     title: string
 
-    @Field()
+    @Field(() => Int)
     amount: number
+
+    @Field(() => OweState)
+    state: OweState
 
     @Field()
     issuedBy?: User
@@ -25,4 +28,22 @@ export class Owe {
 
     @Field()
     created: Date
+}
+
+enum OweState {
+    CREATED = "CREATED",
+    DECLINED = "DECLINED",
+    ACKNOWLEDGED = "ACKNOWLEDGED",
+    PAID = "PAID",
+    // DELAYED = "DELAYED",
+}
+
+registerEnumType(OweState, {
+    name: "OweState",
+    description: "Defines the states that a `Owe` can be In. The default is Opened"
+})
+
+export {
+    Owe,
+    OweState
 }
