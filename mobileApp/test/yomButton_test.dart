@@ -1,11 +1,13 @@
 import 'package:YouOweMe/ui/Abstractions/yomButton.dart';
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
-import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
+// Done so as to does not affect with init of yomTheme
+import 'package:YouOweMe/ui/Abstractions/yomTheme.dart' as yomDesign;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  ThemeData yomTheme = yomDesign.yomTheme();
   Widget child = Container(
     height: 50,
     width: 50,
