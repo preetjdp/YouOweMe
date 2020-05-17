@@ -1,5 +1,6 @@
 import { ObjectType, Field, ID } from "type-graphql";
 import { Owe } from "./Owe";
+import { NotificationUnion } from "./Notification"
 
 @ObjectType()
 export class User {
@@ -37,4 +38,10 @@ export class User {
 
     @Field()
     created: Date
+}
+
+@ObjectType()
+export class Me extends User {
+    @Field(() => [NotificationUnion])
+    notifications?: [typeof NotificationUnion]
 }
