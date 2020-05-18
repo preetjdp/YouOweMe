@@ -2,8 +2,8 @@ name: Mobile App Build
 
 on:
   push:
-    # paths: 
-    #   - 'mobileApp/**'
+    paths: 
+      - 'mobileApp/**'
     branches: [ master ]
     
 jobs:
