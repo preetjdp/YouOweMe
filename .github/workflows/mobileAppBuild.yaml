@@ -26,6 +26,7 @@ jobs:
       run: |
         cd mobileApp
         flutter packages get
+        pwd
     - name: Run Test's
       run: flutter test
     - name: Build Flutter App
