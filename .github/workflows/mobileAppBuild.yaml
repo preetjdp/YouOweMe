@@ -43,8 +43,9 @@ jobs:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: latest
         prerelease: true
+        title: "YouOweMe App Build"
         files: |
-          'mobileApp/build/app/outputs/apk/release/app-release.apk'
+          mobileApp/build/app/outputs/apk/release/app-release.apk
 
     # - name: Release Build
     #   uses: softprops/action-gh-release@v1
