@@ -22,12 +22,14 @@ jobs:
     - uses: subosito/flutter-action@v1
       with:
         channel: 'beta'
-    - name: Build Flutter App
+    - name: Get Dependencies
       run: |
         cd mobileApp
         flutter packages get
-        flutter test
-        flutter build apk
+    - name: Run Test's
+      run: flutter test
+    - name: Build Flutter App
+      run: flutter build apk
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:

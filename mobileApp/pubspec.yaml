@@ -1,7 +1,7 @@
 name: YouOweMe
 description: Making it simpler to track those chillars.
 
-version: 0.0.2
+version: 0.0.3
 
 environment:
   sdk: ">2.7.0 <3.0.0"
