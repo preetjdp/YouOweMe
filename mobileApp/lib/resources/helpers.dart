@@ -15,19 +15,15 @@ void configureSystemChrome() {
       systemNavigationBarIconBrightness: Brightness.dark));
 }
 
-ValueNotifier<GraphQLClient> configureGraphQL() {
+Future<GraphQLClient> getGraphqlClient(String userId) async {
   final HttpLink httpLink = HttpLink(
-      uri: 'https://youoweme-6c622.appspot.com/',
-      headers: {"authorization": "f9fc7B6wvIsU62LuDNVv"});
+      uri: 'https://api.youoweme.preetjdp.dev/',
+      headers: {"authorization": userId});
 
-  ValueNotifier<GraphQLClient> client = ValueNotifier(
-    GraphQLClient(
-      cache: InMemoryCache(),
-      link: httpLink,
-    ),
+  return GraphQLClient(
+    cache: InMemoryCache(),
+    link: httpLink,
   );
-
-  return client;
 }
 
 Future<bool> toggleDevicePreview() async {
