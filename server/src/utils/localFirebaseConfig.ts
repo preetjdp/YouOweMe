@@ -7,7 +7,10 @@ const configureForLocalFirebase = async () => {
         firestore.settings({
             host: 'localhost',
             ssl: false,
-            port: 8080
+            port: 8080,
+            customHeaders: {
+                "Authorization": "Bearer owner"
+            }
         })
     }
 }
