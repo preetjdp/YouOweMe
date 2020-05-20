@@ -3,6 +3,7 @@ import { Owe, OweState } from "../../models/Owe";
 import { User } from "../../models/User";
 import { UserResolver } from "../User/UserResolver";
 import { DocumentReference } from "@google-cloud/firestore"
+import { RequestContainer, UserDataLoader } from "../User/userResolver/userLoader";
 
 @Resolver(Owe)
 export class OweResolver {
@@ -30,20 +31,20 @@ export class OweResolver {
     @FieldResolver(() => User, {
         name: "issuedBy",
     })
-    async issuedByFieldResolver(@Root() owe: Owe) {
+    async issuedByFieldResolver(@Root() owe: Owe, @RequestContainer() userDataLoader: UserDataLoader) {
         const oweRef = owe.documenmentRef
         const issuedByRef = oweRef.parent.parent
         const issedByUserId = issuedByRef!.id
-        const issuedByUser = await new UserResolver().getUser(issedByUserId)
+        const issuedByUser = await new UserResolver().getUser(issedByUserId, userDataLoader)
         return issuedByUser
     }
 
     @FieldResolver(() => User, {
         name: "issuedTo",
     })
-    async issuedToFieldResolver(@Root() owe: Owe) {
+    async issuedToFieldResolver(@Root() owe: Owe, @RequestContainer() userDataLoader: UserDataLoader) {
         const userId: string = owe.issuedToID
-        const user = await new UserResolver().getUser(userId)
+        const user = await new UserResolver().getUser(userId, userDataLoader)
         return user
     }
 }

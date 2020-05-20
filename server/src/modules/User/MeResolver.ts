@@ -1,10 +1,11 @@
-import { Resolver, Query, Authorized, Ctx, Subscription, Publisher, PubSub, Root } from "type-graphql";
+import { Resolver, Query, Authorized, Ctx, Subscription, Publisher, PubSub, Root, Info } from "type-graphql";
 import { ApplicationContext } from "../../utils/appContext";
 import { firestore } from "../../db/firebase";
 import { User } from "../../models/User";
 import { Timestamp } from "@google-cloud/firestore";
 import { UserResolver } from "./UserResolver";
 import { userTopicGenerator } from "./userResolver/userTopic";
+import { RequestContainer, UserDataLoader } from "./userResolver/userLoader";
 
 
 @Resolver()
@@ -13,10 +14,9 @@ export class MeResolver {
     @Query(() => User, {
         name: "Me"
     })
-    async getMe(@Ctx() context: ApplicationContext): Promise<User> {
-        console.log(context.req.headers.authorization + "wpwza")
+    async getMe(@Ctx() context: ApplicationContext, @RequestContainer() userDataLoader: UserDataLoader): Promise<User> {
         const userId = context.req.headers.authorization!
-        const user = await new UserResolver().getUser(userId)
+        const user = await new UserResolver().getUser(userId, userDataLoader)
         return user
     }
 

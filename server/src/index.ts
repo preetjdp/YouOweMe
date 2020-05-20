@@ -3,6 +3,8 @@ import "./utils/envConfig"
 
 
 import { generateSchema } from "./schema"
+import { ApplicationContext } from "./utils/appContext"
+import Container from "typedi"
 
 const main = async () => {
   const schema = await generateSchema()
@@ -12,11 +14,27 @@ const main = async () => {
     playground: true,
     tracing: true,
     context: ({ req, connection }) => {
-      if (connection) {
-        return connection.context
+      const requestId = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+      console.log('Creating Container', requestId)
+      let context: ApplicationContext = {
+        req,
+        requestId
       }
-      return { req }
-    }
+      if (connection) {
+        context = { ...context, ...connection.context }
+      }
+      return context
+    },
+    plugins: [
+      {
+        requestDidStart: () => ({
+          willSendResponse(requestContext) {
+            console.log('Disposing Container', requestContext.context.requestId)
+            Container.reset(requestContext.context.requestId);
+          },
+        }),
+      },
+    ],
   });
 
   server.listen({ port: process.env.PORT || 4000 }, () =>

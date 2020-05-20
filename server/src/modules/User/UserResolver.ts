@@ -1,8 +1,9 @@
 import { firestore } from "../../db/firebase"
 import { Query, Resolver, FieldResolver, Root, Arg, Authorized, Int } from "type-graphql"
 import { User } from "../../models/User"
-import { DocumentReference, Timestamp } from "@google-cloud/firestore"
+import { DocumentReference, Timestamp, DocumentSnapshot } from "@google-cloud/firestore"
 import { Owe, OweState } from "../../models/Owe"
+import { RequestContainer, UserDataLoader } from "./userResolver/userLoader"
 
 @Resolver(User)
 export class UserResolver {
@@ -31,9 +32,8 @@ export class UserResolver {
     @Query(() => User, {
         nullable: true
     })
-    async getUser(@Arg("id") id: string): Promise<User> {
-        const userRef = firestore.collection('users').doc(id)
-        const userSnapshot = await userRef.get()
+    async getUser(@Arg("id") id: string, @RequestContainer() userDataLoader: UserDataLoader): Promise<User> {
+        const userSnapshot = await userDataLoader.load(id) as DocumentSnapshot
         const userData = userSnapshot.data()
         if (!userSnapshot.exists) {
             throw Error("User Does Not Exist")
