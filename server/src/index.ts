@@ -4,7 +4,7 @@ import "./utils/envConfig"
 
 import { generateSchema } from "./schema"
 import { ApplicationContext } from "./utils/appContext"
-import Container from "typedi"
+import { Container } from "typedi"
 
 const main = async () => {
   const schema = await generateSchema()
