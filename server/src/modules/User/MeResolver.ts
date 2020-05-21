@@ -6,6 +6,7 @@ import { Timestamp } from "@google-cloud/firestore";
 import { UserResolver } from "./UserResolver";
 import { userTopicGenerator } from "./userResolver/userTopic";
 import { RequestContainer, UserDataLoader } from "./userResolver/userLoader";
+import { mapUserSnapshot } from "./userResolver/userSnapshotMap";
 
 
 @Resolver()
@@ -16,7 +17,11 @@ export class MeResolver {
     })
     async getMe(@Ctx() context: ApplicationContext, @RequestContainer() userDataLoader: UserDataLoader): Promise<User> {
         const userId = context.req.headers.authorization!
-        const user = await new UserResolver().getUser(userId, userDataLoader)
+        const userSnapshot = await userDataLoader.load(userId)
+        if (!userSnapshot) {
+            throw Error("User Snapshot from loader is Null in MeResolver")
+        }
+        const user = mapUserSnapshot(userSnapshot)
         return user
     }
 

@@ -16,8 +16,6 @@ const main = async () => {
     context: ({ req, connection }) => {
       const requestId = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
       console.log('Creating Container', requestId)
-      const used = process.memoryUsage().heapUsed / 1024 / 1024;
-      console.log(`The Memory Being Used ${Math.round(used * 100) / 100} MB`);
       let context: ApplicationContext = {
         req,
         requestId

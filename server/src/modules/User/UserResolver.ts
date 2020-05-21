@@ -4,6 +4,7 @@ import { User } from "../../models/User"
 import { DocumentReference, Timestamp, DocumentSnapshot } from "@google-cloud/firestore"
 import { Owe, OweState } from "../../models/Owe"
 import { RequestContainer, UserDataLoader } from "./userResolver/userLoader"
+import { mapUserSnapshot } from "./userResolver/userSnapshotMap"
 
 @Resolver(User)
 export class UserResolver {
@@ -34,19 +35,7 @@ export class UserResolver {
     })
     async getUser(@Arg("id") id: string, @RequestContainer() userDataLoader: UserDataLoader): Promise<User> {
         const userSnapshot = await userDataLoader.load(id) as DocumentSnapshot
-        const userData = userSnapshot.data()
-        if (!userSnapshot.exists) {
-            throw Error("User Does Not Exist")
-        }
-        const created: Timestamp = userData!.created
-        const user: User = {
-            id: userSnapshot.id,
-            name: userData!.name,
-            image: userData!.image,
-            mobileNo: userData!.mobile_no,
-            fcmToken: userData!.fcm_token,
-            created: created.toDate()
-        }
+        const user: User = mapUserSnapshot(userSnapshot)
         return user
     }
 

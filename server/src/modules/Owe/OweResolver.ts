@@ -4,6 +4,7 @@ import { User } from "../../models/User";
 import { UserResolver } from "../User/UserResolver";
 import { DocumentReference } from "@google-cloud/firestore"
 import { RequestContainer, UserDataLoader } from "../User/userResolver/userLoader";
+import { mapUserSnapshot } from "../User/userResolver/userSnapshotMap";
 
 @Resolver(Owe)
 export class OweResolver {
@@ -35,7 +36,11 @@ export class OweResolver {
         const oweRef = owe.documenmentRef
         const issuedByRef = oweRef.parent.parent
         const issedByUserId = issuedByRef!.id
-        const issuedByUser = await new UserResolver().getUser(issedByUserId, userDataLoader)
+        const issuedByUserSnapshot = await userDataLoader.load(issedByUserId)
+        if (!issuedByUserSnapshot) {
+            throw Error("User Snapshot from loader is Null in oweResolver")
+        }
+        const issuedByUser = mapUserSnapshot(issuedByUserSnapshot)
         return issuedByUser
     }
 
@@ -44,7 +49,11 @@ export class OweResolver {
     })
     async issuedToFieldResolver(@Root() owe: Owe, @RequestContainer() userDataLoader: UserDataLoader) {
         const userId: string = owe.issuedToID
-        const user = await new UserResolver().getUser(userId, userDataLoader)
-        return user
+        const issuedToUserSnapshot = await userDataLoader.load(userId)
+        if (!issuedToUserSnapshot) {
+            throw Error("User Snapshot from loader is Null in oweResolver")
+        }
+        const issuedToUser = mapUserSnapshot(issuedToUserSnapshot)
+        return issuedToUser
     }
 }

@@ -4,6 +4,7 @@ import { UpdateUserInputType } from "./updateUser/updateUserInputType";
 import { firestore } from "../../db/firebase";
 import { UserResolver } from "./UserResolver"
 import { RequestContainer, UserDataLoader } from "./userResolver/userLoader";
+import { mapUserSnapshot } from "./userResolver/userSnapshotMap";
 
 @Resolver(User)
 export class UpdateUserResolver {
@@ -24,7 +25,11 @@ export class UpdateUserResolver {
                 ...(fcmToken && { fcm_token: fcmToken }),
                 ...updateData
             })
-            let user = await new UserResolver().getUser(userId, userDataLoader)
+            let userSnapshot = await userDataLoader.load(userId)
+            if(!userSnapshot) {
+                throw Error("User Snapshot from loader is Null in updateResolver")
+            }
+            let user = mapUserSnapshot(userSnapshot)
             return user
         } catch (e) {
             throw e
