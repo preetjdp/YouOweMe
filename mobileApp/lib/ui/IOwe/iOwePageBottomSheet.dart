@@ -24,8 +24,11 @@ class IOwePageBottomSheet extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Text("Amount To Be Paid",
-                style: Theme.of(context).textTheme.headline5),
+            if ([OweState.ACKNOWLEDGED, OweState.CREATED].contains(owe.state))
+              Text("Amount To Be Paid",
+                  style: Theme.of(context).textTheme.headline5)
+            else if (owe.state == OweState.PAID)
+              Text("Amount Paid", style: Theme.of(context).textTheme.headline5),
             RichText(
               text: TextSpan(
                   style: Theme.of(context).textTheme.headline1,
@@ -40,19 +43,24 @@ class IOwePageBottomSheet extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline5),
             Text(owe.created.simpler,
                 style: Theme.of(context).textTheme.bodyText2),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              height: 60,
-              width: 400,
-              child: CupertinoButton(
-                  color: Theme.of(context).accentColor,
-                  child: Text('Pay Up!'),
-                  onPressed: () {
-                    showCupertinoModalBottomSheet(context: context, builder: (a,b) =>  Center(child: YOMSpinner()));
-                  }),
-            ),
+            if ([OweState.ACKNOWLEDGED, OweState.CREATED]
+                .contains(owe.state)) ...[
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: 60,
+                width: 400,
+                child: CupertinoButton(
+                    color: Theme.of(context).accentColor,
+                    child: Text('Pay Up!'),
+                    onPressed: () {
+                      showCupertinoModalBottomSheet(
+                          context: context,
+                          builder: (a, b) => Center(child: YOMSpinner()));
+                    }),
+              ),
+            ]
           ],
         ),
       ),

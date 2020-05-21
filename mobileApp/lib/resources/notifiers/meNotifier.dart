@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:basics/basics.dart';
+import 'package:YouOweMe/resources/helpers.dart';
 
 class MeNotifier extends ChangeNotifier {
   GraphQLClient graphQLClient;
@@ -18,15 +19,10 @@ class MeNotifier extends ChangeNotifier {
     // init();
   }
 
-  void onProxyUpdate(FirebaseUser firebaseUser) {
-    if (firebaseUser != null) {
-      print("NOn Proxy Update");
-      graphQLClient = GraphQLClient(
-        cache: InMemoryCache(),
-        link: HttpLink(
-            uri: 'https://api.youoweme.preetjdp.dev/',
-            headers: {"authorization": firebaseUser.uid}),
-      );
+  void onProxyUpdate(FirebaseUser firebaseUser) async {
+    if (firebaseUser.isNotNull) {
+      print("MeNotifier Proxy Update");
+      graphQLClient = await getGraphqlClient(firebaseUser.uid);
       init();
     }
   }

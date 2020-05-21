@@ -12,46 +12,97 @@ class IOwePage extends StatelessWidget {
   final PanelController panelController = PanelController();
   @override
   Widget build(BuildContext context) {
-    final List<Seva$Query$User$Owe> iOwe = Provider.of<MeNotifier>(context)
-        .me
-        .iOwe
-        .fromStates([OweState.CREATED, OweState.ACKNOWLEDGED]);
+    final List<Seva$Query$User$Owe> iOwe =
+        Provider.of<MeNotifier>(context).me.iOwe;
 
-    Future<bool> onWilPopScope() async {
-      if (panelController.isAttached && panelController.isPanelOpen) {
-        await panelController.close();
-        return false;
-      }
-      return true;
-    }
-
-    return WillPopScope(
-      onWillPop: onWilPopScope,
-      child: Scaffold(
-          appBar: CupertinoNavigationBar(
-            backgroundColor: Theme.of(context).backgroundColor.withOpacity(0.5),
-            border: Border(
-                bottom: BorderSide(
-                    color: Theme.of(context).accentColor, width: 0.5)),
-            middle: Text("I Owe",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5
-                    .copyWith(color: Colors.black)),
-            actionsForegroundColor: Theme.of(context).accentColor,
-          ),
-          body: SafeArea(
-              child: iOwe.isNotEmpty
-                  ? ListView.builder(
-                      itemCount: iOwe.length,
-                      padding: const EdgeInsets.all(15.0),
-                      itemBuilder: (BuildContext context, int index) {
-                        Seva$Query$User$Owe owe = iOwe[index];
-                        return IOwePageElement(
-                          owe: owe,
-                        );
-                      })
-                  : IOwePageEmptyState())),
-    );
+    return Scaffold(
+        appBar: CupertinoNavigationBar(
+          backgroundColor: Theme.of(context).backgroundColor.withOpacity(0.5),
+          border: Border(
+              bottom:
+                  BorderSide(color: Theme.of(context).accentColor, width: 0.5)),
+          middle: Text("I Owe",
+              style: Theme.of(context)
+                  .textTheme
+                  .headline5
+                  .copyWith(color: Colors.black)),
+          actionsForegroundColor: Theme.of(context).accentColor,
+        ),
+        body: iOwe.isNotEmpty
+            ? CustomScrollView(
+                slivers: [
+                  if (iOwe.stateAcknowledged.length > 0) ...[
+                    SliverPadding(
+                      padding: EdgeInsets.only(left: 15, top: 15),
+                      sliver: SliverToBoxAdapter(
+                        child: Text("Acknowledged",
+                            style: Theme.of(context).textTheme.headline5),
+                      ),
+                    ),
+                    SliverPadding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      sliver: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            Seva$Query$User$Owe owe =
+                                iOwe.stateAcknowledged[index];
+                            return IOwePageElement(
+                              owe: owe,
+                            );
+                          },
+                          childCount: iOwe.stateAcknowledged.length,
+                        ),
+                      ),
+                    )
+                  ],
+                  if (iOwe.stateCreated.length > 0) ...[
+                    SliverPadding(
+                      padding: EdgeInsets.only(left: 15, top: 10),
+                      sliver: SliverToBoxAdapter(
+                        child: Text("Open",
+                            style: Theme.of(context).textTheme.headline5),
+                      ),
+                    ),
+                    SliverPadding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      sliver: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            Seva$Query$User$Owe owe = iOwe.stateCreated[index];
+                            return IOwePageElement(
+                              owe: owe,
+                            );
+                          },
+                          childCount: iOwe.stateCreated.length,
+                        ),
+                      ),
+                    )
+                  ],
+                  if (iOwe.statePaid.length > 0) ...[
+                    SliverPadding(
+                      padding: EdgeInsets.only(left: 15, top: 10),
+                      sliver: SliverToBoxAdapter(
+                        child: Text("Paid",
+                            style: Theme.of(context).textTheme.headline5),
+                      ),
+                    ),
+                    SliverPadding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      sliver: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            Seva$Query$User$Owe owe = iOwe.statePaid[index];
+                            return IOwePageElement(
+                              owe: owe,
+                            );
+                          },
+                          childCount: iOwe.statePaid.length,
+                        ),
+                      ),
+                    )
+                  ]
+                ],
+              )
+            : IOwePageEmptyState());
   }
 }
