@@ -9,7 +9,7 @@ import { ApplicationContext } from "../../../utils/appContext";
 export class UserDataLoader extends DataLoader<string, DocumentSnapshot | undefined> {
     constructor() {
         super(async (ids) => {
-            console.log("Asked For ID's ",ids)
+            console.log("Asked For ID's ", ids)
             const usersPromise: Promise<DocumentSnapshot<DocumentData>>[] = ids.map(async (id) => {
                 return await firestore.collection('users').doc(id).get()
             })
@@ -22,7 +22,7 @@ export class UserDataLoader extends DataLoader<string, DocumentSnapshot | undefi
 
 export function RequestContainer(): ParameterDecorator {
     return function (target: Object, propertyName: string | symbol, index: number) {
-        return createParamDecorator<ApplicationContext>(({ context, info }) => {
+        return createParamDecorator<ApplicationContext>(({ context }) => {
             const paramtypes = Reflect.getMetadata('design:paramtypes', target, propertyName);
             const requestContainer = Container.of(context.requestId);
             return requestContainer.get(paramtypes[index]);
