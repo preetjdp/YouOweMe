@@ -15,16 +15,7 @@ export class UserResolver {
         const usersRef = firestore.collection('users')
         const usersSnapshot = await usersRef.get()
         const users = usersSnapshot.docs.map((userSnapshot) => {
-            const userData = userSnapshot.data()
-            const created: Timestamp = userData!.created;
-            const user: User = {
-                id: userSnapshot.id,
-                name: userData.name,
-                image: userData.image,
-                mobileNo: userData.mobile_no,
-                fcmToken: userData.fcm_token,
-                created: created.toDate()
-            }
+            const user: User = mapUserSnapshot(userSnapshot)
             return user
         })
         return users
