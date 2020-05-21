@@ -33,7 +33,7 @@ class IOwePage extends StatelessWidget {
                 slivers: [
                   if (iOwe.stateAcknowledged.length > 0) ...[
                     SliverPadding(
-                      padding: EdgeInsets.only(left: 15, top: 5),
+                      padding: EdgeInsets.only(left: 15, top: 15),
                       sliver: SliverToBoxAdapter(
                         child: Text("Acknowledged",
                             style: Theme.of(context).textTheme.headline5),
@@ -57,7 +57,7 @@ class IOwePage extends StatelessWidget {
                   ],
                   if (iOwe.stateCreated.length > 0) ...[
                     SliverPadding(
-                      padding: EdgeInsets.only(left: 15, top: 5),
+                      padding: EdgeInsets.only(left: 15, top: 10),
                       sliver: SliverToBoxAdapter(
                         child: Text("Open",
                             style: Theme.of(context).textTheme.headline5),
@@ -80,7 +80,7 @@ class IOwePage extends StatelessWidget {
                   ],
                   if (iOwe.statePaid.length > 0) ...[
                     SliverPadding(
-                      padding: EdgeInsets.only(left: 15, top: 5),
+                      padding: EdgeInsets.only(left: 15, top: 10),
                       sliver: SliverToBoxAdapter(
                         child: Text("Paid",
                             style: Theme.of(context).textTheme.headline5),

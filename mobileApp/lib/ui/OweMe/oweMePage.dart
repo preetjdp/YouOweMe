@@ -31,7 +31,7 @@ class OweMePage extends StatelessWidget {
                 slivers: [
                   if (oweMe.stateAcknowledged.length > 0) ...[
                     SliverPadding(
-                      padding: EdgeInsets.only(left: 15, top: 5),
+                      padding: EdgeInsets.only(left: 15, top: 15),
                       sliver: SliverToBoxAdapter(
                         child: Text("Acknowledged",
                             style: Theme.of(context).textTheme.headline5),
@@ -55,7 +55,7 @@ class OweMePage extends StatelessWidget {
                   ],
                   if (oweMe.stateCreated.length > 0) ...[
                     SliverPadding(
-                      padding: EdgeInsets.only(left: 15, top: 5),
+                      padding: EdgeInsets.only(left: 15, top: 10),
                       sliver: SliverToBoxAdapter(
                         child: Text("Still Open",
                             style: Theme.of(context).textTheme.headline5),
@@ -78,7 +78,7 @@ class OweMePage extends StatelessWidget {
                   ],
                   if (oweMe.statePaid.length > 0) ...[
                     SliverPadding(
-                      padding: EdgeInsets.only(left: 15, top: 5),
+                      padding: EdgeInsets.only(left: 15, top: 10),
                       sliver: SliverToBoxAdapter(
                         child: Text("Paid",
                             style: Theme.of(context).textTheme.headline5),
