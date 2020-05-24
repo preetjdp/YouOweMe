@@ -10,30 +10,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:basics/basics.dart';
+import 'package:YouOweMe/resources/extensions.dart';
 
 const kBarWidth = 72.0;
 const kBarSpacing = 4.0;
 const kLabelHeight = 32.0;
-const kTrackHeight = 32.0;
+//This is the height of the bottom track used to show dates!!
+// const kTrackHeight = 32.0;
+const kTrackHeight = 0;
 // const kMaxValue = 540.0;
 const kMaxValue = 300.0;
 const kStrokeWidth = 8.0;
 
-const MaterialColor primaryAccent = MaterialColor(
-  0xFF121212,
-  <int, Color>{
-    50: Color(0xFFf7f7f7),
-    100: Color(0xFFeeeeee),
-    200: Color(0xFFe2e2e2),
-    300: Color(0xFFd0d0d0),
-    400: Color(0xFFababab),
-    500: Color(0xFF8a8a8a),
-    600: Color(0xFF636363),
-    700: Color(0xFF505050),
-    800: Color(0xFF323232),
-    900: Color(0xFF121212),
-  },
-);
 const MaterialColor secondaryAccent = MaterialColor(
   0xFF03dac4,
   <int, Color>{
@@ -56,43 +45,25 @@ class GraphWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Seva$Query$User me = Provider.of<MeNotifier>(context).me;
-    if (me == null) {
-      return YOMSpinner();
-    }
-    if(me.oweMe.length == 0) {
-      return Container();
-    }
     return Container(
-      height: 330,
-      color: Colors.transparent,
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: <Widget>[
-          Positioned(
-              left: 0,
-              top: 0,
-              child:
-                  Text("Stats", style: Theme.of(context).textTheme.headline6)),
-          Positioned(
-              left: 0,
-              right: 0,
-              child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                        BoxShadow(
-                            blurRadius: 10,
-                            color: Color.fromRGBO(78, 80, 88, 0.05),
-                            spreadRadius: 0.1)
-                      ]),
-                  child: SizedBox(
-                      height: kMaxValue,
-                      child: GraphView(
-                          values: values)))),
-        ],
-      ),
-    );
+        height: kMaxValue,
+        margin: EdgeInsets.only(top: 15),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 10,
+                  color: Color.fromRGBO(78, 80, 88, 0.05),
+                  spreadRadius: 0.1)
+            ]),
+        child: me.isNotNull
+            ? GraphView(
+                values: me.iOwe
+                    .fromStates([OweState.ACKNOWLEDGED, OweState.CREATED])
+                    .map((e) => e.amount.toDouble())
+                    .toList())
+            : YOMSpinner());
   }
 }
 
@@ -100,7 +71,11 @@ class GraphView extends BoxScrollView {
   const GraphView({
     Key key,
     @required this.values,
-  }) : super(key: key, scrollDirection: Axis.horizontal);
+  }) : super(
+            key: key,
+            scrollDirection: Axis.horizontal,
+            reverse: true,
+            padding: const EdgeInsets.all(15));
 
   final List<double> values;
 
@@ -147,9 +122,10 @@ class RenderGraphBox extends RenderBox
     if (_values == values) {
       return;
     }
-    _values = values;
-    addChildren(_values);
-    markNeedsLayout();
+    //TODO Change this back!
+    // _values = values;
+    // addChildren(_values);
+    // markNeedsLayout();
   }
 
   void addChildren(List<double> values) {
@@ -203,6 +179,7 @@ class RenderGraphBox extends RenderBox
     const resolvedChildRadius = (kBarWidth - kBarSpacing) / 2;
     final points = <Offset>[];
     final path = Path();
+    final Canvas canvas = context.canvas;
 
     while (child != null) {
       final GraphParentData childParentData = child.parentData;
@@ -231,7 +208,7 @@ class RenderGraphBox extends RenderBox
     }
 
     // context.canvas.drawPath(
-    //   Path()..addPath(path, Offset(-10, kStrokeWidth * 20)),
+    //   Path()..addPath(path, Offset(-1, kStrokeWidth )),
     //   Paint()
     //     ..style = PaintingStyle.stroke
     //     ..strokeWidth = kStrokeWidth
@@ -241,7 +218,7 @@ class RenderGraphBox extends RenderBox
     // );
 
     final rect = offset & size;
-    context.canvas.drawPath(
+    canvas.drawPath(
       path,
       Paint()
         ..style = PaintingStyle.stroke
@@ -257,8 +234,12 @@ class RenderGraphBox extends RenderBox
     for (var i = 0; i < points.length; i++) {
       final point = points[i];
 
+      // The Grey Point Circle
+      canvas.drawCircle(
+          point, kStrokeWidth / 1.6, Paint()..color = yomTheme().accentColor);
+
       //The Blur Around the Grey Circle
-      context.canvas.drawCircle(
+      canvas.drawCircle(
         point,
         kStrokeWidth * 0.7,
         Paint()
@@ -266,44 +247,20 @@ class RenderGraphBox extends RenderBox
           ..maskFilter = MaskFilter.blur(BlurStyle.normal, kStrokeWidth),
       );
 
-      // The Grey Point Circle
-      context.canvas.drawCircle(
-          point, kStrokeWidth / 1.6, Paint()..color = yomTheme().accentColor);
-
-      // const labelTextMargin = kStrokeWidth * 2;
-      // final labelTextRect = Offset(point.dx - kBarWidth / 2,
-      //         constraints.maxHeight + labelTextMargin - kTrackHeight) &
-      //     Size(kBarWidth, kTrackHeight - labelTextMargin);
-      // final textPainter = TextPainter(
-      //   textDirection: TextDirection.ltr,
-      //   textAlign: TextAlign.center,
-      //   textWidthBasis: TextWidthBasis.longestLine,
-      //   text: TextSpan(
-      //     text: '$i',
-      //     style: TextStyle(
-      //       color: primaryAccent.shade800,
-      //       fontSize: 12,
-      //       fontWeight: FontWeight.w700,
-      //       shadows: [ui.Shadow(blurRadius: 2, offset: const Offset(0, 1))],
-      //     ),
-      //   ),
-      // )..layout(maxWidth: labelTextRect.size.width);
-      // textPainter.paint(context.canvas,
-      //     labelTextRect.centerLeft - Offset(0, textPainter.height / 2));
-
-      const valueTextMargin = kStrokeWidth * 2;
+      const valueTextMargin = kStrokeWidth;
       final valueTextRect = Offset(point.dx - kBarWidth / 2,
               point.dy - kLabelHeight - valueTextMargin) &
           Size(kBarWidth, kLabelHeight - valueTextMargin);
+
       final labelTextPainter = TextPainter(
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
         textWidthBasis: TextWidthBasis.longestLine,
         text: TextSpan(
-            text: '\₹${values[i].toStringAsFixed(1)}',
+            text: '\₹${values[i].toInt()}',
             style: yomTheme().textTheme.headline6),
       )..layout(maxWidth: valueTextRect.size.width);
-      labelTextPainter.paint(context.canvas,
+      labelTextPainter.paint(canvas,
           valueTextRect.centerLeft - Offset(0, labelTextPainter.height / 2));
     }
   }
