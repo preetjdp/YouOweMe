@@ -1,14 +1,45 @@
 import 'package:YouOweMe/resources/graphql/seva.dart';
+import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
+import 'package:YouOweMe/ui/Abstractions/yomButton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:YouOweMe/resources/extensions.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
 
 class OweMePageBottomSheet extends StatelessWidget {
   final Seva$Query$User$Owe owe;
   final ScrollController scrollController;
+  final YomButtonController yomButtonController = YomButtonController();
   OweMePageBottomSheet({@required this.scrollController, @required this.owe});
   @override
   Widget build(BuildContext context) {
+    void markAsPaid() async {
+      try {
+        yomButtonController.showLoading();
+        MeNotifier meNotifier = context.read<MeNotifier>();
+        String query = """
+        mutation(\$input: UpdateOweInputType!) {
+          updateOwe(data: \$input) {
+            id
+          }
+        }
+      """;
+        await meNotifier.graphQLClient.mutate(MutationOptions(
+            documentNode: gql(query),
+            variables: {
+              "input": {"id": owe.id, "state": "PAID"}
+            },
+            onError: (e) => throw (e)));
+        await meNotifier.refresh();
+        yomButtonController.showSuccess();
+        await Future.delayed(Duration(milliseconds: 200));
+        Navigator.of(context).pop();
+      } catch (e) {
+        yomButtonController.showError();
+      }
+    }
+
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topLeft: Radius.circular(15), topRight: Radius.circular(15)),
@@ -61,10 +92,11 @@ class OweMePageBottomSheet extends StatelessWidget {
               Container(
                 height: 60,
                 width: 400,
-                child: CupertinoButton(
-                    color: CupertinoColors.activeGreen,
+                child: YomButton(
+                    controller: yomButtonController,
+                    backgroundColor: CupertinoColors.activeGreen,
                     child: Text('Mark As Paid'),
-                    onPressed: () {}),
+                    onPressed: markAsPaid),
               ),
             ]
           ],
