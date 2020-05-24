@@ -28,6 +28,6 @@ CLIENT_EMAIL=
 ```
 2. Run the Project with
 ```bash
-// This will start a unoptimized server at port 3000.
+// The server will run at Port 4000
 npm run start:dev
 ```

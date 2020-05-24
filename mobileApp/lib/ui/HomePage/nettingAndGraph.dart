@@ -1,13 +1,20 @@
+import 'package:YouOweMe/resources/graphql/seva.dart';
+import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/expandingWidgetDelegate.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
+import 'package:YouOweMe/ui/HomePage/graph.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:basics/basics.dart';
+import 'package:YouOweMe/resources/extensions.dart';
 
 class NettingAndGraphSection extends StatelessWidget {
   final YomDesign yomDesign = YomDesign();
   @override
   Widget build(BuildContext context) {
+    Seva$Query$User me = context.watch<MeNotifier>().me;
     return Container(
       height: 230,
       color: Colors.transparent,
@@ -67,15 +74,16 @@ class NettingAndGraphSection extends StatelessWidget {
                     height: 5,
                   ),
                   Chip(
-                    label: Text(
-                      "₹ 200",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline5
-                          .copyWith(color: yomDesign.yomGreen1),
-                    ),
-                    backgroundColor:Theme.of(context).scaffoldBackgroundColor.withOpacity(0.2)
-                  ),
+                      label: Text(
+                        "₹ 200",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5
+                            .copyWith(color: yomDesign.yomGreen1),
+                      ),
+                      backgroundColor: Theme.of(context)
+                          .scaffoldBackgroundColor
+                          .withOpacity(0.2)),
                   // SizedBox(
                   //   height: 5,
                   // ),
@@ -85,7 +93,9 @@ class NettingAndGraphSection extends StatelessWidget {
                             .textTheme
                             .headline5
                             .copyWith(color: yomDesign.yomPurple2)),
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.2),
+                    backgroundColor: Theme.of(context)
+                        .scaffoldBackgroundColor
+                        .withOpacity(0.2),
                   ),
                 ],
               ),
@@ -114,9 +124,16 @@ class NettingAndGraphSection extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     Expanded(
-                        child: Center(
-                      child: YOMSpinner(),
-                    ))
+                        child: me.isNotNull
+                            ? GraphView(
+                                values:me.iOwe
+                    .fromStates([OweState.ACKNOWLEDGED, OweState.CREATED])
+                    .map((e) => e.amount.toDouble())
+                    .toList()
+                              )
+                            : Center(
+                                child: YOMSpinner(),
+                              ))
                   ],
                 )),
           ),

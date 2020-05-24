@@ -117,7 +117,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
           SizedBox(
             height: 30,
           ),
-          NettingAndGraphSection()
+          NettingAndGraphSection(),
+          BottomList(),
         ]);
 
     final Widget abstractedHomePage = CustomScrollView(
