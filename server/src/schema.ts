@@ -1,8 +1,10 @@
-import { buildSchema } from "type-graphql"
+import { buildSchema, ResolverData } from "type-graphql"
 import "reflect-metadata"
 
 import { customAuthChecker } from "./utils/authChecker"
 import { PubSubFire } from "./db/pubSubFire"
+import { ApplicationContext } from "./utils/appContext"
+import { Container } from "typedi"
 
 
 const generateSchema = async () => {
@@ -10,7 +12,8 @@ const generateSchema = async () => {
         resolvers: [__dirname + '/modules/**/*.{ts,js}'],
         authChecker: customAuthChecker,
         dateScalarMode: "timestamp",
-        pubSub: PubSubFire
+        pubSub: PubSubFire,
+        container: (({ context }: ResolverData<ApplicationContext>) => Container.of(context.requestId))
     })
 }
 

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
+import 'package:YouOweMe/ui/Abstractions/yomButton.dart';
 import 'package:YouOweMe/ui/NewOwe/contactSelector.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,6 +29,8 @@ class _NewOweState extends State<NewOwe> {
 
   final BehaviorSubject<Contact> selectedContactController = BehaviorSubject();
 
+  final YomButtonController yomButtonController = YomButtonController();
+
   final _formKey = GlobalKey<FormState>();
 
   String titleValidator(String text) {
@@ -51,7 +54,8 @@ class _NewOweState extends State<NewOwe> {
   @override
   Widget build(BuildContext context) {
     TargetPlatform platform = Theme.of(context).platform;
-    void addNewOwe() {
+    void addNewOwe() async {
+      yomButtonController.showLoading();
       try {
         bool isValidated = _formKey.currentState.validate();
         if (!isValidated) {
@@ -71,7 +75,7 @@ class _NewOweState extends State<NewOwe> {
           mobileNo = '+91' + mobileNo;
         }
         print(mobileNo);
-        Provider.of<MeNotifier>(context, listen: false)
+        await Provider.of<MeNotifier>(context, listen: false)
             .graphQLClient
             .mutate(MutationOptions(
                 documentNode: gql(newOweMutation),
@@ -83,14 +87,15 @@ class _NewOweState extends State<NewOwe> {
                     "displayName": selectedContactController.value.displayName
                   }
                 },
-                onError: (e) {
-                  print(e);
-                },
                 onCompleted: (a) {
                   Provider.of<MeNotifier>(context, listen: false).refresh();
+                  yomButtonController.showSuccess();
                   Navigator.pop(context);
                 }));
-      } catch (e) {}
+      } catch (e) {
+        print(e);
+        yomButtonController.showError();
+      }
     }
 
     Future<bool> onWilPopScope() async {
@@ -265,9 +270,9 @@ class _NewOweState extends State<NewOwe> {
                         Container(
                           height: 60,
                           width: 400,
-                          child: CupertinoButton(
-                              color: Theme.of(context).accentColor,
+                          child: YomButton(
                               child: Text('Done'),
+                              controller: yomButtonController,
                               onPressed: addNewOwe),
                         )
                     ],
