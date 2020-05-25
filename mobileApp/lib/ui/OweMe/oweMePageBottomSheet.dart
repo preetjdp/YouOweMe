@@ -11,6 +11,7 @@ class OweMePageBottomSheet extends StatelessWidget {
   final Seva$Query$User$Owe owe;
   final ScrollController scrollController;
   final YomButtonController yomButtonController = YomButtonController();
+  final YomButtonController deleteButtonController = YomButtonController();
   OweMePageBottomSheet({@required this.scrollController, @required this.owe});
   @override
   Widget build(BuildContext context) {
@@ -40,13 +41,37 @@ class OweMePageBottomSheet extends StatelessWidget {
       }
     }
 
+    void deleteOwe() async {
+      try {
+        deleteButtonController.showLoading();
+        MeNotifier meNotifier = context.read<MeNotifier>();
+        String query = """
+        mutation(\$input: DeleteOweInputType!) {
+          deleteOwe(data: \$input) 
+        }
+      """;
+        await meNotifier.graphQLClient.mutate(MutationOptions(
+            documentNode: gql(query),
+            variables: {
+              "input": {"id": owe.id}
+            },
+            onError: (e) => throw (e)));
+        await meNotifier.refresh();
+        deleteButtonController.showSuccess();
+        await Future.delayed(Duration(milliseconds: 200));
+        Navigator.of(context).pop();
+      } catch (e) {
+        deleteButtonController.showError();
+      }
+    }
+
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topLeft: Radius.circular(15), topRight: Radius.circular(15)),
       child: Material(
         child: ListView(
           shrinkWrap: true,
-          padding: EdgeInsets.all(15),
+          padding: EdgeInsets.all(15).copyWith(bottom: 10),
           children: [
             Text("Title", style: Theme.of(context).textTheme.headline5),
             Text(owe.title, style: Theme.of(context).textTheme.bodyText2),
@@ -98,7 +123,15 @@ class OweMePageBottomSheet extends StatelessWidget {
                     child: Text('Mark As Paid'),
                     onPressed: markAsPaid),
               ),
-            ]
+            ],
+            SizedBox(
+              height: 10,
+            ),
+            YomButton(
+              onPressed: deleteOwe,
+              controller: deleteButtonController,
+              child: Text("Delete This Owe  👹", textAlign: TextAlign.center),
+            ),
           ],
         ),
       ),
