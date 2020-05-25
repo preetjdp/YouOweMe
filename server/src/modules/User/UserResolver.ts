@@ -1,9 +1,11 @@
 import { firestore } from "../../db/firebase"
 import { Query, Resolver, FieldResolver, Root, Arg, Authorized, Int } from "type-graphql"
 import { User } from "../../models/User"
-import { DocumentReference, Timestamp } from "@google-cloud/firestore"
+import { DocumentReference, Timestamp, DocumentSnapshot } from "@google-cloud/firestore"
 import { Owe, OweState } from "../../models/Owe"
 import { getPermalinkFromOwe } from "../../utils/helpers"
+import { RequestContainer, UserDataLoader } from "./userResolver/userLoader"
+import { mapUserSnapshot } from "./userResolver/userSnapshotMap"
 
 @Resolver(User)
 export class UserResolver {
@@ -14,16 +16,7 @@ export class UserResolver {
         const usersRef = firestore.collection('users')
         const usersSnapshot = await usersRef.get()
         const users = usersSnapshot.docs.map((userSnapshot) => {
-            const userData = userSnapshot.data()
-            const created: Timestamp = userData!.created;
-            const user: User = {
-                id: userSnapshot.id,
-                name: userData.name,
-                image: userData.image,
-                mobileNo: userData.mobile_no,
-                fcmToken: userData.fcm_token,
-                created: created.toDate()
-            }
+            const user: User = mapUserSnapshot(userSnapshot)
             return user
         })
         return users
@@ -32,22 +25,9 @@ export class UserResolver {
     @Query(() => User, {
         nullable: true
     })
-    async getUser(@Arg("id") id: string): Promise<User> {
-        const userRef = firestore.collection('users').doc(id)
-        const userSnapshot = await userRef.get()
-        const userData = userSnapshot.data()
-        if (!userSnapshot.exists) {
-            throw Error("User Does Not Exist")
-        }
-        const created: Timestamp = userData!.created
-        const user: User = {
-            id: userSnapshot.id,
-            name: userData!.name,
-            image: userData!.image,
-            mobileNo: userData!.mobile_no,
-            fcmToken: userData!.fcm_token,
-            created: created.toDate()
-        }
+    async getUser(@Arg("id") id: string, @RequestContainer() userDataLoader: UserDataLoader): Promise<User> {
+        const userSnapshot = await userDataLoader.load(id) as DocumentSnapshot
+        const user: User = mapUserSnapshot(userSnapshot)
         return user
     }
 

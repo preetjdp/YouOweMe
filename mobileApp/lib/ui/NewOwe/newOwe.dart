@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
+import 'package:YouOweMe/ui/Abstractions/yomButton.dart';
 import 'package:YouOweMe/ui/NewOwe/contactSelector.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,6 +29,8 @@ class _NewOweState extends State<NewOwe> {
 
   final BehaviorSubject<Contact> selectedContactController = BehaviorSubject();
 
+  final YomButtonController yomButtonController = YomButtonController();
+
   final _formKey = GlobalKey<FormState>();
 
   String titleValidator(String text) {
@@ -51,7 +54,8 @@ class _NewOweState extends State<NewOwe> {
   @override
   Widget build(BuildContext context) {
     TargetPlatform platform = Theme.of(context).platform;
-    void addNewOwe() {
+    void addNewOwe() async {
+      yomButtonController.showLoading();
       try {
         bool isValidated = _formKey.currentState.validate();
         if (!isValidated) {
@@ -71,7 +75,7 @@ class _NewOweState extends State<NewOwe> {
           mobileNo = '+91' + mobileNo;
         }
         print(mobileNo);
-        Provider.of<MeNotifier>(context, listen: false)
+        await Provider.of<MeNotifier>(context, listen: false)
             .graphQLClient
             .mutate(MutationOptions(
                 documentNode: gql(newOweMutation),
@@ -83,14 +87,15 @@ class _NewOweState extends State<NewOwe> {
                     "displayName": selectedContactController.value.displayName
                   }
                 },
-                onError: (e) {
-                  print(e);
-                },
                 onCompleted: (a) {
                   Provider.of<MeNotifier>(context, listen: false).refresh();
+                  yomButtonController.showSuccess();
                   Navigator.pop(context);
                 }));
-      } catch (e) {}
+      } catch (e) {
+        print(e);
+        yomButtonController.showError();
+      }
     }
 
     Future<bool> onWilPopScope() async {
@@ -122,7 +127,7 @@ class _NewOweState extends State<NewOwe> {
               middle: Text("New Owe",
                   style: Theme.of(context)
                       .textTheme
-                      .headline3
+                      .headline5
                       .copyWith(color: Colors.black)),
               actionsForegroundColor: Theme.of(context).accentColor,
             ),
@@ -155,7 +160,7 @@ class _NewOweState extends State<NewOwe> {
                     children: <Widget>[
                       Container(),
                       Text("Title",
-                          style: Theme.of(context).textTheme.headline3),
+                          style: Theme.of(context).textTheme.headline5),
                       TextFormField(
                         controller: titleController,
                         validator: titleValidator,
@@ -170,7 +175,7 @@ class _NewOweState extends State<NewOwe> {
                         height: 10,
                       ),
                       Text("Select Person",
-                          style: Theme.of(context).textTheme.headline3),
+                          style: Theme.of(context).textTheme.headline5),
                       PeopleList(),
                       SizedBox(
                         height: 10,
@@ -181,7 +186,7 @@ class _NewOweState extends State<NewOwe> {
                           if (!snapshot.hasData) return Container();
                           return Text(
                             "Selected Person",
-                            style: Theme.of(context).textTheme.headline3,
+                            style: Theme.of(context).textTheme.headline5,
                           );
                         },
                       ),
@@ -206,7 +211,7 @@ class _NewOweState extends State<NewOwe> {
                                 Text(
                                   snapshot.data.displayName ??
                                       snapshot.data.phones.first.value,
-                                  style: Theme.of(context).textTheme.headline3,
+                                  style: Theme.of(context).textTheme.headline5,
                                 ),
                                 Expanded(child: Container()),
                                 CupertinoButton(
@@ -225,7 +230,7 @@ class _NewOweState extends State<NewOwe> {
                       ),
                       Text(
                         "How much money did you lend?",
-                        style: Theme.of(context).textTheme.headline3,
+                        style: Theme.of(context).textTheme.headline5,
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
@@ -233,10 +238,10 @@ class _NewOweState extends State<NewOwe> {
                         children: <Widget>[
                           Text(
                             "₹",
-                            style: TextStyle(
-                                fontSize: 100,
-                                fontWeight: FontWeight.w800,
-                                color: Theme.of(context).accentColor),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1
+                                .copyWith(color: Theme.of(context).accentColor),
                           ),
                           Expanded(
                             child: TextFormField(
@@ -248,10 +253,11 @@ class _NewOweState extends State<NewOwe> {
                                   border: InputBorder.none,
                                   contentPadding: EdgeInsets.all(0),
                                 ),
-                                style: TextStyle(
-                                    fontSize: 100,
-                                    fontWeight: FontWeight.w800,
-                                    color: Theme.of(context).accentColor),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline1
+                                    .copyWith(
+                                        color: Theme.of(context).accentColor),
                                 keyboardType: TextInputType.numberWithOptions(
                                     decimal: false, signed: false)),
                           ),
@@ -264,9 +270,9 @@ class _NewOweState extends State<NewOwe> {
                         Container(
                           height: 60,
                           width: 400,
-                          child: CupertinoButton(
-                              color: Theme.of(context).accentColor,
+                          child: YomButton(
                               child: Text('Done'),
+                              controller: yomButtonController,
                               onPressed: addNewOwe),
                         )
                     ],

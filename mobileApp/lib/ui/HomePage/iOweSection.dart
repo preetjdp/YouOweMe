@@ -32,7 +32,7 @@ class IOweSection extends StatelessWidget {
                 padding: EdgeInsets.all(0),
                 child: Row(
                   children: <Widget>[
-                    Text("I Owe", style: Theme.of(context).textTheme.headline3),
+                    Text("I Owe", style: Theme.of(context).textTheme.headline5),
                     Icon(
                       CupertinoIcons.right_chevron,
                       color: Color.fromRGBO(78, 80, 88, 1),
@@ -61,10 +61,10 @@ class IOweSection extends StatelessWidget {
                     children: <Widget>[
                       if (me != null)
                         Text(me.iOweAmount.toString(),
-                            style: TextStyle(
-                                fontSize: 50,
-                                fontWeight: FontWeight.w800,
-                                color: Theme.of(context).accentColor))
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline3
+                                .copyWith(color: Theme.of(context).accentColor))
                       else
                         Expanded(
                             child: Center(
