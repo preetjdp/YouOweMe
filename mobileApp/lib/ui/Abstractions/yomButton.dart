@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:basics/basics.dart';
 
+const _defaultYomButtonIconSize = 20.0;
+
 /// YomButton is a abtracted Button to be used along with
 /// `YomButtonController` to easily show and manage microanimations.
 /// If a `YomButtonController` is not passed acts like any other Button in the tree.
@@ -61,12 +63,14 @@ class YomButton extends StatelessWidget {
             _buttonChild = this.error ??
                 Icon(
                   Icons.error_outline,
+                  size: _defaultYomButtonIconSize,
                   color: _iconsColor,
                 );
           } else if (buttonState == YomButtonState.SUCCESS) {
             _buttonChild = this.success ??
                 Icon(
                   Icons.check_circle_outline,
+                  size: _defaultYomButtonIconSize,
                   color: _iconsColor,
                 );
           }
