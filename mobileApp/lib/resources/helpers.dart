@@ -29,7 +29,7 @@ Future<GraphQLClient> getGraphqlClient(String userId) async {
 /// Gets the Url to be used for theGraphQLClient
 /// Fyi. Add's 2 Second Timout on mobile
 Future<String> getSevaUrl() async {
-  String localSevaUrl = "http://192.168.31.76:4000";
+  String localSevaUrl = "http://192.168.31.76:4001";
   String productionSevaUrl = "https://api.youoweme.preetjdp.dev";
   if (kReleaseMode) {
     print("Using Production Seva In Release");
