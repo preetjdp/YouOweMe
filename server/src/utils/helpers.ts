@@ -34,5 +34,7 @@ export const getPermalinkFromOwe = async (snapshot: DocumentSnapshot): Promise<s
         option: "SHORT"
     })
 
+    snapshot.ref.update({ "permalink": link })
+
     return link
 }
