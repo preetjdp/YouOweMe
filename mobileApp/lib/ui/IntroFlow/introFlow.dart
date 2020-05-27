@@ -1,13 +1,18 @@
+// 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:rxdart/rxdart.dart';
+import 'package:basics/basics.dart';
+
+// 🌎 Project imports:
 import 'package:YouOweMe/main.dart';
 import 'package:YouOweMe/ui/IntroFlow/authFlow/authFlow.dart';
 import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
 import 'package:YouOweMe/ui/IntroFlow/permissionsFlow/permissionsFlow.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:rxdart/rxdart.dart';
-import 'package:basics/basics.dart';
 
 class IntroFlow extends StatefulWidget {
   @override

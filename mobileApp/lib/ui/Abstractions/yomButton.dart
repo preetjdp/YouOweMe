@@ -1,8 +1,13 @@
-import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
 import 'package:rxdart/rxdart.dart';
 import 'package:basics/basics.dart';
+
+// 🌎 Project imports:
+import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 
 const _defaultYomButtonIconSize = 20.0;
 

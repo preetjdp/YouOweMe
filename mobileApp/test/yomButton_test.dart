@@ -1,10 +1,16 @@
-import 'package:YouOweMe/ui/Abstractions/yomButton.dart';
-import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
-// Done so as to does not affect with init of yomTheme
-import 'package:YouOweMe/ui/Abstractions/yomTheme.dart' as yomDesign;
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
+// 📦 Package imports:
 import 'package:flutter_test/flutter_test.dart';
+
+// 🌎 Project imports:
+import 'package:YouOweMe/ui/Abstractions/yomButton.dart';
+import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
+import 'package:YouOweMe/ui/Abstractions/yomTheme.dart' as yomDesign;
+
+// Done so as to does not affect with init of yomTheme
 
 void main() {
   ThemeData yomTheme = yomDesign.yomTheme();
