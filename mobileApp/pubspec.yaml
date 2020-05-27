@@ -88,3 +88,10 @@ flutter_icons:
         - asset: assets/fonts/Aileron/Aileron-HeavyItalic.otf
         - asset: assets/fonts/Aileron/Aileron-BoldItalic.otf
         - asset: assets/fonts/Aileron/Aileron-BlackItalic.otf
+
+import_sorter:
+  emojis: true
+  ignored_files:
+    - /lib/resources/graphql/seva.dart
+    - /lib/resources/graphql/seva.graphql.dart
+    - /lib/resources/graphql/seva.graphql.g.dart
