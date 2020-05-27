@@ -1,22 +1,27 @@
+// 🎯 Dart imports:
 import 'dart:ui';
 
+// 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:after_layout/after_layout.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:provider/provider.dart';
+import 'package:retry/retry.dart';
+
+// 🌎 Project imports:
 import 'package:YouOweMe/resources/helpers.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:YouOweMe/ui/HomePage/iOweSection.dart';
 import 'package:YouOweMe/ui/HomePage/oweMeSection.dart';
 import 'package:YouOweMe/resources/extensions.dart';
-import 'package:after_layout/after_layout.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 import 'package:YouOweMe/ui/NewOwe/newOwe.dart';
 import 'package:YouOweMe/ui/HomePage/bottomList.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:provider/provider.dart';
-import 'package:retry/retry.dart';
 
 class HomePage extends StatefulWidget {
   @override

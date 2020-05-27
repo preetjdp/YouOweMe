@@ -92,6 +92,7 @@ flutter_icons:
 import_sorter:
   emojis: true
   ignored_files:
-    - /lib/resources/graphql/seva.dart
-    - /lib/resources/graphql/seva.graphql.dart
-    - /lib/resources/graphql/seva.graphql.g.dart
+    - /lib\resources\graphql\seva.dart
+    - /lib\resources\graphql\seva.graphql.dart
+    - /lib\resources\graphql\seva.graphql.g.dart
+    - /lib\generated_plugin_registrant.dart
