@@ -61,8 +61,12 @@ class YomButton extends StatelessWidget {
             _buttonChild = child;
           } else if (buttonState == YomButtonState.LOADING) {
             _buttonChild = this.loading ??
-                YOMSpinner(
-                  brightness: _buttonBrightness,
+                SizedBox(
+                  height: _defaultYomButtonIconSize,
+                  width: _defaultYomButtonIconSize,
+                  child: YOMSpinner(
+                    brightness: _buttonBrightness,
+                  ),
                 );
           } else if (buttonState == YomButtonState.ERROR) {
             _buttonChild = this.error ??
