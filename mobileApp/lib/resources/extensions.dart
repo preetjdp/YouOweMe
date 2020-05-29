@@ -1,5 +1,6 @@
 import 'package:YouOweMe/resources/helpers.dart';
-
+import 'package:flutter/animation.dart';
+import 'package:basics/basics.dart';
 import './graphql/seva.dart';
 import 'package:contacts_service/contacts_service.dart';
 
@@ -72,4 +73,10 @@ extension MeUtils2 on Seva$Query$User$Owe$User {
 extension ContactUtils on Contact {
   String get shortName =>
       this.displayName.split(" ").take(2).map((e) => e[0]).toList().join();
+}
+
+extension AnimationUtils on AnimationController {
+  void yomAnimateTo(double target, {Duration duration = Duration.zero}) {
+    this.animateTo(target, curve: Curves.easeOutQuart, duration: duration);
+  }
 }
