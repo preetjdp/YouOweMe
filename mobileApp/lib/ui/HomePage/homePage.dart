@@ -26,6 +26,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
+  ScrollController scrollController = ScrollController();
   @override
   void afterFirstLayout(BuildContext context) async {
     final FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics();
@@ -122,6 +123,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
         ]);
 
     final Widget abstractedHomePage = CustomScrollView(
+      controller: scrollController,
       slivers: <Widget>[
         if (platform == TargetPlatform.iOS) ...[
           CupertinoSliverRefreshControl(
@@ -180,24 +182,27 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
           )
         : null;
 
-    return Scaffold(
-      floatingActionButton: abstractedNewOweButton,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: Stack(
-        children: [
-          BackgroundAnimation(),
-          AnimationLimiter(child: abstractedHomePage),
-          Positioned(
-            bottom: 20,
-            left: 15,
-            child: YomAvatar(
-              text: Provider.of<MeNotifier>(context)?.me?.shortName ?? "PP",
-              onPressed: () => logOutDialog(context),
-            ),
-          )
-        ],
+    return Provider.value(
+      value: scrollController,
+      child: Scaffold(
+        floatingActionButton: abstractedNewOweButton,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        body: Stack(
+          children: [
+            BackgroundAnimation(),
+            AnimationLimiter(child: abstractedHomePage),
+            Positioned(
+              bottom: 20,
+              left: 15,
+              child: YomAvatar(
+                text: Provider.of<MeNotifier>(context)?.me?.shortName ?? "PP",
+                onPressed: () => logOutDialog(context),
+              ),
+            )
+          ],
+        ),
+        // bottomNavigationBar: bottomBar
       ),
-      // bottomNavigationBar: bottomBar
     );
   }
 }
