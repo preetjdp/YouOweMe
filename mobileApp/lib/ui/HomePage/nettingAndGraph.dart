@@ -119,18 +119,31 @@ class NettingAndGraphSection extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Graph",
-                      style: Theme.of(context).textTheme.headline5,
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.trending_down,
+                          color: Theme.of(context).accentColor,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          "Stats",
+                          style: Theme.of(context).textTheme.headline5,
+                        )
+                      ],
                     ),
                     Expanded(
                         child: me.isNotNull
                             ? GraphView(
-                                values:me.iOwe
-                    .fromStates([OweState.ACKNOWLEDGED, OweState.CREATED])
-                    .map((e) => e.amount.toDouble())
-                    .toList()
-                              )
+                                values: me.iOwe
+                                    .fromStates([
+                                      OweState.ACKNOWLEDGED,
+                                      OweState.CREATED
+                                    ])
+                                    .map((e) => e.amount.toDouble())
+                                    .toList())
                             : Center(
                                 child: YOMSpinner(),
                               ))
