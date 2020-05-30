@@ -16,14 +16,17 @@ export const getPermalinkFromOwe = async (snapshot: DocumentSnapshot): Promise<s
     if (oweData.permalink) {
         return oweData.permalink
     }
-    const link = await generateDynamicLink({
-        link: `https://youoweme.preetjdp.dev/owe/${oweId}`,
+    const link = `https://youoweme.preetjdp.dev/owe/${oweId}`
+    const dynamicLink = await generateDynamicLink({
+        link: link,
         domainUriPrefix: "youoweme.page.link",
         androidInfo: {
-            androidPackageName: "dev.preetjdp.youoweme"
+            androidPackageName: "dev.preetjdp.youoweme",
+            androidFallbackLink: link
         },
         iosInfo: {
             iosBundleId: "dev.preetjdp.youoweme",
+            iosFallbackLink: link
         },
         socialMetaTagInfo: {
             socialTitle: "Owe Details",
@@ -34,7 +37,7 @@ export const getPermalinkFromOwe = async (snapshot: DocumentSnapshot): Promise<s
         option: "SHORT"
     })
 
-    snapshot.ref.update({ "permalink": link })
+    snapshot.ref.update({ "permalink": dynamicLink })
 
-    return link
+    return dynamicLink
 }
