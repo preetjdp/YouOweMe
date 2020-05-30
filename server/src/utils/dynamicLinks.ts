@@ -26,7 +26,9 @@ type AndroidParameters = {
 
 type IosParameters = {
     /** The bundle ID of the iOS app to use to open the link. */
-    iosBundleId: string
+    iosBundleId: string,
+    /** The link to open when the app isn't installed. */
+    iosFallbackLink?: string
 }
 
 type NavigationInfoParameters = {
