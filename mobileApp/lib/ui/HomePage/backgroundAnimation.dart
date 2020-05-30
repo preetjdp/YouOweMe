@@ -7,6 +7,9 @@ import 'package:YouOweMe/resources/extensions.dart';
 const double _topDefaultState = 150.0;
 const double _bottomDefaultState = 350.0;
 
+const double _topParallaxFactor = 0.8;
+const double _bottomParallaxFactor = 1.5;
+
 class BackgroundAnimation extends StatefulWidget {
   @override
   _BackgroundAnimationState createState() => _BackgroundAnimationState();
@@ -105,13 +108,14 @@ class _BackgroundAnimationState extends State<BackgroundAnimation>
       print(
           "[SCROLL STAUS ==> Extent -> $extent  percentChange -> $percentChange]");
       if (percentChange == 0.0) {
+        _topController.yomAnimateTo(_topDefaultState);
         _bottomController.yomAnimateTo(_bottomDefaultState);
       } else {
         await Future.delayed(Duration(milliseconds: 20));
-        _topController
-            .yomAnimateTo(_topDefaultState - percentChange * 100 * 1.2);
-        _bottomController
-            .yomAnimateTo(_bottomDefaultState + percentChange * 100 * 1.2);
+        _topController.yomAnimateTo(
+            _topDefaultState - percentChange * _topParallaxFactor * 100);
+        _bottomController.yomAnimateTo(
+            _bottomDefaultState + percentChange * _bottomParallaxFactor * 100);
       }
     });
   }
