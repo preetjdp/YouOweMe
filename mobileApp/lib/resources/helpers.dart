@@ -1,13 +1,19 @@
+// 🎯 Dart imports:
 import 'dart:math';
 import 'dart:ui';
-import 'package:firebase_messaging/firebase_messaging.dart';
+
+// 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// 📦 Package imports:
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 import 'package:basics/basics.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:http/http.dart';
 
 void configureSystemChrome() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -17,19 +23,37 @@ void configureSystemChrome() {
       systemNavigationBarIconBrightness: Brightness.dark));
 }
 
-ValueNotifier<GraphQLClient> configureGraphQL() {
-  final HttpLink httpLink = HttpLink(
-      uri: 'https://youoweme-6c622.appspot.com/',
-      headers: {"authorization": "f9fc7B6wvIsU62LuDNVv"});
+Future<GraphQLClient> getGraphqlClient(String userId) async {
+  final HttpLink httpLink =
+      HttpLink(uri: await getSevaUrl(), headers: {"authorization": userId});
 
-  ValueNotifier<GraphQLClient> client = ValueNotifier(
-    GraphQLClient(
-      cache: InMemoryCache(),
-      link: httpLink,
-    ),
+  return GraphQLClient(
+    cache: InMemoryCache(),
+    link: httpLink,
   );
+}
 
-  return client;
+/// Gets the Url to be used for theGraphQLClient
+/// Fyi. Add's 2 Second Timout on mobile
+Future<String> getSevaUrl() async {
+  String localSevaUrl = "http://192.168.31.76:4001";
+  String productionSevaUrl = "https://api.youoweme.preetjdp.dev";
+  if (kReleaseMode) {
+    print("Using Production Seva In Release");
+    return productionSevaUrl;
+  }
+  try {
+    Response response = await get(localSevaUrl).timeout(Duration(seconds: 2));
+    if (response.statusCode == 200 || response.statusCode == 400) {
+      print("Using Local Seva");
+      return localSevaUrl;
+    } else {
+      throw "Could Not Connect to Local Seva";
+    }
+  } catch (e) {
+    print("Using Production Seva");
+    return productionSevaUrl;
+  }
 }
 
 Future<bool> toggleDevicePreview() async {

@@ -1,11 +1,16 @@
-import 'package:YouOweMe/resources/notifiers/contactProxyNotifier.dart';
-import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
-import 'package:contacts_service/contacts_service.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:contacts_service/contacts_service.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
+// 🌎 Project imports:
+import 'package:YouOweMe/resources/notifiers/contactProxyNotifier.dart';
+import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:YouOweMe/resources/extensions.dart';
 
 class ContactSelector extends StatefulWidget {
@@ -138,7 +143,10 @@ class ContactsList extends StatelessWidget {
     }
 
     return ListView.builder(
-        itemCount: Provider.of<ContactProxyNotifier>(context).contacts.length,
+        itemCount: Provider.of<ContactProxyNotifier>(context)
+            .contacts
+            .length
+            .clamp(0, 20),
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {

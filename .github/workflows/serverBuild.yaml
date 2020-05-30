@@ -1,4 +1,4 @@
-name: Server Build
+name: Seva Build
 
 on:
   push:
@@ -28,17 +28,16 @@ jobs:
           service_account_email: ${{ secrets.GCLOUD_SA_EMAIL }}
           service_account_key: ${{ secrets.GCLOUD_APPLICATION_CREDENTIALS}}
 
-      # Configure gcloud CLI
-      - name: gcloud Set up
+      - name: Gcloud Set up
         run: |
           gcloud config set project $PROJECT_ID
-      # Build and push image to Google Container Registry
-      - name: Build
+
+      - name: Build and Submit
         run: |
           cd server
           gcloud builds submit -t gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA
-      # Deploy image to Cloud Run
-      - name: Deploy
+
+      - name: Deploy Image To Cloud Run
         run: |
           gcloud run deploy $SERVICE_NAME \
             --region $RUN_REGION \
