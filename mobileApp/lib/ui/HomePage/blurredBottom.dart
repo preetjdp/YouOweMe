@@ -1,6 +1,10 @@
-import 'package:flutter/material.dart';
+// 🎯 Dart imports:
 import 'dart:ui';
 
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 
 class BlurredBottom extends StatelessWidget {

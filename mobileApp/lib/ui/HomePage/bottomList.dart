@@ -1,12 +1,17 @@
+// 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:basics/basics.dart';
+
+// 🌎 Project imports:
 import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:YouOweMe/resources/extensions.dart';
-import 'package:basics/basics.dart';
 
 class BottomList extends StatelessWidget {
   void onTick(Seva$Query$User$Owe owe, BuildContext context) async {

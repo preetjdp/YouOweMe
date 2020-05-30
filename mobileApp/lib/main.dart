@@ -1,20 +1,24 @@
-import 'package:YouOweMe/resources/notifiers/contactProxyNotifier.dart';
-import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
-import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
-import 'package:YouOweMe/ui/IntroFlow/introFlow.dart';
+// 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
 import 'package:contacts_service/contacts_service.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-
-import 'package:YouOweMe/resources/helpers.dart';
-import 'package:YouOweMe/ui/HomePage/homePage.dart';
 import 'package:provider/provider.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
+
+// 🌎 Project imports:
+import 'package:YouOweMe/resources/notifiers/contactProxyNotifier.dart';
+import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
+import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
+import 'package:YouOweMe/ui/IntroFlow/introFlow.dart';
+import 'package:YouOweMe/resources/helpers.dart';
+import 'package:YouOweMe/ui/HomePage/homePage.dart';
 
 Future<void> main() async {
   Provider.debugCheckInvalidValueType = null;

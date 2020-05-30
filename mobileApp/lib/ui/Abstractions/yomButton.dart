@@ -1,8 +1,15 @@
-import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
 import 'package:rxdart/rxdart.dart';
 import 'package:basics/basics.dart';
+
+// 🌎 Project imports:
+import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
+
+const _defaultYomButtonIconSize = 20.0;
 
 /// YomButton is a abtracted Button to be used along with
 /// `YomButtonController` to easily show and manage microanimations.
@@ -54,19 +61,25 @@ class YomButton extends StatelessWidget {
             _buttonChild = child;
           } else if (buttonState == YomButtonState.LOADING) {
             _buttonChild = this.loading ??
-                YOMSpinner(
-                  brightness: _buttonBrightness,
+                SizedBox(
+                  height: _defaultYomButtonIconSize,
+                  width: _defaultYomButtonIconSize,
+                  child: YOMSpinner(
+                    brightness: _buttonBrightness,
+                  ),
                 );
           } else if (buttonState == YomButtonState.ERROR) {
             _buttonChild = this.error ??
                 Icon(
                   Icons.error_outline,
+                  size: _defaultYomButtonIconSize,
                   color: _iconsColor,
                 );
           } else if (buttonState == YomButtonState.SUCCESS) {
             _buttonChild = this.success ??
                 Icon(
                   Icons.check_circle_outline,
+                  size: _defaultYomButtonIconSize,
                   color: _iconsColor,
                 );
           }
