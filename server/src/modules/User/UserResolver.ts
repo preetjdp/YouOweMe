@@ -6,6 +6,7 @@ import { Owe, OweState } from "../../models/Owe"
 import { getPermalinkFromOwe } from "../../utils/helpers"
 import { RequestContainer, UserDataLoader } from "./userResolver/userLoader"
 import { mapUserSnapshot } from "./userResolver/userSnapshotMap"
+import { mapOweSnapshot } from "../Owe/oweResolver/oweSnapshotMap"
 
 @Resolver(User)
 export class UserResolver {
@@ -42,21 +43,7 @@ export class UserResolver {
             return []
         }
         const owes: Array<Owe> = await Promise.all(oweMeQuerySnaphot.docs.map(async (oweF) => {
-            const oweFData = oweF.data()
-            const oweFCreated: Timestamp = oweFData.created
-            const issedToRef: DocumentReference = oweFData.issuedToRef
-            const permalink = await getPermalinkFromOwe(oweF)
-            const owe: Owe = {
-                id: oweF.id,
-                documenmentRef: oweF.ref,
-                title: oweFData.title,
-                amount: oweFData.amount,
-                state: oweFData.state ?? OweState.CREATED,
-                issuedByID: oweF.ref.parent.parent!.id,
-                issuedToID: issedToRef.id,
-                created: oweFCreated.toDate(),
-                permalink: permalink
-            }
+            const owe: Owe = await mapOweSnapshot(oweF)
             return owe
         }))
         return owes
@@ -76,21 +63,7 @@ export class UserResolver {
             return []
         }
         const owes: Array<Owe> = await Promise.all(iOweQuerySnaphot.docs.map(async (oweF) => {
-            const oweFData = oweF.data()
-            const oweFCreated: Timestamp = oweFData.created
-            const issedToRef: DocumentReference = oweFData.issuedToRef
-            const permalink = await getPermalinkFromOwe(oweF)
-            const owe: Owe = {
-                id: oweF.id,
-                documenmentRef: oweF.ref,
-                title: oweFData.title,
-                amount: oweFData.amount,
-                state: oweFData.state ?? OweState.CREATED,
-                issuedByID: oweF.ref.parent.parent!.id,
-                issuedToID: issedToRef.id,
-                created: oweFCreated.toDate(),
-                permalink: permalink
-            }
+            const owe: Owe = await mapOweSnapshot(oweF);
             return owe
         }))
         return owes

@@ -6,31 +6,16 @@ import { DocumentReference } from "@google-cloud/firestore"
 import { getPermalinkFromOwe } from "../../utils/helpers"
 import { RequestContainer, UserDataLoader } from "../User/userResolver/userLoader";
 import { mapUserSnapshot } from "../User/userResolver/userSnapshotMap";
+import { mapOweSnapshot } from "./oweResolver/oweSnapshotMap";
 
 @Resolver(Owe)
 export class OweResolver {
     async getOweFromRef(oweRef: DocumentReference): Promise<Owe> {
         const oweSnapshot = await oweRef.get()
-        if (!oweSnapshot.exists) {
-            throw Error("Owe Does Not Exist")
-        }
-        const oweData = oweSnapshot.data()
-        const oweDate = oweData!.created
-        const issuedToRef: DocumentReference = oweData!.issuedToRef;
-        const permalink = await getPermalinkFromOwe(oweSnapshot)
-        const owe: Owe = {
-            id: oweSnapshot.id,
-            documenmentRef: oweRef,
-            title: oweData!.title,
-            amount: oweData!.amount,
-            state: oweData?.state ?? OweState.CREATED,
-            created: oweDate.toDate(),
-            issuedByID: oweSnapshot.ref.parent!.parent!.id,
-            issuedToID: issuedToRef.id,
-            permalink: permalink
-        }
+        const owe: Owe = await mapOweSnapshot(oweSnapshot);
         return owe
     }
+
     async getOwesFromUserRef() { }
     @FieldResolver(() => User, {
         name: "issuedBy",
