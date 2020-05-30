@@ -1,10 +1,15 @@
+// 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:provider/provider.dart';
+
+// 🌎 Project imports:
 import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/OweMe/oweMePageElement.dart';
 import 'package:YouOweMe/ui/OweMe/oweMePageEmptyState.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:YouOweMe/resources/extensions.dart';
 
 class OweMePage extends StatelessWidget {

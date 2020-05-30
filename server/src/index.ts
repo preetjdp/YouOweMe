@@ -11,7 +11,7 @@ const main = async () => {
   const schema = await generateSchema()
   const server = new ApolloServer({
     schema,
-    introspection: inDevMode,
+    introspection: true,
     playground: true,
     tracing: inDevMode,
     context: ({ req, connection }) => {

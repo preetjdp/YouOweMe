@@ -1,8 +1,13 @@
-import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
 import 'package:rxdart/rxdart.dart';
 import 'package:basics/basics.dart';
+
+// 🌎 Project imports:
+import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 
 const _defaultYomButtonIconSize = 20.0;
 
@@ -56,8 +61,12 @@ class YomButton extends StatelessWidget {
             _buttonChild = child;
           } else if (buttonState == YomButtonState.LOADING) {
             _buttonChild = this.loading ??
-                YOMSpinner(
-                  brightness: _buttonBrightness,
+                SizedBox(
+                  height: _defaultYomButtonIconSize,
+                  width: _defaultYomButtonIconSize,
+                  child: YOMSpinner(
+                    brightness: _buttonBrightness,
+                  ),
                 );
           } else if (buttonState == YomButtonState.ERROR) {
             _buttonChild = this.error ??

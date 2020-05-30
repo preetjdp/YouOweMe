@@ -1,12 +1,17 @@
-import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
-import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
+// 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
+
+// 🌎 Project imports:
+import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
+import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
 
 class OtpPage extends StatefulWidget {
   @override

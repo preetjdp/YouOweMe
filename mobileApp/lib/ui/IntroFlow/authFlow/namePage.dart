@@ -1,7 +1,12 @@
-import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
 import 'package:provider/provider.dart';
+
+// 🌎 Project imports:
+import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
 
 class NamePage extends StatefulWidget {
   @override
