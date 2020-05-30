@@ -1,8 +1,12 @@
-import 'package:YouOweMe/resources/helpers.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/animation.dart';
-import 'package:basics/basics.dart';
-import './graphql/seva.dart';
+
+// 📦 Package imports:
 import 'package:contacts_service/contacts_service.dart';
+
+// 🌎 Project imports:
+import 'package:YouOweMe/resources/helpers.dart';
+import './graphql/seva.dart';
 
 extension ListUtils<T> on Iterable<T> {
   num sumBy(num f(T element)) {

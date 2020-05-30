@@ -1,12 +1,17 @@
+// 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:provider/provider.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
+
+// 🌎 Project imports:
 import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/IOwe/iOwePageElement.dart';
 import 'package:YouOweMe/ui/IOwe/iOwePageEmptyState.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:YouOweMe/resources/extensions.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class IOwePage extends StatelessWidget {
   final PanelController panelController = PanelController();

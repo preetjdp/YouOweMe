@@ -1,10 +1,15 @@
-import 'package:YouOweMe/resources/graphql/seva.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+
+// 📦 Package imports:
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:basics/basics.dart';
+
+// 🌎 Project imports:
+import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/resources/helpers.dart';
 
 class MeNotifier extends ChangeNotifier {

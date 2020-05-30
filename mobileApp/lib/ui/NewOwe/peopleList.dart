@@ -1,12 +1,17 @@
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:contacts_service/contacts_service.dart';
+import 'package:provider/provider.dart';
+import 'package:rxdart/rxdart.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
+
+// 🌎 Project imports:
 import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/expandingWidgetDelegate.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
-import 'package:contacts_service/contacts_service.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:rxdart/rxdart.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:YouOweMe/resources/extensions.dart';
 
 class PeopleList extends StatelessWidget {

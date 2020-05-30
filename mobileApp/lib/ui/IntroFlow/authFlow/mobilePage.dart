@@ -1,10 +1,15 @@
-import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
-import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
 import 'package:provider/provider.dart';
+
+// 🌎 Project imports:
+import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
+import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
 
 class MobilePage extends StatefulWidget {
   @override

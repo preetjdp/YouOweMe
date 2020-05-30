@@ -1,5 +1,8 @@
-import 'package:contacts_service/contacts_service.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:contacts_service/contacts_service.dart';
 import 'package:fuzzy/fuzzy.dart';
 
 class ContactProxyNotifier extends ChangeNotifier {
