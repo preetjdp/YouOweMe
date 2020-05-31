@@ -9,6 +9,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 
@@ -78,13 +79,28 @@ class Intermediate extends StatelessWidget {
         )
       ],
       child: MaterialApp(
-          title: 'You Owe Me',
-          builder: DevicePreview.appBuilder,
-          theme: yomTheme(),
-          navigatorObservers: [
-            FirebaseAnalyticsObserver(analytics: firebaseAnalytics)
-          ],
-          home: HomePage()),
+        title: 'You Owe Me',
+        builder: DevicePreview.appBuilder,
+        theme: yomTheme(),
+        navigatorObservers: [
+          FirebaseAnalyticsObserver(analytics: firebaseAnalytics)
+        ],
+        onGenerateRoute: (RouteSettings settings) {
+          switch (settings.name) {
+            case ('/'):
+              {
+                return MaterialWithModalsPageRoute(
+                    settings: settings, builder: (context) => HomePage());
+              }
+              break;
+            default:
+              {
+                return MaterialWithModalsPageRoute(
+                    settings: settings, builder: (context) => HomePage());
+              }
+          }
+        },
+      ),
     );
   }
 }
