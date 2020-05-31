@@ -28,6 +28,9 @@ class Owe {
 
     @Field()
     created: Date
+
+    @Field()
+    permalink: string
 }
 
 enum OweState {
