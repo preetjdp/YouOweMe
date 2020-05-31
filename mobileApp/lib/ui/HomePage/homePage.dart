@@ -10,6 +10,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:retry/retry.dart';
 
@@ -42,6 +43,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
           delayFactor: Duration(seconds: 5),
           onRetry: (a) => print("Retrying to update FCM with " + a.toString()));
     }
+    configureFirebaseDynamicLinks(context);
   }
 
   void logOutDialog(BuildContext context) async {
