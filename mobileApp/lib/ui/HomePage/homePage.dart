@@ -2,6 +2,7 @@
 import 'dart:ui';
 
 // 🐦 Flutter imports:
+import 'package:YouOweMe/resources/helpers/firebaseDynamicLinks/firebaseDynamicLink.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,6 @@ import 'package:after_layout/after_layout.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:retry/retry.dart';
 
