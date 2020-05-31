@@ -30,7 +30,7 @@ class Owe {
     created: Date
 
     @Field()
-    permalink: String
+    permalink: string
 }
 
 enum OweState {
