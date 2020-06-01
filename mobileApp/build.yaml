@@ -8,9 +8,12 @@ targets:
         options:
           schema_mapping:
             - schema: lib/resources/graphql/youoweme.schema.graphql
-              queries_glob: lib/resources/graphql/queries/**.graphql
+              queries_glob: lib/resources/graphql/queries/me.graphql
               output: lib/resources/graphql/seva.dart
+            - schema: lib/resources/graphql/youoweme.schema.graphql
+              queries_glob: lib/resources/graphql/queries/getOwe/getOwe.graphql
+              output: lib/resources/graphql/queries/getOwe/getOwe.dart
           scalar_mapping:
-            - custom_parser_import: 'package:YouOweMe/resources/graphql/coercers.dart'
+            - custom_parser_import: "package:YouOweMe/resources/graphql/coercers.dart"
               graphql_type: Timestamp
               dart_type: DateTime
