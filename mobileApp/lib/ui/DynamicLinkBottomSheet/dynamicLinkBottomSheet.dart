@@ -18,47 +18,52 @@ class DynamicLinkBottomSheet extends StatefulWidget {
   DynamicLinkBottomSheet({@required this.oweId, this.scrollController});
 
   @override
-  _DynamicLinkBottomSheetState createState() =>
-      _DynamicLinkBottomSheetState();
+  _DynamicLinkBottomSheetState createState() => _DynamicLinkBottomSheetState();
 }
 
-class _DynamicLinkBottomSheetState
-    extends State<DynamicLinkBottomSheet> {
-  final AsyncMemoizer<QueryResult> _queryResultMemoizer = AsyncMemoizer();
+class _DynamicLinkBottomSheetState extends State<DynamicLinkBottomSheet> {
+  final AsyncMemoizer<QueryResult> _getOweQueryMemoizer = AsyncMemoizer();
 
   @override
   Widget build(BuildContext context) {
     GraphQLClient graphQLClient = context.watch<MeNotifier>().graphQLClient;
     GetOweQuery getOweQuery =
         GetOweQuery(variables: GetOweArguments(input: widget.oweId));
+
     QueryOptions queryOptions = QueryOptions(
         documentNode: getOweQuery.document,
         variables: getOweQuery.getVariablesMap());
+
+    Future<QueryResult> _getOwe =
+        _getOweQueryMemoizer.runOnce(() => graphQLClient.query(queryOptions));
+
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topLeft: Radius.circular(15), topRight: Radius.circular(15)),
       child: Material(
         child: FutureBuilder<QueryResult>(
-            future: _queryResultMemoizer
-                .runOnce(() => graphQLClient.query(queryOptions)),
+            future: _getOwe,
             builder:
                 (BuildContext context, AsyncSnapshot<QueryResult> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Container(
                     height: 120, child: Center(child: YOMSpinner()));
               }
+              if (snapshot.data.hasException || snapshot.hasError) {
+                return DynamicLinkBottomSheetErrorState();
+              }
               GetOwe$Query getOweResult =
                   GetOwe$Query.fromJson(snapshot.data.data);
-              return BottomSheetContent(getOweResult.getOwe);
+              return DynamicLinkBottomSheetContent(getOweResult.getOwe);
             }),
       ),
     );
   }
 }
 
-class BottomSheetContent extends StatelessWidget {
+class DynamicLinkBottomSheetContent extends StatelessWidget {
   final GetOwe$Query$Owe owe;
-  BottomSheetContent(this.owe);
+  DynamicLinkBottomSheetContent(this.owe);
   @override
   Widget build(BuildContext context) {
     seva.Seva$Query$User me = context.watch<MeNotifier>().me;
@@ -140,6 +145,42 @@ class BottomSheetContent extends StatelessWidget {
           ),
         ]
       ],
+    );
+  }
+}
+
+class DynamicLinkBottomSheetErrorState extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(15).copyWith(bottom: 25),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset("assets/scribbles/karlsson_searching.png"),
+          SizedBox(
+            height: 20,
+          ),
+          RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(children: [
+              TextSpan(
+                text: "Couldn't find that owe.",
+                style: Theme.of(context).textTheme.headline4,
+              ),
+              TextSpan(text: "\n"),
+              TextSpan(
+                text: '"It must have gotten lost during shipping."',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6
+                    .copyWith(fontStyle: FontStyle.italic),
+              ),
+            ]),
+          ),
+        ],
+      ),
     );
   }
 }
