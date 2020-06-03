@@ -37,27 +37,18 @@ class _DynamicLinkBottomSheetState extends State<DynamicLinkBottomSheet> {
     Future<QueryResult> _getOwe =
         _getOweQueryMemoizer.runOnce(() => graphQLClient.query(queryOptions));
 
-    return ClipRRect(
-      borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-      child: Material(
-        child: FutureBuilder<QueryResult>(
-            future: _getOwe,
-            builder:
-                (BuildContext context, AsyncSnapshot<QueryResult> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Container(
-                    height: 120, child: Center(child: YOMSpinner()));
-              }
-              if (snapshot.data.hasException || snapshot.hasError) {
-                return DynamicLinkBottomSheetErrorState();
-              }
-              GetOwe$Query getOweResult =
-                  GetOwe$Query.fromJson(snapshot.data.data);
-              return DynamicLinkBottomSheetContent(getOweResult.getOwe);
-            }),
-      ),
-    );
+    return FutureBuilder<QueryResult>(
+        future: _getOwe,
+        builder: (BuildContext context, AsyncSnapshot<QueryResult> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Container(height: 120, child: Center(child: YOMSpinner()));
+          }
+          if (snapshot.data.hasException || snapshot.hasError) {
+            return DynamicLinkBottomSheetErrorState();
+          }
+          GetOwe$Query getOweResult = GetOwe$Query.fromJson(snapshot.data.data);
+          return DynamicLinkBottomSheetContent(getOweResult.getOwe);
+        });
   }
 }
 
