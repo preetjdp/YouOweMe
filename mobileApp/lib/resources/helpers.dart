@@ -2,6 +2,9 @@
 import 'dart:ui';
 
 // 🐦 Flutter imports:
+import 'package:YouOweMe/ui/Abstractions/yomButtomSheet.dart';
+import 'package:YouOweMe/ui/ShareOweBottomSheet/shareOweBottomSheet.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -97,4 +100,27 @@ String getDayOfMonthSuffix(final int n) {
     default:
       return "th";
   }
+}
+
+Future<void> configureFirebaseDynamicLinks(BuildContext context) async {
+  PendingDynamicLinkData linkData =
+      await FirebaseDynamicLinks.instance.getInitialLink();
+
+  if (linkData.isNotNull) {
+    Uri link = linkData.link;
+    String oweId = link.pathSegments[1];
+    // showBottomSheet(context, oweId: oweId);
+    showYomButtomSheet(context,
+        widget: FirebaseDynamicLinkBottomSheet(oweId: oweId));
+  }
+
+  FirebaseDynamicLinks.instance.onLink(
+      onSuccess: (PendingDynamicLinkData linkData) {
+    Uri link = linkData.link;
+    String oweId = link.pathSegments[1];
+    // showBottomSheet(context, oweId: oweId);
+    showYomButtomSheet(context,
+        widget: FirebaseDynamicLinkBottomSheet(oweId: oweId));
+    return;
+  });
 }

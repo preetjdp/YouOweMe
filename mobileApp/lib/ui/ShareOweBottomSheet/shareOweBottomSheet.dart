@@ -16,8 +16,7 @@ class FirebaseDynamicLinkBottomSheet extends StatefulWidget {
   final ScrollController scrollController;
   final String oweId;
 
-  FirebaseDynamicLinkBottomSheet(
-      {@required this.scrollController, @required this.oweId});
+  FirebaseDynamicLinkBottomSheet({@required this.oweId, this.scrollController});
 
   @override
   _FirebaseDynamicLinkBottomSheetState createState() =>

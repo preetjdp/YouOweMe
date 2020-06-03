@@ -2,7 +2,6 @@
 import 'dart:ui';
 
 // 🐦 Flutter imports:
-import 'package:YouOweMe/resources/helpers/firebaseDynamicLinks/firebaseDynamicLink.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
