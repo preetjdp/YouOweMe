@@ -109,14 +109,20 @@ Future<void> configureFirebaseDynamicLinks(BuildContext context) async {
   if (linkData.isNotNull) {
     Uri link = linkData.link;
     String oweId = link.pathSegments[1];
-    showYomButtomSheet(context, widget: DynamicLinkBottomSheet(oweId: oweId));
+    showYomButtomSheet(
+        context: context,
+        builder: (BuildContext context, ScrollController scrollController) =>
+            DynamicLinkBottomSheet(oweId: oweId));
   }
 
   FirebaseDynamicLinks.instance.onLink(
       onSuccess: (PendingDynamicLinkData linkData) {
     Uri link = linkData.link;
     String oweId = link.pathSegments[1];
-    showYomButtomSheet(context, widget: DynamicLinkBottomSheet(oweId: oweId));
+    showYomButtomSheet(
+        context: context,
+        builder: (BuildContext context, ScrollController scrollController) =>
+            DynamicLinkBottomSheet(oweId: oweId));
     return;
   });
 }
