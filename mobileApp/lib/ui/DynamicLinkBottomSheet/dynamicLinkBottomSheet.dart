@@ -8,23 +8,22 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
-import 'package:basics/basics.dart';
 import 'package:async/async.dart';
 import 'package:YouOweMe/resources/extensions.dart';
 
-class FirebaseDynamicLinkBottomSheet extends StatefulWidget {
+class DynamicLinkBottomSheet extends StatefulWidget {
   final ScrollController scrollController;
   final String oweId;
 
-  FirebaseDynamicLinkBottomSheet({@required this.oweId, this.scrollController});
+  DynamicLinkBottomSheet({@required this.oweId, this.scrollController});
 
   @override
-  _FirebaseDynamicLinkBottomSheetState createState() =>
-      _FirebaseDynamicLinkBottomSheetState();
+  _DynamicLinkBottomSheetState createState() =>
+      _DynamicLinkBottomSheetState();
 }
 
-class _FirebaseDynamicLinkBottomSheetState
-    extends State<FirebaseDynamicLinkBottomSheet> {
+class _DynamicLinkBottomSheetState
+    extends State<DynamicLinkBottomSheet> {
   final AsyncMemoizer<QueryResult> _queryResultMemoizer = AsyncMemoizer();
 
   @override
