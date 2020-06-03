@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:YouOweMe/ui/Abstractions/yomBottomSheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -60,7 +61,7 @@ class IOwePageBottomSheet extends StatelessWidget {
                     color: Theme.of(context).accentColor,
                     child: Text('Pay Up!'),
                     onPressed: () {
-                      showCupertinoModalBottomSheet(
+                      showYomBottomSheet(
                           context: context,
                           builder: (a, b) => Center(child: YOMSpinner()));
                     }),

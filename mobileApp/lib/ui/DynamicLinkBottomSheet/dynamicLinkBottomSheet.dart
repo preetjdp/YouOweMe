@@ -1,6 +1,7 @@
 import 'package:YouOweMe/resources/graphql/queries/getOwe/getOwe.dart';
 import 'package:YouOweMe/resources/graphql/seva.dart' as seva;
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
+import 'package:YouOweMe/ui/Abstractions/yomBottomSheet.dart';
 import 'package:YouOweMe/ui/Abstractions/yomButton.dart';
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:flutter/cupertino.dart';
@@ -96,7 +97,7 @@ class DynamicLinkBottomSheetContent extends StatelessWidget {
                 color: Theme.of(context).accentColor,
                 child: Text('Pay Up!'),
                 onPressed: () {
-                  showCupertinoModalBottomSheet(
+                  showYomBottomSheet(
                       context: context,
                       builder: (a, b) => Center(child: YOMSpinner()));
                 }),

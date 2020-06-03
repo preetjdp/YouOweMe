@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:YouOweMe/ui/Abstractions/yomBottomSheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -16,21 +17,13 @@ class OweMePageElement extends StatelessWidget {
   OweMePageElement({@required this.owe});
   @override
   Widget build(BuildContext context) {
-    TargetPlatform platform = Theme.of(context).platform;
     void showOweDetails() async {
       Widget builder(BuildContext context, ScrollController scrollController) =>
           OweMePageBottomSheet(
             scrollController: scrollController,
             owe: owe,
           );
-      if (platform == TargetPlatform.iOS) {
-        showCupertinoModalBottomSheet(context: context, builder: builder);
-      } else {
-        showMaterialModalBottomSheet(
-            context: context,
-            backgroundColor: Colors.transparent,
-            builder: builder);
-      }
+      showYomBottomSheet(context: context, builder: builder);
     }
 
     return GestureDetector(

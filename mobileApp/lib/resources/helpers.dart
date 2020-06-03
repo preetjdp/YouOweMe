@@ -2,7 +2,7 @@
 import 'dart:ui';
 
 // 🐦 Flutter imports:
-import 'package:YouOweMe/ui/Abstractions/yomButtomSheet.dart';
+import 'package:YouOweMe/ui/Abstractions/yomBottomSheet.dart';
 import 'package:YouOweMe/ui/DynamicLinkBottomSheet/dynamicLinkBottomSheet.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
@@ -109,7 +109,7 @@ Future<void> configureFirebaseDynamicLinks(BuildContext context) async {
   if (linkData.isNotNull) {
     Uri link = linkData.link;
     String oweId = link.pathSegments[1];
-    showYomButtomSheet(
+    showYomBottomSheet(
         context: context,
         builder: (BuildContext context, ScrollController scrollController) =>
             DynamicLinkBottomSheet(oweId: oweId));
@@ -119,7 +119,7 @@ Future<void> configureFirebaseDynamicLinks(BuildContext context) async {
       onSuccess: (PendingDynamicLinkData linkData) {
     Uri link = linkData.link;
     String oweId = link.pathSegments[1];
-    showYomButtomSheet(
+    showYomBottomSheet(
         context: context,
         builder: (BuildContext context, ScrollController scrollController) =>
             DynamicLinkBottomSheet(oweId: oweId));
