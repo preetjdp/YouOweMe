@@ -2,21 +2,23 @@
 import 'dart:ui';
 
 // 🐦 Flutter imports:
-import 'package:YouOweMe/ui/Abstractions/yomBottomSheet.dart';
-import 'package:YouOweMe/ui/DynamicLinkBottomSheet/dynamicLinkBottomSheet.dart';
-import 'package:YouOweMe/ui/HomePage/homePage.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // 📦 Package imports:
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 import 'package:basics/basics.dart';
 import 'package:http/http.dart';
+
+// 🌎 Project imports:
+import 'package:YouOweMe/ui/Abstractions/yomBottomSheet.dart';
+import 'package:YouOweMe/ui/DynamicLinkBottomSheet/dynamicLinkBottomSheet.dart';
+import 'package:YouOweMe/ui/HomePage/homePage.dart';
 
 void configureSystemChrome() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(

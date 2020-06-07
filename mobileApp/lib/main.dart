@@ -1,5 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:YouOweMe/resources/providers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 
 // 🌎 Project imports:
+import 'package:YouOweMe/resources/providers.dart';
 import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
 import 'package:YouOweMe/ui/IntroFlow/introFlow.dart';
 import 'package:YouOweMe/resources/helpers.dart';
