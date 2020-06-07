@@ -16,6 +16,7 @@
     },
     "dependencies": {
         "@google-cloud/firestore": "^3.8.0",
+        "@types/sharp": "^0.25.0",
         "apollo-server": "^2.13.1",
         "axios": "^0.19.2",
         "class-validator": "^0.12.2",
@@ -26,6 +27,7 @@
         "graphql": "^15.0.0",
         "graphql-firestore-subscriptions": "^1.0.1",
         "reflect-metadata": "^0.1.13",
+        "sharp": "^0.25.3",
         "type-graphql": "^1.0.0-rc.2",
         "typedi": "^0.8.0"
     },
