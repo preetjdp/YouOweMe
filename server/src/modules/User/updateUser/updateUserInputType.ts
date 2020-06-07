@@ -1,5 +1,6 @@
 import { InputType, Field, ID } from "type-graphql";
-import { OweState, Owe } from "../../../models/Owe";
+import { GraphQLUpload } from "apollo-server"
+import { FileUpload } from "./fileUpload";
 
 @InputType()
 export class UpdateUserInputType {
@@ -10,6 +11,11 @@ export class UpdateUserInputType {
         nullable: true
     })
     name?: string
+
+    @Field(() => GraphQLUpload!, {
+        nullable: true
+    })
+    image?: FileUpload
 
     @Field({
         nullable: true

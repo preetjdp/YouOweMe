@@ -5,6 +5,7 @@ import { firestore } from "../../db/firebase";
 import { UserResolver } from "./UserResolver"
 import { RequestContainer, UserDataLoader } from "./userResolver/userLoader";
 import { mapUserSnapshot } from "./userResolver/userSnapshotMap";
+import { processImage } from "./updateUser/processImage";
 
 @Resolver(User)
 export class UpdateUserResolver {
@@ -19,14 +20,17 @@ export class UpdateUserResolver {
             // This is a anti-pattern
             // Would not recommend for larger systems
             // Is done bacause fieldNames are different in server and database
-            let { id, fcmToken, ...updateData } = data
+            let { id, fcmToken, image, ...updateData } = data
+            if (image) {
+                await processImage(image)
+            }
             console.log(updateData)
             await userRef.update({
                 ...(fcmToken && { fcm_token: fcmToken }),
                 ...updateData
             })
             let userSnapshot = await userDataLoader.load(userId)
-            if(!userSnapshot) {
+            if (!userSnapshot) {
                 throw Error("User Snapshot from loader is Null in updateResolver")
             }
             let user = mapUserSnapshot(userSnapshot)
