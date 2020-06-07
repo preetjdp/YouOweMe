@@ -13,9 +13,11 @@ admin.initializeApp({
 
 const firestore = admin.firestore()
 const auth = admin.auth()
+const storage = admin.storage()
 configureForLocalFirebase()
 
 export {
     firestore,
-    auth
+    auth,
+    storage
 }
