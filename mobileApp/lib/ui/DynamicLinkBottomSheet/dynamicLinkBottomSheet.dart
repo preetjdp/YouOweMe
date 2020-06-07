@@ -1,15 +1,20 @@
+// 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:provider/provider.dart';
+import 'package:async/async.dart';
+
+// 🌎 Project imports:
 import 'package:YouOweMe/resources/graphql/queries/getOwe/getOwe.dart';
 import 'package:YouOweMe/resources/graphql/seva.dart' as seva;
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomBottomSheet.dart';
 import 'package:YouOweMe/ui/Abstractions/yomButton.dart';
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:provider/provider.dart';
-import 'package:async/async.dart';
 import 'package:YouOweMe/resources/extensions.dart';
 
 class DynamicLinkBottomSheet extends StatefulWidget {

@@ -1,10 +1,15 @@
-import 'package:YouOweMe/resources/notifiers/contactProxyNotifier.dart';
-import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
 import 'package:contacts_service/contacts_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+
+// 🌎 Project imports:
+import 'package:YouOweMe/resources/notifiers/contactProxyNotifier.dart';
+import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 
 List<SingleChildWidget> yomProviders = [
   StreamProvider<FirebaseUser>.value(
