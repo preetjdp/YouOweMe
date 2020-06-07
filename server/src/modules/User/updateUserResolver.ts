@@ -5,7 +5,7 @@ import { firestore } from "../../db/firebase";
 import { UserResolver } from "./UserResolver"
 import { RequestContainer, UserDataLoader } from "./userResolver/userLoader";
 import { mapUserSnapshot } from "./userResolver/userSnapshotMap";
-import { processImage } from "./updateUser/processImage";
+import { processAndUploadImage } from "./updateUser/processImage";
 
 @Resolver(User)
 export class UpdateUserResolver {
@@ -22,7 +22,8 @@ export class UpdateUserResolver {
             // Is done bacause fieldNames are different in server and database
             let { id, fcmToken, image, ...updateData } = data
             if (image) {
-                await processImage(image)
+                const url = await processAndUploadImage(id, image)
+                console.log(url)
             }
             console.log(updateData)
             await userRef.update({
