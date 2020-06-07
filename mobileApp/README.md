@@ -85,3 +85,9 @@ keytool -list -v -keystore {filePath} -alias {key-alias}
 Example:
 keytool -list -v -keystore ./android/app/key.jks -alias key
 ```
+
+## Launch url on the phone.
+
+```bash
+adb shell am start -a android.intent.action.VIEW -d https://youoweme.page.link/oNL2
+```
