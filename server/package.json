@@ -8,7 +8,8 @@
         "start:prod": "node dist/index.js",
         "build": "tsc",
         "gcp-build": "npm run build",
-        "deploy": "gcloud beta app deploy"
+        "deploy": "gcloud beta app deploy",
+        "preinstall": "npx npm-force-resolutions"
     },
     "engines": {
         "node": ">=10.0.0"
@@ -34,5 +35,9 @@
         "@types/graphql": "^14.5.0",
         "ts-node-dev": "^1.0.0-pre.44",
         "typescript": "^3.9.2"
+    },
+    "resolutions": {
+        "fs-capacitor": "^6.2.0",
+        "graphql-upload": "^11.0.0"
     }
 }
