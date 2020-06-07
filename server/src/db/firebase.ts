@@ -8,16 +8,16 @@ admin.initializeApp({
         privateKey: PRIVATE_KEY,
         clientEmail: CLIENT_EMAIL
     }),
-    databaseURL: "https://youoweme-6c622.firebaseio.com"
+    databaseURL: "https://youoweme-6c622.firebaseio.com",
+    storageBucket: "youoweme-6c622.appspot.com"
 })
 
 const firestore = admin.firestore()
 const auth = admin.auth()
-const storage = admin.storage()
+const storageBucket = admin.storage().bucket()
 configureForLocalFirebase()
-
 export {
     firestore,
     auth,
-    storage
+    storageBucket
 }
