@@ -1,5 +1,14 @@
 import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
+import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:YouOweMe/resources/extensions.dart';
+
+const double _topDefaultState = 150.0;
+const double _bottomDefaultState = 350.0;
+
+const double _topParallaxFactor = 0.8;
+const double _bottomParallaxFactor = 1.5;
 
 class BackgroundAnimation extends StatefulWidget {
   @override
@@ -7,40 +16,34 @@ class BackgroundAnimation extends StatefulWidget {
 }
 
 class _BackgroundAnimationState extends State<BackgroundAnimation>
-    with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<double> toptween;
-  Animation<double> bottomtween;
+    with TickerProviderStateMixin, AfterLayoutMixin {
+  AnimationController _topController;
+  AnimationController _bottomController;
   YomDesign yomDesign = YomDesign();
   @override
   void initState() {
     super.initState();
-    _controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
-    // ..addStatusListener((status) {
-    //   if(status == AnimationStatus .completed) {
-    //     _controller.reverse();
-    //   } else if( status == AnimationStatus.dismissed) {
-    //     _controller.forward();
-    //   }
-    //  });
-    // toptween = Tween(begin: 0.0, end: 350.0).animate(
-    //     CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
-    // bottomtween = Tween(begin: 00.0, end: 300.0).animate(
-    //     CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
-    toptween = Tween(begin: 0.0, end: 150.0).animate(
-        CurvedAnimation(parent: _controller, curve: Curves.easeOutQuart));
-    bottomtween = Tween(begin: 00.0, end: 300.0).animate(
-        CurvedAnimation(parent: _controller, curve: Curves.easeOutQuart));
+    _topController = AnimationController(
+        vsync: this, lowerBound: 0, upperBound: double.infinity);
+    _bottomController = AnimationController(
+        vsync: this, lowerBound: 0, upperBound: double.infinity);
     Future.delayed(Duration(milliseconds: 700), () {
-      _controller.forward();
+      _topController.yomAnimateTo(
+        _topDefaultState,
+        duration: Duration(milliseconds: 500),
+      );
+      _bottomController.yomAnimateTo(
+        _bottomDefaultState,
+        duration: Duration(milliseconds: 500),
+      );
     });
   }
 
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
+    _topController.dispose();
+    _bottomController.dispose();
   }
 
   @override
@@ -59,12 +62,12 @@ class _BackgroundAnimationState extends State<BackgroundAnimation>
             left: 0,
             right: 0,
             child: AnimatedBuilder(
-                animation: toptween,
+                animation: _topController,
                 builder: (context, snapshot) {
                   return ClipPath(
                       clipper: TopCustomClipper(),
                       child: Container(
-                        height: toptween.value,
+                        height: _topController.value,
                         decoration: BoxDecoration(
                             gradient: LinearGradient(
                                 begin: Alignment.centerLeft,
@@ -80,18 +83,41 @@ class _BackgroundAnimationState extends State<BackgroundAnimation>
             left: 0,
             right: 0,
             child: AnimatedBuilder(
-                animation: bottomtween,
+                animation: _bottomController,
                 builder: (context, snapshot) {
                   return ClipPath(
                       clipper: BottomCustomClipper(),
                       child: Container(
-                        height: bottomtween.value,
+                        height: _bottomController.value,
                         decoration: BoxDecoration(
                             color: Theme.of(context).scaffoldBackgroundColor),
                       ));
                 })),
       ],
     );
+  }
+
+  @override
+  void afterFirstLayout(BuildContext context) {
+    ScrollController scrollController = context.read<ScrollController>();
+
+    scrollController.addListener(() async {
+      double maxExtent = scrollController.position.maxScrollExtent;
+      double extent = scrollController.offset;
+      double percentChange = extent / maxExtent;
+      print(
+          "[SCROLL STAUS ==> Extent -> $extent  percentChange -> $percentChange]");
+      if (percentChange == 0.0) {
+        _topController.yomAnimateTo(_topDefaultState);
+        _bottomController.yomAnimateTo(_bottomDefaultState);
+      } else {
+        await Future.delayed(Duration(milliseconds: 20));
+        _topController.yomAnimateTo(
+            _topDefaultState - percentChange * _topParallaxFactor * 100);
+        _bottomController.yomAnimateTo(
+            _bottomDefaultState + percentChange * _bottomParallaxFactor * 100);
+      }
+    });
   }
 }
 
@@ -112,7 +138,7 @@ class TopCustomClipper extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(CustomClipper oldClipper) {
-    return true;
+    return false;
   }
 }
 
@@ -131,6 +157,6 @@ class BottomCustomClipper extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(CustomClipper oldClipper) {
-    return true;
+    return false;
   }
 }

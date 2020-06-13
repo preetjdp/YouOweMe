@@ -31,6 +31,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
+  ScrollController scrollController = ScrollController();
   @override
   void afterFirstLayout(BuildContext context) async {
     final FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics();
@@ -127,26 +128,22 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
           BottomList(),
         ]);
 
-    final Widget abstractedHomePage = CustomScrollView(
+    final Widget abstractedHomePageContent = CustomScrollView(
+      controller: scrollController,
       slivers: <Widget>[
-        if (platform == TargetPlatform.iOS) ...[
-          CupertinoSliverRefreshControl(
-            onRefresh: onRefresh,
-          ),
-          SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
-              sliver: SliverList(delegate: SliverChildListDelegate(children)))
-        ] else if (platform == TargetPlatform.android)
-          SliverFillRemaining(
-            child: RefreshIndicator(
-                onRefresh: onRefresh,
-                child: ListView(
-                  padding: EdgeInsets.all(15),
-                  children: children,
-                )),
-          )
+        CupertinoSliverRefreshControl(
+          onRefresh: onRefresh,
+        ),
+        SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+            sliver: SliverList(delegate: SliverChildListDelegate(children)))
       ],
     );
+
+    final Widget abstractedHomePage = platform == TargetPlatform.iOS
+        ? abstractedHomePageContent
+        : RefreshIndicator(
+            onRefresh: onRefresh, child: abstractedHomePageContent);
 
     final Widget abstractedNewOweButton = platform == TargetPlatform.android
         ? FloatingActionButton.extended(
@@ -186,24 +183,27 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
           )
         : null;
 
-    return Scaffold(
-      floatingActionButton: abstractedNewOweButton,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: Stack(
-        children: [
-          BackgroundAnimation(),
-          AnimationLimiter(child: abstractedHomePage),
-          Positioned(
-            bottom: 20,
-            left: 15,
-            child: YomAvatar(
-              text: Provider.of<MeNotifier>(context)?.me?.shortName ?? "PP",
-              onPressed: () => logOutDialog(context),
-            ),
-          )
-        ],
+    return Provider.value(
+      value: scrollController,
+      child: Scaffold(
+        floatingActionButton: abstractedNewOweButton,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        body: Stack(
+          children: [
+            BackgroundAnimation(),
+            AnimationLimiter(child: abstractedHomePage),
+            Positioned(
+              bottom: 20,
+              left: 15,
+              child: YomAvatar(
+                text: Provider.of<MeNotifier>(context)?.me?.shortName ?? "PP",
+                onPressed: () => logOutDialog(context),
+              ),
+            )
+          ],
+        ),
+        // bottomNavigationBar: bottomBar
       ),
-      // bottomNavigationBar: bottomBar
     );
   }
 }
