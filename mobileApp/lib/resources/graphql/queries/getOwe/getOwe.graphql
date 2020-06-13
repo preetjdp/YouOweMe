@@ -1,0 +1,24 @@
+query($input: String!){
+  getOwe(id: $input) {
+    id
+    title
+    amount
+    state
+    created
+    permalink
+    issuedBy {
+      id
+      name
+      image
+      mobileNo
+      created
+    }
+    issuedTo {
+      id
+      name
+      image
+      mobileNo
+      created
+    }
+  }
+}
