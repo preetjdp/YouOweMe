@@ -130,10 +130,12 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
 
     final Widget abstractedHomePageContent = CustomScrollView(
       controller: scrollController,
+      physics: BouncingScrollPhysics(),
       slivers: <Widget>[
-        CupertinoSliverRefreshControl(
-          onRefresh: onRefresh,
-        ),
+        if (platform == TargetPlatform.iOS)
+          CupertinoSliverRefreshControl(
+            onRefresh: onRefresh,
+          ),
         SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
             sliver: SliverList(delegate: SliverChildListDelegate(children)))
