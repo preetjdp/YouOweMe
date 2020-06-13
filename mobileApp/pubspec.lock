@@ -28,7 +28,7 @@ packages:
       name: animations
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0+5"
+    version: "1.1.0"
   archive:
     dependency: transitive
     description:
@@ -268,7 +268,7 @@ packages:
       name: equatable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.1"
+    version: "1.2.0"
   fake_async:
     dependency: transitive
     description:
@@ -289,7 +289,14 @@ packages:
       name: firebase_analytics
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.14"
+    version: "5.0.15"
+  firebase_analytics_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_analytics_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -514,7 +521,7 @@ packages:
       name: import_sorter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.6"
+    version: "3.1.0"
   io:
     dependency: transitive
     description:
@@ -654,14 +661,14 @@ packages:
       name: permission_handler
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0+hotfix.5"
+    version: "5.0.1"
   permission_handler_platform_interface:
     dependency: transitive
     description:
       name: permission_handler_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   petitparser:
     dependency: transitive
     description:
@@ -703,7 +710,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.1.2"
+    version: "4.1.3"
   pub_semver:
     dependency: transitive
     description:
@@ -969,5 +976,5 @@ packages:
     source: hosted
     version: "2.2.1"
 sdks:
-  dart: ">=2.7.2 <3.0.0"
+  dart: ">=2.9.0-14.0.dev <3.0.0"
   flutter: ">=1.16.0 <2.0.0"
