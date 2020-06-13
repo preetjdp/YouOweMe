@@ -8,12 +8,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // 📦 Package imports:
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 import 'package:basics/basics.dart';
 import 'package:http/http.dart';
+
+// 🌎 Project imports:
+import 'package:YouOweMe/ui/Abstractions/yomBottomSheet.dart';
+import 'package:YouOweMe/ui/DynamicLinkBottomSheet/dynamicLinkBottomSheet.dart';
+import 'package:YouOweMe/ui/HomePage/homePage.dart';
 
 void configureSystemChrome() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -36,7 +43,7 @@ Future<GraphQLClient> getGraphqlClient(String userId) async {
 /// Gets the Url to be used for theGraphQLClient
 /// Fyi. Add's 2 Second Timout on mobile
 Future<String> getSevaUrl() async {
-  String localSevaUrl = "http://192.168.31.76:4001";
+  String localSevaUrl = "http://192.168.1.76:4001";
   String productionSevaUrl = "https://api.youoweme.preetjdp.dev";
   if (kReleaseMode) {
     print("Using Production Seva In Release");
@@ -173,4 +180,38 @@ Future onSelectNotificationAction(
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   flutterLocalNotificationsPlugin.cancel(int.tryParse(extras['id']));
+  Future<void> configureFirebaseDynamicLinks(BuildContext context) async {
+    PendingDynamicLinkData linkData =
+        await FirebaseDynamicLinks.instance.getInitialLink();
+
+    if (linkData.isNotNull) {
+      Uri link = linkData.link;
+      String oweId = link.pathSegments[1];
+      showYomBottomSheet(
+          context: context,
+          builder: (BuildContext context, ScrollController scrollController) =>
+              DynamicLinkBottomSheet(oweId: oweId));
+    }
+
+    FirebaseDynamicLinks.instance.onLink(
+        onSuccess: (PendingDynamicLinkData linkData) {
+      Uri link = linkData.link;
+      String oweId = link.pathSegments[1];
+      showYomBottomSheet(
+          context: context,
+          builder: (BuildContext context, ScrollController scrollController) =>
+              DynamicLinkBottomSheet(oweId: oweId));
+      return;
+    });
+  }
+
+  Route<dynamic> routeGenerator(RouteSettings settings) {
+    switch (settings.name) {
+      default:
+        {
+          return MaterialWithModalsPageRoute(
+              settings: settings, builder: (context) => HomePage());
+        }
+    }
+  }
 }

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 // 🌎 Project imports:
+import 'package:YouOweMe/ui/Abstractions/yomBottomSheet.dart';
 import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:YouOweMe/resources/extensions.dart';
@@ -60,7 +61,7 @@ class IOwePageBottomSheet extends StatelessWidget {
                     color: Theme.of(context).accentColor,
                     child: Text('Pay Up!'),
                     onPressed: () {
-                      showCupertinoModalBottomSheet(
+                      showYomBottomSheet(
                           context: context,
                           builder: (a, b) => Center(child: YOMSpinner()));
                     }),
