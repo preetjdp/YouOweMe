@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "401368738928-otf7mn29qmv3ctk51ogth53ltgn7hf47.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.preetjdp.youoweme",
+            "certificate_hash": "7b07940e2eb99be5290b99421bd0363cd5438b30"
+          }
+        },
+        {
           "client_id": "401368738928-224rt3nfqspq9p61mdibl7gdb6npjjs8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -54,6 +62,13 @@
             {
               "client_id": "401368738928-e11u3pg7v2ngrv7fvo3m242361ih5n8v.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "401368738928-9eavhn0fflpq3pcd2148g2bdtt5o9mlg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.preetjdp.youoweme"
+              }
             }
           ]
         }
