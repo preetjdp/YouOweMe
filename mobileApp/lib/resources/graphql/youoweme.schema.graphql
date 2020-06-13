@@ -1,4 +1,9 @@
+input DeleteOweInputType {
+  id: ID!
+}
+
 type Mutation {
+  deleteOwe(data: DeleteOweInputType!): Timestamp!
   newOwe(data: NewOweInputType!): Owe!
   updateOwe(data: UpdateOweInputType!): Owe!
   updateUser(data: UpdateUserInputType!): User!
@@ -20,6 +25,7 @@ type Owe {
   issuedBy: User!
   issuedTo: User!
   created: Timestamp!
+  permalink: String!
 }
 
 enum OweState {
@@ -30,10 +36,11 @@ enum OweState {
 }
 
 type Query {
-  getUsers: [User!]!
-  getUser(id: String!): User
+  getOwe(id: String!): Owe!
   getOwes: [Owe!]!
   Me: User!
+  getUsers: [User!]!
+  getUser(id: String!): User
 }
 
 type Subscription {
@@ -68,3 +75,4 @@ type User {
   fcmToken: String
   created: Timestamp!
 }
+

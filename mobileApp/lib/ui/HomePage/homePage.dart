@@ -43,6 +43,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
           delayFactor: Duration(seconds: 5),
           onRetry: (a) => print("Retrying to update FCM with " + a.toString()));
     }
+    configureFirebaseDynamicLinks(context);
   }
 
   void logOutDialog(BuildContext context) async {
