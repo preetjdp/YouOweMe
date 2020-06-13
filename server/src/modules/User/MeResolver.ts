@@ -1,9 +1,6 @@
-import { Resolver, Query, Authorized, Ctx, Subscription, Publisher, PubSub, Root, Info } from "type-graphql";
+import { Resolver, Query, Authorized, Ctx, Subscription, Publisher, PubSub, Root, Info, FieldResolver } from "type-graphql";
 import { ApplicationContext } from "../../utils/appContext";
-import { firestore } from "../../db/firebase";
-import { Me } from "../../models/User";
-import { Timestamp } from "@google-cloud/firestore";
-import { UserResolver } from "./UserResolver";
+import { Me, User } from "../../models/User";
 import { userTopicGenerator } from "./userResolver/userTopic";
 import { NotificationUnion } from "../../models/Notification";
 import { RequestContainer, UserDataLoader } from "./userResolver/userLoader";
