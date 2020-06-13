@@ -4,15 +4,15 @@ on:
   push:
     paths: 
       - 'mobileApp/**'
-    branches: [ master ]  
-  pull_request:
     branches: [ master ]
     
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        shell: bash
+        working-directory: mobileApp
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-java@v1
@@ -26,13 +26,31 @@ jobs:
     - uses: subosito/flutter-action@v1
       with:
         channel: 'beta'
+    - name: Get Dependencies
+      run: flutter packages get
+    - name: Run Test's
+      run: flutter test
     - name: Build Flutter App
-      run: |
-        cd mobileApp
-        flutter packages get
-        flutter build apk
+      run: flutter build apk
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
         name: 'Android App'
         path: 'mobileApp/build/app/outputs/apk/release/app-release.apk'
+
+    - uses: marvinpinto/action-automatic-releases@latest
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: latest
+        prerelease: true
+        title: "YouOweMe App Build"
+        files: |
+          mobileApp/build/app/outputs/apk/release/app-release.apk
+
+    # - name: Release Build
+    #   uses: softprops/action-gh-release@v1
+    #   if: startsWith(github.ref, 'refs/tags/')
+    #   with:
+    #       files: 'mobileApp/build/app/outputs/apk/release/app-release.apk'
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

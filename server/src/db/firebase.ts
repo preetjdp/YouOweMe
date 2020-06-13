@@ -1,5 +1,6 @@
 import * as admin from "firebase-admin"
 import { PROJECT_ID, CLIENT_EMAIL, PRIVATE_KEY } from '../utils/envConfig'
+import { configureForLocalFirebase } from "../utils/localFirebaseConfig"
 
 admin.initializeApp({
     credential: admin.credential.cert({
@@ -12,6 +13,7 @@ admin.initializeApp({
 
 const firestore = admin.firestore()
 const auth = admin.auth()
+configureForLocalFirebase()
 
 export {
     firestore,

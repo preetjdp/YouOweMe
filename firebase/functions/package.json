@@ -13,13 +13,14 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "@google-cloud/firestore": "^3.7.5",
+    "@google-cloud/firestore": "^3.8.5",
+    "axios": "^0.19.2",
     "firebase-admin": "^8.12.1",
-    "firebase-functions": "^3.6.1",
-    "twilio": "^3.43.0"
+    "firebase-functions": "^3.7.0",
+    "twilio": "^3.46.0"
   },
   "devDependencies": {
-    "typescript": "^3.8.3",
+    "typescript": "^3.9.5",
     "firebase-functions-test": "^0.2.1"
   },
   "private": true

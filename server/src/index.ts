@@ -3,25 +3,43 @@ import "./utils/envConfig"
 
 
 import { generateSchema } from "./schema"
+import { ApplicationContext } from "./utils/appContext"
+import { Container } from "typedi"
 
 const main = async () => {
+  const inDevMode = process.env.NODE_ENV == 'development'
   const schema = await generateSchema()
   const server = new ApolloServer({
     schema,
     introspection: true,
     playground: true,
-    tracing: true,
+    tracing: inDevMode,
     context: ({ req, connection }) => {
-      if (connection) {
-        return connection.context
+      const requestId = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+      console.log('Creating Container', requestId)
+      let context: ApplicationContext = {
+        req,
+        requestId
       }
-      return { req }
-    }
+      if (connection) {
+        context = { ...context, ...connection.context }
+      }
+      return context
+    },
+    plugins: [
+      {
+        requestDidStart: () => ({
+          willSendResponse(requestContext) {
+            console.log('Disposing Container', requestContext.context.requestId)
+            Container.reset(requestContext.context.requestId);
+          },
+        }),
+      },
+    ],
   });
 
-  server.listen({ port: process.env.PORT || 4000 }, () =>
-    console.log(`🚀 Server is ready at http://localhost:4000${server.graphqlPath}`)
-  );
+  const seva = await server.listen({ port: process.env.PORT })
+  console.log(`Seva is ready at ${seva.url}`)
 
 }
 

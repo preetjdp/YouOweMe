@@ -1,20 +1,20 @@
-import 'package:YouOweMe/resources/notifiers/contactProxyNotifier.dart';
-import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
-import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
-import 'package:YouOweMe/ui/IntroFlow/introFlow.dart';
-import 'package:contacts_service/contacts_service.dart';
-import 'package:device_preview/device_preview.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'package:YouOweMe/resources/helpers.dart';
-import 'package:YouOweMe/ui/HomePage/homePage.dart';
+// 📦 Package imports:
+import 'package:device_preview/device_preview.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:provider/provider.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
+
+// 🌎 Project imports:
+import 'package:YouOweMe/resources/providers.dart';
+import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
+import 'package:YouOweMe/ui/IntroFlow/introFlow.dart';
+import 'package:YouOweMe/resources/helpers.dart';
 
 Future<void> main() async {
   Provider.debugCheckInvalidValueType = null;
@@ -53,26 +53,7 @@ class Intermediate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        StreamProvider<FirebaseUser>.value(
-            value: FirebaseAuth.instance.onAuthStateChanged),
-        ChangeNotifierProxyProvider<FirebaseUser, MeNotifier>(
-          create: (BuildContext context) => MeNotifier(context),
-          update: (context, firebaseUser, meNotifier) =>
-              meNotifier..onProxyUpdate(firebaseUser),
-          lazy: false,
-        ),
-        FutureProvider<Iterable<Contact>>(
-          create: (a) => ContactsService.getContacts(withThumbnails: false),
-          lazy: false,
-          initialData: [],
-        ),
-        ChangeNotifierProxyProvider<Iterable<Contact>, ContactProxyNotifier>(
-          create: (BuildContext context) => ContactProxyNotifier(),
-          update: (BuildContext context, a, b) => b..update(a),
-          lazy: false,
-        )
-      ],
+      providers: yomProviders,
       child: MaterialApp(
           title: 'You Owe Me',
           builder: DevicePreview.appBuilder,
@@ -80,7 +61,7 @@ class Intermediate extends StatelessWidget {
           navigatorObservers: [
             FirebaseAnalyticsObserver(analytics: firebaseAnalytics)
           ],
-          home: HomePage()),
+          onGenerateRoute: routeGenerator),
     );
   }
 }

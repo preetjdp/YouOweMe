@@ -3,6 +3,7 @@ import * as functions from "firebase-functions"
 import { DocumentSnapshot, DocumentReference } from "@google-cloud/firestore"
 import { sendMessage } from "../../db/twilio"
 import { sendFcmNotification } from "../../db/firebase"
+import { getPermalinkFromOwe } from "../../utils/helpers"
 
 /**
 * 1. Send the request to the the person IssuedTo
@@ -46,6 +47,8 @@ const sendNotificationToOweIssuedTo = async (oweSnapshot: DocumentSnapshot) => {
         })
     }
     console.log("Sending SMS")
+    const permalink = await getPermalinkFromOwe(oweSnapshot)
+    message += `\n${permalink}`
     return sendMessage({ message, mobileNo })
 }
 

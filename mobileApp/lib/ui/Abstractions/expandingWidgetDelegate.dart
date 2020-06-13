@@ -1,6 +1,7 @@
-
+// 🎯 Dart imports:
 import 'dart:math' as math;
 
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
 class ExpandingWidgetDelegate extends SliverPersistentHeaderDelegate {

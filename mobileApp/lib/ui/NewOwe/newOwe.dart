@@ -1,17 +1,23 @@
+// 🎯 Dart imports:
 import 'dart:async';
 
-import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
-import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
-import 'package:YouOweMe/ui/NewOwe/contactSelector.dart';
-import 'package:contacts_service/contacts_service.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 
-import 'package:YouOweMe/ui/NewOwe/peopleList.dart';
+// 📦 Package imports:
+import 'package:contacts_service/contacts_service.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
+// 🌎 Project imports:
+import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
+import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
+import 'package:YouOweMe/ui/Abstractions/yomButton.dart';
+import 'package:YouOweMe/ui/NewOwe/contactSelector.dart';
+import 'package:YouOweMe/ui/NewOwe/peopleList.dart';
 import 'package:YouOweMe/resources/extensions.dart';
 
 class NewOwe extends StatefulWidget {
@@ -27,6 +33,8 @@ class _NewOweState extends State<NewOwe> {
   final PanelController panelController = PanelController();
 
   final BehaviorSubject<Contact> selectedContactController = BehaviorSubject();
+
+  final YomButtonController yomButtonController = YomButtonController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -51,7 +59,8 @@ class _NewOweState extends State<NewOwe> {
   @override
   Widget build(BuildContext context) {
     TargetPlatform platform = Theme.of(context).platform;
-    void addNewOwe() {
+    void addNewOwe() async {
+      yomButtonController.showLoading();
       try {
         bool isValidated = _formKey.currentState.validate();
         if (!isValidated) {
@@ -71,7 +80,7 @@ class _NewOweState extends State<NewOwe> {
           mobileNo = '+91' + mobileNo;
         }
         print(mobileNo);
-        Provider.of<MeNotifier>(context, listen: false)
+        await Provider.of<MeNotifier>(context, listen: false)
             .graphQLClient
             .mutate(MutationOptions(
                 documentNode: gql(newOweMutation),
@@ -83,14 +92,15 @@ class _NewOweState extends State<NewOwe> {
                     "displayName": selectedContactController.value.displayName
                   }
                 },
-                onError: (e) {
-                  print(e);
-                },
                 onCompleted: (a) {
                   Provider.of<MeNotifier>(context, listen: false).refresh();
+                  yomButtonController.showSuccess();
                   Navigator.pop(context);
                 }));
-      } catch (e) {}
+      } catch (e) {
+        print(e);
+        yomButtonController.showError();
+      }
     }
 
     Future<bool> onWilPopScope() async {
@@ -265,9 +275,9 @@ class _NewOweState extends State<NewOwe> {
                         Container(
                           height: 60,
                           width: 400,
-                          child: CupertinoButton(
-                              color: Theme.of(context).accentColor,
+                          child: YomButton(
                               child: Text('Done'),
+                              controller: yomButtonController,
                               onPressed: addNewOwe),
                         )
                     ],

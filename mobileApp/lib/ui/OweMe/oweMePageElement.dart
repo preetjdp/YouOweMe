@@ -1,31 +1,29 @@
+// 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+
+// 🌎 Project imports:
+import 'package:YouOweMe/ui/Abstractions/yomBottomSheet.dart';
 import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:YouOweMe/ui/OweMe/oweMePageBottomSheet.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:YouOweMe/resources/extensions.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class OweMePageElement extends StatelessWidget {
   final Seva$Query$User$Owe owe;
   OweMePageElement({@required this.owe});
   @override
   Widget build(BuildContext context) {
-    TargetPlatform platform = Theme.of(context).platform;
     void showOweDetails() async {
       Widget builder(BuildContext context, ScrollController scrollController) =>
           OweMePageBottomSheet(
             scrollController: scrollController,
             owe: owe,
           );
-      if (platform == TargetPlatform.iOS) {
-        showCupertinoModalBottomSheet(context: context, builder: builder);
-      } else {
-        showMaterialModalBottomSheet(
-            context: context,
-            backgroundColor: Colors.transparent,
-            builder: builder);
-      }
+      showYomBottomSheet(context: context, builder: builder);
     }
 
     return GestureDetector(

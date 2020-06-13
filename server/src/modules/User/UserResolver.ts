@@ -1,8 +1,12 @@
 import { firestore } from "../../db/firebase"
 import { Query, Resolver, FieldResolver, Root, Arg, Authorized, Int } from "type-graphql"
 import { User } from "../../models/User"
-import { DocumentReference, Timestamp } from "@google-cloud/firestore"
+import { DocumentReference, Timestamp, DocumentSnapshot } from "@google-cloud/firestore"
 import { Owe, OweState } from "../../models/Owe"
+import { getPermalinkFromOwe } from "../../utils/helpers"
+import { RequestContainer, UserDataLoader } from "./userResolver/userLoader"
+import { mapUserSnapshot } from "./userResolver/userSnapshotMap"
+import { mapOweSnapshot } from "../Owe/oweResolver/oweSnapshotMap"
 
 @Resolver(User)
 export class UserResolver {
@@ -13,16 +17,7 @@ export class UserResolver {
         const usersRef = firestore.collection('users')
         const usersSnapshot = await usersRef.get()
         const users = usersSnapshot.docs.map((userSnapshot) => {
-            const userData = userSnapshot.data()
-            const created: Timestamp = userData!.created;
-            const user: User = {
-                id: userSnapshot.id,
-                name: userData.name,
-                image: userData.image,
-                mobileNo: userData.mobile_no,
-                fcmToken: userData.fcm_token,
-                created: created.toDate()
-            }
+            const user: User = mapUserSnapshot(userSnapshot)
             return user
         })
         return users
@@ -31,22 +26,9 @@ export class UserResolver {
     @Query(() => User, {
         nullable: true
     })
-    async getUser(@Arg("id") id: string): Promise<User> {
-        const userRef = firestore.collection('users').doc(id)
-        const userSnapshot = await userRef.get()
-        const userData = userSnapshot.data()
-        if (!userSnapshot.exists) {
-            throw Error("User Does Not Exist")
-        }
-        const created: Timestamp = userData!.created
-        const user: User = {
-            id: userSnapshot.id,
-            name: userData!.name,
-            image: userData!.image,
-            mobileNo: userData!.mobile_no,
-            fcmToken: userData!.fcm_token,
-            created: created.toDate()
-        }
+    async getUser(@Arg("id") id: string, @RequestContainer() userDataLoader: UserDataLoader): Promise<User> {
+        const userSnapshot = await userDataLoader.load(id) as DocumentSnapshot
+        const user: User = mapUserSnapshot(userSnapshot)
         return user
     }
 
@@ -60,22 +42,10 @@ export class UserResolver {
         if (oweMeQuerySnaphot.docs.length == 0) {
             return []
         }
-        const owes: Array<Owe> = oweMeQuerySnaphot.docs.map((oweF) => {
-            const oweFData = oweF.data()
-            const oweFCreated: Timestamp = oweFData.created
-            const issedToRef: DocumentReference = oweFData.issuedToRef
-            const owe: Owe = {
-                id: oweF.id,
-                documenmentRef: oweF.ref,
-                title: oweFData.title,
-                amount: oweFData.amount,
-                state: oweFData.state ?? OweState.CREATED,
-                issuedByID: oweF.ref.parent.parent!.id,
-                issuedToID: issedToRef.id,
-                created: oweFCreated.toDate()
-            }
+        const owes: Array<Owe> = await Promise.all(oweMeQuerySnaphot.docs.map(async (oweF) => {
+            const owe: Owe = await mapOweSnapshot(oweF)
             return owe
-        })
+        }))
         return owes
     }
 
@@ -92,22 +62,10 @@ export class UserResolver {
         if (iOweQuerySnaphot.docs.length == 0) {
             return []
         }
-        const owes: Array<Owe> = iOweQuerySnaphot.docs.map((oweF) => {
-            const oweFData = oweF.data()
-            const oweFCreated: Timestamp = oweFData.created
-            const issedToRef: DocumentReference = oweFData.issuedToRef
-            const owe: Owe = {
-                id: oweF.id,
-                documenmentRef: oweF.ref,
-                title: oweFData.title,
-                amount: oweFData.amount,
-                state: oweFData.state ?? OweState.CREATED,
-                issuedByID: oweF.ref.parent.parent!.id,
-                issuedToID: issedToRef.id,
-                created: oweFCreated.toDate()
-            }
+        const owes: Array<Owe> = await Promise.all(iOweQuerySnaphot.docs.map(async (oweF) => {
+            const owe: Owe = await mapOweSnapshot(oweF);
             return owe
-        })
+        }))
         return owes
     }
 
