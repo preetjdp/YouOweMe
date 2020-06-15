@@ -1,8 +1,10 @@
 // 📦 Package imports:
+import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
 import 'package:contacts_service/contacts_service.dart';
 
 // 🌎 Project imports:
 import 'package:YouOweMe/resources/helpers.dart';
+import 'package:flutter/material.dart';
 import './graphql/seva.dart';
 
 extension ListUtils<T> on Iterable<T> {
@@ -74,4 +76,8 @@ extension MeUtils2 on Seva$Query$User$Owe$User {
 extension ContactUtils on Contact {
   String get shortName =>
       this.displayName.split(" ").take(2).map((e) => e[0]).toList().join();
+}
+
+extension YomContext on BuildContext {
+  YomDesign get yomDesign => YomDesign();
 }
