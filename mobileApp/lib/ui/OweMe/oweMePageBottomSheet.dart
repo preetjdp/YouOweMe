@@ -74,70 +74,78 @@ class OweMePageBottomSheet extends StatelessWidget {
       borderRadius: BorderRadius.only(
           topLeft: Radius.circular(15), topRight: Radius.circular(15)),
       child: Material(
-        child: ListView(
-          shrinkWrap: true,
+        child: Padding(
           padding: EdgeInsets.all(15).copyWith(bottom: 10),
-          children: [
-            Text("Title", style: Theme.of(context).textTheme.headline5),
-            Text(owe.title, style: Theme.of(context).textTheme.bodyText2),
-            SizedBox(
-              height: 20,
-            ),
-            if ([OweState.ACKNOWLEDGED, OweState.CREATED].contains(owe.state))
-              Text("Amount To Be Recieved",
-                  style: Theme.of(context).textTheme.headline5)
-            else if (owe.state == OweState.PAID)
-              Text("Amount Recieved",
-                  style: Theme.of(context).textTheme.headline5),
-            RichText(
-              text: TextSpan(
-                  style: Theme.of(context).textTheme.headline1,
-                  children: [
-                    TextSpan(
-                        text: "₹",
-                        style: TextStyle(color: Theme.of(context).accentColor)),
-                    TextSpan(text: owe.amount.toInt().toString())
-                  ]),
-            ),
-            Text("Wait When was this Again?",
-                style: Theme.of(context).textTheme.headline5),
-            Text(owe.created.simpler,
-                style: Theme.of(context).textTheme.bodyText2),
-            if ([OweState.ACKNOWLEDGED, OweState.CREATED]
-                .contains(owe.state)) ...[
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Title", style: Theme.of(context).textTheme.headline5),
+              Text(owe.title, style: Theme.of(context).textTheme.bodyText2),
               SizedBox(
                 height: 20,
               ),
-              Container(
-                height: 60,
-                width: 400,
-                child: CupertinoButton(
-                    color: Theme.of(context).accentColor,
-                    child: Text('Ping Him Up!'),
-                    onPressed: () {}),
+              if ([OweState.ACKNOWLEDGED, OweState.CREATED].contains(owe.state))
+                Text("Amount To Be Recieved",
+                    style: Theme.of(context).textTheme.headline5)
+              else if (owe.state == OweState.PAID)
+                Text("Amount Recieved",
+                    style: Theme.of(context).textTheme.headline5),
+              RichText(
+                text: TextSpan(
+                    style: Theme.of(context).textTheme.headline1,
+                    children: [
+                      TextSpan(
+                          text: "₹",
+                          style:
+                              TextStyle(color: Theme.of(context).accentColor)),
+                      TextSpan(text: owe.amount.toInt().toString())
+                    ]),
               ),
+              Text("Wait When was this Again?",
+                  style: Theme.of(context).textTheme.headline5),
+              Text(owe.created.simpler,
+                  style: Theme.of(context).textTheme.bodyText2),
+              if ([OweState.ACKNOWLEDGED, OweState.CREATED]
+                  .contains(owe.state)) ...[
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  height: 60,
+                  width: 400,
+                  child: CupertinoButton(
+                      color: Theme.of(context).accentColor,
+                      child: Text('Ping Him Up!'),
+                      onPressed: () {}),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 60,
+                  width: 400,
+                  child: YomButton(
+                      controller: yomButtonController,
+                      backgroundColor: CupertinoColors.activeGreen,
+                      child: Text('Mark As Paid'),
+                      onPressed: markAsPaid),
+                ),
+              ],
               SizedBox(
                 height: 10,
               ),
               Container(
-                height: 60,
                 width: 400,
                 child: YomButton(
-                    controller: yomButtonController,
-                    backgroundColor: CupertinoColors.activeGreen,
-                    child: Text('Mark As Paid'),
-                    onPressed: markAsPaid),
+                  onPressed: deleteOwe,
+                  controller: deleteButtonController,
+                  child:
+                      Text("Delete This Owe  👹", textAlign: TextAlign.center),
+                ),
               ),
             ],
-            SizedBox(
-              height: 10,
-            ),
-            YomButton(
-              onPressed: deleteOwe,
-              controller: deleteButtonController,
-              child: Text("Delete This Owe  👹", textAlign: TextAlign.center),
-            ),
-          ],
+          ),
         ),
       ),
     );
