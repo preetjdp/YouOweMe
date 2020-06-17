@@ -36,6 +36,7 @@ dependencies:
   modal_bottom_sheet: ^0.1.6+1
   firebase_analytics: ^5.0.15
   firebase_dynamic_links: ^0.5.1
+  rough: ^0.1.1
 
 dev_dependencies:
   import_sorter: ^3.1.0

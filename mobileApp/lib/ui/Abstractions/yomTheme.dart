@@ -17,6 +17,8 @@ class YomDesign {
   Color yomGreen2 = Color.fromRGBO(160, 225, 198, 1);
   Color yomPurple1 = Color.fromRGBO(121, 151, 207, 1);
   Color yomPurple2 = Color.fromRGBO(120, 123, 206, 1);
+
+  Curve yomCurve = Curves.easeInOutQuad;
 }
 
 ThemeData yomTheme() {

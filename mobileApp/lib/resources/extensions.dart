@@ -2,10 +2,12 @@
 import 'package:flutter/animation.dart';
 
 // 📦 Package imports:
+import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
 import 'package:contacts_service/contacts_service.dart';
 
 // 🌎 Project imports:
 import 'package:YouOweMe/resources/helpers.dart';
+import 'package:flutter/material.dart';
 import './graphql/seva.dart';
 
 extension ListUtils<T> on Iterable<T> {
@@ -35,6 +37,9 @@ extension OweUtils on List<Seva$Query$User$Owe> {
 
   List<Seva$Query$User$Owe> get stateAcknowledged =>
       this.where((element) => element.state == OweState.ACKNOWLEDGED).toList();
+
+  int get total =>
+      this.map((e) => e.amount).reduce((value, element) => value + element);
 }
 
 extension DateUtils on DateTime {
@@ -83,4 +88,8 @@ extension AnimationUtils on AnimationController {
   void yomAnimateTo(double target, {Duration duration = Duration.zero}) {
     this.animateTo(target, curve: Curves.easeOutQuart, duration: duration);
   }
+}
+
+extension YomContext on BuildContext {
+  YomDesign get yomDesign => YomDesign();
 }
