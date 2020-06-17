@@ -64,52 +64,39 @@ class DynamicLinkBottomSheetContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     seva.Seva$Query$User me = context.watch<MeNotifier>().me;
-    return ListView(
-      shrinkWrap: true,
-      padding: EdgeInsets.all(15),
-      children: [
-        Text("Title", style: Theme.of(context).textTheme.headline5),
-        Text(owe.title, style: Theme.of(context).textTheme.bodyText2),
-        SizedBox(
-          height: 20,
-        ),
-        if ([OweState.ACKNOWLEDGED, OweState.CREATED].contains(owe.state))
-          Text("Amount To Be Paid",
-              style: Theme.of(context).textTheme.headline5)
-        else if (owe.state == OweState.PAID)
-          Text("Amount Paid", style: Theme.of(context).textTheme.headline5),
-        RichText(
-          text:
-              TextSpan(style: Theme.of(context).textTheme.headline1, children: [
-            TextSpan(
-                text: "₹",
-                style: TextStyle(color: Theme.of(context).accentColor)),
-            TextSpan(text: owe.amount.toInt().toString())
-          ]),
-        ),
-        Text("Wait When was this Again?",
-            style: Theme.of(context).textTheme.headline5),
-        Text(owe.created.simpler, style: Theme.of(context).textTheme.bodyText2),
-        if (owe.issuedTo.id == me.id &&
-            [OweState.ACKNOWLEDGED, OweState.CREATED].contains(owe.state)) ...[
+    return Padding(
+      padding: EdgeInsets.all(15).copyWith(bottom: 10),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Title", style: Theme.of(context).textTheme.headline5),
+          Text(owe.title, style: Theme.of(context).textTheme.bodyText2),
           SizedBox(
             height: 20,
           ),
-          Container(
-            height: 60,
-            width: 400,
-            child: CupertinoButton(
-                color: Theme.of(context).accentColor,
-                child: Text('Pay Up!'),
-                onPressed: () {
-                  showYomBottomSheet(
-                      context: context,
-                      builder: (a, b) => Center(child: YOMSpinner()));
-                }),
+          if ([OweState.ACKNOWLEDGED, OweState.CREATED].contains(owe.state))
+            Text("Amount To Be Paid",
+                style: Theme.of(context).textTheme.headline5)
+          else if (owe.state == OweState.PAID)
+            Text("Amount Paid", style: Theme.of(context).textTheme.headline5),
+          RichText(
+            text: TextSpan(
+                style: Theme.of(context).textTheme.headline1,
+                children: [
+                  TextSpan(
+                      text: "₹",
+                      style: TextStyle(color: Theme.of(context).accentColor)),
+                  TextSpan(text: owe.amount.toInt().toString())
+                ]),
           ),
-        ] else if (owe.issuedBy.id == me.id) ...[
-          if ([OweState.ACKNOWLEDGED, OweState.CREATED]
-              .contains(owe.state)) ...[
+          Text("Wait When was this Again?",
+              style: Theme.of(context).textTheme.headline5),
+          Text(owe.created.simpler,
+              style: Theme.of(context).textTheme.bodyText2),
+          if (owe.issuedTo.id == me.id &&
+              [OweState.ACKNOWLEDGED, OweState.CREATED]
+                  .contains(owe.state)) ...[
             SizedBox(
               height: 20,
             ),
@@ -118,30 +105,49 @@ class DynamicLinkBottomSheetContent extends StatelessWidget {
               width: 400,
               child: CupertinoButton(
                   color: Theme.of(context).accentColor,
-                  child: Text('Ping Him Up!'),
-                  onPressed: () {}),
+                  child: Text('Pay Up!'),
+                  onPressed: () {
+                    showYomBottomSheet(
+                        context: context,
+                        builder: (a, b) => Center(child: YOMSpinner()));
+                  }),
             ),
+          ] else if (owe.issuedBy.id == me.id) ...[
+            if ([OweState.ACKNOWLEDGED, OweState.CREATED]
+                .contains(owe.state)) ...[
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: 60,
+                width: 400,
+                child: CupertinoButton(
+                    color: Theme.of(context).accentColor,
+                    child: Text('Ping Him Up!'),
+                    onPressed: () {}),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 60,
+                width: 400,
+                child: YomButton(
+                    backgroundColor: CupertinoColors.activeGreen,
+                    child: Text('Mark As Paid'),
+                    onPressed: () {}),
+              ),
+            ],
             SizedBox(
               height: 10,
             ),
-            Container(
-              height: 60,
-              width: 400,
-              child: YomButton(
-                  backgroundColor: CupertinoColors.activeGreen,
-                  child: Text('Mark As Paid'),
-                  onPressed: () {}),
+            YomButton(
+              onPressed: () {},
+              child: Text("Delete This Owe  👹", textAlign: TextAlign.center),
             ),
-          ],
-          SizedBox(
-            height: 10,
-          ),
-          YomButton(
-            onPressed: () {},
-            child: Text("Delete This Owe  👹", textAlign: TextAlign.center),
-          ),
-        ]
-      ],
+          ]
+        ],
+      ),
     );
   }
 }

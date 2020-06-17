@@ -17,9 +17,7 @@ class IOweSection extends StatelessWidget {
   Widget build(BuildContext context) {
     Seva$Query$User me = Provider.of<MeNotifier>(context).me;
     void goToIOwePage() {
-      Navigator.of(context).push(MaterialWithModalsPageRoute(
-          builder: (BuildContext context) => IOwePage(),
-          settings: RouteSettings(name: "I Owe Page")));
+      Navigator.of(context).pushNamed('i_owe_page');
     }
 
     return Container(

@@ -2,6 +2,9 @@
 import 'dart:ui';
 
 // 🐦 Flutter imports:
+import 'package:YouOweMe/ui/IOwe/iOwePage.dart';
+import 'package:YouOweMe/ui/NewOwe/newOwe.dart';
+import 'package:YouOweMe/ui/OweMe/oweMePage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -41,7 +44,7 @@ Future<GraphQLClient> getGraphqlClient(String userId) async {
 /// Gets the Url to be used for theGraphQLClient
 /// Fyi. Add's 2 Second Timout on mobile
 Future<String> getSevaUrl() async {
-  String localSevaUrl = "http://192.168.31.76:4001";
+  String localSevaUrl = "http://192.168.1.76:4001";
   String productionSevaUrl = "https://api.youoweme.preetjdp.dev";
   if (kReleaseMode) {
     print("Using Production Seva In Release");
@@ -132,7 +135,23 @@ Future<void> configureFirebaseDynamicLinks(BuildContext context) async {
 }
 
 Route<dynamic> routeGenerator(RouteSettings settings) {
+  print(settings.name);
   switch (settings.name) {
+    case "i_owe_page":
+      {
+        return MaterialWithModalsPageRoute(
+            settings: settings, builder: (context) => IOwePage());
+      }
+    case "owe_me_page":
+      {
+        return MaterialWithModalsPageRoute(
+            settings: settings, builder: (context) => OweMePage());
+      }
+    case "new_owe_page":
+      {
+        return MaterialWithModalsPageRoute(
+            settings: settings, builder: (context) => NewOwe());
+      }
     default:
       {
         return MaterialWithModalsPageRoute(
