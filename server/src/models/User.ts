@@ -13,6 +13,11 @@ export class User {
         nullable: true
     })
     image: string;
+    @Field({
+        nullable: true,
+        description: "The [BlurHash](https://blurha.sh/) representation of the Profile Picture `Image`"
+    })
+    imageHash: string;
 
     @Field()
     mobileNo: string;

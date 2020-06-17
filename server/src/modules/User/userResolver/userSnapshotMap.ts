@@ -13,6 +13,7 @@ export const mapUserSnapshot: userSnapshotMapType = snapshot => {
         id: snapshot.id,
         name: userData!.name,
         image: userData!.image,
+        imageHash: userData!.image_blurhash,
         mobileNo: userData!.mobile_no,
         fcmToken: userData!.fcm_token,
         created: created.toDate()
