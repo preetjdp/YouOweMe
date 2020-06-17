@@ -13,7 +13,8 @@ export const processAndUploadImage = async (userId: string, file: FileUpload): P
 
         await storageBucketFile.save(buffer)
         await storageBucketFile.makePublic()
-        return `https://storage.googleapis.com/${storageBucketFile.storage.projectId}.appspot.com/${storageBucketFile.name}`
+        let randomFetchId = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+        return `https://storage.googleapis.com/${storageBucketFile.storage.projectId}.appspot.com/${storageBucketFile.name}?id=${randomFetchId}`
     } catch (e) {
         throw e
     }
