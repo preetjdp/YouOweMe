@@ -13,6 +13,8 @@ class YomDesign {
   Color yomWhite = Color.fromRGBO(241, 245, 249, 1);
   Color yomGrey1 = Color.fromRGBO(52, 59, 70, 1);
   Color yomGrey2 = Color.fromRGBO(78, 80, 88, 1);
+
+  Curve yomCurve = Curves.easeInOutQuad;
 }
 
 ThemeData yomTheme() {

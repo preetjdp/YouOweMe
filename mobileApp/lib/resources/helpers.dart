@@ -2,6 +2,9 @@
 import 'dart:ui';
 
 // 🐦 Flutter imports:
+import 'package:YouOweMe/ui/IOwe/iOwePage.dart';
+import 'package:YouOweMe/ui/NewOwe/newOwe.dart';
+import 'package:YouOweMe/ui/OweMe/oweMePage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -132,7 +135,23 @@ Future<void> configureFirebaseDynamicLinks(BuildContext context) async {
 }
 
 Route<dynamic> routeGenerator(RouteSettings settings) {
+  print(settings.name);
   switch (settings.name) {
+    case "i_owe_page":
+      {
+        return MaterialWithModalsPageRoute(
+            settings: settings, builder: (context) => IOwePage());
+      }
+    case "owe_me_page":
+      {
+        return MaterialWithModalsPageRoute(
+            settings: settings, builder: (context) => OweMePage());
+      }
+    case "new_owe_page":
+      {
+        return MaterialWithModalsPageRoute(
+            settings: settings, builder: (context) => NewOwe());
+      }
     default:
       {
         return MaterialWithModalsPageRoute(
