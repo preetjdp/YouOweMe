@@ -3,6 +3,7 @@ query {
     id
     name
     image
+    imageHash
     oweMeAmount
     iOweAmount
     mobileNo
@@ -17,6 +18,7 @@ query {
         id
         name
         image
+        imageHash
         mobileNo
         created
       }
@@ -24,6 +26,7 @@ query {
         id
         name
         image
+        imageHash
         mobileNo
         created
       }
@@ -38,6 +41,7 @@ query {
         id
         name
         image
+        imageHash
         mobileNo
         created
       }
@@ -45,6 +49,7 @@ query {
         id
         name
         image
+        imageHash
         mobileNo
         created
       }

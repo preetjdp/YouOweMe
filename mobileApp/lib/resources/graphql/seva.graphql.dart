@@ -21,6 +21,8 @@ class Seva$Query$User$Owe$User with EquatableMixin {
 
   String image;
 
+  String imageHash;
+
   String mobileNo;
 
   @JsonKey(
@@ -29,7 +31,7 @@ class Seva$Query$User$Owe$User with EquatableMixin {
   DateTime created;
 
   @override
-  List<Object> get props => [id, name, image, mobileNo, created];
+  List<Object> get props => [id, name, image, imageHash, mobileNo, created];
   Map<String, dynamic> toJson() => _$Seva$Query$User$Owe$UserToJson(this);
 }
 
@@ -77,6 +79,8 @@ class Seva$Query$User with EquatableMixin {
 
   String image;
 
+  String imageHash;
+
   int oweMeAmount;
 
   int iOweAmount;
@@ -97,6 +101,7 @@ class Seva$Query$User with EquatableMixin {
         id,
         name,
         image,
+        imageHash,
         oweMeAmount,
         iOweAmount,
         mobileNo,
@@ -160,6 +165,12 @@ class SevaQuery extends GraphQLQuery<Seva$Query, JsonSerializable> {
                     selectionSet: null),
                 FieldNode(
                     name: NameNode(value: 'image'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'imageHash'),
                     alias: null,
                     arguments: [],
                     directives: [],
@@ -249,6 +260,12 @@ class SevaQuery extends GraphQLQuery<Seva$Query, JsonSerializable> {
                                 directives: [],
                                 selectionSet: null),
                             FieldNode(
+                                name: NameNode(value: 'imageHash'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
                                 name: NameNode(value: 'mobileNo'),
                                 alias: null,
                                 arguments: [],
@@ -281,6 +298,12 @@ class SevaQuery extends GraphQLQuery<Seva$Query, JsonSerializable> {
                                 selectionSet: null),
                             FieldNode(
                                 name: NameNode(value: 'image'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'imageHash'),
                                 alias: null,
                                 arguments: [],
                                 directives: [],
@@ -360,6 +383,12 @@ class SevaQuery extends GraphQLQuery<Seva$Query, JsonSerializable> {
                                 directives: [],
                                 selectionSet: null),
                             FieldNode(
+                                name: NameNode(value: 'imageHash'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
                                 name: NameNode(value: 'mobileNo'),
                                 alias: null,
                                 arguments: [],
@@ -392,6 +421,12 @@ class SevaQuery extends GraphQLQuery<Seva$Query, JsonSerializable> {
                                 selectionSet: null),
                             FieldNode(
                                 name: NameNode(value: 'image'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'imageHash'),
                                 alias: null,
                                 arguments: [],
                                 directives: [],

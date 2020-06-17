@@ -60,13 +60,17 @@ input UpdateOweInputType {
 input UpdateUserInputType {
   id: ID!
   name: String
+  image: Upload
   fcmToken: String
 }
+
+scalar Upload
 
 type User {
   id: ID!
   name: String!
   image: String
+  imageHash: String
   mobileNo: String!
   oweMe: [Owe!]!
   oweMeAmount: Int!
