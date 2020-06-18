@@ -71,8 +71,7 @@ class PeopleList extends StatelessWidget {
               Seva$Query$User$Owe$User user =
                   me.oweMe.elementAt(index).issuedTo;
               Contact contact = Contact(
-                  displayName: user.name,
-                  phones: [Item(value: user.mobileNo)]);
+                  displayName: user.name, phones: [Item(value: user.mobileNo)]);
               return GestureDetector(
                 onTap: () => selectContact(contact),
                 child: Container(
@@ -90,7 +89,7 @@ class PeopleList extends StatelessWidget {
                       ]),
                   child: Column(
                     children: <Widget>[
-                      YomAvatar(
+                      YomAvatar.fromText(
                           // Returns "PP" for "Preet Parekh"
                           text: contact.shortName),
                       SizedBox(

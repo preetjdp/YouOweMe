@@ -79,8 +79,8 @@ class BottomList extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                YomAvatar(
-                  text: owe.issuedTo.shortName,
+                YomAvatar.fromOweUser(
+                  user: owe.issuedTo,
                 ),
                 SizedBox(
                   width: 20,

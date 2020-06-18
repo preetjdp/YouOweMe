@@ -38,9 +38,7 @@ class IOwePageElement extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            YomAvatar(
-              text: owe.issuedBy.shortName,
-            ),
+            YomAvatar.fromOweUser(user: owe.issuedBy),
             SizedBox(
               width: 20,
             ),

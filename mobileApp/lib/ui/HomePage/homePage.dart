@@ -2,6 +2,7 @@
 import 'dart:ui';
 
 // 🐦 Flutter imports:
+import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:retry/retry.dart';
+import 'package:basics/basics.dart';
 
 // 🌎 Project imports:
 import 'package:YouOweMe/resources/helpers.dart';
@@ -89,6 +91,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Seva$Query$User me = context.watch<MeNotifier>().me;
     final TargetPlatform platform = Theme.of(context).platform;
 
     void goToNewOwe() async {
@@ -182,11 +185,12 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
       body: Stack(
         children: [
           AnimationLimiter(child: abstractedHomePage),
+          // if (me.isNotNull)
           Positioned(
             bottom: 20,
             left: 15,
-            child: YomAvatar(
-              text: Provider.of<MeNotifier>(context)?.me?.shortName ?? "PP",
+            child: YomAvatar.fromUser(
+              user: me,
               onPressed: () => logOutDialog(context),
             ),
           )

@@ -159,7 +159,7 @@ class ContactsList extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                YomAvatar(
+                YomAvatar.fromText(
                   text: contact.shortName,
                 ),
                 SizedBox(

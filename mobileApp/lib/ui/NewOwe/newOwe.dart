@@ -205,7 +205,7 @@ class _NewOweState extends State<NewOwe> {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                YomAvatar(
+                                YomAvatar.fromText(
                                   text: snapshot.data.displayName != null
                                       ? snapshot.data.shortName
                                       : "+91",
