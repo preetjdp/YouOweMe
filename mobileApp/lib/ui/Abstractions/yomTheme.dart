@@ -15,6 +15,10 @@ class YomDesign {
   Color yomGrey2 = Color.fromRGBO(78, 80, 88, 1);
 
   Curve yomCurve = Curves.easeInOutQuad;
+  BoxShadow yomBoxShadow = BoxShadow(
+      blurRadius: 10,
+      color: Color.fromRGBO(78, 80, 88, 0.05),
+      spreadRadius: 0.1);
 }
 
 ThemeData yomTheme() {
