@@ -9,17 +9,32 @@ import 'package:YouOweMe/resources/extensions.dart';
 
 class YomAvatar extends StatelessWidget {
   final Widget child;
+  final BorderRadius borderRadius;
   YomAvatar.fromUser(
-      {@required Seva$Query$User user, this.onPressed, this.size = 45})
+      {@required Seva$Query$User user,
+      this.onPressed,
+      this.size = 45,
+      this.borderRadius})
       : child = _childFromUser(user);
 
   YomAvatar.fromOweUser(
-      {@required Seva$Query$User$Owe$User user, this.onPressed, this.size = 45})
+      {@required Seva$Query$User$Owe$User user,
+      this.onPressed,
+      this.size = 45,
+      this.borderRadius})
       : child = _childFromOweUser(user);
 
-  YomAvatar({@required this.child, this.onPressed, this.size = 45});
+  YomAvatar(
+      {@required this.child,
+      this.onPressed,
+      this.size = 45,
+      this.borderRadius});
 
-  YomAvatar.fromText({@required String text, this.onPressed, this.size = 45})
+  YomAvatar.fromText(
+      {@required String text,
+      this.onPressed,
+      this.size = 45,
+      this.borderRadius})
       : child = _childFromText(text);
 
   static Widget _childFromUser(Seva$Query$User user) {
@@ -92,7 +107,7 @@ class YomAvatar extends StatelessWidget {
           ),
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(size),
+          borderRadius: borderRadius ?? BorderRadius.circular(size),
           child: child,
         ),
       ),
