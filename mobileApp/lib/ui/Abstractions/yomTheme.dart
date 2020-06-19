@@ -10,7 +10,8 @@ class YomDesign {
   double fontSizeH5 = 20;
   double fontSizeH6 = 14;
 
-  Color yomWhite = Color.fromRGBO(241, 245, 249, 1);
+  Color yomWhite1 = Color.fromRGBO(241, 245, 249, 1);
+  Color yomWhite2 = Colors.white;
   Color yomGrey1 = Color.fromRGBO(52, 59, 70, 1);
   Color yomGrey2 = Color.fromRGBO(78, 80, 88, 1);
 
@@ -25,8 +26,8 @@ ThemeData yomTheme() {
   YomDesign yomDesign = YomDesign();
   return ThemeData(
       fontFamily: "Aileron",
-      scaffoldBackgroundColor: yomDesign.yomWhite,
-      backgroundColor: yomDesign.yomWhite,
+      scaffoldBackgroundColor: yomDesign.yomWhite1,
+      backgroundColor: yomDesign.yomWhite1,
       accentColor: yomDesign.yomGrey1,
       cupertinoOverrideTheme:
           CupertinoThemeData(primaryColor: yomDesign.yomGrey1),
