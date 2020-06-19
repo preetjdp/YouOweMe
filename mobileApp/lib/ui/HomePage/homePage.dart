@@ -3,6 +3,7 @@ import 'dart:ui';
 
 // 🐦 Flutter imports:
 import 'package:YouOweMe/resources/graphql/seva.dart';
+import 'package:YouOweMe/ui/HomePage/homePageBottomSheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -50,39 +51,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
   void logOutDialog(BuildContext context) async {
     bool result = await showCupertinoModalPopup<bool>(
         context: context,
+        useRootNavigator: false,
         builder: (BuildContext context) {
-          return CupertinoActionSheet(
-            title: Text("Logout"),
-            message: Text(
-                """This action will log you out of the app. I hope you come back again soon, now so that you're here we'll talk a bit a bit bit by bit through the bitly world which runs bit by bit."""),
-            cancelButton: CupertinoActionSheetAction(
-              child: Text("Cancel"),
-              isDestructiveAction: true,
-              onPressed: () {
-                Navigator.pop(context, false);
-              },
-            ),
-            actions: <Widget>[
-              CupertinoActionSheetAction(
-                child: Text(
-                  "Log me out already. 😪",
-                  style: TextStyle(color: CupertinoColors.activeGreen),
-                ),
-                isDefaultAction: true,
-                onPressed: () {
-                  Navigator.pop(context, true);
-                },
-              ),
-              CupertinoActionSheetAction(
-                child: Text(
-                  "Toggle Device Preview",
-                ),
-                onPressed: () {
-                  toggleDevicePreview();
-                },
-              ),
-            ],
-          );
+          return HomePageBottomSheet();
         });
     if (result != null && result) {
       FirebaseAuth.instance.signOut();
