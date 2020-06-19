@@ -44,6 +44,12 @@ gsutil cp -r gs://yom-backup .
 firebase emulators:start --import ./data/
 ```
 
+### Export Firebase Emulator Data
+
+```bash
+firebase emulators:export .\data
+```
+
 ### Start Firebase-UI with the project
 
 Make sure you're in the firebase-ui folder
