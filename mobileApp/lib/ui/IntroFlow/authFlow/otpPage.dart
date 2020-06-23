@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+import 'package:YouOweMe/ui/IntroFlow/introFlow.dart';
+import 'package:YouOweMe/ui/IntroFlow/providers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -6,14 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 
 // 🌎 Project imports:
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
 
-class OtpPage extends StatefulWidget {
+class OtpPage extends StatefulHookWidget {
   @override
   _OtpPageState createState() => _OtpPageState();
 }
@@ -23,16 +27,17 @@ class _OtpPageState extends State<OtpPage> {
 
   @override
   Widget build(BuildContext context) {
+    final PageController pageController =
+        useProvider(introFlowPageControllerProvider);
+    final LoginUser introFlowUser = useProvider(introFlowUserProvider);
     final _size = MediaQuery.of(context).size;
 
     SizedBox _spacer(int padding, [int minus = 0]) {
       return SizedBox(height: (_size.height / padding) - minus);
     }
 
-    LoginUser loginUser = Provider.of<LoginUser>(context, listen: false);
-
     void nextPage() {
-      Provider.of<PageController>(context, listen: false).nextPage(
+      pageController.nextPage(
           duration: Duration(milliseconds: 200), curve: Curves.easeInOutQuad);
     }
 
@@ -41,24 +46,24 @@ class _OtpPageState extends State<OtpPage> {
         return;
       }
       AuthCredential otpCredential = PhoneAuthProvider.getCredential(
-          verificationId: loginUser.verificationCode,
+          verificationId: introFlowUser.verificationCode,
           smsCode: otpController.text);
 
       VoidCallback callback = await showCupertinoModalPopup<VoidCallback>(
           context: context,
           builder: (BuildContext context) {
-            print(loginUser.verificationCode);
+            print(introFlowUser.verificationCode);
             FirebaseAuth.instance
                 .signInWithCredential(otpCredential)
                 .then((result) {
               if (result.user != null) {
                 //The logic to add update the userName on new login
-                if (loginUser.userName != null &&
-                    loginUser.userName.isNotEmpty) {
+                if (introFlowUser.userName != null &&
+                    introFlowUser.userName.isNotEmpty) {
                   Firestore.instance
                       .collection("users")
                       .document(result.user.uid)
-                      .updateData({'name': loginUser.userName});
+                      .updateData({'name': introFlowUser.userName});
                 }
                 final FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics();
                 firebaseAnalytics.setUserId(result.user.uid);

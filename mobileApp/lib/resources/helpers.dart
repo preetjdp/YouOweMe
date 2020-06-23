@@ -59,7 +59,7 @@ Future<String> getSevaUrl() async {
       throw "Could Not Connect to Local Seva";
     }
   } catch (e) {
-    print("Using Production Seva");
+    print("Using Production Seva" + e.toString());
     return productionSevaUrl;
   }
 }

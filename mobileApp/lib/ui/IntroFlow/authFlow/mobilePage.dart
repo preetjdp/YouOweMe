@@ -1,35 +1,38 @@
 // 🐦 Flutter imports:
+import 'package:YouOweMe/ui/IntroFlow/providers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
-import 'package:provider/provider.dart';
 
 // 🌎 Project imports:
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class MobilePage extends StatefulWidget {
+class MobilePage extends StatefulHookWidget {
   @override
   _MobilePageState createState() => _MobilePageState();
 }
 
 class _MobilePageState extends State<MobilePage> {
   final TextEditingController mobileNoController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    final PageController pageController =
+        useProvider(introFlowPageControllerProvider);
+    final LoginUser introFlowUser = useProvider(introFlowUserProvider);
+
     final TargetPlatform platform = Theme.of(context).platform;
     final _size = MediaQuery.of(context).size;
 
     SizedBox _spacer(int padding, [int minus = 0]) {
       return SizedBox(height: (_size.height / padding) - minus);
     }
-
-    PageController pageController =
-        Provider.of<PageController>(context, listen: false);
-    LoginUser loginUser = Provider.of<LoginUser>(context, listen: false);
 
     void nextPage() {
       pageController.nextPage(
@@ -60,19 +63,19 @@ class _MobilePageState extends State<MobilePage> {
                   // Navigator.pop(context, nextPage);
                   print(exception.message);
                 },
-               codeSent: (a, [b]) {
-                 if(platform == TargetPlatform.iOS) {
-                    loginUser.addVerificationCode(a);
+                codeSent: (a, [b]) {
+                  if (platform == TargetPlatform.iOS) {
+                    introFlowUser.addVerificationCode(a);
                     Navigator.pop(context, nextPage);
-                 }   
+                  }
                   print("SMS sent");
                 },
                 codeAutoRetrievalTimeout: (a) {
                   print("Timeout" + a);
-                  if(platform == TargetPlatform.iOS) {
+                  if (platform == TargetPlatform.iOS) {
                     return;
                   }
-                  loginUser.addVerificationCode(a);
+                  introFlowUser.addVerificationCode(a);
                   Navigator.pop(context, nextPage);
                 });
             return CupertinoPopupSurface(
