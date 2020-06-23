@@ -1,21 +1,20 @@
 // 🐦 Flutter imports:
+import 'package:YouOweMe/resources/providers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-// 📦 Package imports:
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:provider/provider.dart';
 
 // 🌎 Project imports:
 import 'package:YouOweMe/resources/graphql/seva.dart';
-import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
-import 'package:YouOweMe/ui/IOwe/iOwePage.dart';
 
-class IOweSection extends StatelessWidget {
+class IOweSection extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    Seva$Query$User me = Provider.of<MeNotifier>(context).me;
+    Seva$Query$User me = useProvider(meNotifierProvider).me;
+
     void goToIOwePage() {
       Navigator.of(context).pushNamed('i_owe_page');
     }

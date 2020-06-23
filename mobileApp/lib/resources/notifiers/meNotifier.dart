@@ -18,10 +18,9 @@ class MeNotifier extends ChangeNotifier {
   Seva$Query$User me;
   bool isLoading;
 
-  MeNotifier(BuildContext context) {
+  MeNotifier() {
     print("Construcing");
     isLoading = true;
-    // init();
   }
 
   void onProxyUpdate(FirebaseUser firebaseUser) async {

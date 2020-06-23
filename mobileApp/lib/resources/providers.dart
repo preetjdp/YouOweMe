@@ -1,33 +1,37 @@
-// 🐦 Flutter imports:
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:contacts_service/contacts_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
-import 'package:provider/single_child_widget.dart';
-
-// 🌎 Project imports:
 import 'package:YouOweMe/resources/notifiers/contactProxyNotifier.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
+import 'package:contacts_service/contacts_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-List<SingleChildWidget> yomProviders = [
-  StreamProvider<FirebaseUser>.value(
-      value: FirebaseAuth.instance.onAuthStateChanged),
-  ChangeNotifierProxyProvider<FirebaseUser, MeNotifier>(
-    create: (BuildContext context) => MeNotifier(context),
-    update: (context, firebaseUser, meNotifier) =>
-        meNotifier..onProxyUpdate(firebaseUser),
-    lazy: false,
-  ),
-  FutureProvider<Iterable<Contact>>(
-    create: (a) => ContactsService.getContacts(withThumbnails: false),
-    lazy: false,
-    initialData: [],
-  ),
-  ChangeNotifierProxyProvider<Iterable<Contact>, ContactProxyNotifier>(
-    create: (BuildContext context) => ContactProxyNotifier(),
-    update: (BuildContext context, a, b) => b..update(a),
-    lazy: false,
-  )
-];
+final firebaseUserProvider =
+    StreamProvider((ref) => FirebaseAuth.instance.onAuthStateChanged);
+
+final meNotifierProvider = ChangeNotifierProvider<MeNotifier>((ref) {
+  MeNotifier meNotifier = MeNotifier();
+  print("Hello I Guess");
+  ref
+      .read(firebaseUserProvider)
+      .currentData
+      .then((value) => meNotifier.onProxyUpdate(value));
+  ref.read(firebaseUserProvider).stream.listen((event) {
+    print("New Update");
+    print(event.uid);
+    meNotifier..onProxyUpdate(event);
+  });
+
+  return meNotifier;
+});
+
+final deviceContactsProvider =
+    FutureProvider((_) => ContactsService.getContacts(withThumbnails: false));
+
+final fuzzyContactsChangeNotifierProvider = ChangeNotifierProvider((ref) {
+  ContactProxyNotifier contactProxyNotifier = ContactProxyNotifier();
+  ref
+      .read(deviceContactsProvider)
+      .future
+      .then((value) => contactProxyNotifier.update(value));
+
+  return contactProxyNotifier;
+});

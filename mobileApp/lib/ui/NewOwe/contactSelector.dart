@@ -1,19 +1,20 @@
 // 🐦 Flutter imports:
+import 'package:YouOweMe/resources/providers.dart';
+import 'package:YouOweMe/ui/NewOwe/providers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:contacts_service/contacts_service.dart';
-import 'package:provider/provider.dart';
-import 'package:rxdart/rxdart.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // 🌎 Project imports:
-import 'package:YouOweMe/resources/notifiers/contactProxyNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:YouOweMe/resources/extensions.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-class ContactSelector extends StatefulWidget {
+class ContactSelector extends StatefulHookWidget {
   final ScrollController scrollController;
 
   ContactSelector({@required this.scrollController});
@@ -28,10 +29,14 @@ class _ContactSelectorState extends State<ContactSelector> {
 
   @override
   Widget build(BuildContext context) {
+    final PanelController slidingPanelController =
+        useProvider(newOweSlidingPanelControllerProvider);
+    final selectedContactProvider = useProvider(newOweSelectedContactProvider);
+    final fuzzyContacts = useProvider(fuzzyContactsChangeNotifierProvider);
+
     void selectContact(Contact contact) {
-      Provider.of<PanelController>(context, listen: false).close();
-      Provider.of<BehaviorSubject<Contact>>(context, listen: false)
-          .add(contact);
+      slidingPanelController.close();
+      selectedContactProvider.add(contact);
     }
 
     void onMobileNumberTextFieldSubmit() {
@@ -105,8 +110,7 @@ class _ContactSelectorState extends State<ContactSelector> {
             height: 40,
             child: TextField(
               textInputAction: TextInputAction.search,
-              controller: Provider.of<ContactProxyNotifier>(context)
-                  .contactEditingController,
+              controller: fuzzyContacts.contactEditingController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Theme.of(context).scaffoldBackgroundColor,
@@ -133,26 +137,25 @@ class _ContactSelectorState extends State<ContactSelector> {
   }
 }
 
-class ContactsList extends StatelessWidget {
+class ContactsList extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final PanelController slidingPanelController =
+        useProvider(newOweSlidingPanelControllerProvider);
+    final selectedContactProvider = useProvider(newOweSelectedContactProvider);
+    final fuzzyContacts = useProvider(fuzzyContactsChangeNotifierProvider);
+
     void selectContact(Contact contact) {
-      Provider.of<PanelController>(context, listen: false).close();
-      Provider.of<BehaviorSubject<Contact>>(context, listen: false)
-          .add(contact);
+      slidingPanelController.close();
+      selectedContactProvider.add(contact);
     }
 
     return ListView.builder(
-        itemCount: Provider.of<ContactProxyNotifier>(context)
-            .contacts
-            .length
-            .clamp(0, 20),
+        itemCount: fuzzyContacts.contacts.length.clamp(0, 20),
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
-          Contact contact = Provider.of<ContactProxyNotifier>(context)
-              .contacts
-              .elementAt(index);
+          Contact contact = fuzzyContacts.contacts.elementAt(index);
           return Container(
             margin: EdgeInsets.only(top: 10),
             height: 50,

@@ -1,23 +1,23 @@
 // 🐦 Flutter imports:
+import 'package:YouOweMe/resources/providers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 // 📦 Package imports:
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:provider/provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:async/async.dart';
 
 // 🌎 Project imports:
 import 'package:YouOweMe/resources/graphql/queries/getOwe/getOwe.dart';
 import 'package:YouOweMe/resources/graphql/seva.dart' as seva;
-import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomBottomSheet.dart';
 import 'package:YouOweMe/ui/Abstractions/yomButton.dart';
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:YouOweMe/resources/extensions.dart';
 
-class DynamicLinkBottomSheet extends StatefulWidget {
+class DynamicLinkBottomSheet extends StatefulHookWidget {
   final ScrollController scrollController;
   final String oweId;
 
@@ -32,7 +32,8 @@ class _DynamicLinkBottomSheetState extends State<DynamicLinkBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    GraphQLClient graphQLClient = context.watch<MeNotifier>().graphQLClient;
+    GraphQLClient graphQLClient = useProvider(meNotifierProvider).graphQLClient;
+
     GetOweQuery getOweQuery =
         GetOweQuery(variables: GetOweArguments(input: widget.oweId));
 
@@ -58,12 +59,13 @@ class _DynamicLinkBottomSheetState extends State<DynamicLinkBottomSheet> {
   }
 }
 
-class DynamicLinkBottomSheetContent extends StatelessWidget {
+class DynamicLinkBottomSheetContent extends HookWidget {
   final GetOwe$Query$Owe owe;
   DynamicLinkBottomSheetContent(this.owe);
   @override
   Widget build(BuildContext context) {
-    seva.Seva$Query$User me = context.watch<MeNotifier>().me;
+    seva.Seva$Query$User me = useProvider(meNotifierProvider).me;
+
     return Padding(
       padding: EdgeInsets.all(15).copyWith(bottom: 10),
       child: Column(

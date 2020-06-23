@@ -1,25 +1,26 @@
 // 🐦 Flutter imports:
+import 'package:YouOweMe/resources/providers.dart';
 import 'package:YouOweMe/ui/Abstractions/yomSpacer.dart';
 import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:provider/provider.dart';
 
 // 🌎 Project imports:
 import 'package:YouOweMe/resources/graphql/seva.dart';
-import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/OweMe/oweMePageElement.dart';
 import 'package:YouOweMe/ui/OweMe/oweMePageEmptyState.dart';
 import 'package:YouOweMe/resources/extensions.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rough/rough.dart';
 
-class OweMePage extends StatelessWidget {
+class OweMePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final List<Seva$Query$User$Owe> oweMe =
-        Provider.of<MeNotifier>(context).me.oweMe;
+        useProvider(meNotifierProvider).me.oweMe;
 
     List<Widget> _getHandDrawnTotal(List<Seva$Query$User$Owe> owes) {
       return <Widget>[
