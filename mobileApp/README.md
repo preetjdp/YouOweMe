@@ -1,13 +1,13 @@
-## Styles
+### Styles
 
 Dart File Naming Convention => lowerCamelCase
 
-## Font
+### Font
 
 The font being used throughout the application is
 [Aileron Black](https://open-foundry.com/fonts/aileron_black)
 
-## How to get the app started.
+### How to get the app started.
 
 - Setup a Firebase Project for your own and use that `google-services.json`
 
@@ -74,11 +74,11 @@ flutter create . --org dev.preetjdp youoweme
 flutter pub run flutter_launcher_icons:main
 ```
 
-## KeyTool options
+### KeyTool options
 
 `Password => q^iB07QT`
 
-## Get Sha Key from key.jks
+### Get Sha Key from key.jks
 
 ```bash
 keytool -list -v -keystore {filePath} -alias {key-alias}
@@ -86,7 +86,7 @@ Example:
 keytool -list -v -keystore ./android/app/key.jks -alias key
 ```
 
-## Launch url on the phone.
+### Launch url on the phone.
 
 ```bash
 adb shell am start -a android.intent.action.VIEW -d https://youoweme.page.link/oNL2

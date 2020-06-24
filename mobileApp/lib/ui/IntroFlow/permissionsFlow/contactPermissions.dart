@@ -76,6 +76,7 @@ class ContactsPermissions extends HookWidget {
                 height: 60,
                 width: 400,
                 child: CupertinoButton(
+                    key: Key("contact_permission_next"),
                     color: Theme.of(context).accentColor,
                     child: Text('Next'),
                     onPressed: nextPage),
