@@ -36,7 +36,7 @@ class IntroFlow extends HookWidget {
                   MobilePage(),
                   OtpPage(),
                   NotificationsPermissions(),
-                  ContactsPermissions(),
+                  // ContactsPermissions(),
                   Container()
                 ],
               ),

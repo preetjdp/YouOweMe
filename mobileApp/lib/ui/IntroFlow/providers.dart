@@ -13,6 +13,12 @@ final authValidatorProvider = StreamProvider<bool>((ref) {
   PageController _pageController =
       ref.read(introFlowPageControllerProvider).value;
 
+  _pageController.addListener(() {
+    if (_pageController.page == 4) {
+      screeningSubject.add(true);
+    }
+  });
+
   ref.read(firebaseUserProvider).stream.listen((FirebaseUser user) {
     /// Meaning you are on the first page and
     /// a user is present.
