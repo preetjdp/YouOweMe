@@ -1,15 +1,14 @@
 // 🐦 Flutter imports:
-import 'package:YouOweMe/ui/IntroFlow/providers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import 'package:basics/basics.dart';
 
 // 🌎 Project imports:
+import 'package:YouOweMe/ui/IntroFlow/providers.dart';
 import 'package:YouOweMe/main.dart';
 import 'package:YouOweMe/ui/IntroFlow/authFlow/authFlow.dart';
 import 'package:YouOweMe/ui/IntroFlow/permissionsFlow/permissionsFlow.dart';

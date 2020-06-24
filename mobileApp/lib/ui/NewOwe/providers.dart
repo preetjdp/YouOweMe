@@ -1,8 +1,11 @@
-import 'package:YouOweMe/resources/notifiers/contactProxyNotifier.dart';
+// 📦 Package imports:
 import 'package:contacts_service/contacts_service.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:state_notifier/state_notifier.dart';
+
+// 🌎 Project imports:
+import 'package:YouOweMe/resources/notifiers/contactProxyNotifier.dart';
 
 final newOweSlidingPanelControllerProvider = Provider((_) => PanelController());
 

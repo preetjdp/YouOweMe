@@ -1,17 +1,17 @@
 // 🐦 Flutter imports:
-import 'package:YouOweMe/ui/IntroFlow/providers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
-
-// 🌎 Project imports:
-import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
-import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+// 🌎 Project imports:
+import 'package:YouOweMe/ui/IntroFlow/providers.dart';
+import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
+import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
 
 class MobilePage extends StatefulHookWidget {
   @override

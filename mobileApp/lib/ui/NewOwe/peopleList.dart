@@ -1,6 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:YouOweMe/resources/providers.dart';
-import 'package:YouOweMe/ui/NewOwe/providers.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -10,6 +8,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 // 🌎 Project imports:
+import 'package:YouOweMe/resources/providers.dart';
+import 'package:YouOweMe/ui/NewOwe/providers.dart';
 import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/ui/Abstractions/expandingWidgetDelegate.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';

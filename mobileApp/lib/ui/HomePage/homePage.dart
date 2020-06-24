@@ -2,7 +2,6 @@
 import 'dart:ui';
 
 // 🐦 Flutter imports:
-import 'package:YouOweMe/resources/providers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +15,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:retry/retry.dart';
 
 // 🌎 Project imports:
+import 'package:YouOweMe/resources/providers.dart';
 import 'package:YouOweMe/resources/helpers.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';

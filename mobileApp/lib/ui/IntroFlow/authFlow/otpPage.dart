@@ -1,5 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:YouOweMe/ui/IntroFlow/providers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,10 +8,10 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 
 // 🌎 Project imports:
+import 'package:YouOweMe/ui/IntroFlow/providers.dart';
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
 

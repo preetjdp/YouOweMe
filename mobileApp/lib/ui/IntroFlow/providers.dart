@@ -1,9 +1,14 @@
-import 'package:YouOweMe/resources/providers.dart';
-import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
+
+// 🌎 Project imports:
+import 'package:YouOweMe/resources/providers.dart';
+import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
 
 final introFlowPageControllerProvider =
     Provider((ref) => PageController(initialPage: 0));
