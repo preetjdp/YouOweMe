@@ -14,9 +14,15 @@ void main() {
           "shell pm grant dev.preetjdp.youoweme android.permission.READ_CONTACTS"
               .split(" "));
       driver = await FlutterDriver.connect();
+      await driver.startTracing();
     });
 
-    tearDownAll(() {
+    tearDownAll(() async {
+      Timeline timeline = await driver.stopTracingAndDownloadTimeline();
+      final summary = new TimelineSummary.summarize(timeline);
+      print("WOWZA" + summary.toString());
+      summary.writeSummaryToFile('master',
+          pretty: true, destinationDirectory: "./test_driver/result/");
       if (driver != null) driver.close();
     });
 
@@ -45,6 +51,30 @@ void main() {
       await driver.tap(find.byValueKey("contact_permission_next"));
 
       sleep(const Duration(seconds: 3));
+    });
+
+    test("OweMe Page", () async {
+      await driver.tap(find.text("Owe Me"));
+      await driver.scroll(find.byType("CustomScrollView"), 0, -600,
+          Duration(milliseconds: 100));
+
+      await driver.tap(find.pageBack());
+    });
+
+    test("IOwe Page", () async {
+      await driver.tap(find.text("I Owe"));
+      await driver.scroll(find.byType("CustomScrollView"), 0, -600,
+          Duration(milliseconds: 100));
+
+      await driver.tap(find.pageBack());
+    });
+
+    test("NewOwe Page", () async {
+      await driver.tap(find.text("New"));
+
+      await Future.delayed(Duration(seconds: 2));
+
+      await driver.tap(find.pageBack());
     });
   });
 }
