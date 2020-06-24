@@ -2,6 +2,7 @@
 import 'package:YouOweMe/resources/providers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 // 📦 Package imports:
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -13,7 +14,7 @@ import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomButton.dart';
 import 'package:YouOweMe/resources/extensions.dart';
 
-class OweMePageBottomSheet extends StatelessWidget {
+class OweMePageBottomSheet extends HookWidget {
   final Seva$Query$User$Owe owe;
   final ScrollController scrollController;
   final YomButtonController yomButtonController = YomButtonController();
