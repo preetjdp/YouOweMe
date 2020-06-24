@@ -91,3 +91,9 @@ keytool -list -v -keystore ./android/app/key.jks -alias key
 ```bash
 adb shell am start -a android.intent.action.VIEW -d https://youoweme.page.link/oNL2
 ```
+
+### Run Driver Test
+
+```bash
+flutter drive --target=test_driver/app.dart --profile
+```
