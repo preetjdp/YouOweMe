@@ -56,7 +56,7 @@ void main() {
     test("OweMe Page", () async {
       await driver.tap(find.text("Owe Me"));
       await driver.scroll(find.byType("CustomScrollView"), 0, -600,
-          Duration(milliseconds: 100));
+          Duration(milliseconds: 200));
 
       await driver.tap(find.pageBack());
     });
@@ -64,7 +64,7 @@ void main() {
     test("IOwe Page", () async {
       await driver.tap(find.text("I Owe"));
       await driver.scroll(find.byType("CustomScrollView"), 0, -600,
-          Duration(milliseconds: 100));
+          Duration(milliseconds: 200));
 
       await driver.tap(find.pageBack());
     });
