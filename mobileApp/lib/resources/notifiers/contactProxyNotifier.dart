@@ -31,16 +31,6 @@ class ContactProxyNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  // void update(Iterable<Contact> contacts) {
-  //   if (this.contacts != contacts) {
-  //     this.contacts = contacts;
-  //     notifyListeners();
-  //   }
-  //   if (this.staticContacts != contacts) {
-  //     this.staticContacts = contacts;
-  //   }
-  // }
-
   void onTextControllerChanged() {
     final fuse = Fuzzy(this.staticContacts.toList(),
         options: FuzzyOptions(verbose: true, keys: [

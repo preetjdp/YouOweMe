@@ -5,8 +5,6 @@ import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-// 📦 Package imports:
-
 // 🌎 Project imports:
 import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/ui/OweMe/oweMePageElement.dart';

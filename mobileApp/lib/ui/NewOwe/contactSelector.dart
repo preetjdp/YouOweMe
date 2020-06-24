@@ -1,5 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:YouOweMe/resources/providers.dart';
 import 'package:YouOweMe/ui/Abstractions/yomButton.dart';
 import 'package:YouOweMe/ui/Abstractions/yomSpacer.dart';
 import 'package:YouOweMe/ui/NewOwe/providers.dart';
