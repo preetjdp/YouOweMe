@@ -32,7 +32,7 @@ class _ContactSelectorState extends State<ContactSelector> {
     final PanelController slidingPanelController =
         useProvider(newOweSlidingPanelControllerProvider);
     final selectedContactProvider = useProvider(newOweSelectedContactProvider);
-    final fuzzyContacts = useProvider(fuzzyContactsChangeNotifierProvider);
+    final fuzzyContacts = useProvider(contactsChangeNotifierProvider);
 
     void selectContact(Contact contact) {
       slidingPanelController.close();
@@ -143,7 +143,7 @@ class ContactsList extends HookWidget {
     final PanelController slidingPanelController =
         useProvider(newOweSlidingPanelControllerProvider);
     final selectedContactProvider = useProvider(newOweSelectedContactProvider);
-    final fuzzyContacts = useProvider(fuzzyContactsChangeNotifierProvider);
+    final contactsNotifier = useProvider(contactsChangeNotifierProvider);
 
     void selectContact(Contact contact) {
       slidingPanelController.close();
@@ -151,11 +151,11 @@ class ContactsList extends HookWidget {
     }
 
     return ListView.builder(
-        itemCount: fuzzyContacts.contacts.length.clamp(0, 20),
+        itemCount: contactsNotifier.contacts.length.clamp(0, 20),
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
-          Contact contact = fuzzyContacts.contacts.elementAt(index);
+          Contact contact = contactsNotifier.contacts.elementAt(index);
           return Container(
             margin: EdgeInsets.only(top: 10),
             height: 50,

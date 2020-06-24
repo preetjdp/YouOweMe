@@ -1,6 +1,4 @@
-import 'package:YouOweMe/resources/notifiers/contactProxyNotifier.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
-import 'package:contacts_service/contacts_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -21,17 +19,4 @@ final meNotifierProvider = ChangeNotifierProvider<MeNotifier>((ref) {
   });
 
   return meNotifier;
-});
-
-final deviceContactsProvider =
-    FutureProvider((_) => ContactsService.getContacts(withThumbnails: false));
-
-final fuzzyContactsChangeNotifierProvider = ChangeNotifierProvider((ref) {
-  ContactProxyNotifier contactProxyNotifier = ContactProxyNotifier();
-  ref
-      .read(deviceContactsProvider)
-      .future
-      .then((value) => contactProxyNotifier.update(value));
-
-  return contactProxyNotifier;
 });

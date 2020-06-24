@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:contacts_service/contacts_service.dart';
 import 'package:fuzzy/fuzzy.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ContactProxyNotifier extends ChangeNotifier {
   final TextEditingController contactEditingController =
@@ -13,17 +14,29 @@ class ContactProxyNotifier extends ChangeNotifier {
 
   ContactProxyNotifier() {
     contactEditingController.addListener(onTextControllerChanged);
+    init();
   }
 
-  void update(Iterable<Contact> contacts) {
-    if (this.contacts != contacts) {
-      this.contacts = contacts;
-      notifyListeners();
+  void init() async {
+    Permission contactPermission = Permission.contacts;
+    bool isGranted = await contactPermission.isGranted;
+    if (!isGranted) {
+      await contactPermission.request();
     }
-    if (this.staticContacts != contacts) {
-      this.staticContacts = contacts;
-    }
+    staticContacts = await ContactsService.getContacts(withThumbnails: false);
+    contacts = staticContacts;
+    notifyListeners();
   }
+
+  // void update(Iterable<Contact> contacts) {
+  //   if (this.contacts != contacts) {
+  //     this.contacts = contacts;
+  //     notifyListeners();
+  //   }
+  //   if (this.staticContacts != contacts) {
+  //     this.staticContacts = contacts;
+  //   }
+  // }
 
   void onTextControllerChanged() {
     final fuse = Fuzzy(this.staticContacts.toList(),
