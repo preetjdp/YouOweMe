@@ -1,8 +1,11 @@
 // 🐦 Flutter imports:
 import 'package:YouOweMe/resources/providers.dart';
+import 'package:YouOweMe/ui/Abstractions/yomButton.dart';
+import 'package:YouOweMe/ui/Abstractions/yomSpacer.dart';
 import 'package:YouOweMe/ui/NewOwe/providers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:basics/basics.dart';
 
 // 📦 Package imports:
 import 'package:contacts_service/contacts_service.dart';
@@ -32,7 +35,7 @@ class _ContactSelectorState extends State<ContactSelector> {
     final PanelController slidingPanelController =
         useProvider(newOweSlidingPanelControllerProvider);
     final selectedContactProvider = useProvider(newOweSelectedContactProvider);
-    final fuzzyContacts = useProvider(contactsChangeNotifierProvider);
+    final contactsNotifier = useProvider(contactsChangeNotifierProvider);
 
     void selectContact(Contact contact) {
       slidingPanelController.close();
@@ -46,94 +49,96 @@ class _ContactSelectorState extends State<ContactSelector> {
     }
 
     return ListView(
-      controller: widget.scrollController,
-      physics: scrollPhysics,
-      children: <Widget>[
-        Text("Enter a mobile number",
-            style: Theme.of(context).textTheme.headline5),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              "+91",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline3
-                  .copyWith(color: Theme.of(context).accentColor),
-            ),
-            Expanded(
-              child: TextField(
-                  cursorColor: Theme.of(context).accentColor,
-                  onSubmitted: (a) => onMobileNumberTextFieldSubmit,
-                  controller: mobileNoController,
-                  decoration: InputDecoration(
-                    hintText: "00",
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.all(0),
-                  ),
-                  style: Theme.of(context).textTheme.headline3.copyWith(
-                      fontWeight: FontWeight.normal,
-                      color: Theme.of(context).accentColor),
-                  keyboardType: TextInputType.numberWithOptions(
-                      decimal: false, signed: false)),
-            ),
-            CupertinoButton(
-                color: Theme.of(context).accentColor,
-                minSize: 20,
-                padding: EdgeInsets.all(10),
-                child: Icon(CupertinoIcons.check_mark_circled),
-                onPressed: onMobileNumberTextFieldSubmit)
-          ],
-        ),
-        Center(
-          child: Text(
-            "or".toUpperCase(),
-            style: TextStyle(
-                fontSize: 28,
-                color: Theme.of(context).accentColor.withOpacity(0.4),
-                // letterSpacing: 10,
-                fontWeight: FontWeight.w500,
-                fontStyle: FontStyle.italic),
-          ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Text("Select Contact From Device",
-            style: Theme.of(context).textTheme.headline5),
-        SizedBox(
-          height: 10,
-        ),
-        Center(
-          child: Container(
-            height: 40,
-            child: TextField(
-              textInputAction: TextInputAction.search,
-              controller: fuzzyContacts.contactEditingController,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Theme.of(context).scaffoldBackgroundColor,
-                contentPadding: EdgeInsets.all(10),
-                border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(5)),
-                hintText: "Search In Contacts",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                ),
-                prefixIcon: GestureDetector(
-                    child: Icon(
-                  Icons.search,
+        controller: widget.scrollController,
+        physics: scrollPhysics,
+        children: <Widget>[
+          Text("Enter a mobile number",
+              style: Theme.of(context).textTheme.headline5),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "+91",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline3
+                    .copyWith(color: Theme.of(context).accentColor),
+              ),
+              Expanded(
+                child: TextField(
+                    cursorColor: Theme.of(context).accentColor,
+                    onSubmitted: (a) => onMobileNumberTextFieldSubmit,
+                    controller: mobileNoController,
+                    decoration: InputDecoration(
+                      hintText: "00",
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.all(0),
+                    ),
+                    style: Theme.of(context).textTheme.headline3.copyWith(
+                        fontWeight: FontWeight.normal,
+                        color: Theme.of(context).accentColor),
+                    keyboardType: TextInputType.numberWithOptions(
+                        decimal: false, signed: false)),
+              ),
+              CupertinoButton(
                   color: Theme.of(context).accentColor,
-                )),
+                  minSize: 20,
+                  padding: EdgeInsets.all(10),
+                  child: Icon(CupertinoIcons.check_mark_circled),
+                  onPressed: onMobileNumberTextFieldSubmit)
+            ],
+          ),
+          Center(
+            child: Text(
+              "or".toUpperCase(),
+              style: TextStyle(
+                  fontSize: 28,
+                  color: Theme.of(context).accentColor.withOpacity(0.4),
+                  // letterSpacing: 10,
+                  fontWeight: FontWeight.w500,
+                  fontStyle: FontStyle.italic),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          if (contactsNotifier.contacts.isNotNull) ...[
+            Text("Select Contact From Device",
+                style: Theme.of(context).textTheme.headline5),
+            SizedBox(
+              height: 10,
+            ),
+            Center(
+              child: Container(
+                height: 40,
+                child: TextField(
+                  textInputAction: TextInputAction.search,
+                  controller: contactsNotifier.contactEditingController,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Theme.of(context).scaffoldBackgroundColor,
+                    contentPadding: EdgeInsets.all(10),
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(5)),
+                    hintText: "Search In Contacts",
+                    hintStyle: TextStyle(
+                      fontSize: 14,
+                    ),
+                    prefixIcon: GestureDetector(
+                        child: Icon(
+                      Icons.search,
+                      color: Theme.of(context).accentColor,
+                    )),
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-        ContactsList()
-      ],
-    );
+            ContactsList()
+          ] else
+            ContactListEmptyState()
+        ]);
   }
 }
 
@@ -188,5 +193,29 @@ class ContactsList extends HookWidget {
             ),
           );
         });
+  }
+}
+
+class ContactListEmptyState extends HookWidget {
+  @override
+  Widget build(BuildContext context) {
+    final contactsNotifier = useProvider(contactsChangeNotifierProvider);
+
+    return Column(
+      children: [
+        YomSpacer(
+          height: 10,
+        ),
+        Container(
+          height: 60,
+          width: 400,
+          child: YomButton(
+            child: Text("Read Contacts"),
+            onPressed: () => contactsNotifier.init(),
+          ),
+        ),
+        Image.asset("assets/scribbles/karlsson_contact_page.png"),
+      ],
+    );
   }
 }

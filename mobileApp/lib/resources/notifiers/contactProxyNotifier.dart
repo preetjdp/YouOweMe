@@ -21,7 +21,10 @@ class ContactProxyNotifier extends ChangeNotifier {
     Permission contactPermission = Permission.contacts;
     bool isGranted = await contactPermission.isGranted;
     if (!isGranted) {
-      await contactPermission.request();
+      PermissionStatus status = await contactPermission.request();
+      if (status.isDenied) {
+        return;
+      }
     }
     staticContacts = await ContactsService.getContacts(withThumbnails: false);
     contacts = staticContacts;
