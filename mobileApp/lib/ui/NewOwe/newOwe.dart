@@ -22,6 +22,7 @@ import 'package:YouOweMe/ui/Abstractions/yomButton.dart';
 import 'package:YouOweMe/ui/NewOwe/contactSelector.dart';
 import 'package:YouOweMe/ui/NewOwe/peopleList.dart';
 import 'package:YouOweMe/resources/extensions.dart';
+import 'package:basics/basics.dart';
 
 class NewOwe extends StatefulHookWidget {
   @override
@@ -32,8 +33,6 @@ class _NewOweState extends State<NewOwe> {
   final TextEditingController titleController = TextEditingController();
 
   final TextEditingController amountController = TextEditingController();
-
-  final BehaviorSubject<Contact> selectedContactController = BehaviorSubject();
 
   final YomButtonController yomButtonController = YomButtonController();
 
@@ -53,17 +52,19 @@ class _NewOweState extends State<NewOwe> {
     return null;
   }
 
-  void clearSelectedContact() {
-    selectedContactController.add(null);
-  }
-
   @override
   Widget build(BuildContext context) {
     final PanelController panelController =
         useProvider(newOweSlidingPanelControllerProvider);
     final MeNotifier meNotifier = useProvider(meNotifierProvider);
+    final selectedContact = useProvider(newOweSelectedContactProvider.state);
 
     TargetPlatform platform = Theme.of(context).platform;
+
+    void clearSelectedContact() {
+      newOweSelectedContactProvider.read(context).clear();
+    }
+
     void addNewOwe() async {
       yomButtonController.showLoading();
       try {
@@ -79,8 +80,8 @@ class _NewOweState extends State<NewOwe> {
           }
         }
       ''';
-        String mobileNo = selectedContactController.value.phones.first.value
-            .replaceAll(' ', '');
+        String mobileNo =
+            selectedContact.phones.first.value.replaceAll(' ', '');
         if (!mobileNo.startsWith('+91')) {
           mobileNo = '+91' + mobileNo;
         }
@@ -92,7 +93,7 @@ class _NewOweState extends State<NewOwe> {
                 "title": titleController.text,
                 "amount": int.parse(amountController.text),
                 "mobileNo": mobileNo,
-                "displayName": selectedContactController.value.displayName
+                "displayName": selectedContact.displayName
               }
             },
             onCompleted: (a) {
@@ -176,54 +177,43 @@ class _NewOweState extends State<NewOwe> {
                   SizedBox(
                     height: 10,
                   ),
-                  StreamBuilder(
-                    stream: selectedContactController.stream,
-                    builder: (BuildContext context, snapshot) {
-                      if (!snapshot.hasData) return Container();
-                      return Text(
-                        "Selected Person",
-                        style: Theme.of(context).textTheme.headline5,
-                      );
-                    },
-                  ),
-                  StreamBuilder(
-                    stream: selectedContactController.stream,
-                    builder: (BuildContext context,
-                        AsyncSnapshot<Contact> snapshot) {
-                      if (!snapshot.hasData) return Container();
-                      return Container(
-                        height: 50,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            YomAvatar(
-                              text: snapshot.data.displayName != null
-                                  ? snapshot.data.shortName
-                                  : "+91",
+                  if (selectedContact.isNotNull) ...[
+                    Text(
+                      "Selected Person",
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                    Container(
+                      height: 50,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          YomAvatar(
+                            text: selectedContact.displayName != null
+                                ? selectedContact.shortName
+                                : "+91",
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            selectedContact.displayName ??
+                                selectedContact.phones.first.value,
+                            style: Theme.of(context).textTheme.headline5,
+                          ),
+                          Expanded(child: Container()),
+                          CupertinoButton(
+                            minSize: 20,
+                            padding: EdgeInsets.all(5),
+                            onPressed: clearSelectedContact,
+                            child: Icon(
+                              CupertinoIcons.clear_thick_circled,
+                              size: 28,
                             ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Text(
-                              snapshot.data.displayName ??
-                                  snapshot.data.phones.first.value,
-                              style: Theme.of(context).textTheme.headline5,
-                            ),
-                            Expanded(child: Container()),
-                            CupertinoButton(
-                              minSize: 20,
-                              padding: EdgeInsets.all(5),
-                              onPressed: clearSelectedContact,
-                              child: Icon(
-                                CupertinoIcons.clear_thick_circled,
-                                size: 28,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                   Text(
                     "How much money did you lend?",
                     style: Theme.of(context).textTheme.headline5,

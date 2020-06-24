@@ -36,7 +36,7 @@ class _ContactSelectorState extends State<ContactSelector> {
 
     void selectContact(Contact contact) {
       slidingPanelController.close();
-      selectedContactProvider.add(contact);
+      selectedContactProvider.setContact(contact);
     }
 
     void onMobileNumberTextFieldSubmit() {
@@ -147,7 +147,7 @@ class ContactsList extends HookWidget {
 
     void selectContact(Contact contact) {
       slidingPanelController.close();
-      selectedContactProvider.add(contact);
+      selectedContactProvider.setContact(contact);
     }
 
     return ListView.builder(

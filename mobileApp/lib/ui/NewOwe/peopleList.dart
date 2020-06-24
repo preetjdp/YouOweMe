@@ -26,7 +26,7 @@ class PeopleList extends HookWidget {
 
     void selectContact(Contact contact) {
       slidingPanelController.close();
-      selectedContactProvider.add(contact);
+      selectedContactProvider.setContact(contact);
     }
 
     void openContactSelector() {
