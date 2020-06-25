@@ -15,26 +15,13 @@ class MeNotifier extends ChangeNotifier {
   GraphQLClient graphQLClient;
 
   Seva$Query$User me;
-  bool isLoading;
-
-  MeNotifier() {
-    print("Construcing");
-    isLoading = true;
-  }
 
   void onProxyUpdate(FirebaseUser firebaseUser) async {
     if (firebaseUser.isNotNull) {
       print("MeNotifier Proxy Update");
       graphQLClient = await getGraphqlClient(firebaseUser.uid);
-      init();
+      getData();
     }
-  }
-
-  void init() {
-    getData().then((value) {
-      isLoading = false;
-      notifyListeners();
-    });
   }
 
   Future<void> refresh() async {

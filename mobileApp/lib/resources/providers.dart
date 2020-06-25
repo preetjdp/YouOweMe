@@ -10,16 +10,10 @@ final firebaseUserProvider =
 
 final meNotifierProvider = ChangeNotifierProvider<MeNotifier>((ref) {
   MeNotifier meNotifier = MeNotifier();
-  print("Hello I Guess");
   ref
       .read(firebaseUserProvider)
       .currentData
       .then((value) => meNotifier.onProxyUpdate(value));
-  ref.read(firebaseUserProvider).stream.listen((event) {
-    print("New Update");
-    print(event.uid);
-    meNotifier..onProxyUpdate(event);
-  });
 
   return meNotifier;
 });
