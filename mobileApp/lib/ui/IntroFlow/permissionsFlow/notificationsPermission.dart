@@ -3,15 +3,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:provider/provider.dart';
 
-class NotificationsPermissions extends StatelessWidget {
+// 🌎 Project imports:
+import 'package:YouOweMe/ui/IntroFlow/providers.dart';
+
+class NotificationsPermissions extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final PageController pageController =
+        useProvider(introFlowPageControllerProvider);
     final _size = MediaQuery.of(context).size;
     void nextPage() {
-      Provider.of<PageController>(context, listen: false).nextPage(
+      pageController.nextPage(
           duration: Duration(milliseconds: 200), curve: Curves.easeInOutQuad);
     }
 

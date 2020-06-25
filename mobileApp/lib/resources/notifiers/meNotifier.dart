@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 // 📦 Package imports:
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:basics/basics.dart';
@@ -16,27 +15,13 @@ class MeNotifier extends ChangeNotifier {
   GraphQLClient graphQLClient;
 
   Seva$Query$User me;
-  bool isLoading;
-
-  MeNotifier(BuildContext context) {
-    print("Construcing");
-    isLoading = true;
-    // init();
-  }
 
   void onProxyUpdate(FirebaseUser firebaseUser) async {
     if (firebaseUser.isNotNull) {
       print("MeNotifier Proxy Update");
       graphQLClient = await getGraphqlClient(firebaseUser.uid);
-      init();
+      getData();
     }
-  }
-
-  void init() {
-    getData().then((value) {
-      isLoading = false;
-      notifyListeners();
-    });
   }
 
   Future<void> refresh() async {

@@ -3,18 +3,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:provider/provider.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // 🌎 Project imports:
 import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
+import 'package:YouOweMe/ui/IntroFlow/providers.dart';
 
-class NamePage extends StatefulWidget {
+class NamePage extends StatefulHookWidget {
   @override
   _NamePageState createState() => _NamePageState();
 }
 
 class _NamePageState extends State<NamePage> {
   final TextEditingController nameController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -22,20 +25,21 @@ class _NamePageState extends State<NamePage> {
   }
 
   void setName() {
+    LoginUser introFlowUser = introFlowUserProvider.read(context);
     String userName = nameController.text;
-    Provider.of<LoginUser>(context, listen: false).addName(userName);
+    introFlowUser.addName(userName);
   }
 
   @override
   Widget build(BuildContext context) {
+    final PageController pageController =
+        useProvider(introFlowPageControllerProvider);
     final _size = MediaQuery.of(context).size;
 
     SizedBox _spacer(int padding, [int minus = 0]) {
       return SizedBox(height: (_size.height / padding) - minus);
     }
 
-    PageController pageController =
-        Provider.of<PageController>(context, listen: false);
     void nextPage() {
       pageController.nextPage(
           duration: Duration(milliseconds: 200), curve: Curves.easeInOutQuad);

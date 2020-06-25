@@ -21,7 +21,7 @@ void main() {
       Timeline timeline = await driver.stopTracingAndDownloadTimeline();
       final summary = new TimelineSummary.summarize(timeline);
       print("WOWZA" + summary.toString());
-      summary.writeSummaryToFile('master',
+      summary.writeSummaryToFile('riverpod',
           pretty: true, destinationDirectory: "./test_driver/result/");
       if (driver != null) driver.close();
     });
@@ -47,8 +47,8 @@ void main() {
       await driver.waitFor(find.byValueKey("notification_permission_next"));
       await driver.tap(find.byValueKey("notification_permission_next"));
 
-      await driver.waitFor(find.byValueKey("contact_permission_next"));
-      await driver.tap(find.byValueKey("contact_permission_next"));
+      // await driver.waitFor(find.byValueKey("contact_permission_next"));
+      // await driver.tap(find.byValueKey("contact_permission_next"));
 
       sleep(const Duration(seconds: 3));
     });
@@ -56,7 +56,7 @@ void main() {
     test("OweMe Page", () async {
       await driver.tap(find.text("Owe Me"));
       await driver.scroll(find.byType("CustomScrollView"), 0, -600,
-          Duration(milliseconds: 100));
+          Duration(milliseconds: 200));
 
       await driver.tap(find.pageBack());
     });
@@ -64,7 +64,7 @@ void main() {
     test("IOwe Page", () async {
       await driver.tap(find.text("I Owe"));
       await driver.scroll(find.byType("CustomScrollView"), 0, -600,
-          Duration(milliseconds: 100));
+          Duration(milliseconds: 200));
 
       await driver.tap(find.pageBack());
     });

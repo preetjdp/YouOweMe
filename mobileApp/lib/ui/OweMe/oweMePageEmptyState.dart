@@ -2,9 +2,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-// 🌎 Project imports:
-import 'package:YouOweMe/ui/NewOwe/newOwe.dart';
-
 class OweMePageEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
