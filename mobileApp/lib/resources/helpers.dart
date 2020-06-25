@@ -2,9 +2,6 @@
 import 'dart:ui';
 
 // 🐦 Flutter imports:
-import 'package:YouOweMe/ui/IOwe/iOwePage.dart';
-import 'package:YouOweMe/ui/NewOwe/newOwe.dart';
-import 'package:YouOweMe/ui/OweMe/oweMePage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,6 +16,9 @@ import 'package:basics/basics.dart';
 import 'package:http/http.dart';
 
 // 🌎 Project imports:
+import 'package:YouOweMe/ui/IOwe/iOwePage.dart';
+import 'package:YouOweMe/ui/NewOwe/newOwe.dart';
+import 'package:YouOweMe/ui/OweMe/oweMePage.dart';
 import 'package:YouOweMe/ui/Abstractions/yomBottomSheet.dart';
 import 'package:YouOweMe/ui/DynamicLinkBottomSheet/dynamicLinkBottomSheet.dart';
 import 'package:YouOweMe/ui/HomePage/homePage.dart';
@@ -46,7 +46,7 @@ Future<GraphQLClient> getGraphqlClient(String userId) async {
 Future<String> getSevaUrl() async {
   String localSevaUrl = "http://192.168.1.76:4001";
   String productionSevaUrl = "https://api.youoweme.preetjdp.dev";
-  if (kReleaseMode) {
+  if (kReleaseMode || kProfileMode) {
     print("Using Production Seva In Release");
     return productionSevaUrl;
   }
@@ -59,7 +59,7 @@ Future<String> getSevaUrl() async {
       throw "Could Not Connect to Local Seva";
     }
   } catch (e) {
-    print("Using Production Seva");
+    print("Using Production Seva" + e.toString());
     return productionSevaUrl;
   }
 }
