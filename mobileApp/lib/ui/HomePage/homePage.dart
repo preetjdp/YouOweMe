@@ -9,11 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:after_layout/after_layout.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:provider/provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:retry/retry.dart';
 
 // 🌎 Project imports:
+import 'package:YouOweMe/resources/providers.dart';
 import 'package:YouOweMe/resources/helpers.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
@@ -22,16 +24,14 @@ import 'package:YouOweMe/ui/HomePage/iOweSection.dart';
 import 'package:YouOweMe/ui/HomePage/nettingAndGraph.dart';
 import 'package:YouOweMe/ui/HomePage/oweMeSection.dart';
 import 'package:YouOweMe/resources/extensions.dart';
-import 'package:YouOweMe/ui/NewOwe/newOwe.dart';
 import 'package:YouOweMe/ui/HomePage/bottomList.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatefulHookWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
-  ScrollController scrollController = ScrollController();
+class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   @override
   void afterFirstLayout(BuildContext context) async {
     final FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics();
@@ -39,8 +39,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
     String token = await configureFirebaseMessenging(context);
     if (token != null) {
       await retry(
-          () => Provider.of<MeNotifier>(context, listen: false)
-              .updateUser({"fcmToken": token}),
+          () =>
+              meNotifierProvider.read(context).updateUser({"fcmToken": token}),
           retryIf: (e) => e is Exception,
           delayFactor: Duration(seconds: 5),
           onRetry: (a) => print("Retrying to update FCM with " + a.toString()));
@@ -92,14 +92,15 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final MeNotifier meNotifier = useProvider(meNotifierProvider);
+
     final TargetPlatform platform = Theme.of(context).platform;
 
     void goToNewOwe() async {
       Navigator.of(context).pushNamed('new_owe_page');
     }
 
-    Future<void> onRefresh() =>
-        Provider.of<MeNotifier>(context, listen: false).refresh();
+    Future<void> onRefresh() => meNotifier.refresh();
 
     List<Widget> children = AnimationConfiguration.toStaggeredList(
         childAnimationBuilder: (widget) => ScaleAnimation(
@@ -183,26 +184,22 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
           )
         : null;
 
-    return Provider.value(
-      value: scrollController,
-      child: Scaffold(
-        floatingActionButton: abstractedNewOweButton,
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: Stack(
-          children: [
-            BackgroundAnimation(),
-            AnimationLimiter(child: abstractedHomePage),
-            Positioned(
-              bottom: 20,
-              left: 15,
-              child: YomAvatar(
-                text: Provider.of<MeNotifier>(context)?.me?.shortName ?? "PP",
-                onPressed: () => logOutDialog(context),
-              ),
-            )
-          ],
-        ),
-        // bottomNavigationBar: bottomBar
+    return Scaffold(
+      floatingActionButton: abstractedNewOweButton,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      body: Stack(
+        children: [
+          BackgroundAnimation(),
+          AnimationLimiter(child: abstractedHomePage),
+          Positioned(
+            bottom: 20,
+            left: 15,
+            child: YomAvatar(
+              text: meNotifier?.me?.shortName ?? "PP",
+              onPressed: () => logOutDialog(context),
+            ),
+          )
+        ],
       ),
     );
   }

@@ -3,16 +3,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:provider/provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // 🌎 Project imports:
+import 'package:YouOweMe/resources/providers.dart';
 import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomButton.dart';
 import 'package:YouOweMe/resources/extensions.dart';
 
-class OweMePageBottomSheet extends StatelessWidget {
+class OweMePageBottomSheet extends HookWidget {
   final Seva$Query$User$Owe owe;
   final ScrollController scrollController;
   final YomButtonController yomButtonController = YomButtonController();
@@ -20,10 +22,11 @@ class OweMePageBottomSheet extends StatelessWidget {
   OweMePageBottomSheet({@required this.scrollController, @required this.owe});
   @override
   Widget build(BuildContext context) {
+    MeNotifier meNotifier = useProvider(meNotifierProvider);
+
     void markAsPaid() async {
       try {
         yomButtonController.showLoading();
-        MeNotifier meNotifier = context.read<MeNotifier>();
         String query = """
         mutation(\$input: UpdateOweInputType!) {
           updateOwe(data: \$input) {
@@ -49,7 +52,6 @@ class OweMePageBottomSheet extends StatelessWidget {
     void deleteOwe() async {
       try {
         deleteButtonController.showLoading();
-        MeNotifier meNotifier = context.read<MeNotifier>();
         String query = """
         mutation(\$input: DeleteOweInputType!) {
           deleteOwe(data: \$input) 

@@ -1,13 +1,12 @@
 // 🐦 Flutter imports:
-import 'package:flutter/animation.dart';
+import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
 import 'package:contacts_service/contacts_service.dart';
 
 // 🌎 Project imports:
+import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
 import 'package:YouOweMe/resources/helpers.dart';
-import 'package:flutter/material.dart';
 import './graphql/seva.dart';
 
 extension ListUtils<T> on Iterable<T> {

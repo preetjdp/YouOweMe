@@ -7,23 +7,22 @@ import 'package:flutter/material.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
-import 'package:provider/provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 
 // 🌎 Project imports:
-import 'package:YouOweMe/resources/providers.dart';
 import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
 import 'package:YouOweMe/ui/IntroFlow/introFlow.dart';
 import 'package:YouOweMe/resources/helpers.dart';
 
 Future<void> main() async {
-  Provider.debugCheckInvalidValueType = null;
   WidgetsFlutterBinding.ensureInitialized();
   final preferences = await StreamingSharedPreferences.instance;
-  //Call Init HelperFunctions
   configureSystemChrome();
-  runApp(MyApp(
-    preferences: preferences,
+  runApp(ProviderScope(
+    child: MyApp(
+      preferences: preferences,
+    ),
   ));
 }
 
@@ -52,16 +51,13 @@ class Intermediate extends StatelessWidget {
   final FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics();
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: yomProviders,
-      child: MaterialApp(
-          title: 'You Owe Me',
-          builder: DevicePreview.appBuilder,
-          theme: yomTheme(),
-          navigatorObservers: [
-            FirebaseAnalyticsObserver(analytics: firebaseAnalytics)
-          ],
-          onGenerateRoute: routeGenerator),
-    );
+    return MaterialApp(
+        title: 'You Owe Me',
+        builder: DevicePreview.appBuilder,
+        theme: yomTheme(),
+        navigatorObservers: [
+          FirebaseAnalyticsObserver(analytics: firebaseAnalytics)
+        ],
+        onGenerateRoute: routeGenerator);
   }
 }
