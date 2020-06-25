@@ -136,6 +136,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
         if (platform == TargetPlatform.iOS)
           CupertinoSliverRefreshControl(
             onRefresh: onRefresh,
+            refreshIndicatorExtent: 0,
           ),
         SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
