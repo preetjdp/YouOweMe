@@ -114,7 +114,7 @@ class _BackgroundAnimationState extends State<BackgroundAnimation>
         _topController.yomAnimateTo(_topDefaultState);
         _bottomController.yomAnimateTo(_bottomDefaultState);
       } else {
-        await Future.delayed(Duration(milliseconds: 20));
+        // await Future.delayed(Duration(milliseconds: 20));
         _topController.yomAnimateTo(_topDefaultState -
             (percentChange * _topParallaxFactor * maxExtent));
         _bottomController.yomAnimateTo(_bottomDefaultState +
