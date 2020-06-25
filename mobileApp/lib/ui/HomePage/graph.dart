@@ -3,15 +3,17 @@ import 'dart:ui' as ui;
 
 import 'package:YouOweMe/resources/graphql/seva.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
+import 'package:YouOweMe/resources/providers.dart';
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:provider/provider.dart';
 import 'package:basics/basics.dart';
 import 'package:YouOweMe/resources/extensions.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 const kBarWidth = 72.0;
 const kBarSpacing = 4.0;
@@ -41,10 +43,11 @@ const MaterialColor secondaryAccent = MaterialColor(
 final List<double> values =
     List.generate(100, (_) => math.Random().nextDouble() * kMaxValue);
 
-class GraphWrapper extends StatelessWidget {
+class GraphWrapper extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final Seva$Query$User me = Provider.of<MeNotifier>(context).me;
+    final Seva$Query$User me = useProvider(meNotifierProvider).me;
+
     return Container(
         height: kMaxValue,
         margin: EdgeInsets.only(top: 15),

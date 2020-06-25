@@ -1,20 +1,21 @@
 import 'package:YouOweMe/resources/graphql/seva.dart';
-import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
-import 'package:YouOweMe/ui/Abstractions/expandingWidgetDelegate.dart';
+import 'package:YouOweMe/resources/providers.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
 import 'package:YouOweMe/ui/Abstractions/yomSpinner.dart';
 import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
 import 'package:YouOweMe/ui/HomePage/graph.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:basics/basics.dart';
 import 'package:YouOweMe/resources/extensions.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class NettingAndGraphSection extends StatelessWidget {
+class NettingAndGraphSection extends HookWidget {
   final YomDesign yomDesign = YomDesign();
   @override
   Widget build(BuildContext context) {
-    Seva$Query$User me = context.watch<MeNotifier>().me;
+    Seva$Query$User me = useProvider(meNotifierProvider).me;
+
     return Container(
       height: 230,
       color: Colors.transparent,

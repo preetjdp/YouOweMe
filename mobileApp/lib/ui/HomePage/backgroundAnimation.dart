@@ -1,8 +1,10 @@
 import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
+import 'package:YouOweMe/ui/HomePage/providers.dart';
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:YouOweMe/resources/extensions.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 const double _topDefaultState = 150.0;
 const double _bottomDefaultState = 350.0;
@@ -20,6 +22,7 @@ class _BackgroundAnimationState extends State<BackgroundAnimation>
   AnimationController _topController;
   AnimationController _bottomController;
   YomDesign yomDesign = YomDesign();
+
   @override
   void initState() {
     super.initState();
@@ -99,23 +102,23 @@ class _BackgroundAnimationState extends State<BackgroundAnimation>
 
   @override
   void afterFirstLayout(BuildContext context) {
-    ScrollController scrollController = context.read<ScrollController>();
+    final scrollController = homePageScrollControllerProvder.read(context);
 
     scrollController.addListener(() async {
       double maxExtent = scrollController.position.maxScrollExtent;
       double extent = scrollController.offset;
       double percentChange = extent / maxExtent;
       print(
-          "[SCROLL STAUS ==> Extent -> $extent  percentChange -> $percentChange]");
+          "[SCROLL STAUS ==> Extent -> $extent maxExtent -> $maxExtent  percentChange -> $percentChange]");
       if (percentChange == 0.0) {
         _topController.yomAnimateTo(_topDefaultState);
         _bottomController.yomAnimateTo(_bottomDefaultState);
       } else {
         await Future.delayed(Duration(milliseconds: 20));
-        _topController.yomAnimateTo(
-            _topDefaultState - percentChange * _topParallaxFactor * 100);
-        _bottomController.yomAnimateTo(
-            _bottomDefaultState + percentChange * _bottomParallaxFactor * 100);
+        _topController.yomAnimateTo(_topDefaultState -
+            (percentChange * _topParallaxFactor * maxExtent));
+        _bottomController.yomAnimateTo(_bottomDefaultState +
+            (percentChange * _bottomParallaxFactor * maxExtent));
       }
     });
   }

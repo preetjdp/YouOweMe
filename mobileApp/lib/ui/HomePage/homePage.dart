@@ -2,6 +2,7 @@
 import 'dart:ui';
 
 // 🐦 Flutter imports:
+import 'package:YouOweMe/ui/HomePage/providers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -93,6 +94,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   @override
   Widget build(BuildContext context) {
     final MeNotifier meNotifier = useProvider(meNotifierProvider);
+    final scrollController = useProvider(homePageScrollControllerProvder);
 
     final TargetPlatform platform = Theme.of(context).platform;
 
