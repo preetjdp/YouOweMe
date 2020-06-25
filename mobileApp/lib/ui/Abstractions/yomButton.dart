@@ -29,10 +29,13 @@ class YomButton extends StatelessWidget {
 
   final Color backgroundColor;
 
+  final BorderRadiusGeometry borderRadius;
+
   YomButton({
     this.controller,
     @required this.child,
     @required this.onPressed,
+    this.borderRadius,
     this.loading,
     this.error,
     this.success,
@@ -46,6 +49,8 @@ class YomButton extends StatelessWidget {
         this.backgroundColor ?? Theme.of(context).accentColor;
     Brightness _buttonBrightness =
         ThemeData.estimateBrightnessForColor(_buttonBackgroundColor);
+    BorderRadiusGeometry _borderRadius =
+        this.borderRadius ?? BorderRadius.all(Radius.circular(8.0));
 
     Color _iconsColor;
     if (_buttonBrightness == Brightness.dark) {
@@ -86,6 +91,7 @@ class YomButton extends StatelessWidget {
 
           return CupertinoButton(
             color: _buttonBackgroundColor,
+            borderRadius: _borderRadius,
             child: AnimatedSwitcher(
                 switchInCurve: Curves.easeInSine,
                 duration: Duration(milliseconds: 200),
