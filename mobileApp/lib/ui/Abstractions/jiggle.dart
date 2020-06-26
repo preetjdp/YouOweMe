@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:vector_math/vector_math.dart';
 import 'package:basics/basics.dart';
@@ -91,6 +92,7 @@ class JiggleController {
   }
 
   void toggle() {
+    HapticFeedback.mediumImpact();
     if (_jiggleSubject.value == JiggleState.STATIC) {
       _jiggleSubject.value = JiggleState.JIGGLING;
     } else {
