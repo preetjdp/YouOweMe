@@ -40,6 +40,7 @@ class OweMeSection extends HookWidget {
                         style: Theme.of(context).textTheme.headline5),
                     Icon(
                       CupertinoIcons.right_chevron,
+                      size: 20,
                       color: Color.fromRGBO(78, 80, 88, 1),
                     )
                   ],

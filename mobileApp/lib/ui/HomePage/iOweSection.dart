@@ -44,6 +44,7 @@ class IOweSection extends HookWidget {
                             .copyWith(color: Colors.white)),
                     Icon(
                       CupertinoIcons.right_chevron,
+                      size: 20,
                       color: Colors.white,
                     )
                   ],
