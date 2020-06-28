@@ -1,5 +1,6 @@
 import { ObjectType, Field, ID } from "type-graphql";
 import { Owe } from "./Owe";
+import { Netting } from "./Netting";
 
 @ObjectType()
 export class User {
@@ -37,4 +38,11 @@ export class User {
 
     @Field()
     created: Date
+}
+
+//TODO Maybe Consider Changing this name.
+@ObjectType()
+export class MeUser extends User {
+    @Field(() => [Netting])
+    nettings?: Array<Netting>
 }
