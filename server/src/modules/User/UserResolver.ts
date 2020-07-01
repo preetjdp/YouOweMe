@@ -32,68 +32,68 @@ export class UserResolver {
         return user
     }
 
-    @FieldResolver(() => [Owe], {
-        name: "oweMe",
-    })
-    async oweMeFieldResolver(@Root() user: User): Promise<Array<Owe>> {
-        const userRef = firestore.collection('users').doc(user.id)
-        const oweMeRef = userRef.collection('owes')
-        const oweMeQuerySnaphot = await oweMeRef.get()
-        if (oweMeQuerySnaphot.docs.length == 0) {
-            return []
-        }
-        const owes: Array<Owe> = await Promise.all(oweMeQuerySnaphot.docs.map(async (oweF) => {
-            const owe: Owe = await mapOweSnapshot(oweF)
-            return owe
-        }))
-        return owes
-    }
+    // @FieldResolver(() => [Owe], {
+    //     name: "oweMe",
+    // })
+    // async oweMeFieldResolver(@Root() user: User): Promise<Array<Owe>> {
+    //     const userRef = firestore.collection('users').doc(user.id)
+    //     const oweMeRef = userRef.collection('owes')
+    //     const oweMeQuerySnaphot = await oweMeRef.get()
+    //     if (oweMeQuerySnaphot.docs.length == 0) {
+    //         return []
+    //     }
+    //     const owes: Array<Owe> = await Promise.all(oweMeQuerySnaphot.docs.map(async (oweF) => {
+    //         const owe: Owe = await mapOweSnapshot(oweF)
+    //         return owe
+    //     }))
+    //     return owes
+    // }
 
-    @FieldResolver(() => [Owe], {
-        name: "iOwe",
-    })
-    async iOweFieldResolver(@Root() user: User): Promise<Array<Owe>> {
-        const userRef = firestore.collection('users').doc(user.id)
-        const iOweQuery = firestore
-            .collectionGroup('owes')
-            .where("issuedToRef", "==", userRef)
+    // @FieldResolver(() => [Owe], {
+    //     name: "iOwe",
+    // })
+    // async iOweFieldResolver(@Root() user: User): Promise<Array<Owe>> {
+    //     const userRef = firestore.collection('users').doc(user.id)
+    //     const iOweQuery = firestore
+    //         .collectionGroup('owes')
+    //         .where("issuedToRef", "==", userRef)
 
-        const iOweQuerySnaphot = await iOweQuery.get()
-        if (iOweQuerySnaphot.docs.length == 0) {
-            return []
-        }
-        const owes: Array<Owe> = await Promise.all(iOweQuerySnaphot.docs.map(async (oweF) => {
-            const owe: Owe = await mapOweSnapshot(oweF);
-            return owe
-        }))
-        return owes
-    }
+    //     const iOweQuerySnaphot = await iOweQuery.get()
+    //     if (iOweQuerySnaphot.docs.length == 0) {
+    //         return []
+    //     }
+    //     const owes: Array<Owe> = await Promise.all(iOweQuerySnaphot.docs.map(async (oweF) => {
+    //         const owe: Owe = await mapOweSnapshot(oweF);
+    //         return owe
+    //     }))
+    //     return owes
+    // }
 
-    @FieldResolver(() => Int, {
-        name: "oweMeAmount"
-    }
-    )
-    async oweMeAmountFieldResolver(@Root() user: User) {
-        const owes: Array<Owe> = await this.oweMeFieldResolver(user)
-        let oweMeAmount: number = 0
-        for (const owe of owes) {
-            if (owe.state == OweState.ACKNOWLEDGED || owe.state == OweState.CREATED)
-                oweMeAmount += owe.amount
-        }
-        return oweMeAmount
-    }
+    // @FieldResolver(() => Int, {
+    //     name: "oweMeAmount"
+    // }
+    // )
+    // async oweMeAmountFieldResolver(@Root() user: User) {
+    //     const owes: Array<Owe> = await this.oweMeFieldResolver(user)
+    //     let oweMeAmount: number = 0
+    //     for (const owe of owes) {
+    //         if (owe.state == OweState.ACKNOWLEDGED || owe.state == OweState.CREATED)
+    //             oweMeAmount += owe.amount
+    //     }
+    //     return oweMeAmount
+    // }
 
-    @FieldResolver(() => Int, {
-        name: "iOweAmount"
-    }
-    )
-    async iOweAmountFieldResolver(@Root() user: User) {
-        const owes: Array<Owe> = await this.iOweFieldResolver(user)
-        let iOweAmount: number = 0
-        for (const owe of owes) {
-            if (owe.state == OweState.ACKNOWLEDGED || owe.state == OweState.CREATED)
-                iOweAmount += owe.amount
-        }
-        return iOweAmount
-    }
+    // @FieldResolver(() => Int, {
+    //     name: "iOweAmount"
+    // }
+    // )
+    // async iOweAmountFieldResolver(@Root() user: User) {
+    //     const owes: Array<Owe> = await this.iOweFieldResolver(user)
+    //     let iOweAmount: number = 0
+    //     for (const owe of owes) {
+    //         if (owe.state == OweState.ACKNOWLEDGED || owe.state == OweState.CREATED)
+    //             iOweAmount += owe.amount
+    //     }
+    //     return iOweAmount
+    // }
 }
