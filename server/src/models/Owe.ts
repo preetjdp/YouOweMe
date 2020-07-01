@@ -1,9 +1,9 @@
 import { User } from "./User"
-import { ObjectType, Field, ID, registerEnumType, Int } from "type-graphql"
+import { ObjectType, Field, ID, registerEnumType, Int, InterfaceType } from "type-graphql"
 import { DocumentReference } from "@google-cloud/firestore"
 
-@ObjectType()
-class Owe {
+@InterfaceType()
+abstract class IOwe {
     @Field(() => ID)
     id: string
 
@@ -33,6 +33,41 @@ class Owe {
     permalink: string
 }
 
+@ObjectType({
+    implements: IOwe
+})
+class Owe implements IOwe {
+    id: string
+    documenmentRef: DocumentReference
+    issuedToID: string
+    issuedByID: string
+    title: string
+    amount: number
+    state: OweState
+    issuedBy?: User
+    issuedTo?: User
+    created: Date
+    permalink: string
+}
+
+@ObjectType({
+    implements: IOwe
+})
+class NettingOwe extends IOwe {
+    @Field()
+    oweType: NettingOweType
+}
+
+enum NettingOweType {
+    OWEME = "OWEME",
+    IOWE = "IOWE"
+}
+
+registerEnumType(NettingOweType, {
+    name: "NettingOweType",
+    description: "Defines the type of a `Owe` in a Netting."
+})
+
 enum OweState {
     CREATED = "CREATED",
     DECLINED = "DECLINED",
@@ -47,6 +82,9 @@ registerEnumType(OweState, {
 })
 
 export {
+    IOwe,
     Owe,
-    OweState
+    OweState,
+    NettingOwe,
+    NettingOweType
 }
