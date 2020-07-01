@@ -1,5 +1,5 @@
 import { Resolver, FieldResolver, Root, Query, Arg, } from "type-graphql";
-import { Owe, OweState } from "../../models/Owe";
+import { Owe, OweState, NettingOwe } from "../../models/Owe";
 import { User } from "../../models/User";
 import { UserResolver } from "../User/UserResolver";
 import { DocumentReference } from "@google-cloud/firestore"
@@ -10,6 +10,7 @@ import { mapOweSnapshot } from "./oweResolver/oweSnapshotMap";
 import { firestore } from "../../db/firebase";
 
 @Resolver(Owe)
+@Resolver(NettingOwe)
 export class OweResolver {
     async getOweFromRef(oweRef: DocumentReference): Promise<Owe> {
         const oweSnapshot = await oweRef.get()
