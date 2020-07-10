@@ -10,6 +10,8 @@ import 'package:rxdart/rxdart.dart';
 import 'package:YouOweMe/resources/providers.dart';
 import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
 
+const int pages = 5;
+
 final introFlowPageControllerProvider =
     Provider((ref) => PageController(initialPage: 0));
 
@@ -19,7 +21,7 @@ final authValidatorProvider = StreamProvider<bool>((ref) {
       ref.read(introFlowPageControllerProvider).value;
 
   _pageController.addListener(() {
-    if (_pageController.page == 4) {
+    if (_pageController.page == pages) {
       screeningSubject.add(true);
     }
   });

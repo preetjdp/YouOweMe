@@ -97,29 +97,15 @@ class _NamePageState extends State<NamePage> {
             ),
           ),
           Positioned(
-            bottom: 0,
-            child: Column(
-              children: [
-                CupertinoButton(
-                  onPressed: nextPage,
-                  padding: EdgeInsets.all(0),
-                  minSize: 0,
-                  child: Text("Psst. I already have a account"),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  height: 60,
-                  width: 400,
-                  child: CupertinoButton(
-                      color: Theme.of(context).accentColor,
-                      child: Text('Next'),
-                      onPressed: next),
-                )
-              ],
-            ),
-          )
+              bottom: 0,
+              child: Container(
+                height: 60,
+                width: 400,
+                child: CupertinoButton(
+                    color: Theme.of(context).accentColor,
+                    child: Text('Next'),
+                    onPressed: next),
+              ))
         ],
       ),
     );
