@@ -84,6 +84,17 @@ flutter pub run flutter_launcher_icons:main
 keytool -list -v -keystore {filePath} -alias {key-alias}
 Example:
 keytool -list -v -keystore ./android/app/key.jks -alias key
+
+# Location for Debug Key in Windows
+# C:\Users\Dell\.android
+```
+
+### Generate New Sha Key
+
+```bash
+keytool -genkey -v -keystore key.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias key
+
+# https://flutter.dev/docs/deployment/android
 ```
 
 ### Launch url on the phone.
