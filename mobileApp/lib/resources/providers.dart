@@ -12,8 +12,7 @@ final meNotifierProvider = ChangeNotifierProvider<MeNotifier>((ref) {
   MeNotifier meNotifier = MeNotifier();
   ref
       .read(firebaseUserProvider)
-      .currentData
-      .then((value) => meNotifier.onProxyUpdate(value));
+      .whenData((value) => meNotifier.onProxyUpdate(value));
 
   return meNotifier;
 });

@@ -25,7 +25,7 @@ class _NamePageState extends State<NamePage> {
   }
 
   void setName() {
-    LoginUser introFlowUser = introFlowUserProvider.read(context);
+    LoginUser introFlowUser = context.read(introFlowUserProvider);
     String userName = nameController.text;
     introFlowUser.addName(userName);
   }
