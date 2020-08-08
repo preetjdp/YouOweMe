@@ -23,7 +23,7 @@ final authValidatorProvider = StreamProvider<bool>((ref) {
     }
   });
 
-  ref.read(firebaseUserProvider).whenData((user) {
+  ref.watch(firebaseUserProvider).whenData((user) {
     if (user != null && _pageController.page == 0) {
       screeningSubject.add(true);
     } else {
