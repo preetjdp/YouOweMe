@@ -44,7 +44,7 @@ class BottomList extends HookWidget {
         context: context,
         builder: (BuildContext context) => actionSheet(context));
     if (shouldDelete) {
-      MeNotifier meNotifier = meNotifierProvider.read(context);
+      MeNotifier meNotifier = context.read(meNotifierProvider);
       String updateOweMutation = """
       mutation(\$input: UpdateOweInputType!) {
         updateOwe(data: \$input) {

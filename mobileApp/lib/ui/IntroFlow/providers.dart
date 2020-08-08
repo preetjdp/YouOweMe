@@ -15,8 +15,7 @@ final introFlowPageControllerProvider =
 
 final authValidatorProvider = StreamProvider<bool>((ref) {
   BehaviorSubject<bool> screeningSubject = BehaviorSubject.seeded(false);
-  PageController _pageController =
-      ref.read(introFlowPageControllerProvider).value;
+  PageController _pageController = ref.read(introFlowPageControllerProvider);
 
   _pageController.addListener(() {
     if (_pageController.page == 4) {
@@ -24,9 +23,7 @@ final authValidatorProvider = StreamProvider<bool>((ref) {
     }
   });
 
-  ref.read(firebaseUserProvider).stream.listen((FirebaseUser user) {
-    /// Meaning you are on the first page and
-    /// a user is present.
+  ref.watch(firebaseUserProvider).whenData((user) {
     if (user != null && _pageController.page == 0) {
       screeningSubject.add(true);
     } else {

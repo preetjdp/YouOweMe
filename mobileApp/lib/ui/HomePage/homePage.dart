@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     if (token != null) {
       await retry(
           () =>
-              meNotifierProvider.read(context).updateUser({"fcmToken": token}),
+              context.read(meNotifierProvider).updateUser({"fcmToken": token}),
           retryIf: (e) => e is Exception,
           delayFactor: Duration(seconds: 5),
           onRetry: (a) => print("Retrying to update FCM with " + a.toString()));
