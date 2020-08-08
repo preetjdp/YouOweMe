@@ -6,8 +6,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:marquee/marquee.dart';
+import 'dart:math' as math;
 
 class FirstPage extends HookWidget {
+  final List<String> messages = [
+    "Bro Pay Me Up?",
+    "Hey when did you take ${math.Random().nextInt(400)}",
+    "Hey we gotta split the bill for the coffe",
+    "When are you gonna pay me back?"
+  ];
   @override
   Widget build(BuildContext context) {
     final PageController pageController =
@@ -25,17 +34,19 @@ class FirstPage extends HookWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        // Positioned(
-        //   left: 15,
-        //   top: 30,
-        //   child: Text(
-        //     "YouOweMe",
-        //     style: Theme.of(context)
-        //         .textTheme
-        //         .headline3
-        //         .copyWith(color: Colors.black),
-        //   ),
-        // ),
+        Positioned.fill(
+          bottom: 50,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Marquee(
+              text: messages.reduce((value, element) => value + ". " + element),
+              style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
+              scrollAxis: Axis.vertical,
+              fadingEdgeEndFraction: 1,
+              showFadingOnlyWhenScrolling: true,
+            ),
+          ),
+        ),
         Padding(
           padding: EdgeInsets.all(15),
           child: Column(

@@ -28,7 +28,7 @@ packages:
       name: animations
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.2"
   archive:
     dependency: transitive
     description:
@@ -107,7 +107,7 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.10.0"
+    version: "1.10.2"
   build_runner_core:
     dependency: transitive
     description:
@@ -163,21 +163,21 @@ packages:
       name: cloud_firestore
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.6"
+    version: "0.14.0-dev.1"
   cloud_firestore_platform_interface:
     dependency: transitive
     description:
       name: cloud_firestore_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "2.0.0-dev.1"
   cloud_firestore_web:
     dependency: transitive
     description:
       name: cloud_firestore_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.1+2"
+    version: "0.2.0-dev.1"
   code_builder:
     dependency: transitive
     description:
@@ -284,7 +284,14 @@ packages:
       name: equatable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
+    version: "1.2.3"
+  fading_edge_scrollview:
+    dependency: transitive
+    description:
+      name: fading_edge_scrollview
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.4"
   fake_async:
     dependency: transitive
     description:
@@ -312,7 +319,7 @@ packages:
       name: firebase_analytics
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.15"
+    version: "6.0.0-dev.1"
   firebase_analytics_platform_interface:
     dependency: transitive
     description:
@@ -320,13 +327,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  firebase_analytics_web:
+    dependency: transitive
+    description:
+      name: firebase_analytics_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   firebase_auth:
     dependency: "direct main"
     description:
       name: firebase_auth
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.16.1"
+    version: "0.17.0-dev.2"
   firebase_auth_platform_interface:
     dependency: transitive
     description:
@@ -340,42 +354,42 @@ packages:
       name: firebase_auth_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.2"
+    version: "0.2.0-dev.1"
   firebase_core:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: firebase_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.4+3"
+    version: "0.5.0-dev.2"
   firebase_core_platform_interface:
     dependency: transitive
     description:
       name: firebase_core_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.4"
+    version: "2.0.0-dev.1"
   firebase_core_web:
     dependency: transitive
     description:
       name: firebase_core_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.1+2"
+    version: "0.2.0-dev.1"
   firebase_dynamic_links:
     dependency: "direct main"
     description:
       name: firebase_dynamic_links
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.1"
+    version: "0.5.3"
   firebase_messaging:
     dependency: "direct main"
     description:
       name: firebase_messaging
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.16"
+    version: "7.0.0-dev.1"
   fixnum:
     dependency: transitive
     description:
@@ -399,7 +413,7 @@ packages:
       name: flutter_hooks
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.10.0"
+    version: "0.13.0"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
@@ -413,7 +427,7 @@ packages:
       name: flutter_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0"
+    version: "0.6.0-dev+2"
   flutter_staggered_animations:
     dependency: "direct main"
     description:
@@ -464,6 +478,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  google_fonts:
+    dependency: "direct main"
+    description:
+      name: google_fonts
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   gql:
     dependency: transitive
     description:
@@ -512,14 +533,14 @@ packages:
       name: graphql
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0-beta.6"
+    version: "3.1.0"
   graphql_flutter:
     dependency: "direct main"
     description:
       name: graphql_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0-beta.6"
+    version: "3.1.0"
   graphs:
     dependency: transitive
     description:
@@ -533,7 +554,7 @@ packages:
       name: hooks_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0"
+    version: "0.6.0-dev+2"
   html:
     dependency: transitive
     description:
@@ -575,7 +596,7 @@ packages:
       name: import_sorter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0"
+    version: "4.2.1"
   intl:
     dependency: transitive
     description:
@@ -632,6 +653,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.11.4"
+  marquee:
+    dependency: "direct main"
+    description:
+      name: marquee
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.5.2"
   matcher:
     dependency: transitive
     description:
@@ -659,7 +687,7 @@ packages:
       name: modal_bottom_sheet
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.6+1"
+    version: "0.2.0+1"
   node_interop:
     dependency: transitive
     description:
@@ -813,14 +841,14 @@ packages:
       name: retry
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0+1"
+    version: "3.0.1"
   riverpod:
     dependency: transitive
     description:
       name: riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0"
+    version: "0.6.0-dev+2"
   rough:
     dependency: "direct main"
     description:
@@ -979,7 +1007,7 @@ packages:
       name: state_notifier
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.0"
+    version: "0.6.0"
   stream_channel:
     dependency: transitive
     description:
