@@ -25,7 +25,11 @@ final authValidatorProvider = StreamProvider<bool>((ref) {
     }
   });
 
-  ref.watch(firebaseUserProvider).whenData((user) {
+  //TODO This should be watch and that is causing breaks in
+  //in the intro flow and thats not right!
+  //try aagain with newer version of riverpod.
+  ref.read(firebaseUserProvider).whenData((user) {
+    // print("User is $user and PageC is ${_pageController.page}");
     if (user != null && _pageController.page == 0) {
       screeningSubject.add(true);
     } else {
