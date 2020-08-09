@@ -134,14 +134,14 @@ class YomButtonController {
           onError: (a) => this.showError());
   }
 
-  void showError() {
+  Future<void> showError() async {
     setButtonState(YomButtonState.ERROR);
-    Future.delayed(Duration(seconds: 2), () => this.showActive());
+    await Future.delayed(Duration(seconds: 2), () => this.showActive());
   }
 
-  void showSuccess() {
+  Future<void> showSuccess() async {
     setButtonState(YomButtonState.SUCCESS);
-    Future.delayed(Duration(seconds: 2), () => this.showActive());
+    await Future.delayed(Duration(seconds: 2), () => this.showActive());
   }
 
   void setButtonState(YomButtonState state) {
