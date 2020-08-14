@@ -39,9 +39,14 @@ class FirstPage extends HookWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Marquee(
-              text: messages.reduce((value, element) => value + ". " + element),
+              // text: List.generate(10, (index) {
+              //   int randomNum = math.Random(index).nextInt(messages.length);
+              //   return messages.elementAt(randomNum);
+              // }).reduce((value, element) => value + ".\n" + element),
+              text: messages.reduce((value, element) => value + ".\n" + element),
               style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
               scrollAxis: Axis.vertical,
+              crossAxisAlignment: CrossAxisAlignment.start,
               fadingEdgeEndFraction: 1,
               showFadingOnlyWhenScrolling: true,
             ),
@@ -77,7 +82,7 @@ class FirstPage extends HookWidget {
           ),
         ),
         Image.asset("assets/scribbles/karlsson_lending.png"),
-        ForegroundAnimation()
+        // ForegroundAnimation()
       ],
     );
   }
