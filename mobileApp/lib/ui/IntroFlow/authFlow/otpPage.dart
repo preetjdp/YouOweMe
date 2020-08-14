@@ -49,11 +49,11 @@ class _OtpPageState extends State<OtpPage> {
           throw "OTP not mentioned";
         }
         yomButtonController.showLoading();
-        AuthCredential otpCredential = PhoneAuthProvider.getCredential(
+        AuthCredential otpCredential = PhoneAuthProvider.credential(
             verificationId: introFlowUser.verificationCode,
             smsCode: otpController.text);
 
-        AuthResult authResult =
+        UserCredential authResult =
             await FirebaseAuth.instance.signInWithCredential(otpCredential);
 
         if (authResult.isNotNull) {
@@ -101,7 +101,7 @@ class _OtpPageState extends State<OtpPage> {
                     height: 5,
                   ),
                   Text(
-                    "You should have received the OTP on your messages app, if not you should get it in the next minute.",
+                    "You should have received the OTP on your messages app, if not you'll get it in the next minute.",
                     style: GoogleFonts.poppins(),
                   ),
                   _spacer(16),

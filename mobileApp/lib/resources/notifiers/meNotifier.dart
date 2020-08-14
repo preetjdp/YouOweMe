@@ -16,7 +16,7 @@ class MeNotifier extends ChangeNotifier {
 
   Seva$Query$User me;
 
-  void onProxyUpdate(FirebaseUser firebaseUser) async {
+  void onProxyUpdate(User firebaseUser) async {
     if (firebaseUser.isNotNull) {
       print("MeNotifier Proxy Update");
       graphQLClient = await getGraphqlClient(firebaseUser.uid);

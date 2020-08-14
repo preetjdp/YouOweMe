@@ -100,7 +100,6 @@ class _NamePageState extends State<NamePage> {
                       color: Theme.of(context).accentColor,
                     ),
                   ),
-                  _spacer(12),
                   Image.asset("assets/scribbles/karlsson_holding_book.png")
                 ],
               ),

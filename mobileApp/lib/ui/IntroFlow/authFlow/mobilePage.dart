@@ -73,7 +73,7 @@ class _MobilePageState extends State<MobilePage> {
               FirebaseAuth.instance.signInWithCredential(credentials);
               Navigator.pop(context, jumpTwoPages);
             },
-            verificationFailed: (AuthException exception) {
+            verificationFailed: (FirebaseAuthException exception) {
               throw exception;
             },
             codeSent: (a, [b]) {
@@ -126,7 +126,7 @@ class _MobilePageState extends State<MobilePage> {
                       height: 5,
                     ),
                     Text(
-                      "Your phone number is used to authenticate you, and is used to send owe requests to and fro.",
+                      "Your phone number is used to authenticate you, to send and recieve owe requests.",
                       style: GoogleFonts.poppins(),
                     ),
                     _spacer(16),
@@ -162,7 +162,7 @@ class _MobilePageState extends State<MobilePage> {
                         ),
                       ],
                     ),
-                    _spacer(12),
+                    // _spacer(12),
                     Image.asset("assets/scribbles/karlsson_pen_scribble.png")
                   ],
                 ),
