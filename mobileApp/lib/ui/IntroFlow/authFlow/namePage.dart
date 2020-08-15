@@ -1,9 +1,12 @@
 // 🐦 Flutter imports:
+import 'package:YouOweMe/ui/Abstractions/yomButton.dart';
+import 'package:YouOweMe/ui/Abstractions/yomSpacer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // 🌎 Project imports:
@@ -74,6 +77,13 @@ class _NamePageState extends State<NamePage> {
                         .headline1
                         .copyWith(fontSize: _size.width / 8),
                   ),
+                  YomSpacer(
+                    height: 5,
+                  ),
+                  Text(
+                    "What do we call you?\nThis information is used in tandem when you send someone an owe request.",
+                    style: GoogleFonts.poppins(),
+                  ),
                   _spacer(16),
                   TextField(
                     controller: nameController,
@@ -90,36 +100,21 @@ class _NamePageState extends State<NamePage> {
                       color: Theme.of(context).accentColor,
                     ),
                   ),
-                  _spacer(12),
                   Image.asset("assets/scribbles/karlsson_holding_book.png")
                 ],
               ),
             ),
           ),
           Positioned(
-            bottom: 0,
-            child: Column(
-              children: [
-                CupertinoButton(
-                  onPressed: nextPage,
-                  padding: EdgeInsets.all(0),
-                  minSize: 0,
-                  child: Text("Psst. I already have a account"),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  height: 60,
-                  width: 400,
-                  child: CupertinoButton(
-                      color: Theme.of(context).accentColor,
-                      child: Text('Next'),
-                      onPressed: next),
-                )
-              ],
-            ),
-          )
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: 60,
+              child: YomButton(
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  child: Text('Next'),
+                  onPressed: next))
         ],
       ),
     );

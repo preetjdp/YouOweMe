@@ -1,9 +1,12 @@
 // 🐦 Flutter imports:
+import 'package:YouOweMe/ui/Abstractions/yomButton.dart';
+import 'package:YouOweMe/ui/Abstractions/yomSpacer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -41,44 +44,43 @@ class NotificationsPermissions extends HookWidget {
         children: [
           Positioned.fill(
             bottom: 65,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _spacer(18, 20),
-                  Text("We need Notification Permissions.",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline1
-                          .copyWith(fontSize: _size.width / 8)),
-                  _spacer(16),
-                  Center(
-                    child: Container(
-                      height: 60,
-                      width: 400,
-                      child: CupertinoButton(
-                          color: CupertinoColors.activeGreen,
-                          child: Text('Allow Notifications'),
-                          onPressed: allowNotifications),
-                    ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                _spacer(18, 20),
+                Text("We need Notification Permissions.",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline1
+                        .copyWith(fontSize: _size.width / 8)),
+                YomSpacer(
+                  height: 5,
+                ),
+                Text(
+                  "Notification permissions are required to send updates for owe requests.",
+                  style: GoogleFonts.poppins(),
+                ),
+                Expanded(
+                  child: Center(
+                    child: Image.asset(
+                        "assets/scribbles/karlsson_paper_plane.png"),
                   ),
-                  Image.asset("assets/scribbles/karlsson_paper_plane.png")
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           Positioned(
               bottom: 0,
-              child: Container(
-                height: 60,
-                width: 400,
-                child: CupertinoButton(
-                    key: Key("notification_permission_next"),
-                    color: Theme.of(context).accentColor,
-                    child: Text('Next'),
-                    onPressed: allowNotifications),
-              ))
+              left: 0,
+              right: 0,
+              height: 60,
+              child: YomButton(
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  child: Text('Allow Notifications'),
+                  onPressed: allowNotifications))
         ],
       ),
     );

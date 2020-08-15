@@ -6,7 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 
 final firebaseUserProvider =
-    StreamProvider((ref) => FirebaseAuth.instance.onAuthStateChanged);
+    StreamProvider((ref) => FirebaseAuth.instance.userChanges());
 
 final meNotifierProvider = ChangeNotifierProvider<MeNotifier>((ref) {
   MeNotifier meNotifier = MeNotifier();
