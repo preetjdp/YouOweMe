@@ -28,7 +28,7 @@ final authValidatorProvider = StreamProvider<bool>((ref) {
   //TODO This should be watch and that is causing breaks in
   //in the intro flow and thats not right!
   //try aagain with newer version of riverpod.
-  ref.watch(firebaseUserProvider).whenData((user) {
+  ref.watch(firebaseUserProvider.stream).listen((user) {
     // print("User is $user and PageC is ${_pageController.page}");
     if (user != null &&
         _pageController.hasClients &&
@@ -39,9 +39,12 @@ final authValidatorProvider = StreamProvider<bool>((ref) {
     }
   });
 
-  ref.onDispose(() => screeningSubject.close());
+  ref.onDispose(() {
+    //TODO Consider opening this up in the Future.
+    // screeningSubject.close();
+  });
 
-  return screeningSubject.stream;
+  return screeningSubject;
 });
 
 final introFlowUserProvider = Provider((ref) => LoginUser());
