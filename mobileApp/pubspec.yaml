@@ -16,41 +16,42 @@ dependencies:
       url: https://github.com/preetjdp/flutter_device_preview.git
       ref: Preet-Custom
       path: device_preview/
-  graphql_flutter: ^3.0.1
-  hooks_riverpod: ^0.1.0
-  flutter_hooks: ^0.10.0
-  state_notifier: ^0.5.0
-  cloud_firestore: ^0.13.6
+  graphql_flutter: ^3.1.0
+  hooks_riverpod: ^0.6.0-dev+2
+  flutter_hooks: ^0.13.0
+  state_notifier: ^0.6.0
+  cloud_firestore: ^0.14.0-dev.1
   json_serializable: ^3.3.0
-  equatable: ^1.2.0
+  equatable: ^1.2.3
   meta: ^1.1.8
   sliding_up_panel: ^1.0.2
   contacts_service: ^0.4.6
   permission_handler: ^5.0.1
   fuzzy: ^0.2.3
-  firebase_auth: ^0.16.1
+  firebase_auth: ^0.17.0-dev.2
   pin_code_text_field: ^1.6.0
   flutter_launcher_icons: ^0.7.5
-  animations: ^1.1.0
+  animations: ^1.1.2
   flutter_staggered_animations: ^0.1.2
   simple_animations: ^2.2.1
   streaming_shared_preferences: ^1.0.1
-  firebase_messaging: ^6.0.16
+  firebase_messaging: ^7.0.0-dev.1
   after_layout: ^1.0.7+2
   basics: ^0.4.0
-  retry: ^3.0.0+1
-  modal_bottom_sheet: ^0.1.6+1
-  firebase_analytics: ^5.0.15
-  firebase_dynamic_links: ^0.5.1
+  retry: ^3.0.1
+  modal_bottom_sheet: ^0.2.0+1
+  firebase_analytics: ^6.0.0-dev.1
+  firebase_dynamic_links: ^0.5.3
+  firebase_core: ^0.5.0-dev.2
   rough: ^0.1.1
 
 dev_dependencies:
-  import_sorter: ^3.1.0
+  import_sorter: ^4.2.1
   artemis:
     git:
       url: git://github.com/comigor/artemis.git
       ref: ditrty/dedup-fix
-  build_runner: ^1.10.0
+  build_runner: ^1.10.2
   flutter_test:
     sdk: flutter
   flutter_driver:

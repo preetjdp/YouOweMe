@@ -60,7 +60,7 @@ class _NewOweState extends State<NewOwe> {
     TargetPlatform platform = Theme.of(context).platform;
 
     void clearSelectedContact() {
-      newOweSelectedContactProvider.read(context).clear();
+      context.read(newOweSelectedContactProvider).clear();
     }
 
     void addNewOwe() async {
@@ -95,7 +95,7 @@ class _NewOweState extends State<NewOwe> {
               }
             },
             onCompleted: (a) {
-              meNotifierProvider.read(context).refresh();
+              context.read(meNotifierProvider).refresh();
               yomButtonController.showSuccess();
               Navigator.pop(context);
             }));

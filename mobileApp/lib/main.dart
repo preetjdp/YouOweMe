@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase/firebase.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
@@ -17,6 +20,7 @@ import 'package:YouOweMe/resources/helpers.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   final preferences = await StreamingSharedPreferences.instance;
   configureSystemChrome();
   runApp(ProviderScope(
