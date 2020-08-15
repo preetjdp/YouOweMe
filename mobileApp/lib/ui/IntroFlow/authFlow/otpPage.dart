@@ -1,6 +1,7 @@
 // 🐦 Flutter imports:
 import 'package:YouOweMe/ui/Abstractions/yomButton.dart';
 import 'package:YouOweMe/ui/Abstractions/yomSpacer.dart';
+import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -18,13 +19,7 @@ import 'package:basics/basics.dart';
 import 'package:YouOweMe/ui/IntroFlow/providers.dart';
 import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
 
-class OtpPage extends StatefulHookWidget {
-  @override
-  _OtpPageState createState() => _OtpPageState();
-}
-
-class _OtpPageState extends State<OtpPage> {
-  final TextEditingController otpController = TextEditingController();
+class OtpPage extends HookWidget {
   final YomButtonController yomButtonController = YomButtonController();
 
   @override
@@ -32,6 +27,12 @@ class _OtpPageState extends State<OtpPage> {
     final PageController pageController =
         useProvider(introFlowPageControllerProvider);
     final LoginUser introFlowUser = useProvider(introFlowUserProvider);
+    final TextEditingController otpController = useTextEditingController();
+    final FocusNode focusNode = useFocusNode();
+    useEffect(() {
+      focusNode.requestFocus();
+      return null;
+    }, []);
     final _size = MediaQuery.of(context).size;
 
     SizedBox _spacer(int padding, [int minus = 0]) {
@@ -112,6 +113,8 @@ class _OtpPageState extends State<OtpPage> {
                       pinBoxRadius: 15,
                       maxLength: 6,
                       autofocus: true,
+                      focusNode: focusNode,
+                      hideDefaultKeyboard: false,
                       pinBoxHeight: _size.width / 8,
                       pinBoxWidth: _size.width / 8,
                       pinTextStyle: Theme.of(context).textTheme.headline5,
