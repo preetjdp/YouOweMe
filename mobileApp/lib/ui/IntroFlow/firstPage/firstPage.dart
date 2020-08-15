@@ -43,7 +43,8 @@ class FirstPage extends HookWidget {
               //   int randomNum = math.Random(index).nextInt(messages.length);
               //   return messages.elementAt(randomNum);
               // }).reduce((value, element) => value + ".\n" + element),
-              text: messages.reduce((value, element) => value + ".\n" + element),
+              text:
+                  messages.reduce((value, element) => value + ".\n" + element),
               style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
               scrollAxis: Axis.vertical,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +83,7 @@ class FirstPage extends HookWidget {
           ),
         ),
         Image.asset("assets/scribbles/karlsson_lending.png"),
-        // ForegroundAnimation()
+        ForegroundAnimation()
       ],
     );
   }
