@@ -15,13 +15,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:YouOweMe/ui/IntroFlow/providers.dart';
 import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
 
-class MobilePage extends StatefulHookWidget {
-  @override
-  _MobilePageState createState() => _MobilePageState();
-}
-
-class _MobilePageState extends State<MobilePage> {
-  final TextEditingController mobileNoController = TextEditingController();
+class MobilePage extends HookWidget {
   final YomButtonController yomButtonController = YomButtonController();
   final _formKey = GlobalKey<FormState>();
 
@@ -30,6 +24,13 @@ class _MobilePageState extends State<MobilePage> {
     final PageController pageController =
         useProvider(introFlowPageControllerProvider);
     final LoginUser introFlowUser = useProvider(introFlowUserProvider);
+    final TextEditingController mobileNoController = useTextEditingController();
+    final FocusNode focusNode = useFocusNode();
+
+    useEffect(() {
+      focusNode.requestFocus();
+      return null;
+    }, []);
 
     final TargetPlatform platform = Theme.of(context).platform;
     final _size = MediaQuery.of(context).size;
@@ -90,7 +91,7 @@ class _MobilePageState extends State<MobilePage> {
                 return;
               }
               introFlowUser.addVerificationCode(a);
-              await yomButtonController.showSuccess();
+              yomButtonController.showSuccess();
               nextPage();
             });
       } catch (e) {
@@ -144,6 +145,7 @@ class _MobilePageState extends State<MobilePage> {
                         Expanded(
                           child: TextFormField(
                             cursorColor: Theme.of(context).accentColor,
+                            focusNode: focusNode,
                             validator: phoneNoValidator,
                             controller: mobileNoController,
                             decoration: InputDecoration(

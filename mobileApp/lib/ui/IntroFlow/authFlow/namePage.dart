@@ -13,31 +13,24 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
 import 'package:YouOweMe/ui/IntroFlow/providers.dart';
 
-class NamePage extends StatefulHookWidget {
-  @override
-  _NamePageState createState() => _NamePageState();
-}
-
-class _NamePageState extends State<NamePage> {
-  final TextEditingController nameController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    nameController.addListener(() => setName());
-  }
-
-  void setName() {
-    LoginUser introFlowUser = context.read(introFlowUserProvider);
-    String userName = nameController.text;
-    introFlowUser.addName(userName);
-  }
-
+class NamePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final PageController pageController =
         useProvider(introFlowPageControllerProvider);
+    final TextEditingController nameController = useTextEditingController();
     final _size = MediaQuery.of(context).size;
+
+    void setName() {
+      LoginUser introFlowUser = context.read(introFlowUserProvider);
+      String userName = nameController.text;
+      introFlowUser.addName(userName);
+    }
+
+    useEffect(() {
+      nameController.addListener(() => setName());
+      return null;
+    }, [nameController]);
 
     SizedBox _spacer(int padding, [int minus = 0]) {
       return SizedBox(height: (_size.height / padding) - minus);

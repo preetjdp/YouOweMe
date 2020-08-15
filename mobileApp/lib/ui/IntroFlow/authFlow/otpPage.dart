@@ -68,7 +68,7 @@ class OtpPage extends HookWidget {
           final FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics();
           firebaseAnalytics.setUserId(authResult.user.uid);
           firebaseAnalytics.logLogin();
-          await yomButtonController.showSuccess();
+          yomButtonController.showSuccess();
           nextPage();
         }
       } catch (e) {
