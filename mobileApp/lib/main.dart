@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
             preferences.getBool('showDevicePreview', defaultValue: false),
         builder: (context, shouldShowDevicePreview) {
           return DevicePreview(
-            enabled: shouldShowDevicePreview,
+            enabled: false,
             builder: (BuildContext context) => MaterialApp(
                 title: 'You Owe Me',
                 builder: DevicePreview.appBuilder,

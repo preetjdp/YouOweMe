@@ -16,7 +16,7 @@ final introFlowPageControllerProvider =
     Provider((ref) => PageController(initialPage: 0));
 
 final authValidatorProvider = StreamProvider<bool>((ref) {
-  BehaviorSubject<bool> screeningSubject = BehaviorSubject.seeded(false);
+  BehaviorSubject<bool> screeningSubject = BehaviorSubject();
   PageController _pageController = ref.read(introFlowPageControllerProvider);
 
   _pageController.addListener(() {
