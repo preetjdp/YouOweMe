@@ -1,15 +1,11 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// 📦 Package imports:
 import 'package:meta/meta.dart';
 import 'package:artemis/artemis.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gql/ast.dart';
-
-// 🌎 Project imports:
 import 'package:YouOweMe/resources/graphql/coercers.dart';
-
 part 'getOwe.graphql.g.dart';
 
 @JsonSerializable(explicitToJson: true)
