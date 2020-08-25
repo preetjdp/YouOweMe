@@ -4,7 +4,7 @@ import { generateDynamicLink } from "../utils/dynamicLinks"
 /**
  * Steps to be followed here.
  * @params DocumentSnapshot for the owe.
- * @returns The permalink for the `Owe`
+ * @returns The permalink for the `Owe` of type String
  * 1. Check if Permalink exists in the document, if Yes, Return it.
  * 2. If No Generate the Url.
  * 3. Set that Url in Firestore and return the Url.
