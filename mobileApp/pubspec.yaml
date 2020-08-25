@@ -17,33 +17,41 @@ dependencies:
       ref: Preet-Custom
       path: device_preview/
   graphql_flutter: ^3.1.0
-  hooks_riverpod: ^0.6.0-dev+2
-  flutter_hooks: ^0.13.0
+  hooks_riverpod: ^0.7.2
+  flutter_hooks: ^0.13.2
   state_notifier: ^0.6.0
-  cloud_firestore: ^0.14.0-dev.1
-  json_serializable: ^3.3.0
-  equatable: ^1.2.3
+  cloud_firestore: ^0.14.0+2
+  json_serializable: ^3.4.0
+  equatable: ^1.2.4
   meta: ^1.1.8
   sliding_up_panel: ^1.0.2
   contacts_service: ^0.4.6
   permission_handler: ^5.0.1
   fuzzy: ^0.2.3
-  firebase_auth: ^0.17.0-dev.2
-  pin_code_text_field: ^1.6.0
+  firebase_auth: ^0.18.0+1
+  pin_code_text_field: ^1.7.1
   flutter_launcher_icons: ^0.7.5
   animations: ^1.1.2
   flutter_staggered_animations: ^0.1.2
   simple_animations: ^2.2.1
   streaming_shared_preferences: ^1.0.1
-  firebase_messaging: ^7.0.0-dev.1
+  firebase_messaging:
+    git:
+      url: git://github.com/preetjdp/flutterfire.git
+      ref: fix-3312
+      path: packages/firebase_messaging
   after_layout: ^1.0.7+2
   basics: ^0.4.0
   retry: ^3.0.1
   modal_bottom_sheet: ^0.2.0+1
-  firebase_analytics: ^6.0.0-dev.1
-  firebase_dynamic_links: ^0.5.3
-  firebase_core: ^0.5.0-dev.2
+  firebase_analytics: ^6.0.0
+  firebase_dynamic_links: ^0.6.0
+  firebase_core: ^0.5.0
   rough: ^0.1.1
+
+dependency_overrides:
+  flutter_driver:
+    sdk: flutter
 
 dev_dependencies:
   import_sorter: ^4.2.1
