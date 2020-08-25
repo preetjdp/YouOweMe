@@ -107,6 +107,9 @@ class SettingsPage extends HookWidget {
               SettingsTile(
                   title: 'Open source licenses',
                   leading: Icon(Icons.collections_bookmark)),
+              SettingsTile(
+                  title: 'Buy me a Coffee',
+                  leading: Icon(Icons.local_cafe)),
             ],
           ),
           SettingsSection(
