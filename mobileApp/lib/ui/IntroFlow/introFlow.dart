@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:YouOweMe/ui/IntroFlow/firstPage/firstPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +32,7 @@ class IntroFlow extends HookWidget {
                 controller: _pageController,
                 physics: NeverScrollableScrollPhysics(),
                 children: [
+                  FirstPage(),
                   NamePage(),
                   MobilePage(),
                   OtpPage(),

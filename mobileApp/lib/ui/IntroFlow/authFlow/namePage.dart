@@ -1,40 +1,36 @@
 // 🐦 Flutter imports:
+import 'package:YouOweMe/ui/Abstractions/yomButton.dart';
+import 'package:YouOweMe/ui/Abstractions/yomSpacer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // 🌎 Project imports:
 import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
 import 'package:YouOweMe/ui/IntroFlow/providers.dart';
 
-class NamePage extends StatefulHookWidget {
-  @override
-  _NamePageState createState() => _NamePageState();
-}
-
-class _NamePageState extends State<NamePage> {
-  final TextEditingController nameController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    nameController.addListener(() => setName());
-  }
-
-  void setName() {
-    LoginUser introFlowUser = context.read(introFlowUserProvider);
-    String userName = nameController.text;
-    introFlowUser.addName(userName);
-  }
-
+class NamePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final PageController pageController =
         useProvider(introFlowPageControllerProvider);
+    final TextEditingController nameController = useTextEditingController();
     final _size = MediaQuery.of(context).size;
+
+    void setName() {
+      LoginUser introFlowUser = context.read(introFlowUserProvider);
+      String userName = nameController.text;
+      introFlowUser.addName(userName);
+    }
+
+    useEffect(() {
+      nameController.addListener(() => setName());
+      return null;
+    }, [nameController]);
 
     SizedBox _spacer(int padding, [int minus = 0]) {
       return SizedBox(height: (_size.height / padding) - minus);
@@ -74,6 +70,13 @@ class _NamePageState extends State<NamePage> {
                         .headline1
                         .copyWith(fontSize: _size.width / 8),
                   ),
+                  YomSpacer(
+                    height: 5,
+                  ),
+                  Text(
+                    "What do we call you?\nThis information is used in tandem when you send someone an owe request.",
+                    style: GoogleFonts.poppins(),
+                  ),
                   _spacer(16),
                   TextField(
                     controller: nameController,
@@ -90,36 +93,21 @@ class _NamePageState extends State<NamePage> {
                       color: Theme.of(context).accentColor,
                     ),
                   ),
-                  _spacer(12),
                   Image.asset("assets/scribbles/karlsson_holding_book.png")
                 ],
               ),
             ),
           ),
           Positioned(
-            bottom: 0,
-            child: Column(
-              children: [
-                CupertinoButton(
-                  onPressed: nextPage,
-                  padding: EdgeInsets.all(0),
-                  minSize: 0,
-                  child: Text("Psst. I already have a account"),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  height: 60,
-                  width: 400,
-                  child: CupertinoButton(
-                      color: Theme.of(context).accentColor,
-                      child: Text('Next'),
-                      onPressed: next),
-                )
-              ],
-            ),
-          )
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: 60,
+              child: YomButton(
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  child: Text('Next'),
+                  onPressed: next))
         ],
       ),
     );

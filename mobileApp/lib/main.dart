@@ -36,7 +36,7 @@ class MyApp extends HookWidget {
     final devicePreviewSetting =
         useProvider(devicePreviewSettingProvider.state);
     return DevicePreview(
-      enabled: false,
+      enabled: devicePreviewSetting,
       builder: (BuildContext context) => MaterialApp(
           title: 'You Owe Me',
           builder: DevicePreview.appBuilder,

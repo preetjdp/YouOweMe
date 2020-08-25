@@ -31,16 +31,22 @@ class YomButton extends StatelessWidget {
 
   final BorderRadiusGeometry borderRadius;
 
-  YomButton({
-    this.controller,
-    @required this.child,
-    @required this.onPressed,
-    this.borderRadius,
-    this.loading,
-    this.error,
-    this.success,
-    this.backgroundColor,
-  });
+  final BoxDecoration decoration;
+
+  YomButton(
+      {this.controller,
+      @required this.child,
+      @required this.onPressed,
+      this.borderRadius,
+      this.loading,
+      this.error,
+      this.success,
+      this.backgroundColor,
+      this.decoration})
+      : assert(
+            backgroundColor == null || decoration == null,
+            'Cannot provide both a backgroundColor and a decoration\n'
+            'To provide both, use "decoration: BoxDecoration(color: color)".');
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +57,7 @@ class YomButton extends StatelessWidget {
         ThemeData.estimateBrightnessForColor(_buttonBackgroundColor);
     BorderRadiusGeometry _borderRadius =
         this.borderRadius ?? BorderRadius.all(Radius.circular(8.0));
+    BoxDecoration _decoration = this.decoration ?? BoxDecoration();
 
     Color _iconsColor;
     if (_buttonBrightness == Brightness.dark) {
@@ -89,14 +96,17 @@ class YomButton extends StatelessWidget {
                 );
           }
 
-          return CupertinoButton(
-            color: _buttonBackgroundColor,
-            borderRadius: _borderRadius,
-            child: AnimatedSwitcher(
-                switchInCurve: Curves.easeInSine,
-                duration: Duration(milliseconds: 200),
-                child: _buttonChild),
-            onPressed: onPressed,
+          return Container(
+            decoration: _decoration,
+            child: CupertinoButton(
+              color: _decoration?.color ?? _buttonBackgroundColor,
+              borderRadius: _borderRadius,
+              child: AnimatedSwitcher(
+                  switchInCurve: Curves.easeInSine,
+                  duration: Duration(milliseconds: 200),
+                  child: _buttonChild),
+              onPressed: onPressed,
+            ),
           );
         });
   }
@@ -124,14 +134,14 @@ class YomButtonController {
           onError: (a) => this.showError());
   }
 
-  void showError() {
+  Future<void> showError() async {
     setButtonState(YomButtonState.ERROR);
-    Future.delayed(Duration(seconds: 2), () => this.showActive());
+    await Future.delayed(Duration(seconds: 2), () => this.showActive());
   }
 
-  void showSuccess() {
+  Future<void> showSuccess() async {
     setButtonState(YomButtonState.SUCCESS);
-    Future.delayed(Duration(seconds: 2), () => this.showActive());
+    await Future.delayed(Duration(seconds: 2), () => this.showActive());
   }
 
   void setButtonState(YomButtonState state) {
