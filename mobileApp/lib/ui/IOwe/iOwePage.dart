@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:YouOweMe/ui/Abstractions/yomAppBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -66,18 +67,7 @@ class IOwePage extends HookWidget {
     }
 
     return Scaffold(
-        appBar: CupertinoNavigationBar(
-          backgroundColor: Theme.of(context).backgroundColor.withOpacity(0.5),
-          border: Border(
-              bottom:
-                  BorderSide(color: Theme.of(context).accentColor, width: 0.5)),
-          middle: Text("I Owe",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline5
-                  .copyWith(color: Colors.black)),
-          actionsForegroundColor: Theme.of(context).accentColor,
-        ),
+        appBar: YomAppBar(title: "I Owe"),
         body: iOwe.isNotEmpty
             ? CustomScrollView(
                 slivers: [
