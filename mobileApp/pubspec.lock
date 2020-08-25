@@ -711,6 +711,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.3"
+  package_info:
+    dependency: "direct main"
+    description:
+      name: package_info
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.3"
   path:
     dependency: transitive
     description:
@@ -893,6 +900,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.2"
+  settings_ui:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: Use-TargetPlatform
+      resolved-ref: "8e69ae906450a78466727eea13a9cd960418f16a"
+      url: "git://github.com/preetjdp/flutter-settings-ui.git"
+    source: git
+    version: "0.4.1"
   shared_preferences:
     dependency: transitive
     description:
