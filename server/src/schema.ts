@@ -6,7 +6,9 @@ import { PubSubFire } from "./db/pubSubFire"
 import { ApplicationContext } from "./utils/appContext"
 import { Container } from "typedi"
 
-
+/**
+ * This function generates the schema for the API.
+ */
 const generateSchema = async () => {
     return await buildSchema({
         resolvers: [__dirname + '/modules/**/*.{ts,js}'],

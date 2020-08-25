@@ -49,7 +49,15 @@ type SuffixParameter = {
     option: "SHORT" | "UNGUESSABLE"
 }
 
-
+/**
+ * 
+ * @param parameters The Parameters of type `DynamicLinkParameters`.
+ * These are the values that are important
+ * 
+ * @param suffix To generate a Short url or a Long one
+ * 
+ * @returns Promise<String>
+ */
 export const generateDynamicLink = async (parameters: DynamicLinkParameters, suffix: SuffixParameter): Promise<string> => {
     const api_key = "AIzaSyC9mDgysM-vQlguS3X52Kx42sOmrDtKVAY"
     const requestBody = {
