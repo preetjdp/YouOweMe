@@ -2,11 +2,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+const double yomAvatarDefaultSize = 45;
+const double yomAvatarFontSize = 13;
+
 class YomAvatar extends StatelessWidget {
   final String text;
   final double size;
   final VoidCallback onPressed;
-  YomAvatar({this.size = 45, this.text = "PP", this.onPressed});
+  YomAvatar(
+      {this.size = yomAvatarDefaultSize, this.text = "PP", this.onPressed});
   @override
   Widget build(BuildContext context) {
     final Color color = Theme.of(context).accentColor;
@@ -37,9 +41,9 @@ class YomAvatar extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: const TextStyle(
+            style: TextStyle(
               color: CupertinoColors.white,
-              fontSize: 13.0,
+              fontSize: yomAvatarFontSize * (size / yomAvatarDefaultSize),
               fontWeight: FontWeight.w500,
             ),
           ),
