@@ -286,12 +286,10 @@ packages:
   device_preview:
     dependency: "direct main"
     description:
-      path: "device_preview/"
-      ref: Preet-Custom
-      resolved-ref: "819f19e0d74adc4c41f967fadc98a57a8cf4bf73"
-      url: "https://github.com/preetjdp/flutter_device_preview.git"
-    source: git
-    version: "0.4.6"
+      name: device_preview
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.8"
   equatable:
     dependency: "direct main"
     description:
@@ -430,6 +428,11 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.5"
+  flutter_localizations:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_riverpod:
     dependency: transitive
     description:

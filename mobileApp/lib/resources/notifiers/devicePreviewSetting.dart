@@ -8,7 +8,7 @@ final devicePreviewSettingProvider =
 
 class DevicePreviewSetting extends StateNotifier<bool> {
   Preference<bool> value;
-  DevicePreviewSetting(ProviderReference ref) : super(true) {
+  DevicePreviewSetting(ProviderReference ref) : super(false) {
     ref.read(streamingSharedPrefsProvider.future).then((_value) {
       this.value = _value.getBool("show_device_preview", defaultValue: true);
       state = value.getValue();
