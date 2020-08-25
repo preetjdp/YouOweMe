@@ -59,7 +59,7 @@ class _MobilePageState extends State<MobilePage> {
                   FirebaseAuth.instance.signInWithCredential(credentials);
                   Navigator.pop(context, jumpTwoPages);
                 },
-                verificationFailed: (AuthException exception) {
+                verificationFailed: (FirebaseAuthException exception) {
                   // Navigator.pop(context, nextPage);
                   print(exception.message);
                 },
