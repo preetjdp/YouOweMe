@@ -64,6 +64,11 @@ dependency_overrides:
 dev_dependencies:
   #[Standard Structure Basics] Start
   import_sorter: ^4.2.1
+  flutter_test:
+    sdk: flutter
+  flutter_driver:
+    sdk: flutter
+  test: any
   #[Standard Structure Basics] End
   #[Standard Structure GraphQL] Start
   artemis:
@@ -72,11 +77,6 @@ dev_dependencies:
       ref: ditrty/dedup-fix
   #[Standard Structure GraphQL] End  
   build_runner: ^1.10.2
-  flutter_test:
-    sdk: flutter
-  flutter_driver:
-    sdk: flutter
-  test: any
 
 flutter:
   uses-material-design: true
