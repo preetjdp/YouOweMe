@@ -162,3 +162,13 @@ Route<dynamic> routeGenerator(RouteSettings settings) {
       }
   }
 }
+
+/// Returns a serialized PhoneNumber that starts with "+91".
+String serializePhoneNumber(String phoneNumber) {
+  String spacesRemoved = phoneNumber.replaceAll(" ", "");
+  if (spacesRemoved.contains(new RegExp(r"^(\+91)[789]\d{9}$"))) {
+    return spacesRemoved;
+  } else {
+    return "+91" + spacesRemoved;
+  }
+}

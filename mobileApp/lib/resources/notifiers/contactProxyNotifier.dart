@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:fuzzy/fuzzy.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:basics/basics.dart';
 
 class ContactProxyNotifier extends ChangeNotifier {
   final TextEditingController contactEditingController =
@@ -27,7 +28,8 @@ class ContactProxyNotifier extends ChangeNotifier {
       }
     }
     staticContacts = await ContactsService.getContacts(withThumbnails: false);
-    contacts = staticContacts.where((element) => element.displayName != null);
+    contacts = staticContacts.where((element) =>
+        element.displayName.isNotNull && element.phones.isNotEmpty);
     notifyListeners();
   }
 

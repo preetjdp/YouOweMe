@@ -173,10 +173,21 @@ class ContactsList extends HookWidget {
                   width: 20,
                 ),
                 Expanded(
-                  child: Text(
-                    contact.displayName,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.headline5,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        contact.displayName,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                      Text(
+                        contact.phones.first.serializedValue,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.subtitle2,
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(

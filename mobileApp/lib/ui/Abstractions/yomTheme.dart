@@ -59,5 +59,9 @@ ThemeData yomTheme() {
             fontSize: 18,
             fontWeight: FontWeight.normal,
             color: yomDesign.yomGrey2),
+        subtitle2: TextStyle(
+            fontSize: yomDesign.fontSizeH6,
+            fontWeight: FontWeight.normal,
+            color: Colors.black),
       ));
 }

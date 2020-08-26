@@ -62,3 +62,7 @@ extension ContactUtils on Contact {
   String get shortName =>
       this.displayName.split(" ").take(2).map((e) => e[0]).toList().join();
 }
+
+extension ItemUtils on Item {
+  String get serializedValue => serializePhoneNumber(this.value);
+}
