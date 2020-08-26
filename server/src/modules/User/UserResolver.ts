@@ -1,9 +1,8 @@
 import { firestore } from "../../db/firebase"
-import { Query, Resolver, FieldResolver, Root, Arg, Authorized, Int } from "type-graphql"
+import { Query, Resolver, FieldResolver, Root, Arg, Int } from "type-graphql"
 import { User } from "../../models/User"
-import { DocumentReference, Timestamp, DocumentSnapshot } from "@google-cloud/firestore"
+import { DocumentSnapshot } from "@google-cloud/firestore"
 import { Owe, OweState } from "../../models/Owe"
-import { getPermalinkFromOwe } from "../../utils/helpers"
 import { RequestContainer, UserDataLoader } from "./userResolver/userLoader"
 import { mapUserSnapshot } from "./userResolver/userSnapshotMap"
 import { mapOweSnapshot } from "../Owe/oweResolver/oweSnapshotMap"
@@ -24,7 +23,8 @@ export class UserResolver {
     }
 
     @Query(() => User, {
-        nullable: true
+        nullable: true,
+        description: "Query for one particular user"
     })
     async getUser(@Arg("id") id: string, @RequestContainer() userDataLoader: UserDataLoader): Promise<User> {
         const userSnapshot = await userDataLoader.load(id) as DocumentSnapshot
@@ -34,6 +34,7 @@ export class UserResolver {
 
     @FieldResolver(() => [Owe], {
         name: "oweMe",
+        description: "The Field resolver which fetches the `Owe`'s that other people owe this person."
     })
     async oweMeFieldResolver(@Root() user: User): Promise<Array<Owe>> {
         const userRef = firestore.collection('users').doc(user.id)
@@ -51,6 +52,7 @@ export class UserResolver {
 
     @FieldResolver(() => [Owe], {
         name: "iOwe",
+        description: "The Field resolver which fetches the `Owe`'s that this person owes to Other People."
     })
     async iOweFieldResolver(@Root() user: User): Promise<Array<Owe>> {
         const userRef = firestore.collection('users').doc(user.id)

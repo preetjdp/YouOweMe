@@ -4,28 +4,17 @@ import { ApplicationContext } from "../../utils/appContext";
 import { firestore, auth } from "../../db/firebase";
 import { NewOweInputType } from "./newOwe/newOweInputType";
 import { Timestamp, DocumentReference } from "@google-cloud/firestore"
-import { User } from "../../models/User";
-
-import { UserResolver } from "../User/UserResolver"
 import { OweResolver } from "./OweResolver";
-
-
 
 @Resolver(Owe)
 export class NewOweResolver {
-
     @Authorized()
-    @Mutation(() => Owe)
-    async newOwe(
-        @Arg("data")
-        {
-            title,
-            amount,
-            issuedToID,
-            mobileNo,
-            displayName
-        }: NewOweInputType,
+    @Mutation(() => Owe, {
+        description: "This mutation is used to create a new `Owe`."
+    })
+    async newOwe(@Arg("data") data: NewOweInputType,
         @Ctx() context: ApplicationContext) {
+        const { title, amount, issuedToID, mobileNo, displayName } = data
         console.log(mobileNo)
         const userId = context.req.headers.authorization!
         const userRef = firestore.collection('users').doc(userId)
@@ -58,16 +47,19 @@ export class NewOweResolver {
     }
 }
 
-/*
-The Logic for this function is as:
-1. Query for the user in Firestore.
-2. If user exists return his ref.
-3. If the User does not exist, create an Anonymuous User in Firebase Auth
-    and return that ref. ==> As a side effect of this, this Anonymus User's Document should be 
-    created with name and mobile_no
-    //TODO think this out.
-*/
-
+/**
+ * This function is used to get the user from their mobile number.
+ * 
+ * @param mobileNo The person's mobile number.
+ * @param displayName The Person's Name -> Used to create the user if currently non existent.
+ * 
+ * The Logic for this function is as:
+ *  1. Query for the user in Firestore.
+ *  2. If user exists return his ref.
+ *  3. If the User does not exist, create an Anonymuous User in Firebase Auth
+ *  and return that ref. ==> As a side effect of this, this Anonymus User's Document should be 
+ *  created with name and mobile_no
+ */
 const getUserRefFromMobileNo = async (mobileNo: string, displayName: string): Promise<DocumentReference> => {
     //TODO change this to a auth query in the future.
     const query = firestore.collection('users').where("mobile_no", "==", mobileNo);

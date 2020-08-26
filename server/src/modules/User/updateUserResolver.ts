@@ -2,7 +2,6 @@ import { Resolver, Arg, Mutation, Authorized } from "type-graphql";
 import { User } from "../../models/User";
 import { UpdateUserInputType } from "./updateUser/updateUserInputType";
 import { firestore } from "../../db/firebase";
-import { UserResolver } from "./UserResolver"
 import { RequestContainer, UserDataLoader } from "./userResolver/userLoader";
 import { mapUserSnapshot } from "./userResolver/userSnapshotMap";
 

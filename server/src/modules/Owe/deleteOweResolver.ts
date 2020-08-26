@@ -7,7 +7,9 @@ import { Timestamp } from "@google-cloud/firestore";
 
 @Resolver(Owe)
 export class DeleteOweResolver {
-    @Mutation(() => Date, {})
+    @Mutation(() => Date, {
+        description: "This mutation is used to delete an Owe."
+    })
     async deleteOwe(@Arg("data") data: DeleteOweInputType, @Ctx() context: ApplicationContext) {
         const userId = context.req.headers.authorization!;
         const userRef = firestore.collection('users').doc(userId)

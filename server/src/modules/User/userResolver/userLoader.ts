@@ -6,6 +6,10 @@ import { createParamDecorator } from "type-graphql";
 import { ApplicationContext } from "../../../utils/appContext";
 
 @Service()
+/**
+ * This is the User dataloader, which is used to fetch the user
+ * in a humane manner using the dataloader package.
+ */
 export class UserDataLoader extends DataLoader<string, DocumentSnapshot | undefined> {
     constructor() {
         super(async (ids) => {
@@ -20,6 +24,11 @@ export class UserDataLoader extends DataLoader<string, DocumentSnapshot | undefi
     }
 }
 
+/**
+ * I have no idea what this does.
+ * 
+ * Is used to get the DI Container
+ */
 export function RequestContainer(): ParameterDecorator {
     return function (target: Object, propertyName: string | symbol, index: number) {
         return createParamDecorator<ApplicationContext>(({ context }) => {

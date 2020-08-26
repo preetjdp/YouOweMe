@@ -4,6 +4,13 @@ import { getPermalinkFromOwe } from "../../../utils/helpers";
 
 type oweSnapshotMapType = (snapshot: DocumentSnapshot) => Promise<Owe>;
 
+/**
+ * This function is used to Map the Document snapshot
+ * 
+ * @param snapshot The `DocumentSnapshot` of the Owe.
+ * 
+ * @returns User The User object.
+ */
 export const mapOweSnapshot: oweSnapshotMapType = async snapshot => {
     if (!snapshot.exists) {
         throw Error("Owe Does Not Exist")

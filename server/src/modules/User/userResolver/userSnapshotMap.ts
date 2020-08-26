@@ -3,6 +3,12 @@ import { User } from "../../../models/User";
 
 type userSnapshotMapType = (snapshot: DocumentSnapshot) => User;
 
+/**
+ * Converts the DocumentSnapshot to User.
+ * 
+ * @param snapshot The DocumentSnapshot 
+ * @returns User
+ */
 export const mapUserSnapshot: userSnapshotMapType = snapshot => {
     const userData = snapshot.data()
     if (!snapshot.exists) {

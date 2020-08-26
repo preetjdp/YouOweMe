@@ -1,9 +1,7 @@
 import { Resolver, FieldResolver, Root, Query, Arg, } from "type-graphql";
-import { Owe, OweState } from "../../models/Owe";
+import { Owe } from "../../models/Owe";
 import { User } from "../../models/User";
-import { UserResolver } from "../User/UserResolver";
 import { DocumentReference } from "@google-cloud/firestore"
-import { getPermalinkFromOwe } from "../../utils/helpers"
 import { RequestContainer, UserDataLoader } from "../User/userResolver/userLoader";
 import { mapUserSnapshot } from "../User/userResolver/userSnapshotMap";
 import { mapOweSnapshot } from "./oweResolver/oweSnapshotMap";
@@ -17,7 +15,10 @@ export class OweResolver {
         return owe
     }
 
-    @Query(() => Owe, { name: "getOwe" },)
+    @Query(() => Owe, {
+        name: "getOwe",
+        description: "Query for one particular Owe"
+    })
     async getOweFromId(@Arg("id") id: string): Promise<Owe> {
         const owes = await firestore.collectionGroup("owes").get()
         const filteredOwes = owes.docs.filter(doc => doc.id == id)
@@ -31,6 +32,7 @@ export class OweResolver {
 
     @FieldResolver(() => User, {
         name: "issuedBy",
+        description: "This resolver fetches the `User` that has issued the `Owe`."
     })
     async issuedByFieldResolver(@Root() owe: Owe, @RequestContainer() userDataLoader: UserDataLoader) {
         const oweRef = owe.documenmentRef
@@ -46,6 +48,7 @@ export class OweResolver {
 
     @FieldResolver(() => User, {
         name: "issuedTo",
+        description: "This resolver fetches the `User` that the `Owe` is issued to."
     })
     async issuedToFieldResolver(@Root() owe: Owe, @RequestContainer() userDataLoader: UserDataLoader) {
         const userId: string = owe.issuedToID

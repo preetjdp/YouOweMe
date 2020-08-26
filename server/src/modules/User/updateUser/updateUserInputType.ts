@@ -1,7 +1,8 @@
 import { InputType, Field, ID } from "type-graphql";
-import { OweState, Owe } from "../../../models/Owe";
 
-@InputType()
+@InputType({
+    description: "The input types for the Update User Mutation., only specfic fields can be specified."
+})
 export class UpdateUserInputType {
     @Field(() => ID)
     id: string;

@@ -1,9 +1,6 @@
-import { Resolver, Query, Authorized, Ctx, Subscription, Publisher, PubSub, Root, Info } from "type-graphql";
+import { Resolver, Query, Authorized, Ctx, Subscription, Root } from "type-graphql";
 import { ApplicationContext } from "../../utils/appContext";
-import { firestore } from "../../db/firebase";
 import { User } from "../../models/User";
-import { Timestamp } from "@google-cloud/firestore";
-import { UserResolver } from "./UserResolver";
 import { userTopicGenerator } from "./userResolver/userTopic";
 import { RequestContainer, UserDataLoader } from "./userResolver/userLoader";
 import { mapUserSnapshot } from "./userResolver/userSnapshotMap";
@@ -13,7 +10,8 @@ import { mapUserSnapshot } from "./userResolver/userSnapshotMap";
 export class MeResolver {
     @Authorized()
     @Query(() => User, {
-        name: "Me"
+        name: "Me",
+        description: "This is the `Me` Query, fetches the user using the ID from the Authorization Header."
     })
     async getMe(@Ctx() context: ApplicationContext, @RequestContainer() userDataLoader: UserDataLoader): Promise<User> {
         const userId = context.req.headers.authorization!
@@ -27,6 +25,7 @@ export class MeResolver {
 
     @Subscription(() => User, {
         name: "Me",
+        description: "The User Subscription Query.",
         topics: (context) =>
             userTopicGenerator(context.context.authorization)
 
