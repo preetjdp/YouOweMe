@@ -2,6 +2,7 @@
 import 'dart:ui';
 
 // 🐦 Flutter imports:
+import 'package:YouOweMe/ui/SettingsPage/settingsPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -44,6 +45,11 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
           onRetry: (a) => print("Retrying to update FCM with " + a.toString()));
     }
     configureFirebaseDynamicLinks(context);
+  }
+
+  void goToSettingsPage(BuildContext context) {
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (BuildContext context) => SettingsPage()));
   }
 
   void logOutDialog(BuildContext context) async {
@@ -189,7 +195,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
             left: 15,
             child: YomAvatar(
               text: meNotifier?.me?.shortName ?? "PP",
-              onPressed: () => logOutDialog(context),
+              onPressed: () => goToSettingsPage(context),
             ),
           )
         ],

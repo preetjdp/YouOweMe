@@ -56,6 +56,11 @@ dependencies:
   sliding_up_panel: ^1.0.2
   rough: ^0.1.1
   marquee: ^1.5.3
+  package_info: ^0.4.3
+  settings_ui:
+    git:
+      url: git://github.com/preetjdp/flutter-settings-ui.git
+      ref: Use-TargetPlatform
 
 dependency_overrides:
   flutter_driver:
