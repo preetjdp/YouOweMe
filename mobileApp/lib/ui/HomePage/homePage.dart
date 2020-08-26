@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   void afterFirstLayout(BuildContext context) async {
     final FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics();
     await firebaseAnalytics.logAppOpen();
-    String token = await configureFirebaseMessenging(context);
+    String token = await configureFirebaseMessenging();
     if (token != null) {
       await retry(
           () =>
@@ -50,48 +50,6 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   void goToSettingsPage(BuildContext context) {
     Navigator.of(context).push(
         MaterialPageRoute(builder: (BuildContext context) => SettingsPage()));
-  }
-
-  void logOutDialog(BuildContext context) async {
-    bool result = await showCupertinoModalPopup<bool>(
-        context: context,
-        builder: (BuildContext context) {
-          return CupertinoActionSheet(
-            title: Text("Logout"),
-            message: Text(
-                """This action will log you out of the app. I hope you come back again soon, now so that you're here we'll talk a bit a bit bit by bit through the bitly world which runs bit by bit."""),
-            cancelButton: CupertinoActionSheetAction(
-              child: Text("Cancel"),
-              isDestructiveAction: true,
-              onPressed: () {
-                Navigator.pop(context, false);
-              },
-            ),
-            actions: <Widget>[
-              CupertinoActionSheetAction(
-                child: Text(
-                  "Log me out already. 😪",
-                  style: TextStyle(color: CupertinoColors.activeGreen),
-                ),
-                isDefaultAction: true,
-                onPressed: () {
-                  Navigator.pop(context, true);
-                },
-              ),
-              CupertinoActionSheetAction(
-                child: Text(
-                  "Toggle Device Preview",
-                ),
-                onPressed: () {
-                  toggleDevicePreview();
-                },
-              ),
-            ],
-          );
-        });
-    if (result != null && result) {
-      FirebaseAuth.instance.signOut();
-    }
   }
 
   @override
