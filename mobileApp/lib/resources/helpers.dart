@@ -2,6 +2,7 @@
 import 'dart:ui';
 
 // 🐦 Flutter imports:
+import 'package:YouOweMe/resources/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +12,6 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 import 'package:basics/basics.dart';
 import 'package:http/http.dart';
 
@@ -23,6 +23,8 @@ import 'package:YouOweMe/ui/Abstractions/yomBottomSheet.dart';
 import 'package:YouOweMe/ui/DynamicLinkBottomSheet/dynamicLinkBottomSheet.dart';
 import 'package:YouOweMe/ui/HomePage/homePage.dart';
 
+/// This configures the bottom navbar
+/// on android.
 void configureSystemChrome() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.dark,
@@ -31,6 +33,8 @@ void configureSystemChrome() {
       systemNavigationBarIconBrightness: Brightness.dark));
 }
 
+/// Fetch the GraphQL Client using the User's userId
+/// which will be used for authorization.
 Future<GraphQLClient> getGraphqlClient(String userId) async {
   final HttpLink httpLink =
       HttpLink(uri: await getSevaUrl(), headers: {"authorization": userId});
@@ -41,17 +45,16 @@ Future<GraphQLClient> getGraphqlClient(String userId) async {
   );
 }
 
-/// Gets the Url to be used for theGraphQLClient
-/// Fyi. Add's 2 Second Timout on mobile
-Future<String> getSevaUrl() async {
-  String localSevaUrl = "http://192.168.0.171:4001";
-  String productionSevaUrl = "https://api.youoweme.preetjdp.dev";
+/// Get the desired `Seva` url depending upon
+/// the state of the application.
+Future<String> getSevaUrl(
+    {Duration timoutDuration = const Duration(seconds: 2)}) async {
   if (kReleaseMode || kProfileMode) {
     print("Using Production Seva In Release");
     return productionSevaUrl;
   }
   try {
-    Response response = await get(localSevaUrl).timeout(Duration(seconds: 2));
+    Response response = await get(localSevaUrl).timeout(timoutDuration);
     if (response.statusCode == 200 || response.statusCode == 400) {
       print("Using Local Seva");
       return localSevaUrl;
@@ -64,15 +67,9 @@ Future<String> getSevaUrl() async {
   }
 }
 
-Future<bool> toggleDevicePreview() async {
-  final preferences = await StreamingSharedPreferences.instance;
-  Preference<bool> devicePreviewPref =
-      preferences.getBool('showDevicePreview', defaultValue: false);
-  bool currentState = devicePreviewPref.getValue();
-  return devicePreviewPref.setValue(!currentState);
-}
-
-Future<String> configureFirebaseMessenging(BuildContext context) async {
+/// Set's up Firebase Messenging for the current user.
+/// Returns the Token that is generated.
+Future<String> configureFirebaseMessenging() async {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   _firebaseMessaging.requestNotificationPermissions();
   String token = await _firebaseMessaging.getToken();
@@ -93,6 +90,8 @@ Future<String> configureFirebaseMessenging(BuildContext context) async {
   return token;
 }
 
+/// Returns the appropriate suffix for the
+/// day.
 String getDayOfMonthSuffix(final int n) {
   if (n >= 11 && n <= 13) {
     return "th";
@@ -109,6 +108,9 @@ String getDayOfMonthSuffix(final int n) {
   }
 }
 
+/// Configure Firebase dynamic links.
+/// Set's up boilerplate to Navigate on NewLink.
+/// TODO Make a tested function to get the Owe / OweID from the url.
 Future<void> configureFirebaseDynamicLinks(BuildContext context) async {
   PendingDynamicLinkData linkData =
       await FirebaseDynamicLinks.instance.getInitialLink();
@@ -134,6 +136,7 @@ Future<void> configureFirebaseDynamicLinks(BuildContext context) async {
   });
 }
 
+/// Generates the routeGenerator for the entire Application.
 Route<dynamic> routeGenerator(RouteSettings settings) {
   print(settings.name);
   switch (settings.name) {
