@@ -1,7 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:YouOweMe/resources/notifiers/devicePreviewSetting.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -13,7 +12,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 
 // 🌎 Project imports:
 import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
@@ -23,7 +21,6 @@ import 'package:YouOweMe/resources/helpers.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  final preferences = await StreamingSharedPreferences.instance;
   configureSystemChrome();
   runApp(ProviderScope(
     child: MyApp(),

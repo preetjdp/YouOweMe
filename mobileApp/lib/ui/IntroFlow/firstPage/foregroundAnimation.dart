@@ -1,11 +1,11 @@
 import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
 import 'package:flutter/material.dart';
 
-const double _topDefaultState = 150.0;
-const double _bottomDefaultState = 350.0;
+// const double _topDefaultState = 150.0;
+// const double _bottomDefaultState = 350.0;
 
-const double _topParallaxFactor = 0.8;
-const double _bottomParallaxFactor = 1.5;
+// const double _topParallaxFactor = 0.8;
+// const double _bottomParallaxFactor = 1.5;
 
 class ForegroundAnimation extends StatefulWidget {
   @override
