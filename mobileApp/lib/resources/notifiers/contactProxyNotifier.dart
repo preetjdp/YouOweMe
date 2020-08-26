@@ -43,7 +43,8 @@ class ContactProxyNotifier extends ChangeNotifier {
         ]));
     final fuzzySearchResult = fuse.search(this.contactEditingController.text);
     final result = fuzzySearchResult.map((e) => e.item);
-    contacts = result;
+    contacts = result.where((element) =>
+        element.displayName.isNotNull && element.phones.isNotEmpty);
     notifyListeners();
   }
 }
