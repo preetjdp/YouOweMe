@@ -27,7 +27,7 @@ class ContactProxyNotifier extends ChangeNotifier {
       }
     }
     staticContacts = await ContactsService.getContacts(withThumbnails: false);
-    contacts = staticContacts;
+    contacts = staticContacts.where((element) => element.displayName != null);
     notifyListeners();
   }
 
