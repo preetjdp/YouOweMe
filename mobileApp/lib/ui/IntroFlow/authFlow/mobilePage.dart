@@ -145,6 +145,7 @@ class MobilePage extends HookWidget {
                         Expanded(
                           child: TextFormField(
                             cursorColor: Theme.of(context).accentColor,
+                            onFieldSubmitted: (_) => phoneAuth(),
                             focusNode: focusNode,
                             validator: phoneNoValidator,
                             controller: mobileNoController,
