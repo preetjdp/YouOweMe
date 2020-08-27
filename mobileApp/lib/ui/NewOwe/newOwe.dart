@@ -160,7 +160,7 @@ class _NewOweState extends State<NewOwe> {
                   TextFormField(
                     controller: titleController,
                     validator: titleValidator,
-                    cursorColor: Theme.of(context).accentColor,
+                    // cursorColor: Theme.of(context).accentColor,
                     decoration: InputDecoration.collapsed(
                       hintText: "Enter the reasoning behind this transaction",
                     ),
