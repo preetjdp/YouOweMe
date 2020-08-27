@@ -14,8 +14,9 @@ class FirstPage extends HookWidget {
   final List<String> messages = [
     "Bro Pay Me Up?",
     "Hey when did you take ${math.Random().nextInt(400)}",
-    "Hey we gotta split the bill for the coffe",
-    "When are you gonna pay me back?"
+    "Hey we gotta split the bill for the coffee",
+    "When are you gonna pay me back?",
+    "Remember when we went for brunch, well you need to pay me for that."
   ];
   @override
   Widget build(BuildContext context) {
