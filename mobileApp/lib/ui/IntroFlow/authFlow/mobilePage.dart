@@ -17,7 +17,7 @@ import 'package:YouOweMe/ui/IntroFlow/loginUser.dart';
 
 class MobilePage extends HookWidget {
   final YomButtonController yomButtonController = YomButtonController();
-  final _formKey = GlobalKey<FormState>();
+  static final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {

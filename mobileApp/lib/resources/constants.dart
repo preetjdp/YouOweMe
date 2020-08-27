@@ -25,3 +25,5 @@ const List<String> dayNames = [
   "Saturday",
   "Sunday",
 ];
+
+String androidMessagesUri = "com.google.android.apps.messaging";

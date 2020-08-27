@@ -61,6 +61,7 @@ dependencies:
     git:
       url: git://github.com/preetjdp/flutter-settings-ui.git
       ref: Use-TargetPlatform
+  flutter_appavailability: ^0.0.21
 
 dependency_overrides:
   flutter_driver:

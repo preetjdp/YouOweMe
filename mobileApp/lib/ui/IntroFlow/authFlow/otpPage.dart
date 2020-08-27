@@ -1,13 +1,18 @@
 // 🐦 Flutter imports:
+import 'dart:io';
+
+import 'package:YouOweMe/resources/constants.dart';
 import 'package:YouOweMe/ui/Abstractions/yomButton.dart';
 import 'package:YouOweMe/ui/Abstractions/yomSpacer.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_appavailability/flutter_appavailability.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -41,6 +46,16 @@ class OtpPage extends HookWidget {
     void nextPage() {
       pageController.nextPage(
           duration: Duration(milliseconds: 200), curve: Curves.easeInOutQuad);
+    }
+
+    void goToMessagesApp() async {
+      if (Platform.isAndroid) {
+        // AppAvailability.checkAvailability(androidMessagesUri);
+        await AppAvailability.launchApp(androidMessagesUri);
+      } else if (Platform.isIOS) {
+        //TODO Add IOS URI
+        // AppAvailability.checkAvailability(uri);
+      }
     }
 
     void verifyOtp() async {
@@ -100,8 +115,20 @@ class OtpPage extends HookWidget {
                   YomSpacer(
                     height: 5,
                   ),
-                  Text(
-                    "You should have received the OTP on your messages app, if not you'll get it in the next minute.",
+                  Text.rich(
+                    TextSpan(children: [
+                      TextSpan(
+                          text:
+                              "You should have received a 6 digit OTP on your "),
+                      TextSpan(
+                          text: "messages app",
+                          style: GoogleFonts.poppins(
+                              decoration: TextDecoration.underline),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = goToMessagesApp),
+                      TextSpan(
+                          text: ", if not you'll get it in the next minute.")
+                    ]),
                     style: GoogleFonts.poppins(),
                   ),
                   _spacer(16),
@@ -123,7 +150,7 @@ class OtpPage extends HookWidget {
                           decimal: false, signed: false),
                     ),
                   ),
-                  _spacer(12),
+                  // _spacer(12),
                   Image.asset("assets/scribbles/karlsson_pincode.png")
                 ],
               ),
