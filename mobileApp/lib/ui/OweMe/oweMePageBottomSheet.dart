@@ -114,7 +114,7 @@ class OweMePageBottomSheet extends HookWidget {
                   height: 20,
                 ),
                 Container(
-                  height: 60,
+                  // height: 60,
                   width: 400,
                   child: CupertinoButton(
                       color: Theme.of(context).accentColor,
@@ -125,7 +125,7 @@ class OweMePageBottomSheet extends HookWidget {
                   height: 10,
                 ),
                 Container(
-                  height: 60,
+                  // height: 60,
                   width: 400,
                   child: YomButton(
                       controller: yomButtonController,

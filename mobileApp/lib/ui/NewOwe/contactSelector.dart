@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:basics/basics.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -62,7 +63,7 @@ class _ContactSelectorState extends State<ContactSelector> {
                 style: Theme.of(context)
                     .textTheme
                     .headline3
-                    .copyWith(color: Theme.of(context).accentColor),
+                    .copyWith(color: context.yomDesign.yomGrey1),
               ),
               Expanded(
                 child: TextField(
@@ -89,15 +90,13 @@ class _ContactSelectorState extends State<ContactSelector> {
             ],
           ),
           Center(
-            child: Text(
-              "or".toUpperCase(),
-              style: TextStyle(
-                  fontSize: 28,
-                  color: Theme.of(context).accentColor.withOpacity(0.4),
-                  // letterSpacing: 10,
-                  fontWeight: FontWeight.w500,
-                  fontStyle: FontStyle.italic),
-            ),
+            child: Text("or".toUpperCase(),
+                style: GoogleFonts.patrickHandSc(
+                    fontSize: 28,
+                    color: Theme.of(context).accentColor.withOpacity(0.9),
+                    // letterSpacing: 10,
+                    fontWeight: FontWeight.w500,
+                    fontStyle: FontStyle.italic)),
           ),
           SizedBox(
             height: 10,
@@ -122,14 +121,11 @@ class _ContactSelectorState extends State<ContactSelector> {
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.circular(5)),
                     hintText: "Search In Contacts",
-                    hintStyle: TextStyle(
-                      fontSize: 14,
-                    ),
-                    prefixIcon: GestureDetector(
-                        child: Icon(
+                    hintStyle: Theme.of(context).textTheme.bodyText2,
+                    prefixIcon: Icon(
                       Icons.search,
                       color: Theme.of(context).accentColor,
-                    )),
+                    ),
                   ),
                 ),
               ),
@@ -185,7 +181,7 @@ class ContactsList extends HookWidget {
                       Text(
                         contact.phones.first.serializedValue,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.subtitle2,
+                        style: Theme.of(context).textTheme.subtitle1,
                       ),
                     ],
                   ),

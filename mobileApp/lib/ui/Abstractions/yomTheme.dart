@@ -4,14 +4,48 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class YomDesign {
-  // double fontSizeH1 = 100;
-  // double fontSizeH2 = 80;
-  // double fontSizeH3 = 50;
-  // double fontSizeH4 = 28;
-  // double fontSizeH5 = 20;
-  // double fontSizeH6 = 14;
+  // static final YomDesign _singleton = new YomDesign._internal();
 
-  double yomSize1 = 100;
+  // factory YomDesign() {
+  //   return _singleton;
+  // }
+
+  YomDesign() {
+    yomTextTheme = TextTheme(
+      headline1: TextStyle(
+        fontSize: yomSize1,
+        fontWeight: FontWeight.w600,
+        color: yomGrey2,
+      ),
+      // Not Used Anywhere
+      headline2: TextStyle(
+          fontSize: yomSize3, fontWeight: FontWeight.bold, color: yomGrey2),
+      headline3: TextStyle(
+          fontSize: yomSize5, fontWeight: FontWeight.bold, color: yomGrey2),
+      // Not Used Much
+      headline4: TextStyle(
+          fontSize: yomSize7, fontWeight: FontWeight.bold, color: yomGrey2),
+      headline5: TextStyle(
+          fontSize: yomSize8, fontWeight: FontWeight.bold, color: yomGrey2),
+      // Not Used Much
+      headline6: TextStyle(
+          fontSize: yomSize10, fontWeight: FontWeight.bold, color: yomGrey2),
+      bodyText1: TextStyle(
+          fontSize: yomSize8, fontWeight: FontWeight.normal, color: yomGrey2),
+      bodyText2: TextStyle(
+          fontSize: yomSize9, fontWeight: FontWeight.normal, color: yomGrey2),
+      subtitle1: TextStyle(
+          fontSize: yomSize10,
+          fontWeight: FontWeight.normal,
+          color: Colors.black),
+      subtitle2: TextStyle(
+          fontSize: yomSize11,
+          fontWeight: FontWeight.normal,
+          color: Colors.black),
+    );
+  }
+
+  static double yomSize1 = 100;
   double yomSize2 = 96;
   double yomSize3 = 80;
   double yomSize4 = 64;
@@ -19,15 +53,17 @@ class YomDesign {
   double yomSize6 = 36;
   double yomSize7 = 28;
   double yomSize8 = 20;
-  double yomSize9 = 14;
-  double yomSize10 = 12;
-  double yomSize11 = 8;
-
+  double yomSize9 = 18;
+  double yomSize10 = 16;
+  double yomSize11 = 12;
+  double yomSize12 = 8;
   Color yomWhite = Color.fromRGBO(241, 245, 249, 1);
   Color yomGrey1 = Color.fromRGBO(52, 59, 70, 1);
   Color yomGrey2 = Color.fromRGBO(78, 80, 88, 1);
 
   Curve yomCurve = Curves.easeInOutQuad;
+
+  TextTheme yomTextTheme;
 }
 
 ThemeData yomTheme() {
@@ -43,42 +79,9 @@ ThemeData yomTheme() {
         backgroundColor: yomDesign.yomGrey1,
         elevation: 2,
       ),
-      textTheme: TextTheme(
-        headline1: TextStyle(
-          fontSize: yomDesign.yomSize1,
-          fontWeight: FontWeight.bold,
-          color: yomDesign.yomGrey2,
-        ),
-        headline2: TextStyle(
-            fontSize: yomDesign.yomSize3,
-            fontWeight: FontWeight.bold,
-            color: yomDesign.yomGrey2),
-        headline3: TextStyle(
-            fontSize: yomDesign.yomSize5,
-            fontWeight: FontWeight.bold,
-            color: yomDesign.yomGrey2),
-        headline4: TextStyle(
-            fontSize: yomDesign.yomSize7,
-            fontWeight: FontWeight.bold,
-            color: yomDesign.yomGrey2),
-        headline5: TextStyle(
-            fontSize: yomDesign.yomSize8,
-            fontWeight: FontWeight.bold,
-            color: yomDesign.yomGrey2),
-        headline6: TextStyle(
-            fontSize: yomDesign.yomSize9,
-            fontWeight: FontWeight.bold,
-            color: yomDesign.yomGrey2),
-        bodyText2: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.normal,
-            color: yomDesign.yomGrey2),
-        subtitle2: TextStyle(
-            fontSize: yomDesign.yomSize9,
-            fontWeight: FontWeight.normal,
-            color: Colors.black),
-      ),
-      accentTextTheme: GoogleFonts.poppinsTextTheme(),
+      textTheme: yomDesign.yomTextTheme,
+      accentTextTheme:
+          GoogleFonts.poppinsTextTheme().merge(yomDesign.yomTextTheme),
       useTextSelectionTheme: true,
       textSelectionTheme: TextSelectionThemeData(
           cursorColor: yomDesign.yomGrey1,

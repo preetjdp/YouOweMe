@@ -160,9 +160,11 @@ class _NewOweState extends State<NewOwe> {
                   TextFormField(
                     controller: titleController,
                     validator: titleValidator,
+                    // style: Theme.of(context).textTheme.subtitle1,
                     // cursorColor: Theme.of(context).accentColor,
+                    // style: Theme.of(context).accentTextTheme.su,
                     decoration: InputDecoration.collapsed(
-                      hintText: "Enter the reasoning behind this transaction",
+                      hintText: "Enter the reasoning behind this transaction?",
                     ),
                     maxLines: 2,
                   ),
@@ -225,7 +227,7 @@ class _NewOweState extends State<NewOwe> {
                         style: Theme.of(context)
                             .textTheme
                             .headline1
-                            .copyWith(color: Theme.of(context).accentColor),
+                            .copyWith(color: context.yomDesign.yomGrey1,fontWeight: FontWeight.w900),
                       ),
                       Expanded(
                         child: TextFormField(
@@ -240,7 +242,7 @@ class _NewOweState extends State<NewOwe> {
                             style: Theme.of(context)
                                 .textTheme
                                 .headline1
-                                .copyWith(color: Theme.of(context).accentColor),
+                                .copyWith(color: context.yomDesign.yomGrey1),
                             keyboardType: TextInputType.numberWithOptions(
                                 decimal: false, signed: false)),
                       ),

@@ -40,7 +40,10 @@ class OweMePageElement extends StatelessWidget {
             Expanded(
               child: Text(
                 owe.title,
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    .copyWith(fontWeight: FontWeight.w600),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),

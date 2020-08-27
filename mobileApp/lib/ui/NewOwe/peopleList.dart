@@ -99,7 +99,10 @@ class PeopleList extends HookWidget {
                       ),
                       Text(user.name,
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headline5),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1
+                              .copyWith(fontWeight: FontWeight.w500)),
                     ],
                   ),
                 ),
