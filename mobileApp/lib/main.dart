@@ -1,5 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:YouOweMe/resources/notifiers/devicePreviewSetting.dart';
+import 'package:YouOweMe/resources/notifiers/magnifierSetting.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:YouOweMe/ui/Abstractions/yomTheme.dart';
 import 'package:YouOweMe/ui/IntroFlow/introFlow.dart';
 import 'package:YouOweMe/resources/helpers.dart';
+import 'package:magnifier/magnifier.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,13 +34,18 @@ class MyApp extends HookWidget {
   Widget build(BuildContext context) {
     final devicePreviewSetting =
         useProvider(devicePreviewSettingProvider.state);
-    return DevicePreview(
-      enabled: devicePreviewSetting,
-      builder: (BuildContext context) => MaterialApp(
-          title: 'You Owe Me',
-          builder: DevicePreview.appBuilder,
-          theme: yomTheme(),
-          home: IntroFlow()),
+    final magnifierSetting = useProvider(magnifierSettingProvider.state);
+    return Magnifier(
+      enabled: magnifierSetting,
+      scale: 1.8,
+      child: DevicePreview(
+        enabled: devicePreviewSetting,
+        builder: (BuildContext context) => MaterialApp(
+            title: 'You Owe Me',
+            builder: DevicePreview.appBuilder,
+            theme: yomTheme(),
+            home: IntroFlow()),
+      ),
     );
   }
 }

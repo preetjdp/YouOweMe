@@ -679,6 +679,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.11.4"
+  magnifier:
+    dependency: "direct main"
+    description:
+      name: magnifier
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.5"
   marquee:
     dependency: "direct main"
     description:

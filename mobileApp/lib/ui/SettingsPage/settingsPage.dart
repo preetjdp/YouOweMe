@@ -1,3 +1,4 @@
+import 'package:YouOweMe/resources/notifiers/magnifierSetting.dart';
 import 'package:YouOweMe/resources/notifiers/meNotifier.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAppBar.dart';
 import 'package:YouOweMe/ui/Abstractions/yomAvatar.dart';
@@ -23,6 +24,7 @@ class SettingsPage extends HookWidget {
         useProvider(packageInfoProvider);
     final devicePreviewSetting =
         useProvider(devicePreviewSettingProvider.state);
+    final magnifierSetting = useProvider(magnifierSettingProvider.state);
     final MeNotifier meNotifier = useProvider(meNotifierProvider);
     return Scaffold(
       appBar: YomAppBar(
@@ -108,8 +110,7 @@ class SettingsPage extends HookWidget {
                   title: 'Open source licenses',
                   leading: Icon(Icons.collections_bookmark)),
               SettingsTile(
-                  title: 'Buy me a Coffee',
-                  leading: Icon(Icons.local_cafe)),
+                  title: 'Buy me a Coffee', leading: Icon(Icons.local_cafe)),
             ],
           ),
           SettingsSection(
@@ -121,6 +122,14 @@ class SettingsPage extends HookWidget {
                 switchValue: devicePreviewSetting,
                 onToggle: (bool value) {
                   context.read(devicePreviewSettingProvider).toggle();
+                },
+              ),
+              SettingsTile.switchTile(
+                title: 'Enable Magnifier',
+                leading: Icon(Icons.zoom_in),
+                switchValue: magnifierSetting,
+                onToggle: (bool value) {
+                  context.read(magnifierSettingProvider).toggle();
                 },
               ),
             ],
