@@ -53,7 +53,6 @@ if [ "${PACKAGES_ALREADY_INSTALLED}" != "true" ]; then
     apt-get-update-if-needed
 
     PACKAGE_LIST="apt-utils \
-        chromium-browser \
         git \
         openssh-client \
         less \
