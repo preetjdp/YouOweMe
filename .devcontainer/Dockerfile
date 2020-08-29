@@ -9,7 +9,7 @@ ARG USERNAME=vscode
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
-# Install needed packages and setup non-root user. Use a separate RUN statement to add your own dependencies.
+# Install needed packages and setup non-root user. Use a separate RUN statement to add your own dependencies
 COPY library-scripts/*.sh /tmp/library-scripts/
 RUN apt-get update \
     && /bin/bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" \
@@ -23,7 +23,7 @@ RUN mkdir -p ${PUB_CACHE} \
     && echo "if [ \"\$(stat -c '%U' ${PUB_CACHE})\" != \"${USERNAME}\" ]; then sudo chown -R ${USER_UID}:root ${PUB_CACHE}; fi" \
     | tee -a /root/.bashrc /root/.zshrc /home/${USERNAME}/.bashrc >> /home/${USERNAME}/.zshrc
 
-RUN pwd
+# Install Flutter
 ENV FLUTTER_PATH="/flutter"
 RUN git clone https://github.com/flutter/flutter.git
 ENV PATH="${PATH}:${FLUTTER_PATH}/bin"
