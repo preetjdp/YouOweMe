@@ -24,7 +24,7 @@ RUN mkdir -p ${PUB_CACHE} \
     | tee -a /root/.bashrc /root/.zshrc /home/${USERNAME}/.bashrc >> /home/${USERNAME}/.zshrc
 
 RUN pwd
-ENV FLUTTER_PATH="/usr/local/share/flutter"
+ENV FLUTTER_PATH="/flutter"
 RUN git clone https://github.com/flutter/flutter.git
 ENV PATH="${PATH}:${FLUTTER_PATH}/bin"
 RUN flutter doctor
