@@ -23,6 +23,12 @@ RUN mkdir -p ${PUB_CACHE} \
     && echo "if [ \"\$(stat -c '%U' ${PUB_CACHE})\" != \"${USERNAME}\" ]; then sudo chown -R ${USER_UID}:root ${PUB_CACHE}; fi" \
     | tee -a /root/.bashrc /root/.zshrc /home/${USERNAME}/.bashrc >> /home/${USERNAME}/.zshrc
 
+RUN pwd
+ENV FLUTTER_PATH="/usr/local/share/flutter"
+RUN git clone https://github.com/flutter/flutter.git
+ENV PATH="${PATH}:${FLUTTER_PATH}/bin"
+RUN flutter doctor
+
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
