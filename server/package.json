@@ -15,7 +15,7 @@
     },
     "dependencies": {
         "@google-cloud/firestore": "^4.2.0",
-        "apollo-server": "^2.16.1",
+        "apollo-server": "^2.25.4",
         "axios": "^0.19.2",
         "class-validator": "^0.12.2",
         "dataloader": "^2.0.0",
